@@ -1,6 +1,8 @@
 body {
     margin:0;
     padding:0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif;
+    overflow:hidden;
 }
 #map1{
     position:relative;
@@ -23,5 +25,5 @@ body {
     position:absolute;
     z-index:1;
     top:10px;
-    right:100px;
+    right:95px;
 }
