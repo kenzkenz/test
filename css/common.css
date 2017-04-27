@@ -19,3 +19,9 @@ body {
     top:10px;
     right:10px;
 }
+.haikei_Btn{
+    position:absolute;
+    z-index:1;
+    top:10px;
+    right:100px;
+}
