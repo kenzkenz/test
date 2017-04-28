@@ -5,8 +5,6 @@ body {
     overflow:hidden;
 }
 #map1{
-    position:relative;
-    z-index:0;
     width:100%;
     /*高さはstartup.jsで起動時に設定している。*/
 }
