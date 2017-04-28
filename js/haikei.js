@@ -1,9 +1,9 @@
 $(function(){
-    $("body").on("click",".haikei_Btn",function(){
-        var id = "haikei_Dialog";
+    $("body").on("click",".haikei-btn",function(){
+        var id = "haikei-dialog";
         var content = "";
             content += "<table class='table table-bordered table-condensed'><tr><th>作成中</th><th>作成中作成中</th></tr><tr><td>作成中</td><td>作成中作成中</td></tr></table>";
-        myDialog({
+        mydialog({
             id:id,
             map:"map1",
             title:"背景",

@@ -1,4 +1,4 @@
-.dialog_base{
+.dialog-base{
 	position:absolute;
 	background:rgba(255,255,255,1.0);
 	border-radius:4px;
@@ -7,7 +7,7 @@
 	display:none;
 	z-index:99999;
 }
-.dialog_header{
+.dialog-header{
 	position:relative;
 	background:rgba(51,122,183,1.0);
 	padding:0px;
@@ -20,14 +20,14 @@
 	height:35px;
 	cursor:move;
 }
-.dialog_header p{
+.dialog-header p{
 	position:absolute;
 	top:8px;
 	left:10px;
 	color:white;
 	text-align:left;
 }
-.dialog_header span,#bottomDiv span{
+.dialog-header span,#bottomDiv span{
 	position:absolute;
 	right:0px;
 	cursor:pointer;
@@ -37,10 +37,10 @@
     margin-top:-2px;
 	z-index:99999;
 }
-.dialog_header span:hover{
+.dialog-header span:hover{
 	color:red;
 }
-.dialog_content{
+.dialog-content{
 	margin:10px 5px 10px 5px;
 	font-size:12px;
 }

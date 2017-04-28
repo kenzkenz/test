@@ -18,7 +18,7 @@ $(function(){
     scene.terrainProvider.hasWaterMask = false;
     scene.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
 
-    $(".d3d2_Toggle").change(function(){
+    $(".d3d2-toggle").change(function(){
         if($(this).prop("checked")){
             ol3d.setEnabled(true);
         }else{
