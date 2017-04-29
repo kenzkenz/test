@@ -1,3 +1,9 @@
+var useLayersArr = null;
+$(function(){
+    //使用するレイヤーを設定
+    useLayersArr = [pale,seamlessphoto,osm];
+});
+//------------------------------------------------------------------------------
 //国土地理院淡色地図のレイヤー
 var pale = new ol.layer.Tile({
     title:"国土地理院_単色地図",
@@ -35,8 +41,7 @@ var ort = new ol.layer.Tile({
     detail:"砂防課が平成２５年度に撮影した航空写真をオルソ補正したもの",
 	source: new ol.source.OSM
 });
-//使用するレイヤーを設定
-var useLayersArr = [pale,seamlessphoto,osm];
+
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 function haikeiTableCreate(){
@@ -71,12 +76,19 @@ function haikeiTableCreate(){
     }).disableSelection();
 };
 //------------------------------------------------------------------------------
-//背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 $(function(){
+    //背景レイヤーの追加、削除
     $("body").on("change","input:checkbox[name='haikei-check']",function(){
         var layer = useLayersArr[Number($(this).val())];
+        var trErement = $(this).parents("tr");
         if($(this).prop('checked')){
             map1.addLayer(layer);
+            trErement.children().animate({
+                "background-color":"#FFC0CB"
+            },1000).animate({
+                "background-color":"white"
+            },1000);
+            trErement.prependTo($(this).parents(".haikei-tbl"));
         }else{
             map1.removeLayer(layer);
         };
