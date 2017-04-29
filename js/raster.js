@@ -101,7 +101,7 @@ function haikeiTableCreate(){
         checkboxClass:"icheckbox_flat-blue",
         radioClass:"iradio_square-red",
     });
-    $("input").on("ifChecked",function(event){
+    $("input").on("ifChanged",function(event){
         //背景レイヤーの追加、削除
         var layer = useLayersArr[Number($(this).val())];
         var trErement = $(this).parents("tr");
