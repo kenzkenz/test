@@ -11,6 +11,6 @@ $(function(){
             top:"50px",
             right:"10px"
         });
-
+        haikeiTableCreate();//ファンクションはraster.jsに
     });
 });
