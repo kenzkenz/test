@@ -7,7 +7,7 @@ $(function(){
             mydialog({
                 id:id,
                 map:"map1",
-                title:"背景",
+                title:"背景レイヤー",
                 content:content,
                 top:"50px",
                 right:"10px"
