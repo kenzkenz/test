@@ -40,7 +40,7 @@ var useLayersArr = [pale,seamlessphoto,osm];
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 function haikeiTableCreate(){
-    var htmlChar = "<table class='table table-bordered table-condensed'>";
+    var htmlChar = "<table class='haikei-tbl table table-bordered table-condensed'>";
     for(var i = 0; i <useLayersArr.length; i++){
         if(i==0){
             var chkChar = "checked";
@@ -55,6 +55,20 @@ function haikeiTableCreate(){
     };
     htmlChar += "</table>";
     $(".dialog-content").html(htmlChar);
+    $(".haikei-tbl tbody").sortable({
+        //handle:".chkTd",
+        update:function(event,ui){
+            $(".haikei-tbl tbody tr").each(function(e){
+                var layer = useLayersArr[Number($(this).find("input:checkbox").val())];
+                var layers = [];
+                layers.push(layer);
+                for (i=0; i<layers.length; i++){
+                    console.log(layers[i]);
+                    layers[i].setZIndex(-e);
+                };
+            });
+        }
+    }).disableSelection();
 };
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
