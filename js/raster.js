@@ -84,37 +84,25 @@ function haikeiTableCreate(){
             var prop = useLayersArr[i][0].getProperties();
         };
         htmlChar += "<tr>";
-        htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + ">" + prop["title"]+ "</label></td>";
-        htmlChar += "<td>作成中</td>";
+        htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + ">　" + prop["title"]+ "</label></td>";
+        htmlChar += "<td class='tdSort'><i class='fa fa-bars fa-2x'></i></span></td>";
         htmlChar += "</tr>";
     };
     htmlChar += "</table>";
     $(".dialog-content").html(htmlChar);
     $(".haikei-tbl tbody").sortable({
-        //handle:".chkTd",
+        handle:".tdSort",
         update:function(event,ui){
             haikeiLayerSort();
         }
     }).disableSelection();
-};
-//------------------------------------------------------------------------------
-//背景レイヤーの重なり順をｔｒ順に変更する。
-function haikeiLayerSort(){
-    $(".haikei-tbl tbody tr").each(function(e){
-        var layer = useLayersArr[Number($(this).find("input:checkbox").val())];
-        if(!Array.isArray(layer)){
-            layer.setZIndex(-e);
-        }else{
-            for (var i = 0; i < layer.length; i++){
-                layer[i].setZIndex(-e);
-            };
-        };
+    //チェックボックスをカスタム
+    $("input").iCheck({
+        checkboxClass:"icheckbox_flat-blue",
+        radioClass:"iradio_square-red",
     });
-};
-//------------------------------------------------------------------------------
-$(function(){
-    //背景レイヤーの追加、削除
-    $("body").on("change","input:checkbox[name='haikei-check']",function(){
+    $("input").on("ifChecked",function(event){
+        //背景レイヤーの追加、削除
         var layer = useLayersArr[Number($(this).val())];
         var trErement = $(this).parents("tr");
         if($(this).prop('checked')){
@@ -142,4 +130,18 @@ $(function(){
             };
         };
     });
-});
+};
+//------------------------------------------------------------------------------
+//背景レイヤーの重なり順をｔｒ順に変更する。
+function haikeiLayerSort(){
+    $(".haikei-tbl tbody tr").each(function(e){
+        var layer = useLayersArr[Number($(this).find("input:checkbox").val())];
+        if(!Array.isArray(layer)){
+            layer.setZIndex(-e);
+        }else{
+            for (var i = 0; i < layer.length; i++){
+                layer[i].setZIndex(-e);
+            };
+        };
+    });
+};

@@ -101,5 +101,5 @@ function mydialog(options){
 		};
 	});
 	dialogbaseMaxzindex(dialog);
-	dialog.show();
+	dialog.show(500);
 };
