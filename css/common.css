@@ -1,13 +1,21 @@
-body {
+body{
     margin:0;
     padding:0;
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif;
     overflow:hidden;
 }
+label{
+    font-weight:normal;
+    cursor:pointer;
+}
+label:hover{
+    color:tomato;
+}
 #map1{
     width:100%;
     /*高さはstartup.jsで起動時に設定している。*/
 }
+/*ol31関係---------------------------------------------------------------------*/
 .ol-rotate{
     right:49%;
     top:20px;
