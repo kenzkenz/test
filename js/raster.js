@@ -63,17 +63,22 @@ function haikeiTableCreate(){
     $(".haikei-tbl tbody").sortable({
         //handle:".chkTd",
         update:function(event,ui){
-            $(".haikei-tbl tbody tr").each(function(e){
-                var layer = useLayersArr[Number($(this).find("input:checkbox").val())];
-                var layers = [];
-                layers.push(layer);
-                for (i=0; i<layers.length; i++){
-                    console.log(layers[i]);
-                    layers[i].setZIndex(-e);
-                };
-            });
+            haikeiLayerSort();
         }
     }).disableSelection();
+};
+//------------------------------------------------------------------------------
+//背景レイヤーの重なり順をｔｒ順に変更する。
+function haikeiLayerSort(){
+    $(".haikei-tbl tbody tr").each(function(e){
+        var layer = useLayersArr[Number($(this).find("input:checkbox").val())];
+        var layers = [];
+        layers.push(layer);
+        for (i=0; i<layers.length; i++){
+            console.log(layers[i]);
+            layers[i].setZIndex(-e);
+        };
+    });
 };
 //------------------------------------------------------------------------------
 $(function(){
@@ -89,6 +94,7 @@ $(function(){
                 "background-color":"white"
             },1000);
             trErement.prependTo($(this).parents(".haikei-tbl"));
+            haikeiLayerSort();
         }else{
             map1.removeLayer(layer);
         };
