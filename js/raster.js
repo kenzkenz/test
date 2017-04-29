@@ -1,8 +1,13 @@
 var useLayersArr = null;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr = [pale,seamlessphoto,osm];
+    useLayersArr = [pale,seamlessphoto,osm,csArr];
 });
+//------------------------------------------------------------------------------
+//エクステントの座標系を変換する
+function transformE(extent) {
+	return ol.proj.transformExtent(extent,'EPSG:4326','EPSG:3857');
+};
 //------------------------------------------------------------------------------
 //国土地理院淡色地図のレイヤー
 var pale = new ol.layer.Tile({
@@ -41,7 +46,28 @@ var ort = new ol.layer.Tile({
     detail:"砂防課が平成２５年度に撮影した航空写真をオルソ補正したもの",
 	source: new ol.source.OSM
 });
-
+var cs1 = new ol.layer.Tile({
+    title:"CS立体地図実験中",
+    origin:"",
+    detail:"",
+    extent:transformE([128.4,32.5,129.5306,34.7]),
+	source: new ol.source.XYZ({
+		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
+		url:"http://mtile.pref.miyazaki.lg.jp/tile/cs/1/{z}/{x}/{-y}.png",
+		//minZoom :1,
+		maxZoom:15
+	})
+});
+var cs2 = new ol.layer.Tile({
+	extent:transformE([129.02,30.2,132.9,34]),
+	source: new ol.source.XYZ({
+		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
+		url:"http://mtile.pref.miyazaki.lg.jp/tile/cs/2/{z}/{x}/{-y}.png",
+		//minZoom :1,
+		maxZoom:15
+	})
+});
+var csArr = [cs1,cs2];
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 function haikeiTableCreate(){
@@ -52,7 +78,11 @@ function haikeiTableCreate(){
         }else{
             var chkChar = "";
         };
-        var prop = useLayersArr[i].getProperties();
+        if(!Array.isArray(useLayersArr[i])){//配列でないとき
+            var prop = useLayersArr[i].getProperties();
+        }else{//配列のとき
+            var prop = useLayersArr[i][0].getProperties();
+        };
         htmlChar += "<tr>";
         htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + ">" + prop["title"]+ "</label></td>";
         htmlChar += "<td>作成中</td>";
@@ -72,11 +102,12 @@ function haikeiTableCreate(){
 function haikeiLayerSort(){
     $(".haikei-tbl tbody tr").each(function(e){
         var layer = useLayersArr[Number($(this).find("input:checkbox").val())];
-        var layers = [];
-        layers.push(layer);
-        for (i=0; i<layers.length; i++){
-            console.log(layers[i]);
-            layers[i].setZIndex(-e);
+        if(!Array.isArray(layer)){
+            layer.setZIndex(-e);
+        }else{
+            for (var i = 0; i < layer.length; i++){
+                layer[i].setZIndex(-e);
+            };
         };
     });
 };
@@ -87,7 +118,13 @@ $(function(){
         var layer = useLayersArr[Number($(this).val())];
         var trErement = $(this).parents("tr");
         if($(this).prop('checked')){
-            map1.addLayer(layer);
+            if(!Array.isArray(layer)){
+                map1.addLayer(layer);
+            }else{//配列のとき
+                for (var i = 0; i < layer.length; i++){
+                    map1.addLayer(layer[i]);
+                };
+            };
             trErement.children().animate({
                 "background-color":"#FFC0CB"
             },1000).animate({
@@ -96,7 +133,13 @@ $(function(){
             trErement.prependTo($(this).parents(".haikei-tbl"));
             haikeiLayerSort();
         }else{
-            map1.removeLayer(layer);
+            if(!Array.isArray(layer)){
+                map1.removeLayer(layer);
+            }else{//配列のとき
+                for (var i = 0; i < layer.length; i++){
+                    map1.removeLayer(layer[i]);
+                };
+            };
         };
     });
 });
