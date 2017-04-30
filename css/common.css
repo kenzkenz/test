@@ -4,16 +4,27 @@ body{
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif;
     overflow:hidden;
 }
-label{
+label{/*bootstrapのcssと被っている*/
     font-weight:normal;
     cursor:pointer;
+    margin:0;
 }
 label:hover{
     color:tomato;
 }
 #map1{
     width:100%;
+    float:left;
+    position:relative;
+    border-right:solid 1px black;
+    border-bottom:solid 1px black;
     /*高さはstartup.jsで起動時に設定している。*/
+}
+#map2{
+    width:100%;
+    height:100px;
+    position:relative;
+    float:left;
 }
 /*----------------------------------------------------------------------------*/
 /*現在不使用。汎用性を求めてjsで書き直した。
@@ -41,19 +52,24 @@ label:hover{
 }
 .haikei-btn{
 }
-.tdSort{
+/*-----------------------------------------------------------------------------*/
+.td-sort{
     cursor:move;
+}
+#map1 .td-slider,#map2 .td-slider{/*bootstrapのcssにかぶせるため*/
+    vertical-align:middle;
 }
 /*セシウムのボタン---------------------------------------------------------------*/
 .cesium-btn-div{
 	position:absolute;
-	bottom:200px;
+	top:50%;
 	left:50%;
 	z-index:999999999;
 	display:none;
 	height:145px;
 	width:145px;
     margin-left:-72px;
+    margin-top:-72px;
 	background:rgba(0,0,0,0.1);
 	border-radius:145px;
 	-moz-user-select:none;
@@ -100,4 +116,8 @@ label:hover{
     width:40px;
     height:40px;
     margin-top:-20px;
+}
+/*スライダー--------------------------------------------------------------------*/
+.haikei-slider{
+    width:50px;
 }

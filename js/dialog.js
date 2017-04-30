@@ -38,6 +38,7 @@ function dialogbaseMaxzindex(dialog){
 function mydialog(options){
 	var opts = $.extend({},options);
 	var id = opts.id;
+	var className = opts.class;
 	var map = opts.map;
 	var title = opts.title;
 	var headerMenu = opts.headerMenu;
@@ -53,7 +54,7 @@ function mydialog(options){
 			};
 		});
 	}else{
-		$(".dialog-base:not('.haikeiDialog'):visible").each(function(){
+		$(".dialog-base:not('.haikei-dialog'):visible").each(function(){
 			if(right==$(this).css("right")){
 				right = (Number(right.replace(/px/gi,"")) + 20) + "px";
 				top = (Number(top.replace(/px/gi,"")) + 20) + "px";
@@ -65,8 +66,13 @@ function mydialog(options){
 		dialog.show();
 		return;
 	};
+	if(className){
+		var classChar = "dialog-base mydialog " + className;
+	}else{
+		var classChar = "dialog-base mydialog";
+	};
 	var htmlStr = "";
-	htmlStr += '<div id="mydialog-' + id + '" class="dialog-base mydialog">';
+	htmlStr += '<div id="mydialog-' + id + '" class="' + classChar + '">';
 	htmlStr += 	'<div class="dialog-header">';
 	htmlStr += 		'<p>' + title + '</p>';
 	htmlStr += 		headerMenu?headerMenu:"";

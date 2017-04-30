@@ -1,5 +1,32 @@
 $(function(){
     $("body").on("click",".dualscreen-btn",function(){
-        alert("作成中");
+        if($(this).text()=="2画面"){
+            console.log($(window).width());
+            if($(window).width()>1000){
+                $("#map1").animate({"width":"50%"},500,function(){map1.updateSize();});
+                $("#map2").show().animate({"width":"50%","height":$(window).height()+"px"},0,function(){
+                    map2.updateSize();
+                });
+            }else{
+                $("#map1").animate({"height":$(window).height()/2+"px"},500,function(){map1.updateSize();});
+                $("#map2").show().animate({"width":"100%","height":$(window).height()/2+"px"},0,function(){
+                    map2.updateSize();
+                });
+            };
+            $(".dualscreen-btn").text("1画面");
+        }else{
+            if($(window).width()>1000){
+                $("#map1").animate({"width":"100%"},500,function(){map1.updateSize();});
+                $("#map2").animate({"height":"10px"},0,function(){
+                    map2.updateSize();
+                }).hide();
+            }else{
+                $("#map1").animate({"width":"100%","height":$(window).height()+"px"},500,function(){map1.updateSize();});
+                $("#map2").animate({"width":"100%","height":"10px"},0,function(){
+                    map2.updateSize();
+                }).hide();
+            };
+            $(".dualscreen-btn").text("2画面");
+        }
     });
 });

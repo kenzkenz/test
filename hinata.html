@@ -7,6 +7,7 @@
         <title>hinataGIS</title>
         <link rel="shortcut icon" href="favicon.ico">
         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css" />
         <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -17,6 +18,7 @@
         <script src="js/ol3/ol-cesium-v1.26/olcesium.js"></script>
         <link rel="stylesheet" href="css/common.css" />
         <link rel="stylesheet" href="css/dialog.css" />
+        <script src="js/common.js"></script>
         <script src="js/raster.js"></script>
         <script src="js/startup.js"></script>
         <script src="js/PngElevationTileTerrainProvider.js"></script>
@@ -30,7 +32,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     </head>
     <body>
-        <div id="map1">
+        <div id="map1" class="maps">
             <div class="top-div">
                 <button type="button" class="dualscreen-btn btn btn-primary">2画面</button>
                 <button type="button" class="haikei-btn btn btn-primary">背景</button>
@@ -45,5 +47,7 @@
                 </div>
             </div>
         </div>
+        <div id="map2" class="maps"></div>
+        <script>$("#map2").append($("#map1>*").clone());</script>
     </body>
 </html>

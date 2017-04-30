@@ -18,14 +18,32 @@ $(function(){
     scene.terrainProvider.hasWaterMask = false;
     scene.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
     //--------------------------------------------------------------------------
+    var ol3d2 = new olcs.OLCesium({
+        map:map2
+    });
+    var scene2 = ol3d2.getCesiumScene();
+    var terrain = new Cesium.PngElevationTileTerrainProvider({
+        url:"http://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+        tilingScheme: new Cesium.GeographicTilingScheme(),
+    });
+    scene2.terrainProvider = terrain;
+    scene2.screenSpaceCameraController._minimumZoomRate = 1;
+    scene2.screenSpaceCameraController.minimumZoomDistance = 10;
+    scene2.terrainProvider.heightmapTerrainQuality = 0.1;
+    scene2.terrainProvider.hasVertexNormals = false;
+    scene2.terrainProvider.hasWaterMask = false;
+    scene2.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
+
+    //--------------------------------------------------------------------------
     //３Dトグルを操作したとき
     $(".d3d2-toggle").change(function(){
+        var mapObj = funcMaps($(this))
         if($(this).prop("checked")){
-            ol3d1.setEnabled(true);
-            $(".cesium-btn-div").show(500);
+            eval(mapObj["ol3d"]).setEnabled(true);
+            mapObj["element"].find(".cesium-btn-div").show(500);
         }else{
-            ol3d1.setEnabled(false);
-            $(".cesium-btn-div").hide(500);
+            eval(mapObj["ol3d"]).setEnabled(false);
+            mapObj["element"].find(".cesium-btn-div").hide(500);
         };
     });
     //--------------------------------------------------------------------------
@@ -40,16 +58,16 @@ $(function(){
     var tiltFlg = false;
     //仰角----------------------------------------------------------------------
     $("body").on("mousedown",".cesium-btn-up,.cesium-btn-down",function(){
-        var top = (Number($(this).css("top").replace("px","")) + 5) + "px";
-        $(this).css({"top":top});
+        var mapObj = funcMaps($(this));
+        var ol3d = eval(mapObj["ol3d"]);
         tiltFlg = true;
         var tiltUp = function(upDown){
             if(tiltFlg){
-                var tilt = ol3d1.getCamera().getTilt();
+                var tilt = ol3d.getCamera().getTilt();
                 if(upDown=="up"){
-                    if(tilt<1.5) ol3d1.getCamera().setTilt(tilt + 0.05);
+                    if(tilt<1.5) ol3d.getCamera().setTilt(tilt + 0.05);
                 }else{
-                    if(tilt>0) ol3d1.getCamera().setTilt(tilt - 0.05);
+                    if(tilt>0) ol3d.getCamera().setTilt(tilt - 0.05);
                 };
                 setTimeout(function(){tiltUp(upDown)},20);
             }else{
@@ -64,23 +82,21 @@ $(function(){
         return false;
     }).mouseup(function(){
         tiltFlg = false;
-        $(".cesium-btn-up,.cesium-btn-down").css({"top":""});
     }).mouseleave(function(){
         tiltFlg = false;
-        $(".cesium-btn-up,.cesium-btn-down").css({"top":""});
     });
     //左右回転------------------------------------------------------------------
     $("body").on("mousedown",".cesium-btn-left,.cesium-btn-right",function(){
-        //var top = (Number($(this).css("top").replace("px","")) + 5) + "px";
-        //$(this).css({"top":top});
+        var mapObj = funcMaps($(this));
+        var ol3d = eval(mapObj["ol3d"]);
         tiltFlg = true;
         var tiltLeft = function(leftRight){
             if(tiltFlg){
-                var head = ol3d1.getCamera().getHeading();
+                var head = ol3d.getCamera().getHeading();
                 if(leftRight=="left"){
-                    ol3d1.getCamera().setHeading(head - 0.05);
+                    ol3d.getCamera().setHeading(head - 0.05);
                 }else{
-                    ol3d1.getCamera().setHeading(head + 0.05);
+                    ol3d.getCamera().setHeading(head + 0.05);
                 };
                 setTimeout(function(){tiltLeft(leftRight)},20);
             }else{
@@ -95,9 +111,7 @@ $(function(){
         return false;
     }).mouseup(function(){
         tiltFlg = false;
-        //$(".cesium-btn-left,.cesium-btn-right").css({"top":""});
     }).mouseleave(function(){
         tiltFlg = false;
-        //$(".cesium-btn-left,.cesium-btn-right").css({"top":""});
     });
 });

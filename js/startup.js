@@ -16,15 +16,24 @@ $(function(){
     if(zoom==undefined){
         zoom = 14;
     };
+    var view1 = new ol.View({
+        center:center,
+        zoom:zoom
+    });
     //id map1に起動時に表示されるレイヤーをセット
     map1 = new ol.Map({
         target:"map1",
-        layers:[pale],//raster.jsを参照。paleは地理院単色地図
-        view:new ol.View({
-            center:center,
-            zoom:zoom
-        })
+        layers:[pale1],//raster.jsを参照。paleは地理院単色地図
+        view:view1
     });
+    map2 = new ol.Map({
+        target:"map2",
+        layers:[pale2],//raster.jsを参照。paleは地理院単色地図
+        view:view1
+    });
+
+
+
     //--------------------------------------------------------------------------
     //マップイベント関係
     //ムーブエンド時にwevストレージに中心座標とズーム率を記憶
@@ -34,6 +43,7 @@ $(function(){
     });
     //--------------------------------------------------------------------------
     //クラスbtnにクリック感を付与。汎用性のため非cssで。
+    /*
     $("body").on("mousedown",".btn",function(){
         var marginTop = Number($(this).css("margin-top").replace("px",""));
         var marginBottom = Number($(this).css("margin-bottom").replace("px",""));
@@ -47,5 +57,6 @@ $(function(){
             "margin-bottom":""
         });
     });
+    */
     //--------------------------------------------------------------------------
 });

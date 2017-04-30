@@ -1,19 +1,21 @@
 $(function(){
     $("body").on("click",".haikei-btn",function(){
-        if($("#mydialog-haikei-dialog").length==0){
-            var id = "haikei-dialog";
+        var mapObj = funcMaps($(this));
+        if($("#mydialog-haikei-dialog-"+mapObj["name"]).length==0){
+            var id = "haikei-dialog-"+mapObj["name"];
             var content = "";
             mydialog({
                 id:id,
-                map:"map1",
+                class:"haikei-dialog",
+                map:mapObj["name"],
                 title:"背景レイヤー",
                 content:content,
                 top:"50px",
                 right:"10px"
             });
-            haikeiTableCreate();//ファンクションはraster.jsに
+            funcHaikeiTableCreate(mapObj["element"],mapObj["name"]);//ファンクションはraster.jsに
         }else{
-            $("#mydialog-haikei-dialog").show();
+            $("#mydialog-haikei-dialog-"+mapObj["name"]).show(500);
         };
     });
 });
