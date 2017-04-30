@@ -23,6 +23,7 @@
         <script src="js/dialog.js"></script>
         <script src="js/3d.js"></script>
         <script src="js/haikei.js"></script>
+        <script src="js/dualscreen.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/icheck/icheck.min.js"></script>
         <link rel="stylesheet" href="js/icheck/skins/all.css" />
@@ -30,8 +31,9 @@
     </head>
     <body>
         <div id="map1">
-            <button type="button" class="haikei-btn btn btn-primary">背景</button>
-            <div class="d3d2-div">
+            <div class="top-div">
+                <button type="button" class="dualscreen-btn btn btn-primary">2画面</button>
+                <button type="button" class="haikei-btn btn btn-primary">背景</button>
                 <input type="checkbox" data-toggle="toggle" data-on="3D-on" data-off="3D-off" class="d3d2-toggle">
             </div>
             <div class="cesium-btn-div">
@@ -40,7 +42,6 @@
                     <button type="button" class="cesium-btn-down btn btn-primary"><i class='fa fa-arrow-down fa-lg'></i></button>
                     <button type="button" class="cesium-btn-left btn btn-primary"><i class='fa fa-arrow-left fa-lg'></i></button>
                     <button type="button" class="cesium-btn-right btn btn-primary"><i class='fa fa-arrow-right fa-lg'></i></button>
-
                 </div>
             </div>
         </div>
