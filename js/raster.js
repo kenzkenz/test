@@ -85,7 +85,7 @@ function haikeiTableCreate(){
         };
         htmlChar += "<tr>";
         htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + ">　" + prop["title"]+ "</label></td>";
-        htmlChar += "<td class='tdSort'><i class='fa fa-bars fa-2x'></i></span></td>";
+        htmlChar += "<td class='tdSort'><i class='fa fa-bars fa-2x'></i></td>";
         htmlChar += "</tr>";
     };
     htmlChar += "</table>";

@@ -36,3 +36,60 @@ label:hover{
 .tdSort{
     cursor:move;
 }
+/*セシウムのボタン---------------------------------------------------------------*/
+.cesium-btn-div{
+	position:absolute;
+	bottom:200px;
+	left:50%;
+	z-index:999999999;
+	display:none;
+	height:145px;
+	width:145px;
+    margin-left:-72px;
+	background:rgba(0,0,0,0.1);
+	border-radius:145px;
+	-moz-user-select:none;
+	-webkit-user-select:none;
+	-ms-user-select:none;
+	cursor:move;
+}
+.cesiun-btn-container{
+    position:relative;
+    height:100%;
+}
+.cesium-btn-up{
+    position:absolute;
+    top:10px;
+    left:50%;
+    padding:0;
+    width:40px;
+    height:40px;
+    margin-left:-20px;
+}
+.cesium-btn-down{
+    position:absolute;
+    bottom:10px;
+    left:50%;
+    padding:0;
+    width:40px;
+    height:40px;
+    margin-left:-20px;
+}
+.cesium-btn-left{
+    position:absolute;
+    top:50%;
+    left:10px;
+    padding:0;
+    width:40px;
+    height:40px;
+    margin-top:-20px;
+}
+.cesium-btn-right{
+    position:absolute;
+    top:50%;
+    right:10px;
+    padding:0;
+    width:40px;
+    height:40px;
+    margin-top:-20px;
+}
