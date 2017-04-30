@@ -100,12 +100,6 @@ function mydialog(options){
 				$(this).css("width","");
 			}
 	});
-	var maxzindex = 0;
-	$(".dialog-base").each(function(){
-		if(maxzindex < $(this).zIndex()){
-			maxzindex = $(this).zIndex();
-		};
-	});
-	dialogbaseMaxzindex(dialog);
 	dialog.show(500);
+	dialogbaseMaxzindex(dialog);
 };

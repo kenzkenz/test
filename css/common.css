@@ -127,3 +127,11 @@ label:hover{
 .haikei-slider{
     width:50px;
 }
+/*webフォント用-----------------------------------------------------------------*/
+.primary{
+    color:rgba(51,122,183,1.0);
+    cursor:pointer;
+}
+.primary:hover{
+    color:tomato;
+}
