@@ -32,4 +32,20 @@ $(function(){
         localStorage.setItem("lonlat",JSON.stringify(map1.getView().getCenter()));
         localStorage.setItem("zoom",map1.getView().getZoom());
     });
+    //--------------------------------------------------------------------------
+    //クラスbtnにクリック感を付与。汎用性のため非cssで。
+    $("body").on("mousedown",".btn",function(){
+        var marginTop = Number($(this).css("margin-top").replace("px",""));
+        var marginBottom = Number($(this).css("margin-bottom").replace("px",""));
+        $(this).css({
+            "margin-top":(marginTop+5)+"px",
+            "margin-bottom":(marginBottom-5)+"px"
+        });
+    }).mouseup(function(){
+        $(".btn").css({
+            "margin-top":"",
+            "margin-bottom":""
+        });
+    });
+    //--------------------------------------------------------------------------
 });

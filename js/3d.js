@@ -71,8 +71,8 @@ $(function(){
     });
     //左右回転------------------------------------------------------------------
     $("body").on("mousedown",".cesium-btn-left,.cesium-btn-right",function(){
-        var top = (Number($(this).css("top").replace("px","")) + 5) + "px";
-        $(this).css({"top":top});
+        //var top = (Number($(this).css("top").replace("px","")) + 5) + "px";
+        //$(this).css({"top":top});
         tiltFlg = true;
         var tiltLeft = function(leftRight){
             if(tiltFlg){
@@ -95,9 +95,9 @@ $(function(){
         return false;
     }).mouseup(function(){
         tiltFlg = false;
-        $(".cesium-btn-left,.cesium-btn-right").css({"top":""});
+        //$(".cesium-btn-left,.cesium-btn-right").css({"top":""});
     }).mouseleave(function(){
         tiltFlg = false;
-        $(".cesium-btn-left,.cesium-btn-right").css({"top":""});
+        //$(".cesium-btn-left,.cesium-btn-right").css({"top":""});
     });
 });
