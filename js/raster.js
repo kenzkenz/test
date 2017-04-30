@@ -144,6 +144,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
         htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + ">　" + prop["title"]+ "</label></td>";
         htmlChar += "<td class='td-slider'><div class='haikei-slider'></div></td>";
         htmlChar += "<td class='td-sort'><i class='fa fa-bars fa-lg'></i></td>";
+        htmlChar += "<td class='td-info'><i class='fa fa-info-circle fa-lg'></i></td>";
         htmlChar += "</tr>";
     };
     htmlChar += "</table>";
@@ -207,6 +208,9 @@ function funcHaikeiTableCreate(mapElement,mapName){
                 };
             }
         });
+    });
+    $("body").on("click",".td-info",function(){
+        alert("作成中");
     });
 };
 //------------------------------------------------------------------------------

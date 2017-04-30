@@ -59,6 +59,12 @@ label:hover{
 #map1 .td-slider,#map2 .td-slider{/*bootstrapのcssにかぶせるため*/
     vertical-align:middle;
 }
+#map1 .td-info,#map2 .td-info{
+    vertical-align:middle;
+    padding:2px;
+    margin:0;
+    cursor:pointer;
+}
 /*セシウムのボタン---------------------------------------------------------------*/
 .cesium-btn-div{
 	position:absolute;
