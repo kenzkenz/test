@@ -8,3 +8,15 @@ function funcMaps(element){
 	};
 	return {"name":mapName,"element":mapElement,"ol3d":ol3d};
 };
+function funcHaikeiTblDivHeight(){
+	if($(window).width()>1000){
+		var height = $(window).height()-150;
+	}else{
+		if($(".dualscreen-btn").eq(0).text()=="1画面"){
+			var height = $(window).height()/2-150;
+		}else{
+			var height = $(window).height()-150;
+		}
+	};
+	$(".haikei-tbl-div").css("max-height",height + "px");
+}

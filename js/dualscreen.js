@@ -37,6 +37,7 @@ $(function(){
                 }).hide();
             };
             $(".dualscreen-btn").text("2画面");
-        }
+        };
+        funcHaikeiTblDivHeight();//common.jsにある関数
     });
 });

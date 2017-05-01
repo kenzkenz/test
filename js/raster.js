@@ -2,8 +2,10 @@ var useLayersArr1 = null;
 var useLayersArr2 = null
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,seamlessphoto1,osm1,csArr1];
-    useLayersArr2 = [pale2,seamlessphoto2,osm2,csArr2];
+    useLayersArr1 = [pale1,seamlessphoto1,osm1,ort1,tunami1,sinsuisoutei1,kikenkeiryuu1,
+                    kyuukeisyakikenkasyo1,tisitu1,mierune1,ryuuiki1,ecoris1,csArr1];
+    useLayersArr2 = [pale2,seamlessphoto2,osm2,ort2,tunami2,sinsuisoutei2,kikenkeiryuu2,
+                    kyuukeisyakikenkasyo2,tisitu2,mierune2,ryuuiki2,ecoris2,csArr2];
 });
 //------------------------------------------------------------------------------
 //エクステントの座標系を変換する
@@ -11,115 +13,7 @@ function transformE(extent) {
 	return ol.proj.transformExtent(extent,'EPSG:4326','EPSG:3857');
 };
 //------------------------------------------------------------------------------
-//国土地理院淡色地図のレイヤー
-var pale1 = new ol.layer.Tile({
-    title:"国土地理院_単色地図",
-    origin:"国土地理院",
-    detail:"国土地理院の単色地図",
-    source:new ol.source.XYZ({
-        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
-        minZoom:2,
-        maxZoom:18
-    })
-})
-var pale2 = new ol.layer.Tile({
-    title:"国土地理院_単色地図",
-    origin:"国土地理院",
-    detail:"国土地理院の単色地図",
-    source:new ol.source.XYZ({
-        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
-        minZoom:2,
-        maxZoom:18
-    })
-})
-//空中写真のレイヤー
-var seamlessphoto1 = new ol.layer.Tile({
-    title:"国土地理院_空中写真",
-    origin:"国土地理院",
-    detail:"国土地理院の空中写真",
-    source:new ol.source.XYZ({
-        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
-        minZoom:2,
-        maxZoom:18
-    })
-})
-var seamlessphoto2 = new ol.layer.Tile({
-    title:"国土地理院_空中写真",
-    origin:"国土地理院",
-    detail:"国土地理院の空中写真",
-    source:new ol.source.XYZ({
-        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
-        minZoom:2,
-        maxZoom:18
-    })
-})
-//オープンストリートマップ
-var osm1 = new ol.layer.Tile({
-    title:"OpenStreetMap",
-    origin:"OpenStreetMap Japan",
-    detail:"OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。",
-	source: new ol.source.OSM
-});
-var osm2 = new ol.layer.Tile({
-    title:"OpenStreetMap",
-    origin:"OpenStreetMap Japan",
-    detail:"OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。",
-	source: new ol.source.OSM
-});
-var ort = new ol.layer.Tile({
-    title:"宮崎県航空写真",
-    origin:"宮崎県県土整備部砂防課",
-    detail:"砂防課が平成２５年度に撮影した航空写真をオルソ補正したもの",
-	source: new ol.source.OSM
-});
-var cs1k1 = new ol.layer.Tile({
-    title:"CS立体地図実験中",
-    origin:"",
-    detail:"",
-    extent:transformE([128.4,32.5,129.5306,34.7]),
-	source: new ol.source.XYZ({
-		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
-		url:"http://mtile.pref.miyazaki.lg.jp/tile/cs/1/{z}/{x}/{-y}.png",
-		//minZoom :1,
-		maxZoom:15
-	})
-});
-var cs1k2 = new ol.layer.Tile({
-    title:"CS立体地図実験中",
-    origin:"",
-    detail:"",
-    extent:transformE([128.4,32.5,129.5306,34.7]),
-	source: new ol.source.XYZ({
-		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
-		url:"http://mtile.pref.miyazaki.lg.jp/tile/cs/1/{z}/{x}/{-y}.png",
-		//minZoom :1,
-		maxZoom:15
-	})
-});
-var cs2k1 = new ol.layer.Tile({
-	extent:transformE([129.02,30.2,132.9,34]),
-	source: new ol.source.XYZ({
-		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
-		url:"http://mtile.pref.miyazaki.lg.jp/tile/cs/2/{z}/{x}/{-y}.png",
-		//minZoom :1,
-		maxZoom:15
-	})
-});
-var cs2k2 = new ol.layer.Tile({
-	extent:transformE([129.02,30.2,132.9,34]),
-	source: new ol.source.XYZ({
-		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
-		url:"http://mtile.pref.miyazaki.lg.jp/tile/cs/2/{z}/{x}/{-y}.png",
-		//minZoom :1,
-		maxZoom:15
-	})
-});
-var csArr1 = [cs1k1,cs2k1];
-var csArr2 = [cs1k2,cs2k2];
+
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 function funcHaikeiTableCreate(mapElement,mapName){
@@ -128,7 +22,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
     }else{
         var layers = useLayersArr2;
     };
-    var htmlChar = "<table class='haikei-tbl table table-bordered table-condensed'>";
+    var htmlChar = "<div class='haikei-tbl-div'><table class='haikei-tbl table table-bordered table-condensed'>";
     for(var i = 0; i <layers.length; i++){
         if(i==0){
             var chkChar = "checked";
@@ -147,8 +41,9 @@ function funcHaikeiTableCreate(mapElement,mapName){
         htmlChar += "<td class='td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
         htmlChar += "</tr>";
     };
-    htmlChar += "</table>";
+    htmlChar += "</table></div>";
     mapElement.find(".dialog-content").html(htmlChar);
+    funcHaikeiTblDivHeight();//common.jsにある関数
     mapElement.find(".haikei-slider").eq(0).slider({
         min:0,max:1,value:1,step:0.01,
         slide: function(event, ui){
