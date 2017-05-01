@@ -96,9 +96,15 @@ function mydialog(options){
 	dialog.draggable({
 		handle:".dialog-header",
 		stop:function(){
-				$(this).css("height","");
-				$(this).css("width","");
-			}
+			//var right = $(this).css("right");
+			//console.log(right);
+			$(this).css({
+				"height":"",
+				"width":"",
+				//"right":right,
+				//"left":""
+			});
+		}
 	});
 	dialog.show(500);
 	dialogbaseMaxzindex(dialog);
