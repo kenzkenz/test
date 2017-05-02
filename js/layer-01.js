@@ -1,8 +1,8 @@
 //国土地理院淡色地図のレイヤー
 var pale1 = new ol.layer.Tile({
-    title:"国土地理院_単色地図",
+    title:"国土地理院_淡色地図",
     origin:"国土地理院",
-    detail:"国土地理院の単色地図",
+    detail:"国土地理院の淡色地図",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
@@ -11,9 +11,9 @@ var pale1 = new ol.layer.Tile({
     })
 })
 var pale2 = new ol.layer.Tile({
-    title:"国土地理院_単色地図",
+    title:"国土地理院_淡色地図",
     origin:"国土地理院",
-    detail:"国土地理院の単色地図",
+    detail:"国土地理院の淡色地図",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
@@ -177,8 +177,9 @@ var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
 //シームレス地質図
 var tisitu1 = new ol.layer.Tile({
     title:"シームレス地質図",
-    origin:"",
-    detail:"",
+    origin:"<a href='https://gbank.gsj.jp/seamless/seamless2015/2d/' target='_blank'>日本シームレス地質図</a><br>" +
+            "<a href='https://gbank.gsj.jp/geonavi/' target='_blank'>地質図Navi</a>",
+    detail:"20万分の1日本シームレス地質図®は、これまで出版されてきた地質図幅の図郭における境界線の不連続を、日本全国統一の凡例を用いることによって解消した新しい地質図です。",
 	source: new ol.source.XYZ({
 		url:"https://gbank.gsj.jp/seamless/tilemap/detailed/glfn/{z}/{y}/{x}.png",//ｘとｙを国土地理院流の反対にすること。
 		attributions:[new ol.Attribution({html:"<a href='https://www.gsj.jp/HomePageJP.html' target='_blank'>産業技術総合研究所地質調査総合センター</a>"})],
@@ -188,8 +189,9 @@ var tisitu1 = new ol.layer.Tile({
 });
 var tisitu2 = new ol.layer.Tile({
     title:"シームレス地質図",
-    origin:"",
-    detail:"",
+    origin:"<a href='https://gbank.gsj.jp/seamless/seamless2015/2d/' target='_blank'>日本シームレス地質図</a><br>" +
+            "<a href='https://gbank.gsj.jp/geonavi/' target='_blank'>地質図Navi</a>",
+    detail:"20万分の1日本シームレス地質図®は、これまで出版されてきた地質図幅の図郭における境界線の不連続を、日本全国統一の凡例を用いることによって解消した新しい地質図です。",
 	source: new ol.source.XYZ({
 		url:"https://gbank.gsj.jp/seamless/tilemap/detailed/glfn/{z}/{y}/{x}.png",//ｘとｙを国土地理院流の反対にすること。
 		attributions:[new ol.Attribution({html:"<a href='https://www.gsj.jp/HomePageJP.html' target='_blank'>産業技術総合研究所地質調査総合センター</a>"})],
@@ -245,8 +247,8 @@ var ryuuiki2 = new ol.layer.Tile({
 //エコリス植生図
 var ecoris1 = new ol.layer.Tile({
     title:"エコリス植生図",
-    origin:"",
-    detail:"",
+    origin:"<label><a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a></label>",
+    detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
 		url:"http://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
@@ -256,8 +258,8 @@ var ecoris1 = new ol.layer.Tile({
 });
 var ecoris2 = new ol.layer.Tile({
     title:"エコリス植生図",
-    origin:"",
-    detail:"",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'><label>エコリス地図タイル</label></a>",
+    detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
 		url:"http://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",

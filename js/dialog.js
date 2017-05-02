@@ -6,7 +6,11 @@ $(function(){
 	//--------------------------------------------------------------------------
 	//ダイアログを閉じる
 	$("body").on("click",".mydialog .dialog-hidden",function(){
-		$(this).parents(".dialog-base").hide(500);
+		if($(this).data("remove")==true){
+			$(this).parents(".dialog-base").remove();
+		}else{
+			$(this).parents(".dialog-base").hide(500);
+		};
 	});
 	//--------------------------------------------------------------------------
 	//ダイアログを最小化する。
@@ -18,7 +22,7 @@ $(function(){
 				thisErement.text("□");
 			}else{
 				thisErement.text("ー");
-			}
+			};
 		});
 	});
 });
@@ -46,6 +50,7 @@ function mydialog(options){
 	var top = opts.top;
 	var left = opts.left;
 	var right = opts.right;
+	var rmDialog = opts.rmDialog;
 	if(!right){
 		$(".dialog-base:visible").each(function(){
 			if(left==$(this).css("left")){
@@ -71,16 +76,21 @@ function mydialog(options){
 	}else{
 		var classChar = "dialog-base mydialog";
 	};
+	if(rmDialog){
+		rmDialog = rmDialog;
+	}else{
+		rmDialog = false;
+	};
 	var htmlStr = "";
 	htmlStr += '<div id="mydialog-' + id + '" class="' + classChar + '">';
 	htmlStr += 	'<div class="dialog-header">';
 	htmlStr += 		'<p>' + title + '</p>';
 	htmlStr += 		headerMenu?headerMenu:"";
-	htmlStr += 		'<span class="dialog-hidden">×</span>';
+	htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '">×</span>';
 	htmlStr += 	'</div>';
 	htmlStr += 	'<div class="dialog-content">' + content + '</div>';
 	htmlStr += '</div>';
-	$("#" + map).append(htmlStr)
+	$("#" + map).append(htmlStr);
 	var dialog = $("#mydialog-" + id);
 	if(!right){
 		dialog.css({
@@ -96,13 +106,9 @@ function mydialog(options){
 	dialog.draggable({
 		handle:".dialog-header",
 		stop:function(){
-			//var right = $(this).css("right");
-			//console.log(right);
 			$(this).css({
 				"height":"",
 				"width":"",
-				//"right":right,
-				//"left":""
 			});
 		}
 	});

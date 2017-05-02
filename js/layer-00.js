@@ -1,5 +1,5 @@
 var useLayersArr1 = null;
-var useLayersArr2 = null
+var useLayersArr2 = null;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,seamlessphoto1,osm1,ort1,tunami1,sinsuisoutei1,kikenkeiryuu1,
@@ -7,11 +7,6 @@ $(function(){
     useLayersArr2 = [pale2,seamlessphoto2,osm2,ort2,tunami2,sinsuisoutei2,kikenkeiryuu2,
                     kyuukeisyakikenkasyo2,tisitu2,mierune2,ryuuiki2,ecoris2,muro2,csArr2];
 });
-//------------------------------------------------------------------------------
-//エクステントの座標系を変換する
-function transformE(extent) {
-	return ol.proj.transformExtent(extent,'EPSG:4326','EPSG:3857');
-};
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 function funcHaikeiTableCreate(mapElement,mapName){
@@ -44,7 +39,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
     funcHaikeiTblDivHeight();//common.jsにある関数
     mapElement.find(".haikei-slider").eq(0).slider({
         min:0,max:1,value:1,step:0.01,
-        slide: function(event, ui){
+        slide: function(event,ui){
             layers[0].setOpacity(ui.value);
         }
     });
@@ -76,7 +71,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
                 //ズーム利を設定する。
                 if(layer.getProperties()["zoom"]){
                     var zoom = layer.getProperties()["zoom"];
-                    console.log(zoom);
                     eval(mapName).getView().setZoom(zoom);
                 };
             }else{//配列のとき
@@ -90,6 +84,8 @@ function funcHaikeiTableCreate(mapElement,mapName){
                 "background-color":"white"
             },1000);
             trErement.prependTo($(this).parents(".haikei-tbl"));
+            //$(this).parents(".haikei-tbl-div").scrollTop(0);
+            $(this).parents(".haikei-tbl-div").animate({scrollTop:0});
             funcHaikeiLayerSort(mapElement,mapName);
         }else{
             if(!Array.isArray(layer)){
@@ -114,9 +110,18 @@ function funcHaikeiTableCreate(mapElement,mapName){
             }
         });
     });
+    //--------------------------------------------------------------------------
+    //インフォメーションを押したとき
     $("body").on("click",".td-info",function(){
         var mapObj = funcMaps($(this));
-        var content = "作成中！！！！！！！！！！！！！！！";
+        var layer = mapObj["layers"][$(this).parents("tr").find("input").val()];
+        var prop = layer.getProperties();
+        console.log(prop);
+        var content = "<table class='info-tbl table table-bordered table-condensed'>";
+            content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
+            content += "<tr><td>出展</td><td>" + prop["origin"] + "</td></tr>";
+            content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
+            content += "</table>";
         mydialog({
             id:"info-dialog",
             class:"info-dialog",
@@ -124,7 +129,8 @@ function funcHaikeiTableCreate(mapElement,mapName){
             title:"インフォメーション",
             content:content,
             top:"90px",
-            right:"20px"
+            right:"20px",
+            rmDialog:true
         });
         return false;
     });
