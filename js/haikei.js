@@ -11,7 +11,7 @@ $(function(){
                 title:"背景レイヤー",
                 content:content,
                 top:"50px",
-                right:"10px"
+                right:"20px"
             });
             funcHaikeiTableCreate(mapObj["element"],mapObj["name"]);//ファンクションはlayer-00.jsに
         }else{

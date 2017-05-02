@@ -276,7 +276,7 @@ var muro1 = new ol.layer.Tile({
     zoom:14,
 	//extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://kenzkenz2.xsrv.jp/muroran/{z}/{x}/{-y}.png',
+		url:'http://kenzkenz2.xsrv.jp/muroran2/{z}/{x}/{y}.png',
 		minZoom :1,
 		maxZoom:19
 	})
@@ -289,7 +289,7 @@ var muro2 = new ol.layer.Tile({
     zoom:14,
 	//extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://kenzkenz2.xsrv.jp/muroran/{z}/{x}/{-y}.png',
+		url:'http://kenzkenz2.xsrv.jp/muroran2/{z}/{x}/{y}.png',
 		minZoom :1,
 		maxZoom:19
 	})
