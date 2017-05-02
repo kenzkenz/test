@@ -16,7 +16,7 @@ $(function(){
             funcHaikeiTableCreate(mapObj["element"],mapObj["name"]);//ファンクションはlayer-00.jsに
         }else{
             funcHaikeiTblDivHeight();//common.jsにある関数
-            $("#mydialog-haikei-dialog-"+mapObj["name"]).show(500);
+            $("#mydialog-haikei-dialog-"+mapObj["name"]).toggle("drop");
         };
     });
 });

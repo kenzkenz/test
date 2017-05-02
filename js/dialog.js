@@ -9,7 +9,7 @@ $(function(){
 		if($(this).data("remove")==true){
 			$(this).parents(".dialog-base").remove();
 		}else{
-			$(this).parents(".dialog-base").hide(500);
+			$(this).parents(".dialog-base").toggle("drop");
 		};
 	});
 	//--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ function mydialog(options){
 	htmlStr += 	'<div class="dialog-header">';
 	htmlStr += 		'<p>' + title + '</p>';
 	htmlStr += 		headerMenu?headerMenu:"";
-	htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '">×</span>';
+	htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '"><i class="fa fa-times fa-2x"></i></span>';
 	htmlStr += 	'</div>';
 	htmlStr += 	'<div class="dialog-content">' + content + '</div>';
 	htmlStr += '</div>';
@@ -112,6 +112,6 @@ function mydialog(options){
 			});
 		}
 	});
-	dialog.show(500);
+	dialog.show();
 	dialogbaseMaxzindex(dialog);
 };

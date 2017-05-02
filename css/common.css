@@ -26,6 +26,13 @@ label:hover{
     position:relative;
     float:left;
 }
+.zoom-div{
+    background:white;
+    position:absolute;
+    left:10px;
+    bottom:10px;
+    z-index:1;
+}
 /*----------------------------------------------------------------------------*/
 /*現在不使用。汎用性を求めてjsで書き直した。
 .btn:active{

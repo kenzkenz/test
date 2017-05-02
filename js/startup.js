@@ -31,16 +31,15 @@ $(function(){
         layers:[pale2],//raster.jsを参照。paleは地理院単色地図
         view:view1
     });
-
-
-
     //--------------------------------------------------------------------------
     //マップイベント関係
     //ムーブエンド時にwevストレージに中心座標とズーム率を記憶
     map1.on("moveend",function(evt){
         localStorage.setItem("lonlat",JSON.stringify(map1.getView().getCenter()));
         localStorage.setItem("zoom",map1.getView().getZoom());
+        $("#map1 .zoom-div").text("zoom=" + Math.floor(map1.getView().getZoom()));
     });
+
     //--------------------------------------------------------------------------
     //クラスbtnにクリック感を付与。汎用性のため非cssで。
     /*

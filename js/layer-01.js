@@ -294,3 +294,29 @@ var muro2 = new ol.layer.Tile({
 		maxZoom:19
 	})
 });
+//------------------------------------------------------------------------------
+//飫肥城
+var obi1 = new ol.layer.Tile({
+    title:"飫肥歴史まちあるきマップ",
+    origin:"",
+    detail:"",
+    coord:[131.3502,31.6289],
+    zoom:16,
+	extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
+	source: new ol.source.XYZ({
+		url:"http://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
+		maxZoom:19
+	})
+});
+var obi2 = new ol.layer.Tile({
+    title:"飫肥歴史まちあるきマップ",
+    origin:"",
+    detail:"",
+    coord:[131.3502,31.6289],
+    zoom:16,
+	extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
+	source: new ol.source.XYZ({
+		url:"http://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
+		maxZoom:19
+	})
+});

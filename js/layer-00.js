@@ -3,9 +3,9 @@ var useLayersArr2 = null;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,seamlessphoto1,osm1,ort1,tunami1,sinsuisoutei1,kikenkeiryuu1,
-                    kyuukeisyakikenkasyo1,tisitu1,mierune1,ryuuiki1,ecoris1,muro1,csArr1];
+                    kyuukeisyakikenkasyo1,tisitu1,mierune1,ryuuiki1,ecoris1,muro1,obi1,csArr1];
     useLayersArr2 = [pale2,seamlessphoto2,osm2,ort2,tunami2,sinsuisoutei2,kikenkeiryuu2,
-                    kyuukeisyakikenkasyo2,tisitu2,mierune2,ryuuiki2,ecoris2,muro2,csArr2];
+                    kyuukeisyakikenkasyo2,tisitu2,mierune2,ryuuiki2,ecoris2,muro2,obi2,csArr2];
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
