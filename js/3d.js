@@ -4,7 +4,7 @@ $(function(){
     });
     var scene = ol3d1.getCesiumScene();
     var terrain = new Cesium.PngElevationTileTerrainProvider({
-        url:"http://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+        url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
         tilingScheme: new Cesium.GeographicTilingScheme(),
     });
     scene.terrainProvider = terrain;
@@ -23,7 +23,7 @@ $(function(){
     });
     var scene2 = ol3d2.getCesiumScene();
     var terrain = new Cesium.PngElevationTileTerrainProvider({
-        url:"http://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+        url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
         tilingScheme: new Cesium.GeographicTilingScheme(),
     });
     scene2.terrainProvider = terrain;

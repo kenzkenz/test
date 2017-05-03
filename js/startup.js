@@ -10,17 +10,16 @@ $(function(){
     //webストレージから中陣地座標、ズーム率を取得
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");
-    if(center===undefined){
+    if(center==undefined){
         center = ol.proj.fromLonLat([131.423860,31.911069]);//中心地を宮崎市に
     }
-    if(zoom===undefined){
+    if(zoom==undefined){
         zoom = 14;
     }
     var view1 = new ol.View({
         center:center,
         zoom:zoom
     });
-
     //id map1に起動時に表示されるレイヤーをセット
     map1 = new ol.Map({
         target:"map1",
@@ -52,6 +51,26 @@ $(function(){
         localStorage.setItem("lonlat",JSON.stringify(map1.getView().getCenter()));
         localStorage.setItem("zoom",map1.getView().getZoom());
         $("#map1 .zoom-div").text("zoom=" + Math.floor(map1.getView().getZoom()));
+    });
+    //--------------------------------------------------------------------------
+    //現在地取得
+    $("#here-btn").click(function(){
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(
+                function(position){
+                    map1.getView().setCenter(ol.proj.transform([position.coords.longitude,position.coords.latitude],"EPSG:4326","EPSG:3857"));
+                },
+                function(){
+                    alert("座標を取得できませんでした。.")
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout : 5000
+                }
+            );
+        }else{
+            alert("can't use your browser")
+        }
     });
 
     //--------------------------------------------------------------------------

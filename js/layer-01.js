@@ -5,7 +5,7 @@ var pale1 = new ol.layer.Tile({
     detail:"国土地理院の淡色地図",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        url:"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
         minZoom:2,
         maxZoom:18
     })
@@ -16,7 +16,7 @@ var pale2 = new ol.layer.Tile({
     detail:"国土地理院の淡色地図",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        url:"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
         minZoom:2,
         maxZoom:18
     })
@@ -28,7 +28,7 @@ var seamlessphoto1 = new ol.layer.Tile({
     detail:"国土地理院の空中写真",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
+        url:"https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
         minZoom:2,
         maxZoom:18
     })
@@ -39,7 +39,7 @@ var seamlessphoto2 = new ol.layer.Tile({
     detail:"国土地理院の空中写真",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"http://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
+        url:"https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
         minZoom:2,
         maxZoom:18
     })
@@ -64,7 +64,7 @@ var ort1 = new ol.layer.Tile({
     detail:"",
 	extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
+		url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
 		minZoom :1,
 		maxZoom:19
 	})
@@ -75,7 +75,7 @@ var ort2 = new ol.layer.Tile({
     detail:"",
 	extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
+		url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
 		minZoom :1,
 		maxZoom:19
 	})
@@ -88,7 +88,7 @@ var tunami1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:17
 
@@ -100,7 +100,7 @@ var tunami2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:17
 	})
@@ -112,7 +112,7 @@ var sinsuisoutei1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:18
 	})
@@ -123,7 +123,7 @@ var sinsuisoutei2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:18
 	})
@@ -135,7 +135,7 @@ var kikenkeiryuu1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -146,7 +146,7 @@ var kikenkeiryuu2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -158,7 +158,7 @@ var kyuukeisyakikenkasyo1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -169,7 +169,7 @@ var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -227,8 +227,7 @@ var ryuuiki1 = new ol.layer.Tile({
     detail:"<small>本図は国土交通省 国土数値情報「河川」「流域メッシュ」「湖沼」（第2.1版）および国土地理院 地球地図日本「行政界」（第２版）をもとに高根たかね様が作成したものです。国土数値情報は国土計画関連業務のために作成されたデータが副次的に公開されたものであり、国土計画関連業務に差しさわりがない範囲で時間的、位置的精度において現況と誤差が含まれています。本地図を利用される場合はその点に十分ご留意の上ご利用ください。また、国土数値情報 利用約款を遵守しご利用ください。</small>",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>"})],
-		//url:"./php/newproxy.php?url=http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
-        url:"http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
+        url:"./php/proxy-png.php?url=http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
 		minZoom:4,
 		maxZoom:14
 	})
@@ -239,7 +238,7 @@ var ryuuiki2 = new ol.layer.Tile({
     detail:"<small>本図は国土交通省 国土数値情報「河川」「流域メッシュ」「湖沼」（第2.1版）および国土地理院 地球地図日本「行政界」（第２版）をもとに高根たかね様が作成したものです。国土数値情報は国土計画関連業務のために作成されたデータが副次的に公開されたものであり、国土計画関連業務に差しさわりがない範囲で時間的、位置的精度において現況と誤差が含まれています。本地図を利用される場合はその点に十分ご留意の上ご利用ください。また、国土数値情報 利用約款を遵守しご利用ください。</small>",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>"})],
-		url:"http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
+        url:"./php/proxy-png.php?url=http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
 		minZoom:4,
 		maxZoom:14
 	})
@@ -251,7 +250,7 @@ var ecoris1 = new ol.layer.Tile({
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
-		url:"http://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
+		url:"https://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
 		minZoom:5,
 		maxZoom:15
 	})
@@ -262,7 +261,7 @@ var ecoris2 = new ol.layer.Tile({
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
-		url:"http://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
+		url:"https://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
 		minZoom:5,
 		maxZoom:15
 	})
@@ -277,7 +276,7 @@ var muro1 = new ol.layer.Tile({
     zoom:14,
 	//extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+		url:'https://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
         maxZoom:20
 	})
 });
@@ -290,7 +289,7 @@ muro2 = new ol.layer.Tile({
     zoom: 14,
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url: 'http://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+        url: 'https://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
         maxZoom: 20
     })
 });
@@ -303,7 +302,7 @@ var muroQ1 = new ol.layer.Tile({
     zoom:14,
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url:"http://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
+        url:"./php/proxy-jpeg.php?url=https://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
         //minZoom:12,
         maxZoom:21
     })
@@ -316,7 +315,7 @@ var muroQ2 = new ol.layer.Tile({
     zoom: 14,
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url:"http://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
+        url:"./php/proxy-jpeg.php?url=https://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
         //minZoom:12,
         maxZoom:21
     })
@@ -331,7 +330,7 @@ var obi1 = new ol.layer.Tile({
     zoom:16,
 	extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
 	source: new ol.source.XYZ({
-		url:"http://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
+		url:"https://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
 		maxZoom:19
 	})
 });
@@ -343,7 +342,27 @@ var obi2 = new ol.layer.Tile({
     zoom:16,
 	extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
 	source: new ol.source.XYZ({
-		url:"http://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
+		url:"https://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
 		maxZoom:19
 	})
+});
+//------------------------------------------------------------------------------
+//日本CS立体図
+var nihonCs1 = new ol.layer.Tile({
+    title:"日本CS立体図",
+    origin:"<a href='./php/proxy-png.php?url=http://kouapp.main.jp/csmap/japan/csjapan.html' target='_blank'>日本CS立体図</a>",
+    detail:"CS立体図（国土地理院承認番号　平29情使、 第77号）",
+    source: new ol.source.XYZ({
+        url:"./php/proxy-jpeg.php?url=http://kouapp.main.jp/csmap/tile/japan/{z}/{x}/{y}.jpg",
+        maxZoom:15
+    })
+});
+var nihonCs2 = new ol.layer.Tile({
+    title:"日本CS立体図",
+    origin:"<a href='./php/proxy-png.php?url=http://kouapp.main.jp/csmap/japan/csjapan.html' target='_blank'>日本CS立体図</a>",
+    detail:"CS立体図（国土地理院承認番号　平29情使、 第77号）",
+    source: new ol.source.XYZ({
+        url:"./php/proxy-jpeg.php?url=http://kouapp.main.jp/csmap/tile/japan/{z}/{x}/{y}.jpg",
+        maxZoom:15
+    })
 });
