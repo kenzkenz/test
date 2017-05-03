@@ -267,9 +267,10 @@ var ecoris2 = new ol.layer.Tile({
 		maxZoom:15
 	})
 });
+//-------------------------------------------------------------------------------
 //室蘭市オルソ
 var muro1 = new ol.layer.Tile({
-    title:"室蘭市航空写真",
+    title:"H28室蘭市航空写真",
     origin:"<a href='http://www.city.muroran.lg.jp/main/org2260/odlib.php' target='_blank'>むろらんオープンデータライブラリ</a>",
     detail:"",
     coord:[140.973774,42.315226],
@@ -280,17 +281,45 @@ var muro1 = new ol.layer.Tile({
         maxZoom:20
 	})
 });
-var muro2 = new ol.layer.Tile({
-    title:"室蘭市航空写真",
-    origin:"",
+var muro2;
+muro2 = new ol.layer.Tile({
+    title: "H28室蘭市航空写真",
+    origin: "",
+    detail: "",
+    coord: [140.973774, 42.315226],
+    zoom: 14,
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url: 'http://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+        maxZoom: 20
+    })
+});
+//室蘭市オルソ
+var muroQ1 = new ol.layer.Tile({
+    title:"H25室蘭市航空写真",
+    origin:"<a href='http://neogis.net/muroran/man/man_muroran_tile.pdf' target='_blank'>室蘭市オルソ画像航空写真のタイル配信に関しまして</a>",
     detail:"",
     coord:[140.973774,42.315226],
     zoom:14,
-	//extent:transformE([130.66371,31.34280,131.88045,32.87815]),
-	source: new ol.source.XYZ({
-		url:'http://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
-		maxZoom:20
-	})
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"http://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
+        //minZoom:12,
+        maxZoom:21
+    })
+});
+var muroQ2 = new ol.layer.Tile({
+    title: "H25室蘭市航空写真",
+    origin:"<a href='http://neogis.net/muroran/man/man_muroran_tile.pdf' target='_blank'>室蘭市オルソ画像航空写真のタイル配信に関しまして</a>",
+    detail: "",
+    coord: [140.973774, 42.315226],
+    zoom: 14,
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"http://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
+        //minZoom:12,
+        maxZoom:21
+    })
 });
 //------------------------------------------------------------------------------
 //飫肥城

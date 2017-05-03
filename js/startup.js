@@ -20,16 +20,17 @@ $(function(){
         center:center,
         zoom:zoom
     });
+
     //id map1に起動時に表示されるレイヤーをセット
     map1 = new ol.Map({
         target:"map1",
-        layers:[pale1],//raster.jsを参照。paleは地理院単色地図
+        layers:[pale1],
         view:view1
     });
     map2 = new ol.Map({
         target:"map2",
-        layers:[pale2],//raster.jsを参照。paleは地理院単色地図
-        view:view1
+        layers:[pale2],
+        view:view1//最初はview1
     });
     //-----------------------------------------------------------------------------------------
     //中心の十字を作る.

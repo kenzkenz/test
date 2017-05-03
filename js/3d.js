@@ -86,13 +86,13 @@ $(function(){
                 setTimeout(function(){tiltUp(upDown)},20);
             }else{
                 clearTimeout(tiltUp);
-            };
+            }
         };
         if($(this).attr("class").match("cesium-btn-up")){
             tiltUp("up");
         }else{
             tiltUp("down");
-        };
+        }
         return false;
     }).mouseup(function(){
         tiltFlg = false;
@@ -111,17 +111,17 @@ $(function(){
                     ol3d.getCamera().setHeading(head - 0.05);
                 }else{
                     ol3d.getCamera().setHeading(head + 0.05);
-                };
+                }
                 setTimeout(function(){tiltLeft(leftRight)},20);
             }else{
                 clearTimeout(tiltLeft);
-            };
+            }
         };
         if($(this).attr("class").match("cesium-btn-left")){
             tiltLeft("left");
         }else{
             tiltLeft("right");
-        };
+        }
         return false;
     }).mouseup(function(){
         tiltFlg = false;
