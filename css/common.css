@@ -22,9 +22,10 @@ label:hover{
 }
 #map2{
     width:100%;
-    height:100px;
+    height:1px;
     position:relative;
     float:left;
+
 }
 .zoom-div{
     background:white;
@@ -42,7 +43,7 @@ label:hover{
 /*ol31関係---------------------------------------------------------------------*/
 .ol-rotate{
     right:49%;
-    top:20px;
+    top:50px;
 }
 /*1画面上部のボタン--------------------------------------------------------------*/
 .d3d2-div{/*現在使っていない*/
@@ -83,7 +84,6 @@ label:hover{
     width:50px;
     text-align:center;
 }
-
 /*セシウムのボタン-------------------------------------------------------------*/
 .cesium-btn-div{
 	position:absolute;

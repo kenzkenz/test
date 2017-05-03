@@ -36,6 +36,7 @@ $(function(){
 
     //--------------------------------------------------------------------------
     //３Dトグルを操作したとき
+    /*
     $(".d3d2-toggle").change(function(){
         var mapObj = funcMaps($(this))
         if($(this).prop("checked")){
@@ -45,6 +46,19 @@ $(function(){
             eval(mapObj["ol3d"]).setEnabled(false);
             mapObj["element"].find(".cesium-btn-div").hide(500);
         };
+    });
+    */
+    $(".d3d2-btn").click(function(){
+        var mapObj = funcMaps($(this));
+        if($(this).text()==="3D"){
+            eval(mapObj["ol3d"]).setEnabled(true);
+            mapObj["element"].find(".cesium-btn-div").show(500);
+            $(this).text("2D");
+        }else{
+            eval(mapObj["ol3d"]).setEnabled(false);
+            mapObj["element"].find(".cesium-btn-div").hide(500);
+            $(this).text("3D");
+        }
     });
     //--------------------------------------------------------------------------
     //セシウム操作ボタンを移動可能に

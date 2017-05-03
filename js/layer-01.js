@@ -202,8 +202,8 @@ var tisitu2 = new ol.layer.Tile({
 //ミエルネ地図
 var mierune1 = new ol.layer.Tile({
     title:"ミエルネ地図",
-    origin:"",
-    detail:"",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
 		url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
@@ -212,8 +212,8 @@ var mierune1 = new ol.layer.Tile({
 });
 var mierune2 = new ol.layer.Tile({
     title:"ミエルネ地図",
-    origin:"",
-    detail:"",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
 		url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
@@ -223,8 +223,8 @@ var mierune2 = new ol.layer.Tile({
 //川と流域地図
 var ryuuiki1 = new ol.layer.Tile({
     title:"川と流域地図",
-    origin:"",
-    detail:"",
+    origin:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>",
+    detail:"<small>本図は国土交通省 国土数値情報「河川」「流域メッシュ」「湖沼」（第2.1版）および国土地理院 地球地図日本「行政界」（第２版）をもとに高根たかね様が作成したものです。国土数値情報は国土計画関連業務のために作成されたデータが副次的に公開されたものであり、国土計画関連業務に差しさわりがない範囲で時間的、位置的精度において現況と誤差が含まれています。本地図を利用される場合はその点に十分ご留意の上ご利用ください。また、国土数値情報 利用約款を遵守しご利用ください。</small>",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>"})],
 		//url:"./php/newproxy.php?url=http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
@@ -235,8 +235,8 @@ var ryuuiki1 = new ol.layer.Tile({
 });
 var ryuuiki2 = new ol.layer.Tile({
     title:"川と流域地図",
-    origin:"",
-    detail:"",
+    origin:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>",
+    detail:"<small>本図は国土交通省 国土数値情報「河川」「流域メッシュ」「湖沼」（第2.1版）および国土地理院 地球地図日本「行政界」（第２版）をもとに高根たかね様が作成したものです。国土数値情報は国土計画関連業務のために作成されたデータが副次的に公開されたものであり、国土計画関連業務に差しさわりがない範囲で時間的、位置的精度において現況と誤差が含まれています。本地図を利用される場合はその点に十分ご留意の上ご利用ください。また、国土数値情報 利用約款を遵守しご利用ください。</small>",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>"})],
 		url:"http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
@@ -247,7 +247,7 @@ var ryuuiki2 = new ol.layer.Tile({
 //エコリス植生図
 var ecoris1 = new ol.layer.Tile({
     title:"エコリス植生図",
-    origin:"<label><a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a></label>",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
@@ -258,7 +258,7 @@ var ecoris1 = new ol.layer.Tile({
 });
 var ecoris2 = new ol.layer.Tile({
     title:"エコリス植生図",
-    origin:"<a href='http://map.ecoris.info/' target='_blank'><label>エコリス地図タイル</label></a>",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
@@ -270,15 +270,14 @@ var ecoris2 = new ol.layer.Tile({
 //室蘭市オルソ
 var muro1 = new ol.layer.Tile({
     title:"室蘭市航空写真",
-    origin:"",
+    origin:"<a href='http://www.city.muroran.lg.jp/main/org2260/odlib.php' target='_blank'>むろらんオープンデータライブラリ</a>",
     detail:"",
     coord:[140.973774,42.315226],
     zoom:14,
 	//extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://kenzkenz2.xsrv.jp/muroran2/{z}/{x}/{y}.png',
-		minZoom :1,
-		maxZoom:19
+		url:'http://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+        maxZoom:20
 	})
 });
 var muro2 = new ol.layer.Tile({
@@ -289,9 +288,8 @@ var muro2 = new ol.layer.Tile({
     zoom:14,
 	//extent:transformE([130.66371,31.34280,131.88045,32.87815]),
 	source: new ol.source.XYZ({
-		url:'http://kenzkenz2.xsrv.jp/muroran2/{z}/{x}/{y}.png',
-		minZoom :1,
-		maxZoom:19
+		url:'http://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+		maxZoom:20
 	})
 });
 //------------------------------------------------------------------------------

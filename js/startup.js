@@ -10,12 +10,12 @@ $(function(){
     //webストレージから中陣地座標、ズーム率を取得
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");
-    if(center==undefined){
+    if(center===undefined){
         center = ol.proj.fromLonLat([131.423860,31.911069]);//中心地を宮崎市に
-    };
-    if(zoom==undefined){
+    }
+    if(zoom===undefined){
         zoom = 14;
-    };
+    }
     var view1 = new ol.View({
         center:center,
         zoom:zoom
@@ -33,7 +33,7 @@ $(function(){
     });
     //--------------------------------------------------------------------------
     //マップイベント関係
-    //ムーブエンド時にwevストレージに中心座標とズーム率を記憶
+    //ムーブエンド時にwevストレージに中心座標とズーム率を記憶origin:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>",
     map1.on("moveend",function(evt){
         localStorage.setItem("lonlat",JSON.stringify(map1.getView().getCenter()));
         localStorage.setItem("zoom",map1.getView().getZoom());
