@@ -33,9 +33,8 @@ $(function(){
     scene2.terrainProvider.hasVertexNormals = false;
     scene2.terrainProvider.hasWaterMask = false;
     scene2.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
-
     //--------------------------------------------------------------------------
-    //３Dトグルを操作したとき
+    //３Dトグルを操作したとき　現在使っていない。トグルからボタンに変更したため
     /*
     $(".d3d2-toggle").change(function(){
         var mapObj = funcMaps($(this))
@@ -46,8 +45,9 @@ $(function(){
             eval(mapObj["ol3d"]).setEnabled(false);
             mapObj["element"].find(".cesium-btn-div").hide(500);
         };
-    });
-    */
+    });*/
+    //-------------------------------------------------------------------------
+    //3Dボタン
     $(".d3d2-btn").click(function(){
         var mapObj = funcMaps($(this));
         if($(this).text()==="3D"){

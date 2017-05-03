@@ -31,6 +31,19 @@ $(function(){
         layers:[pale2],//raster.jsを参照。paleは地理院単色地図
         view:view1
     });
+    //-----------------------------------------------------------------------------------------
+    //中心の十字を作る.
+    var style =	[{
+        stroke: new ol.style.Stroke({
+            color:"black",
+            width:2
+        }),
+        radius: 15
+    }];
+    var centerTarget1 =  new ol.control.Target ({style:style});
+    var centerTarget2 =  new ol.control.Target ({style:style});
+    map1.addControl(centerTarget1);
+    map2.addControl(centerTarget2);
     //--------------------------------------------------------------------------
     //マップイベント関係
     //ムーブエンド時にwevストレージに中心座標とズーム率を記憶origin:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>",
@@ -41,7 +54,7 @@ $(function(){
     });
 
     //--------------------------------------------------------------------------
-    //クラスbtnにクリック感を付与。汎用性のため非cssで。
+    //クラスbtnにクリック感を付与。汎用性のため非cssで。今は使っていない。タッチがうまくいかないときがあるので
     /*
     $("body").on("mousedown",".btn",function(){
         var marginTop = Number($(this).css("margin-top").replace("px",""));
