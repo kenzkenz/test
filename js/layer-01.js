@@ -88,7 +88,7 @@ var tunami1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:17
 
@@ -100,7 +100,7 @@ var tunami2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:17
 	})
@@ -112,7 +112,7 @@ var sinsuisoutei1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:18
 	})
@@ -123,7 +123,7 @@ var sinsuisoutei2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:18
 	})
@@ -135,7 +135,7 @@ var kikenkeiryuu1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -146,7 +146,7 @@ var kikenkeiryuu2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -158,7 +158,7 @@ var kyuukeisyakikenkasyo1 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -169,11 +169,12 @@ var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
     detail:"",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-		url:"https://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
 		minZoom :1,
 		maxZoom:16
 	})
 });
+//-------------------------------------------------------------------------
 //シームレス地質図
 var tisitu1 = new ol.layer.Tile({
     title:"シームレス地質図",
