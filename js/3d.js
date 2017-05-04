@@ -85,10 +85,21 @@ $(function(){
             if(tiltFlg){
                 var tilt = ol3d.getCamera().getTilt();
                 if(upDown=="up"){
-                    if(tilt<1.5) ol3d.getCamera().setTilt(tilt + 0.05);
+                    if($("#sync-btn").text()=="非同期"){//起動時はこっち
+                        if (tilt < 1.5) ol3d1.getCamera().setTilt(tilt + 0.05);
+                        if (tilt < 1.5) ol3d2.getCamera().setTilt(tilt + 0.05);
+                    }else{
+                        if (tilt < 1.5) ol3d.getCamera().setTilt(tilt + 0.05);
+                    }
                 }else{
-                    if(tilt>0) ol3d.getCamera().setTilt(tilt - 0.05);
-                };
+                    if($("#sync-btn").text()=="非同期") {//起動時はこっち
+                        if (tilt > 0) ol3d1.getCamera().setTilt(tilt - 0.05);
+                        if (tilt > 0) ol3d2.getCamera().setTilt(tilt - 0.05);
+                    }else {
+                        if (tilt > 0) ol3d.getCamera().setTilt(tilt - 0.05);
+                    }
+
+                }
                 setTimeout(function(){tiltUp(upDown)},20);
             }else{
                 clearTimeout(tiltUp);
