@@ -1,5 +1,4 @@
-//------------------------------------------------------------------------------
-//左右のマップのどちらかを判断する。
+//-----------------------------------------------------------------------------
 function funcMaps(element){
 	var mapName = element.parents(".maps").attr("id");
 	var mapElement = element.parents(".maps");
@@ -9,9 +8,9 @@ function funcMaps(element){
 	}else{
 		var ol3d = "ol3d2";
 		var layers = useLayersArr2;
-	};
+	}
 	return {"name":mapName,"element":mapElement,"ol3d":ol3d,"layers":layers};
-};
+}
 //------------------------------------------------------------------------------
 //背景ダイアログの高さを設定する。
 function funcHaikeiTblDivHeight(){
@@ -23,11 +22,11 @@ function funcHaikeiTblDivHeight(){
 		}else{
 			var height = $(window).height()-150;
 		}
-	};
+	}
 	$(".haikei-tbl-div").css("max-height",height + "px");
-};
+}
 //------------------------------------------------------------------------------
 //エクステントの座標系を変換する
 function transformE(extent) {
 	return ol.proj.transformExtent(extent,'EPSG:4326','EPSG:3857');
-};
+}
