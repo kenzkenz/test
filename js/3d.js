@@ -1,4 +1,4 @@
-var o3d1 = null;
+var ol3d1 = null;
 var ol3d2 = null;
 $(function(){
     //--------------------------------------------------------------------------
@@ -19,41 +19,43 @@ $(function(){
     $(".d3d2-btn").click(function(){
         var mapObj = funcMaps($(this));
         if($(this).text()=="3D"){
-            ol3d1 = new olcs.OLCesium({
-                map:map1
-            });
-            var scene = ol3d1.getCesiumScene();
-            var terrain = new Cesium.PngElevationTileTerrainProvider({
-                url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
-                tilingScheme: new Cesium.GeographicTilingScheme(),
-            });
-            scene.terrainProvider = terrain;
-            scene.screenSpaceCameraController._minimumZoomRate = 1;//10000
-            // ズームしたときの，ホイールに対する動作制御。
-            scene.screenSpaceCameraController.minimumZoomDistance = 10;
-            // めり込みにくくするためズーム制限
-            //scene.screenSpaceCameraController.minimumCollisionTerrainHeight=10;
-            scene.terrainProvider.heightmapTerrainQuality = 0.1;
-            scene.terrainProvider.hasVertexNormals = false;
-            scene.terrainProvider.hasWaterMask = false;
-            scene.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
-            //--------------------------------------------------------------------------
-            ol3d2 = new olcs.OLCesium({
-                map:map2
-            });
-            var scene2 = ol3d2.getCesiumScene();
-            var terrain = new Cesium.PngElevationTileTerrainProvider({
-                url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
-                tilingScheme: new Cesium.GeographicTilingScheme(),
-            });
-            scene2.terrainProvider = terrain;
-            scene2.screenSpaceCameraController._minimumZoomRate = 1;
-            scene.screenSpaceCameraController._minimumZoomRate = 1;//10000
-            scene2.screenSpaceCameraController.minimumZoomDistance = 10;
-            scene2.terrainProvider.heightmapTerrainQuality = 0.1;
-            scene2.terrainProvider.hasVertexNormals = false;
-            scene2.terrainProvider.hasWaterMask = false;
-            scene2.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
+            if(ol3d1==null){
+                ol3d1 = new olcs.OLCesium({
+                    map:map1
+                });
+                var scene = ol3d1.getCesiumScene();
+                var terrain = new Cesium.PngElevationTileTerrainProvider({
+                    url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+                    tilingScheme: new Cesium.GeographicTilingScheme(),
+                });
+                scene.terrainProvider = terrain;
+                scene.screenSpaceCameraController._minimumZoomRate = 1;//10000
+                // ズームしたときの，ホイールに対する動作制御。
+                scene.screenSpaceCameraController.minimumZoomDistance = 10;
+                // めり込みにくくするためズーム制限
+                //scene.screenSpaceCameraController.minimumCollisionTerrainHeight=10;
+                scene.terrainProvider.heightmapTerrainQuality = 0.1;
+                scene.terrainProvider.hasVertexNormals = false;
+                scene.terrainProvider.hasWaterMask = false;
+                scene.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
+                //--------------------------------------------------------------------------
+                ol3d2 = new olcs.OLCesium({
+                    map:map2
+                });
+                var scene2 = ol3d2.getCesiumScene();
+                var terrain = new Cesium.PngElevationTileTerrainProvider({
+                    url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+                    tilingScheme: new Cesium.GeographicTilingScheme(),
+                });
+                scene2.terrainProvider = terrain;
+                scene2.screenSpaceCameraController._minimumZoomRate = 1;
+                scene.screenSpaceCameraController._minimumZoomRate = 1;//10000
+                scene2.screenSpaceCameraController.minimumZoomDistance = 10;
+                scene2.terrainProvider.heightmapTerrainQuality = 0.1;
+                scene2.terrainProvider.hasVertexNormals = false;
+                scene2.terrainProvider.hasWaterMask = false;
+                scene2.globe.depthTestAgainstTerrain = true;//trueにすると地形より下のフューチャーは見えないようになる。
+            }
             //----------------------------------------------------------------
             eval(mapObj["ol3d"]).setEnabled(true);
             mapObj["element"].find(".cesium-btn-div").show(500);
