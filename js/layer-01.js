@@ -217,9 +217,29 @@ var mierune2 = new ol.layer.Tile({
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
-		url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+		url:"https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png",
 		maxZoom:15
 	})
+});
+var mieruneMono1 = new ol.layer.Tile({
+    title:"ミエルネ地図モノクロ",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
+        url:"https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png",
+        maxZoom:18
+    })
+});
+var mieruneMono2 = new ol.layer.Tile({
+    title:"ミエルネ地図モノクロ",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
+        url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        maxZoom:18
+    })
 });
 //川と流域地図
 var ryuuiki1 = new ol.layer.Tile({

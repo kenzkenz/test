@@ -84,6 +84,7 @@ function mydialog(options){
 	var htmlStr = "";
 	htmlStr += '<div id="mydialog-' + id + '" class="' + classChar + '">';
 	htmlStr += 	'<div class="dialog-header">';
+    htmlStr += 		'<div class="drag-handle"></div>';
 	htmlStr += 		'<p>' + title + '</p>';
 	htmlStr += 		headerMenu?headerMenu:"";
 	htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '"><i class="fa fa-times fa-2x"></i></span>';
@@ -104,7 +105,7 @@ function mydialog(options){
 		});
 	};
 	dialog.draggable({
-		handle:".dialog-header",
+		handle:".drag-handle",
 		stop:function(){
 			$(this).css({
 				"height":"",
@@ -112,6 +113,10 @@ function mydialog(options){
 			});
 		}
 	});
-	dialog.show();
+	dialog.show(function(){
+        var handleWidth = dialog.find(".drag-handle").width()-dialog.find(".dialog-hidden").width()-10;
+        console.log(handleWidth);
+        dialog.find(".drag-handle").width(handleWidth);
+	});
 	dialogbaseMaxzindex(dialog);
 };

@@ -5,6 +5,7 @@ $(function(){
                 $("#map1").animate({"width":"50%"},500,function(){map1.updateSize();});
                 $("#map2").show().animate({"width":"50%","height":$(window).height()+"px"},0,function(){
                     map2.updateSize();
+                    $("#map2>*").not(".cesium-btn-div,.dialog-base").show(500);
                 });
                 //ダイアログも移動-----------------------------------------------
                 for(var i = 0; i < $(".mydialog").length; i++){
@@ -18,6 +19,7 @@ $(function(){
                 $("#map1").animate({"height":$(window).height()/2+"px"},500,function(){map1.updateSize();});
                 $("#map2").show().animate({"width":"100%","height":$(window).height()/2+"px"},0,function(){
                     map2.updateSize();
+                    $("#map2>*").not(".cesium-btn-div,.dialog-base").show(500);
                 });
                 //ダイアログも移動-----------------------------------------------
                 //未作成
@@ -31,8 +33,10 @@ $(function(){
         }else{
             if($(window).width()>1000){//横幅が大きいときは横に分割
                 $("#map1").animate({"width":"100%"},500,function(){map1.updateSize();});
-                $("#map2").animate({"height":"10px"},0,function(){
+                $("#map2").animate({"height":"1px"},0,function(){
                     map2.updateSize();
+                    $("#map2").hide();
+                    $("#map2>*").hide();
                 }).hide();
                 //ダイアログも移動-----------------------------------------------
                 for(var i = 0; i < $(".mydialog").length; i++){
@@ -44,8 +48,10 @@ $(function(){
                 $(".cesium-btn-div").animate({"left":left+"px"},500);
             }else{//横幅が狭いときは縦に分割
                 $("#map1").animate({"width":"100%","height":$(window).height()+"px"},500,function(){map1.updateSize();});
-                $("#map2").animate({"width":"100%","height":"10px"},0,function(){
+                $("#map2").animate({"width":"100%","height":"1px"},0,function(){
                     map2.updateSize();
+                    $("#map2").hide();
+                    $("#map2>*").hide();
                 }).hide();
                 //ダイアログも移動-----------------------------------------------
                 //未作成
