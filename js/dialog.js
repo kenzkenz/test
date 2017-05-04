@@ -108,7 +108,7 @@ function mydialog(options){
 		stop:function(){
 			$(this).css({
 				"height":"",
-				"width":"",
+				"width":""
 			});
 		}
 	});

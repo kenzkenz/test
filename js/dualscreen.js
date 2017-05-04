@@ -11,11 +11,19 @@ $(function(){
                     var left = $(".mydialog").eq(i).css("left").replace("px","")/2 - $(".mydialog").eq(i).width()/2;
                     $(".mydialog").eq(i).animate({"left":left+"px"},500);
                 }
+                //十字ボタンも移動-----------------------------------------------
+                var left = $(".cesium-btn-div").css("left").replace("px","")/2 - $(".cesium-btn-div").width()/2;
+                $(".cesium-btn-div").animate({"left":left+"px"},500);
             }else{//横幅が狭いときは縦に分割
                 $("#map1").animate({"height":$(window).height()/2+"px"},500,function(){map1.updateSize();});
                 $("#map2").show().animate({"width":"100%","height":$(window).height()/2+"px"},0,function(){
                     map2.updateSize();
                 });
+                //ダイアログも移動-----------------------------------------------
+                //未作成
+                //十字ボタンも移動-----------------------------------------------
+                var top = $(".cesium-btn-div").css("top").replace("px","")/2 - $(".cesium-btn-div").height()/2;
+                $(".cesium-btn-div").animate({"top":top + "px"},500);
             }
             //同期非同期ボタン
             $("#sync-btn").show();
@@ -31,11 +39,19 @@ $(function(){
                     var left = $(".mydialog").eq(i).css("left").replace("px","")*2 + $(".mydialog").eq(i).width();
                     $(".mydialog").eq(i).animate({"left":left+"px"},500);
                 }
+                //十字ボタンも移動-----------------------------------------------
+                var left = $(".cesium-btn-div").css("left").replace("px","")*2 + $(".cesium-btn-div").width();
+                $(".cesium-btn-div").animate({"left":left+"px"},500);
             }else{//横幅が狭いときは縦に分割
                 $("#map1").animate({"width":"100%","height":$(window).height()+"px"},500,function(){map1.updateSize();});
                 $("#map2").animate({"width":"100%","height":"10px"},0,function(){
                     map2.updateSize();
                 }).hide();
+                //ダイアログも移動-----------------------------------------------
+                //未作成
+                //十字ボタンも移動-----------------------------------------------
+                var top = $(".cesium-btn-div").css("top").replace("px","")*2 + $(".cesium-btn-div").height();
+                $(".cesium-btn-div").animate({"top":top + "px"},500);
             }
             //同期非同期ボタン
             $("#sync-btn").hide(500);
