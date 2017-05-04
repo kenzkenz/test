@@ -10,7 +10,7 @@ $(function(){
 			$(this).parents(".dialog-base").remove();
 		}else{
 			$(this).parents(".dialog-base").toggle("drop");
-		};
+		}
 	});
 	//--------------------------------------------------------------------------
 	//ダイアログを最小化する。
@@ -22,7 +22,7 @@ $(function(){
 				thisErement.text("□");
 			}else{
 				thisErement.text("ー");
-			};
+			}
 		});
 	});
 });
@@ -33,10 +33,10 @@ function dialogbaseMaxzindex(dialog){
 	$(".dialog-base").each(function(){
 		if(maxzindex < $(this).zIndex()){
 			maxzindex = $(this).zIndex();
-		};
+		}
 	});
 	dialog.zIndex(maxzindex+1);
-};
+}
 //------------------------------------------------------------------------------
 //ダイアログ生成
 function mydialog(options){
@@ -56,31 +56,31 @@ function mydialog(options){
 			if(left==$(this).css("left")){
 				left = (Number(left.replace(/px/gi,"")) + 0) + "px";
 				top = (Number(top.replace(/px/gi,"")) + 0) + "px";
-			};
+			}
 		});
 	}else{
 		$(".dialog-base:not('.haikei-dialog'):visible").each(function(){
 			if(right==$(this).css("right")){
 				right = (Number(right.replace(/px/gi,"")) + 20) + "px";
 				top = (Number(top.replace(/px/gi,"")) + 20) + "px";
-			};
+			}
 		});
-	};
+	}
 	if($("#mydialog-" + id).length!=0){
 		var dialog = $("#mydialog-" + id);
 		dialog.show();
 		return;
-	};
+	}
 	if(className){
 		var classChar = "dialog-base mydialog " + className;
 	}else{
 		var classChar = "dialog-base mydialog";
-	};
+	}
 	if(rmDialog){
 		rmDialog = rmDialog;
 	}else{
 		rmDialog = false;
-	};
+	}
 	var htmlStr = "";
 	htmlStr += '<div id="mydialog-' + id + '" class="' + classChar + '">';
 	htmlStr += 	'<div class="dialog-header">';
@@ -103,7 +103,7 @@ function mydialog(options){
 			top:top,
 			right:right
 		});
-	};
+	}
 	dialog.draggable({
 		handle:".drag-handle",
 		stop:function(){
@@ -115,8 +115,7 @@ function mydialog(options){
 	});
 	dialog.show(function(){
         var handleWidth = dialog.find(".drag-handle").width()-dialog.find(".dialog-hidden").width()-10;
-        console.log(handleWidth);
         dialog.find(".drag-handle").width(handleWidth);
 	});
 	dialogbaseMaxzindex(dialog);
-};
+}

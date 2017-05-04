@@ -35,7 +35,7 @@ label:hover{
 }
 #here-btn{
     position:absolute;
-    top:10px;
+    top:15px;
     left:10px;
 }
 #sync-btn{
@@ -71,7 +71,7 @@ label:hover{
 .top-div{
     position:absolute;
     z-index:1;
-    top:10px;
+    top:15px;
     right:10px;
 }
 .haikei-btn{

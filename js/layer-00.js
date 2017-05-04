@@ -2,12 +2,12 @@ var useLayersArr1 = null;
 var useLayersArr2 = null;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,seamlessphoto1,osm1,ort1,tunami1,sinsuisoutei1,kikenkeiryuu1,
-                    kyuukeisyakikenkasyo1,tisitu1,mierune1,mieruneMono1,ryuuiki1,ecoris1,muro1,muroQ1,
-                    obi1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,seamlessphoto2,osm2,ort2,tunami2,sinsuisoutei2,kikenkeiryuu2,
-                    kyuukeisyakikenkasyo2,tisitu2,mierune2,mieruneMono2, ryuuiki2,ecoris2,muro2,muroQ2,
-                    obi2,nihonCs2,csArr2];
+    useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,ort1,seamlessphoto1,muro1,muroQ1,
+                    tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,ryuuiki1,ecoris1,
+                    obi1,tisitu1,nihonCs1,csArr1];
+    useLayersArr2 = [pale2,osm2,mierune2,mieruneMono2,ort2,seamlessphoto2,muro2,muroQ2,
+                    tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,ryuuiki2,ecoris2,
+                    obi2,tisitu2,nihonCs2,csArr2];
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
@@ -29,8 +29,13 @@ function funcHaikeiTableCreate(mapElement,mapName){
         }else{//配列のとき
             var prop = layers[i][0].getProperties();
         }
+        if(prop["icon"]) {
+            var icon = prop["icon"] + " ";
+        }else{
+            var icon = "";
+        }
         htmlChar += "<tr>";
-        htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + ">　" + prop["title"] + "</label></td>";
+        htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + "> " + icon +  prop["title"] + "</label></td>";
         htmlChar += "<td class='td-slider'><div class='haikei-slider'></div></td>";
         htmlChar += "<td class='td-sort' title='ドラッグします。'><i class='fa fa-bars fa-lg'></i></td>";
         htmlChar += "<td class='td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
@@ -118,7 +123,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
         var mapObj = funcMaps($(this));
         var layer = mapObj["layers"][$(this).parents("tr").find("input").val()];
         var prop = layer.getProperties();
-        console.log(prop);
         var content = "<table class='info-tbl table table-bordered table-condensed'>";
             content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
             content += "<tr><td>出展</td><td>" + prop["origin"] + "</td></tr>";

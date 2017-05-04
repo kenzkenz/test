@@ -4,6 +4,7 @@ var cs1k1 = new ol.layer.Tile({
     origin:"",
     detail:"",
     extent:transformE([128.4,32.5,129.5306,34.7]),
+    icon:"<i class='fa fa-map-o' style='color:brown;'></i>",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
 		url:"https://mtile.pref.miyazaki.lg.jp/tile/cs/1/{z}/{x}/{-y}.png",
@@ -15,6 +16,7 @@ var cs1k2 = new ol.layer.Tile({
     origin:"",
     detail:"",
     extent:transformE([128.4,32.5,129.5306,34.7]),
+    icon:"<i class='fa fa-map-o' style='color:brown;'></i>",
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],
 		url:"https://mtile.pref.miyazaki.lg.jp/tile/cs/1/{z}/{x}/{-y}.png",
