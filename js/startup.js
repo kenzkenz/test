@@ -63,6 +63,7 @@ $(function(){
         content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='flood-select-open'>海面上昇シミュレーション</a>";
         content += "<div class='flood-select-div'>";
         content += "<select class='selectpicker flood-select'>";
+        content += "<option value='100'>最大値100メートル</option>";
         content += "<option value='200'>最大値200メートル</option>";
         content += "<option value='1000'>最大値1000メートル</option>";
         content += "<option value='2000'>最大値2000メートル</option>";

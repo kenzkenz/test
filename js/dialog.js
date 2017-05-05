@@ -9,7 +9,15 @@ $(function(){
 		if($(this).data("remove")==true){
 			$(this).parents(".dialog-base").remove();
 		}else{
-			$(this).parents(".dialog-base").toggle("drop");
+			var mapWidth = $(this).parents(".maps").width();
+			var dialogLeft = Number($(this).parents(".dialog-base").css("left").replace("px",""));
+			console.log(mapWidth);
+			console.log(dialogLeft);
+			if(mapWidth/2>dialogLeft) {
+                $(this).parents(".dialog-base").toggle("drop");
+            }else{
+                $(this).parents(".dialog-base").toggle("drop",{direction:"right"});
+			}
 		}
 	});
 	//--------------------------------------------------------------------------
@@ -69,7 +77,19 @@ function mydialog(options){
 	}
 	if($("#" + map).find("#mydialog-" + id).length!=0){
 		var dialog = $("#" + map).find("#mydialog-" + id);
-		dialog.toggle("drop");
+
+
+        var mapWidth = $("#" + map).width();
+        var dialogLeft = Number(dialog.css("left").replace("px",""));
+        console.log(mapWidth);
+        console.log(dialogLeft);
+        if(mapWidth/2>dialogLeft) {
+            dialog.toggle("drop");
+        }else{
+            dialog.toggle("drop",{direction:"right"});
+        }
+
+		//dialog.toggle("drop");
 		return;
 	}
 	if(className){
