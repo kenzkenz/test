@@ -7,6 +7,8 @@ $(function(){
         $("#map1").height($(window).height());
     });
     //--------------------------------------------------------------------------
+    $('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
+    //--------------------------------------------------------------------------
     //webストレージから中陣地座標、ズーム率を取得
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");
@@ -31,7 +33,7 @@ $(function(){
         layers:[pale2],
         view:view1//最初はview1
     });
-    //-----------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------
     //中心の十字を作る.
     var style =	[{
         stroke: new ol.style.Stroke({
@@ -53,12 +55,33 @@ $(function(){
         $("#map1 .zoom-div").text("zoom=" + Math.floor(map1.getView().getZoom()));
     });
     //--------------------------------------------------------------------------
+    //メニューボタン
+    $(".menu-btn").click(function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        var content = "作成中";
+        content += "<button type='button' class='sea-btn btn btn-primary btn-block'>海面上昇シミュレーション</button>";
+        content += "<button type='button' class='wiki-btn btn btn-primary btn-block'>Wikimedia Commons</button>";
+        mydialog({
+            id:"menu-dialog-" + mapName,
+            class:"menu-dialog",
+            map:mapName,
+            title:" ",
+            content:content,
+            top:"55px",
+            left:"20px",
+            rmDialog:false
+        });
+        return false;
+    });
+    //--------------------------------------------------------------------------
     //現在地取得
-    $("#here-btn").click(function(){
+    $(".here-btn").click(function(){
+        var mapObj = funcMaps($(this));
         if(navigator.geolocation){
             navigator.geolocation.getCurrentPosition(
                 function(position){
-                    map1.getView().setCenter(ol.proj.transform([position.coords.longitude,position.coords.latitude],"EPSG:4326","EPSG:3857"));
+                    eval(mapObj["name"]).getView().setCenter(ol.proj.transform([position.coords.longitude,position.coords.latitude],"EPSG:4326","EPSG:3857"));
                 },
                 function(){
                     alert("座標を取得できませんでした。.")

@@ -66,9 +66,9 @@ function mydialog(options){
 			}
 		});
 	}
-	if($("#mydialog-" + id).length!=0){
-		var dialog = $("#mydialog-" + id);
-		dialog.show();
+	if($("#" + map).find("#mydialog-" + id).length!=0){
+		var dialog = $("#" + map).find("#mydialog-" + id);
+		dialog.toggle("drop");
 		return;
 	}
 	if(className){
@@ -92,7 +92,7 @@ function mydialog(options){
 	htmlStr += 	'<div class="dialog-content">' + content + '</div>';
 	htmlStr += '</div>';
 	$("#" + map).append(htmlStr);
-	var dialog = $("#mydialog-" + id);
+	var dialog = $("#" + map).find("#mydialog-" + id);
 	if(!right){
 		dialog.css({
 			top:top,

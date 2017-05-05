@@ -16,8 +16,8 @@ label:hover{
     width:100%;
     float:left;
     position:relative;
-    border-right:solid 1px black;
-    border-bottom:solid 1px black;
+    border-right:solid 1px dimgrey;
+    border-bottom:solid 1px dimgray;
     /*高さはstartup.jsで起動時に設定している。*/
 }
 #map2{
@@ -32,11 +32,6 @@ label:hover{
     left:10px;
     bottom:10px;
     z-index:1;
-}
-#here-btn{
-    position:absolute;
-    top:15px;
-    left:10px;
 }
 #sync-btn{
     width:70px;
@@ -62,6 +57,14 @@ label:hover{
     display:none;
 }
 /*1画面上部のボタン--------------------------------------------------------------*/
+.top-left-div{
+    position:absolute;
+    z-index:1;
+    top:15px;
+    left:10px;
+}
+.here-btn{
+}
 .d3d2-div{/*現在使っていない*/
     position:absolute;
     z-index:1;

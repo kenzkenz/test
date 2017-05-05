@@ -42,7 +42,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
         htmlChar += "</tr>";
     }
     htmlChar += "</table></div>";
-    mapElement.find(".dialog-content").html(htmlChar);
+    mapElement.find(".haikei-dialog .dialog-content").html(htmlChar);
     funcHaikeiTblDivHeight();//common.jsにある関数
     mapElement.find(".haikei-slider").eq(0).slider({
         min:0,max:1,value:1,step:0.01,
