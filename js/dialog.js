@@ -50,6 +50,7 @@ function mydialog(options){
 	var top = opts.top;
 	var left = opts.left;
 	var right = opts.right;
+    var width = opts.width;
 	var rmDialog = opts.rmDialog;
 	if(!right){
 		$(".dialog-base:visible").each(function(){
@@ -103,6 +104,9 @@ function mydialog(options){
 			top:top,
 			right:right
 		});
+	}
+	if(width){
+		dialog.css("width",width);
 	}
 	dialog.draggable({
 		handle:".drag-handle",

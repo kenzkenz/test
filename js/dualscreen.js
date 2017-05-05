@@ -5,11 +5,12 @@ $(function(){
                 $("#map1").animate({"width":"50%"},500,function(){map1.updateSize();});
                 $("#map2").show().animate({"width":"50%","height":$(window).height()+"px"},0,function(){
                     map2.updateSize();
-                    $("#map2>*").not(".cesium-btn-div,.dialog-base").show(500);
+                    $("#map2>*").not(".cesium-btn-div,.dialog-base,.flood-div").show(500);
                 });
                 //ダイアログも移動-----------------------------------------------
                 for(var i = 0; i < $(".mydialog").length; i++){
                     var left = $(".mydialog").eq(i).css("left").replace("px","")/2 - $(".mydialog").eq(i).width()/2;
+                    if(left<0) left = 15;
                     $(".mydialog").eq(i).animate({"left":left+"px"},500);
                 }
                 //十字ボタンも移動-----------------------------------------------
@@ -19,7 +20,7 @@ $(function(){
                 $("#map1").animate({"height":$(window).height()/2+"px"},500,function(){map1.updateSize();});
                 $("#map2").show().animate({"width":"100%","height":$(window).height()/2+"px"},0,function(){
                     map2.updateSize();
-                    $("#map2>*").not(".cesium-btn-div,.dialog-base").show(500);
+                    $("#map2>*").not(".cesium-btn-div,.dialog-base,.flood-div").show(500);
                 });
                 //ダイアログも移動-----------------------------------------------
                 //未作成

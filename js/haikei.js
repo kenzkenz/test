@@ -1,6 +1,5 @@
 $(function(){
     $("body").on("click",".haikei-btn",function(){
-        //console.log(11111)
         var mapObj = funcMaps($(this));
         if ($("#mydialog-haikei-dialog-" + mapObj["name"]).length === 0) {
             var id = "haikei-dialog-" + mapObj["name"];

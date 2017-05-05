@@ -7,7 +7,7 @@ $(function(){
         $("#map1").height($(window).height());
     });
     //--------------------------------------------------------------------------
-    $('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
+    //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
     //--------------------------------------------------------------------------
     //webストレージから中陣地座標、ズーム率を取得
     var center = JSON.parse(localStorage.getItem("lonlat"));
@@ -59,9 +59,17 @@ $(function(){
     $(".menu-btn").click(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-        var content = "作成中";
-        content += "<button type='button' class='sea-btn btn btn-primary btn-block'>海面上昇シミュレーション</button>";
-        content += "<button type='button' class='wiki-btn btn btn-primary btn-block'>Wikimedia Commons</button>";
+        var content = "";
+        content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='flood-select-open'>海面上昇シミュレーション</a>";
+        content += "<div class='flood-select-div'>";
+        content += "<select class='selectpicker flood-select'>";
+        content += "<option value='200'>最大値200メートル</option>";
+        content += "<option value='1000'>最大値1000メートル</option>";
+        content += "<option value='2000'>最大値2000メートル</option>";
+        content += "<option value='4000'>最大値4000メートル</optionvalue>";
+        content += "</select></div>";
+        content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
+        content += "<button type='button' class='reset-btn btn btn-primary btn-block'>座標リセット</button>";
         mydialog({
             id:"menu-dialog-" + mapName,
             class:"menu-dialog",
@@ -70,10 +78,16 @@ $(function(){
             content:content,
             top:"55px",
             left:"20px",
+            width:"230px",
             rmDialog:false
+        });
+        $(".flood-toggle").bootstrapToggle();
+        $(".flood-select").selectpicker({
+            "selectedText":"cat"
         });
         return false;
     });
+
     //--------------------------------------------------------------------------
     //現在地取得
     $(".here-btn").click(function(){
@@ -94,6 +108,12 @@ $(function(){
         }else{
             alert("can't use your browser")
         }
+    });
+    //--------------------------------------------------------------------------
+    $("body").on("click",".reset-btn",function() {
+        location.reload(true);
+        localStorage.clear();
+        location.reload(true);
     });
 
     //--------------------------------------------------------------------------
