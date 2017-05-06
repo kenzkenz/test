@@ -77,8 +77,6 @@ function mydialog(options){
 		var dialog = $("#" + map).find("#mydialog-" + id);
         var mapWidth = $("#" + map).width();
         var dialogLeft = Number(dialog.css("left").replace("px",""));
-        console.log(mapWidth);
-        console.log(dialogLeft);
         if(mapWidth/2>dialogLeft) {
             dialog.toggle("drop");
         }else{
