@@ -57,7 +57,7 @@ var mierune2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
-        url:"https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png",
+        url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
         maxZoom:15
     })
 });
@@ -131,6 +131,31 @@ var seamlessphoto2 = new ol.layer.Tile({
         url:"https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
         minZoom:2,
         maxZoom:18
+    })
+});
+//40年前の写真
+var gazo11 = new ol.layer.Tile({
+    title:"国土地理院_40年前の写真",
+    origin:"国土地理院",
+    detail:"",
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
+        minZoom :10,
+        maxZoom:17
+    })
+});
+var gazo12 = new ol.layer.Tile({
+    title:"国土地理院_40年前の写真",
+    origin:"国土地理院",
+    detail:"",
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
+        minZoom :10,
+        maxZoom:17
     })
 });
 //室蘭市オルソH28

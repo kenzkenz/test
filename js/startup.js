@@ -1,4 +1,7 @@
 var map1 = null;
+var map2 = null;
+var swipeCtr1 = null;
+var swipeCtr2 = null;
 $(function(){
     //--------------------------------------------------------------------------
     //起動時に画面リサイズ
@@ -7,6 +10,7 @@ $(function(){
         $("#map1").height($(window).height());
     });
     //--------------------------------------------------------------------------
+    //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
     //--------------------------------------------------------------------------
     //webストレージから中陣地座標、ズーム率を取得
@@ -28,7 +32,7 @@ $(function(){
         layers:[pale1],
         view:view1,
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
-            new ol.interaction.DragRotateAndZoom()
+            new ol.interaction.DragRotateAndZoom()//shift+ドラッグで回転可能に
         ])
     });
     map2 = new ol.Map({
@@ -53,6 +57,10 @@ $(function(){
     })[0];
     pinchRotateInteraction2.setActive(false);
     //--------------------------------------------------------------------------
+    //スワイプコントロール　後の処理はlayer-00.jsのfuncHaikeiLayerSort()に
+    swipeCtr1 = new ol.control.Swipe();
+    swipeCtr2 = new ol.control.Swipe();
+    //--------------------------------------------------------------------------
     //中心の十字を作る.
     var style =	[{
         stroke: new ol.style.Stroke({
@@ -72,52 +80,6 @@ $(function(){
         localStorage.setItem("lonlat",JSON.stringify(map1.getView().getCenter()));
         localStorage.setItem("zoom",map1.getView().getZoom());
         $("#map1 .zoom-div").text("zoom=" + Math.floor(map1.getView().getZoom()));
-    });
-    //--------------------------------------------------------------------------
-    //メニューボタン
-    $(".menu-btn").click(function(){
-        var mapObj = funcMaps($(this));
-        var mapName = mapObj["name"];
-        var content = "";
-        content += "<input type='checkbox' data-toggle='toggle' class='wiki-toggle'>：<a class='hidden-div-open'>Wikimedia Commons</a>";
-        content += "<hr class='my-hr'>";
-        content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='hidden-div-open'>海面上昇シミュレーション</a>";
-        content += "<div class='hidden-div'>";
-        content += "スライダーの最大値を設定します。";
-        content += "<select class='selectpicker flood-select'>";
-        content += "<option value='100'>最大値100メートル</option>";
-        content += "<option value='200'>最大値200メートル</option>";
-        content += "<option value='1000'>最大値1000メートル</option>";
-        content += "<option value='2000'>最大値2000メートル</option>";
-        content += "<option value='4000'>最大値4000メートル</optionvalue>";
-        content += "</select></div>";
-        content += "<hr class='my-hr'>";
-        content += "<input type='checkbox' data-toggle='toggle' class='rotate-toggle' checked>：<a class='hidden-div-open'>スマホ2D時回転ロック</a>";
-        content += "<div class='hidden-div'>";
-        content += "onにするとスマホ、タブレットのタッチ操作での回転を止めます。</div>";
-        content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
-        content += "<button type='button' class='reset-btn btn btn-primary btn-block'>座標リセット</button>";
-        mydialog({
-            id:"menu-dialog-" + mapName,
-            class:"menu-dialog",
-            map:mapName,
-            title:" ",
-            content:content,
-            top:"55px",
-            left:"20px",
-            width:"230px",
-            rmDialog:false
-        });
-        $(".flood-toggle,.rotate-toggle,.wiki-toggle").bootstrapToggle();
-        $(".flood-select").selectpicker({
-            "selectedText":"cat"
-        });
-        return false;
-    });
-    //--------------------------------------------------------------------------
-    //隠しているメニューを表示
-    $("body").on("click",".hidden-div-open",function(){
-        $(this).next().slideToggle(500);
     });
     //--------------------------------------------------------------------------
     //ピンチ時の回転を制御
@@ -158,16 +120,9 @@ $(function(){
                 }
             );
         }else{
-            alert("can't use your browser")
+            alert("お使いのブラウザには座標取得機能がありません。")
         }
     });
-    //--------------------------------------------------------------------------
-    $("body").on("click",".reset-btn",function() {
-        location.reload(true);
-        localStorage.clear();
-        location.reload(true);
-    });
-
     //--------------------------------------------------------------------------
     //クラスbtnにクリック感を付与。汎用性のため非cssで。今は使っていない。タッチがうまくいかないときがあるので
     /*

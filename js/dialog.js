@@ -11,8 +11,6 @@ $(function(){
 		}else{
 			var mapWidth = $(this).parents(".maps").width();
 			var dialogLeft = Number($(this).parents(".dialog-base").css("left").replace("px",""));
-			console.log(mapWidth);
-			console.log(dialogLeft);
 			if(mapWidth/2>dialogLeft) {
                 $(this).parents(".dialog-base").toggle("drop");
             }else{
@@ -77,8 +75,6 @@ function mydialog(options){
 	}
 	if($("#" + map).find("#mydialog-" + id).length!=0){
 		var dialog = $("#" + map).find("#mydialog-" + id);
-
-
         var mapWidth = $("#" + map).width();
         var dialogLeft = Number(dialog.css("left").replace("px",""));
         console.log(mapWidth);

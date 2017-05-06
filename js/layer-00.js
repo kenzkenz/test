@@ -2,10 +2,10 @@ var useLayersArr1 = null;
 var useLayersArr2 = null;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,ort1,seamlessphoto1,muro1,muroQ1,
+    useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,ort1,seamlessphoto1,gazo11,muro1,muroQ1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,ryuuiki1,ecoris1,
                     obi1,tisitu1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,osm2,mierune2,mieruneMono2,ort2,seamlessphoto2,muro2,muroQ2,
+    useLayersArr2 = [pale2,osm2,mierune2,mieruneMono2,ort2,seamlessphoto2,gazo12,muro2,muroQ2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,ryuuiki2,ecoris2,
                     obi2,tisitu2,nihonCs2,csArr2];
 });
@@ -57,12 +57,13 @@ function funcHaikeiTableCreate(mapElement,mapName){
         }
     }).disableSelection();
     //チェックボックスをカスタム
-    mapElement.find("input").iCheck({
+    mapElement.find("input:checkbox[name='haikei-check']").iCheck({
         checkboxClass:"icheckbox_flat-blue",
-        radioClass:"iradio_square-red"
+        radioClass:"iradio_flat-blue"
     });
-    //チェックボックスを押した時★★★★★
-    mapElement.find("input").on("ifChanged",function(event){
+    //チェックボックスを押した時★★★★★-------------------------------------------------------------------------
+    $("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
+    //mapElement.find("input").on("ifChanged",function(event){
         //背景レイヤーの追加、削除
         var layer = layers[Number($(this).val())];
         var trErement = $(this).parents("tr");
@@ -144,6 +145,23 @@ function funcHaikeiTableCreate(mapElement,mapName){
 //------------------------------------------------------------------------------
 //背景レイヤーの重なり順をtr順に変更する。
 function funcHaikeiLayerSort(mapElement,mapName){
+
+    //--------------------------------------
+    //swipeのため
+    if(mapName=="map1"){
+        var swipeCtr = swipeCtr1;
+    }else{
+        var swipeCtr = swipeCtr2;
+    }
+    if(mapElement.find(".swipe-toggle").prop("checked")){
+        eval(mapName).addControl(swipeCtr);
+    }else{
+        eval(mapName).removeControl(swipeCtr);
+    }
+    //縦分割か横分割か
+    swipeCtr.set("orientation",$("input:radio[name='swipe-radio-" + mapName + "']:checked").val());
+    //-------------------------------------
+
     mapElement.find(".haikei-tbl tbody tr").each(function(e){
         if(mapName=="map1"){
             var layer = useLayersArr1[Number($(this).find("input:checkbox").val())];
@@ -152,10 +170,40 @@ function funcHaikeiLayerSort(mapElement,mapName){
         }
         if(!Array.isArray(layer)){
             layer.setZIndex(-e);
+
+            //------------------------------
+            //swipeのため
+            swipeCtr.removeLayer(layer);
+            if(e==1) {
+                swipeCtr.addLayer(layer,true);
+            }else if(e==0) {
+                swipeCtr.addLayer(layer);
+            }
+            //------------------------------
+
         }else{
             for (var i = 0; i < layer.length; i++){
                 layer[i].setZIndex(-e);
+
+                //------------------------------
+                //swipeのため
+                swipeCtr.removeLayer(layer);
+                if(e==1) {
+                    swipeCtr.addLayer(layer,true);
+                }else if(e==0) {
+                    swipeCtr.addLayer(layer);
+                }
+                //------------------------------
             }
         }
     });
 }
+//------------------------------------------------------------------------
+$(function(){
+    //------------------------------------------------------------
+    //スワイプトグルを操作したとき
+    $("body").on("change",".swipe-toggle",function(){
+        var mapObj = funcMaps($(this));
+        funcHaikeiLayerSort(mapObj["element"], mapObj["name"]);
+    })
+});
