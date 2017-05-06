@@ -34,6 +34,19 @@ $(function(){
         view:view1//最初はview1
     });
     //--------------------------------------------------------------------------
+    //デフォルトで設定されているインタラクション（PinchRotate）を使用不可に
+    var interactions1 = map1.getInteractions().getArray();
+    var pinchRotateInteraction1 = interactions1.filter(function(interaction) {
+        return interaction instanceof ol.interaction.PinchRotate;
+    })[0];
+    pinchRotateInteraction1.setActive(false);
+    //map2---
+    var interactions2 = map2.getInteractions().getArray();
+    var pinchRotateInteraction2 = interactions2.filter(function(interaction) {
+        return interaction instanceof ol.interaction.PinchRotate;
+    })[0];
+    pinchRotateInteraction2.setActive(false);
+    //--------------------------------------------------------------------------
     //中心の十字を作る.
     var style =	[{
         stroke: new ol.style.Stroke({
@@ -60,8 +73,9 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var content = "";
-        content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='flood-select-open'>海面上昇シミュレーション</a>";
-        content += "<div class='flood-select-div'>";
+        content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='hidden-div-open'>海面上昇シミュレーション</a>";
+        content += "<div class='hidden-div'>";
+        content += "スライダーの最大値を設定します。";
         content += "<select class='selectpicker flood-select'>";
         content += "<option value='100'>最大値100メートル</option>";
         content += "<option value='200'>最大値200メートル</option>";
@@ -69,6 +83,10 @@ $(function(){
         content += "<option value='2000'>最大値2000メートル</option>";
         content += "<option value='4000'>最大値4000メートル</optionvalue>";
         content += "</select></div>";
+        content += "<hr class='my-hr'>";
+        content += "<input type='checkbox' data-toggle='toggle' class='rotate-toggle' checked>：<a class='hidden-div-open'>2D時画面回転ロック</a>";
+        content += "<div class='hidden-div'>";
+        content += "offにするとスマホ、タブレットのタッチ操作での不要な回転を止めます。</div>";
         content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
         content += "<button type='button' class='reset-btn btn btn-primary btn-block'>座標リセット</button>";
         mydialog({
@@ -82,13 +100,38 @@ $(function(){
             width:"230px",
             rmDialog:false
         });
-        $(".flood-toggle").bootstrapToggle();
+        $(".flood-toggle,.rotate-toggle").bootstrapToggle();
         $(".flood-select").selectpicker({
             "selectedText":"cat"
         });
         return false;
     });
+    //--------------------------------------------------------------------------
+    //隠しているメニューを表示
+    $("body").on("click",".hidden-div-open",function(){
+        $(this).next().slideToggle(500);
+    });
+    //--------------------------------------------------------------------------
+    //ピンチ時の回転を制御
+    $("body").on("change",".rotate-toggle",function(){
+        var interactions1 = map1.getInteractions().getArray();
+        var pinchRotateInteraction1 = interactions1.filter(function(interaction) {
+            return interaction instanceof ol.interaction.PinchRotate;
+        })[0];
+        //map2---
+        var interactions2 = map2.getInteractions().getArray();
+        var pinchRotateInteraction2 = interactions2.filter(function(interaction) {
+            return interaction instanceof ol.interaction.PinchRotate;
+        })[0];
 
+        if($(this).prop("checked")){
+            pinchRotateInteraction1.setActive(false);
+            pinchRotateInteraction2.setActive(false);
+        }else{
+            pinchRotateInteraction1.setActive(true);
+            pinchRotateInteraction2.setActive(true);
+        }
+    });
     //--------------------------------------------------------------------------
     //現在地取得
     $(".here-btn").click(function(){

@@ -75,11 +75,13 @@ $(function(){
     });
     //--------------------------------------------------------------------------
     //
+    /*
     $("body").on("click",".flood-select-open",function(){
         var mapObj = funcMaps($(this));
         mapObj["element"].find(".flood-select-div").slideToggle(500);
     });
-    $("body").on("change",".flood-select",function() {
+    */
+    $("body").on("change",".flood-select",function(){
         var mapObj = funcMaps($(this));
         var val = Number($(this).val());
         if(val){
