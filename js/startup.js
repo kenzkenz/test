@@ -26,12 +26,18 @@ $(function(){
     map1 = new ol.Map({
         target:"map1",
         layers:[pale1],
-        view:view1
+        view:view1,
+        interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
+            new ol.interaction.DragRotateAndZoom()
+        ])
     });
     map2 = new ol.Map({
         target:"map2",
         layers:[pale2],
-        view:view1//最初はview1
+        view:view1,//最初はview1
+        interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
+            new ol.interaction.DragRotateAndZoom()
+        ])
     });
     //--------------------------------------------------------------------------
     //デフォルトで設定されているインタラクション（PinchRotate）を使用不可に
@@ -73,6 +79,8 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var content = "";
+        content += "<input type='checkbox' data-toggle='toggle' class='wiki-toggle'>：<a class='hidden-div-open'>Wikimedia Commons</a>";
+        content += "<hr class='my-hr'>";
         content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='hidden-div-open'>海面上昇シミュレーション</a>";
         content += "<div class='hidden-div'>";
         content += "スライダーの最大値を設定します。";
@@ -84,9 +92,9 @@ $(function(){
         content += "<option value='4000'>最大値4000メートル</optionvalue>";
         content += "</select></div>";
         content += "<hr class='my-hr'>";
-        content += "<input type='checkbox' data-toggle='toggle' class='rotate-toggle' checked>：<a class='hidden-div-open'>2D時画面回転ロック</a>";
+        content += "<input type='checkbox' data-toggle='toggle' class='rotate-toggle' checked>：<a class='hidden-div-open'>スマホ2D時回転ロック</a>";
         content += "<div class='hidden-div'>";
-        content += "offにするとスマホ、タブレットのタッチ操作での不要な回転を止めます。</div>";
+        content += "onにするとスマホ、タブレットのタッチ操作での回転を止めます。</div>";
         content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
         content += "<button type='button' class='reset-btn btn btn-primary btn-block'>座標リセット</button>";
         mydialog({
@@ -100,7 +108,7 @@ $(function(){
             width:"230px",
             rmDialog:false
         });
-        $(".flood-toggle,.rotate-toggle").bootstrapToggle();
+        $(".flood-toggle,.rotate-toggle,.wiki-toggle").bootstrapToggle();
         $(".flood-select").selectpicker({
             "selectedText":"cat"
         });

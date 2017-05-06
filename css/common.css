@@ -4,6 +4,16 @@ body{
     font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', '游ゴシック  Medium', meiryo, sans-serif;
     overflow:hidden;
 }
+#loading-fa{
+    position:absolute;
+    top:40%;
+    left:50%;
+    margin-top:-21px;
+    margin-left:-27px;
+    z-index:9999;
+    display:none;
+    color:rgba(51,122,183,0.9);
+}
 label{/*bootstrapのcssと被っている*/
     font-weight:normal;
     cursor:pointer;

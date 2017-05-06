@@ -1,3 +1,12 @@
+$(document).ajaxStart(function (){
+    console.log("ajax-start");
+    $("#loading-fa").show(500);
+});
+$(document).ajaxStop(function (){
+    console.log("ajax-stop");
+    $("#loading-fa").hide(500);
+});
+
 //-----------------------------------------------------------------------------
 function funcMaps(element){
 	var mapName = element.parents(".maps").attr("id");
