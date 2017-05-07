@@ -5,17 +5,17 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var content = "";
-        content += "<input type='checkbox' data-toggle='toggle' class='swipe-toggle'>：<a class='hidden-div-open'>画面スワイプ</a>";
+        content += "<input type='checkbox' data-toggle='toggle' class='swipe-toggle bs-toggle'>：<a class='hidden-div-open'>画面スワイプ</a>";
         content += "<div class='hidden-div'>";
         content += "分割方法を設定します。<br>";
         content += "　<label><input type='radio' name='swipe-radio-" + mapName + "' value='horizontal' checked> 横分割</label>";
         content += "　<label><input type='radio' name='swipe-radio-" + mapName + "' value='vertival'> 縦分割</label></div>";
         content += "<hr class='my-hr'>";
-        content += "<input type='checkbox' data-toggle='toggle' class='wiki-toggle'>：<a class='hidden-div-open'>Wikimedia Commons</a>";
+        content += "<input type='checkbox' data-toggle='toggle' class='wiki-toggle bs-toggle'>：<a class='hidden-div-open'>Wikimedia Commons</a>";
         content += "<div class='hidden-div'>";
         content += "ウィキメディア・コモンズに投稿された写真を表示します。</div>";
         content += "<hr class='my-hr'>";
-        content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle'>：<a class='hidden-div-open'>海面上昇シミュレーション</a>";
+        content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle bs-toggle'>：<a class='hidden-div-open'>海面上昇シミュレーション</a>";
         content += "<div class='hidden-div'>";
         content += "スライダーの最大値を設定します。";
         content += "<select class='selectpicker flood-select'>";
@@ -26,7 +26,7 @@ $(function(){
         content += "<option value='4000'>最大値4000メートル</optionvalue>";
         content += "</select></div>";
         content += "<hr class='my-hr'>";
-        content += "<input type='checkbox' data-toggle='toggle' class='rotate-toggle' checked>：<a class='hidden-div-open'>スマホ2D時回転ロック</a>";
+        content += "<input type='checkbox' data-toggle='toggle' class='rotate-toggle bs-toggle' checked>：<a class='hidden-div-open'>スマホ2D時回転ロック</a>";
         content += "<div class='hidden-div'>";
         content += "onにするとスマホ、タブレットのタッチ操作での回転を止めます。</div>";
         content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
@@ -43,7 +43,7 @@ $(function(){
             rmDialog:false,
             hide:true
         });
-        $(".flood-toggle,.rotate-toggle,.wiki-toggle,.swipe-toggle").bootstrapToggle();
+        $(".bs-toggle").bootstrapToggle();
         $(".flood-select").selectpicker({
             "selectedText": "cat"
         });
