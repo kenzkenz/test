@@ -6,6 +6,8 @@
     border: 1px solid #cccccc;
     bottom: 12px;
     left: -50px;
+    font-size: 12px;/*追加*/
+    border-radius: 6px;/*追加*/
 }
 
 .ol-popup:after, .ol-popup:before {
@@ -34,8 +36,10 @@
 
 .ol-popup-content {
     min-width: 170px;
-    max-height: 200px;
+    /*max-height: 200px;*/
+    max-height: 300px;/*200pxから300pxに修正*/
     overflow-x: auto;
+    padding: 0 0.5em;/*追加　スクロールになる*/
 }
 
 .ol-popup-closer {
