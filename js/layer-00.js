@@ -50,6 +50,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
             layers[0].setOpacity(ui.value);
         }
     });
+
     mapElement.find(".haikei-tbl tbody").sortable({
         handle:".td-sort",
         update:function(event,ui){
@@ -61,6 +62,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
         checkboxClass:"icheckbox_flat-blue",
         radioClass:"iradio_flat-blue"
     });
+
     //チェックボックスを押した時★★★★★-------------------------------------------------------------------------
     $("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
     //mapElement.find("input").on("ifChanged",function(event){
@@ -117,29 +119,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
                 }
             }
         });
-    });
-    //--------------------------------------------------------------------------
-    //インフォメーションを押したとき
-    $("body").on("click",".td-info",function(){
-        var mapObj = funcMaps($(this));
-        var layer = mapObj["layers"][$(this).parents("tr").find("input").val()];
-        var prop = layer.getProperties();
-        var content = "<table class='info-tbl table table-bordered table-condensed'>";
-            content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
-            content += "<tr><td>出展</td><td>" + prop["origin"] + "</td></tr>";
-            content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
-            content += "</table>";
-        mydialog({
-            id:"info-dialog",
-            class:"info-dialog",
-            map:mapObj["name"],
-            title:"インフォメーション",
-            content:content,
-            top:"90px",
-            right:"20px",
-            rmDialog:true
-        });
-        return false;
     });
 }
 //------------------------------------------------------------------------------
@@ -200,6 +179,30 @@ function funcHaikeiLayerSort(mapElement,mapName){
 }
 //------------------------------------------------------------------------
 $(function(){
+    //--------------------------------------------------------------------------
+    //インフォメーションを押したとき
+    $("body").on("click",".td-info",function(){
+        console.log(111);
+        var mapObj = funcMaps($(this));
+        var layer = mapObj["layers"][$(this).parents("tr").find("input").val()];
+        var prop = layer.getProperties();
+        var content = "<table class='info-tbl table table-bordered table-condensed'>";
+        content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
+        content += "<tr><td>出展</td><td>" + prop["origin"] + "</td></tr>";
+        content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
+        content += "</table>";
+        mydialog({
+            id:"info-dialog",
+            class:"info-dialog",
+            map:mapObj["name"],
+            title:"インフォメーション",
+            content:content,
+            top:"90px",
+            right:"20px",
+            rmDialog:true
+        });
+        return false;
+    });
     //------------------------------------------------------------
     //スワイプトグルを操作したとき
     $("body").on("change",".swipe-toggle",function(){

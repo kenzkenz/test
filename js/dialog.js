@@ -58,6 +58,7 @@ function mydialog(options){
 	var right = opts.right;
     var width = opts.width;
 	var rmDialog = opts.rmDialog;
+	var hide = opts.hide
 	if(!right){
 		$(".dialog-base:visible").each(function(){
 			if(left==$(this).css("left")){
@@ -131,9 +132,15 @@ function mydialog(options){
 			});
 		}
 	});
+    if(hide) dialog.css("visibility","hidden");//生成はするが隠す場合
 	dialog.show(function(){
+		//ドラッグのハンドルの幅を調整するために。スマホ、タブレットのため。PCだけだったら必要ない。
         var handleWidth = dialog.find(".drag-handle").width()-dialog.find(".dialog-hidden").width()-10;
         dialog.find(".drag-handle").width(handleWidth);
+        if(hide){
+            dialog.css("visibility","visible");//次回の呼び出し時のために見えるようにする。
+        	dialog.hide();
+        }
 	});
 	dialogbaseMaxzindex(dialog);
 }

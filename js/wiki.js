@@ -6,30 +6,30 @@ $(function(){
         lang:"ja"
     });
     wikiCommonsLayer1 = new ol.layer.Vector({
-        name: 'wikiCommonsLayer',
-        source: vectorSource,
-        maxResolution: 152, // > zoom 10
-        renderOrder: ol.ordering.yOrdering(),
+        name:'wikiCommonsLayer',
+        source:vectorSource,
+        maxResolution:152, // > zoom 10
+        renderOrder:ol.ordering.yOrdering(),
         //style: function() { return iconStyle }
         style:new ol.style.Style({
             image:new ol.style.Circle({
-                radius: 10,
-                fill: new ol.style.Fill({color:"green"}),
-                stroke: new ol.style.Stroke({color:"white",width:1})
+                radius:10,
+                fill:new ol.style.Fill({color:"green"}),
+                stroke:new ol.style.Stroke({color:"white",width:1})
             })
         })
     });
     wikiCommonsLayer2 = new ol.layer.Vector({
-        name: 'wikiCommonsLayer',
-        source: vectorSource,
-        maxResolution: 100, // > zoom 10
-        renderOrder: ol.ordering.yOrdering(),
+        name:'wikiCommonsLayer',
+        source:vectorSource,
+        maxResolution:100, // > zoom 10
+        renderOrder:ol.ordering.yOrdering(),
         //style: function() { return iconStyle }
         style:new ol.style.Style({
             image:new ol.style.Circle({
-                radius: 10,
-                fill: new ol.style.Fill({color:"green"}),
-                stroke: new ol.style.Stroke({color:"white",width:1})
+                radius:10,
+                fill:new ol.style.Fill({color:"green"}),
+                stroke:new ol.style.Stroke({color:"white",width:1})
             })
         })
     });

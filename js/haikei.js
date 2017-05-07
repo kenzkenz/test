@@ -11,7 +11,8 @@ $(function(){
                 title: "背景レイヤー",
                 content: content,
                 top: "55px",
-                right: "20px"
+                right: "20px",
+                hide:true
             });
             funcHaikeiTableCreate(mapObj["element"], mapObj["name"]);//ファンクションはlayer-00.js
         }else {
@@ -28,6 +29,6 @@ $(function(){
     //---------------------------------------------------------------------------
     //この２行は特になくても構わない。事前にメニューを読み込んで表示を滑らかにしているだけ
     $(".haikei-btn").click();
-    $(".haikei-dialog").hide();
+    //$(".haikei-dialog").hide();
     //---------------------------------------------------------------------------
 });

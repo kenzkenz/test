@@ -32,15 +32,16 @@ $(function(){
         content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
         content += "<button type='button' class='reset-btn btn btn-primary btn-block'>座標リセット</button>";
         mydialog({
-            id: "menu-dialog-" + mapName,
-            class: "menu-dialog",
-            map: mapName,
-            title: " ",
-            content: content,
-            top: "55px",
-            left: "20px",
-            width: "230px",
-            rmDialog: false
+            id:"menu-dialog-" + mapName,
+            class:"menu-dialog",
+            map:mapName,
+            title:" ",
+            content:content,
+            top:"55px",
+            left:"20px",
+            width:"230px",
+            rmDialog:false,
+            hide:true
         });
         $(".flood-toggle,.rotate-toggle,.wiki-toggle,.swipe-toggle").bootstrapToggle();
         $(".flood-select").selectpicker({
@@ -74,6 +75,6 @@ $(function(){
     //--------------------------------------------------------------------------
     //この２行は特になくても構わない。事前にメニューを読み込んで表示を滑らかにしているだけ
     $(".menu-btn").click();
-    $(".menu-dialog").hide();
+    //$(".menu-dialog").hide();
     //--------------------------------------------------------------------------
 });
