@@ -2,10 +2,10 @@ var useLayersArr1 = null;
 var useLayersArr2 = null;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,ort1,seamlessphoto1,gazo11,muro1,muroQ1,
+    useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,amArr1,ort1,seamlessphoto1,gazo11,muro1,muroQ1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,ryuuiki1,ecoris1,
                     obi1,tisitu1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,osm2,mierune2,mieruneMono2,ort2,seamlessphoto2,gazo12,muro2,muroQ2,
+    useLayersArr2 = [pale2,osm2,mierune2,mieruneMono2,amArr2,ort2,seamlessphoto2,gazo12,muro2,muroQ2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,ryuuiki2,ecoris2,
                     obi2,tisitu2,nihonCs2,csArr2];
 });
@@ -50,7 +50,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
             layers[0].setOpacity(ui.value);
         }
     });
-
     mapElement.find(".haikei-tbl tbody").sortable({
         handle:".td-sort",
         update:function(event,ui){
