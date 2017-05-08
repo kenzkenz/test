@@ -84,6 +84,10 @@ label:hover{
     margin-bottom: 5px;
     border-top: 1px solid gainsboro;
 }
+.dropdown-div{
+    display:inline-block;
+    position:relative;
+}
 /*----------------------------------------------------------------------------*/
 /*現在不使用。汎用性を求めてjsで書き直した。
 .btn:active{

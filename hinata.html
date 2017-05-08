@@ -36,6 +36,14 @@
         <script src="js/dualscreen.js"></script>
         <script src="js/flood.js"></script>
         <script src="js/wiki.js"></script>
+        <script src="js/estat.js"></script>
+        <script src="js/resas.js"></script>
+        <!--
+        <link rel="stylesheet" href="js/chosen/chosen.css" />
+        <script src="js/chosen/chosen.jquery.ja.js"></script>
+        -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
         <script src="js/icheck/icheck.min.js"></script>
         <script src="js/ol3ext/targetcontrol.js"></script>
@@ -55,6 +63,13 @@
             <div class="top-left-div">
                 <button type="button" class="menu-btn btn btn-primary"><i class='fa fa-bars fa-lg'></i></button>
                 <button type="button" class="here-btn btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="現在地取得"><i class='fa fa-map-marker fa-lg'></i></button>
+                <div class="dropdown-div">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">統計<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="estat-a">統計局e-stat</a></li>
+                        <li><a href="#" class="resas-a">RESAS</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="top-div">
                 <button type="button" class="dualscreen-btn btn btn-primary">2画面</button>

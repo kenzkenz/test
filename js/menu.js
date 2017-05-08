@@ -18,7 +18,7 @@ $(function(){
         content += "<input type='checkbox' data-toggle='toggle' class='flood-toggle bs-toggle'>：<a class='hidden-div-open'>海面上昇シミュレーション</a>";
         content += "<div class='hidden-div'>";
         content += "スライダーの最大値を設定します。";
-        content += "<select class='selectpicker flood-select'>";
+        content += "<select class='flood-select'>";
         content += "<option value='100'>最大値100メートル</option>";
         content += "<option value='200'>最大値200メートル</option>";
         content += "<option value='1000'>最大値1000メートル</option>";
