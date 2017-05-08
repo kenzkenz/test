@@ -63,7 +63,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
     });
 
     //チェックボックスを押した時★★★★★-------------------------------------------------------------------------
-    $("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
+    mapElement.find("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
     //mapElement.find("input").on("ifChanged",function(event){
         //背景レイヤーの追加、削除
         var layer = layers[Number($(this).val())];
@@ -181,10 +181,13 @@ $(function(){
     //--------------------------------------------------------------------------
     //インフォメーションを押したとき
     $("body").on("click",".td-info",function(){
-        console.log(111);
         var mapObj = funcMaps($(this));
         var layer = mapObj["layers"][$(this).parents("tr").find("input").val()];
-        var prop = layer.getProperties();
+        if(!Array.isArray(layer)){
+            var prop = layer.getProperties();
+        }else{//配列のとき
+            var prop = layer[0].getProperties();
+        }
         var content = "<table class='info-tbl table table-bordered table-condensed'>";
         content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
         content += "<tr><td>出展</td><td>" + prop["origin"] + "</td></tr>";
