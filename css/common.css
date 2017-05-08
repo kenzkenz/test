@@ -219,3 +219,10 @@ label:hover{
 .primary:hover{
     color:tomato;
 }
+
+.select2-container .select2-choice {
+    padding: 5px 10px;
+    height: 40px;
+    width: 132px;
+    font-size: 11.2em;
+}

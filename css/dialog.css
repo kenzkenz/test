@@ -5,7 +5,7 @@
 	box-shadow: 10px 10px 10px rgba(0,0,0,0.4);
 	border:1px solid rgba(51,122,183,1.0);
 	display:none;
-	z-index:99999;
+	z-index:3;
 }
 .dialog-header{
 	position:relative;
