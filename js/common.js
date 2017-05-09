@@ -1,12 +1,9 @@
 $(document).ajaxStart(function (){
-    console.log("ajax-start");
     $("#loading-fa").show(500);
 });
 $(document).ajaxStop(function (){
-    console.log("ajax-stop");
     $("#loading-fa").hide(500);
 });
-
 //-----------------------------------------------------------------------------
 function funcMaps(element){
 	var mapName = element.parents(".maps").attr("id");
@@ -33,6 +30,7 @@ function funcHaikeiTblDivHeight(){
 		}
 	}
 	$(".haikei-tbl-div").css("max-height",height + "px");
+    $(".estat-tbl-div").css("max-height",height-20 + "px");
 }
 //------------------------------------------------------------------------------
 //エクステントの座標系を変換する
