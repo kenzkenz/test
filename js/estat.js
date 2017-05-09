@@ -1,4 +1,6 @@
 $(function(){
+	var cityDataAr = null;
+	//----------------------------------------------------------------------------------------------
 	$(".estat-a").click(function(){
 		var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
@@ -86,7 +88,6 @@ $(function(){
 			};
 			var zinkouAjax = function(){
 				return new Promise(function(resolve,reject){
-					//var statsdataId = "C00200502" + ("0" + val).slice(-2);
 					var statsdataId = "C00200502" + area;
 					var cdcat01 = "A1101";//人口
 					$.ajax({
@@ -106,7 +107,6 @@ $(function(){
 			};
 			//------------------------------------------------------------------
 			Promise.all([cityAjax(),zinkouAjax()]).then(function(results){
-				console.log(results);
 				//---------------------------------
 				var cityAr = results[0]["json"]["data"];
 				var tblHtml = "<table class='estat-tbl table table-bordered table-hover'>";
@@ -121,9 +121,8 @@ $(function(){
 					tblHtml += "</tr>"
 				}
 				tblHtml += "</table>";
-				$("#" + mapName + " .estat-tbl-div").html(tblHtml);
+				$("#" + mapName + " .estat-tbl-div").html("<div class='estat-year-div'>年度</div>" + tblHtml);
 				var zinkouAr = JSON.parse(results[1])["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
-				console.log(zinkouAr);
 				zinkouTdSet(zinkouAr,mapName)
 				funcHaikeiTblDivHeight();//common.jsにある関数
 				//---------------------------------
@@ -133,8 +132,92 @@ $(function(){
 		//表を選択したとき
 		$("#" + mapName + " .estat-table-select").on("change",function(){
 			console.log($(this).val());
+            var sid = $("#" + mapName + " .estat-pref-select").val().substr(0,2);//例45
+            var cdcat01 = $(this).val();
+            var estatAjax = function(){//プロミスのファンクション
+               return new Promise(function(resolve,reject){
+					/*
+					if(cityCodeAr[0].slice(-3)!="000"){
+						var sid = cityCodeAr[0].substring(0,2);//各都道府県の市区町村
+					}else{
+						var sid = "";//全国
+					};
+					*/
+                    var statsdataId = "C00200502" + sid;
+                    $.ajax({
+                        type:"GET",
+                        url:"php/estat-select.php",
+                        dataType:"json",
+                        data:{
+                            statsdataId:statsdataId,
+                            cdcat01:cdcat01
+                        },
+						}).done(function(json){
+                        	resolve(json["jsontext"])
+						}).fail(function(json){
+							console.log("失敗!");
+                    });
+                });
+            };
+
+            estatAjax().then(function(jsonText){
+            	//33岡山県がデータがないようだ。
+            	//console.log(JSON.parse(jsonText))
+                cityDataAr = JSON.parse(jsonText)["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
+                var yearAr = cityDataAr[0]["VALUE"];
+                var option = "";
+                for(i=0;i<yearAr.length;i++){
+                	if(yearAr.length-1==i) {
+                        option += "<option value='" + i + "' selected>" + yearAr[i]["@time"] + "</option>";
+                    }else{
+                        option += "<option value='" + i + "'>" + yearAr[i]["@time"] + "</option>";
+					}
+                }
+                var selectBox = "<select class='estat-year-select'>" + option + "</select>";
+                if(yearAr.length>0){
+                    $("#" + mapName + " .estat-year-div").html(selectBox + "年　" + $(".estat-table-select option:selected").text());
+                    var unit = cityDataAr[0]["VALUE"][0]["@unit"];
+                }else{
+                    $("#" + mapName + " .estat-year-div").html(cityDataAr[0]["VALUE"]["@time"] + "年　" + $(".estat-table-select option:selected").text());
+                    var unit = cityDataAr[0]["VALUE"]["@unit"];
+                }
+                $("#" + mapName + " .estat-unit-td").html(unit);
+              	estatTdSet(mapName)
+            })
 		});
 	});
+	//-----------------------------------------------------------------------------
+    $("body").on("change",".estat-year-select",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+		var tgtYear = $(this).val();
+        estatTdSet(mapName,tgtYear);
+    });
+	//-----------------------------------------------------------------------------
+	function estatTdSet(mapName,tgtYear){
+        for (i=0; i<cityDataAr.length; i++){
+			if(!tgtYear) tgtYear = cityDataAr[i]["VALUE"].length - 1;//最後の年を取得している。
+            if(cityDataAr[i]["VALUE"].length>0){
+            	try {
+                    var erement = $("#" + mapName + " .tr-" + cityDataAr[i]["VALUE"][tgtYear]["@area"]);
+                    erement.find(".estat-value-td").html(cityDataAr[i]["VALUE"][tgtYear]["$"]);
+                }catch(e){
+                    erement.find(".estat-value-td").html("");
+				}
+                //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
+                //erement.find(".zinkouwariTd").html(zinkouwari);
+            }else{
+            	try {
+                    var erement = $("#" + mapName + " .tr-" + cityDataAr[i]["VALUE"]["@area"]);
+                    erement.find(".estat-value-td").html(cityDataAr[i]["VALUE"]["$"]);
+                }catch(e){
+                    erement.find(".estat-value-td").html("");
+				}
+                //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
+                //erement.find(".zinkouwariTd").html(zinkouwari);
+            };
+        }
+	}
 	//--------------------------------------------------------------------------
 	function zinkouTdSet(zinkouAr,mapName){
 		for (i=0; i<zinkouAr.length; i++){

@@ -1,8 +1,5 @@
 <?php
-$USER= 'root';
-$PW= 'P@ssw0rd';
-$dnsinfo= "mysql:dbname=mapdb;host=localhost;charset=utf8";
-$pdo = new PDO($dnsinfo,$USER,$PW);
+require_once "pwd.php";
 //SQL文------------------------------------------------------------------------------------------
 //$mysql = $_POST["sql"];
  $mysql = "SELECT * FROM tblestat WHERE statsdataId LIKE :statsdataId AND cdcat01 LIKE :cdcat01";
