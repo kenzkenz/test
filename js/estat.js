@@ -146,7 +146,6 @@ $(function(){
                         prefname:prefName
                     }
                 }).done(function(json){
-                    console.log(json)
                     var geojsonObject = json.geojson;
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
@@ -226,7 +225,6 @@ $(function(){
 		//----------------------------------------------------------------------
 		//表を選択したとき
 		$("#" + mapName + " .estat-table-select").on("change",function(){
-			console.log($(this).val());
 			var selectVal = $("#" + mapName + " .estat-pref-select").val();
 			if(selectVal!="pref") {
                 var sid = $("#" + mapName + " .estat-pref-select").val().substr(0, 2);//例45
@@ -236,13 +234,6 @@ $(function(){
             var cdcat01 = $(this).val();
             var estatAjax = function(){//プロミスのファンクション
                return new Promise(function(resolve,reject){
-					/*
-					if(cityCodeAr[0].slice(-3)!="000"){
-						var sid = cityCodeAr[0].substring(0,2);//各都道府県の市区町村
-					}else{
-						var sid = "";//全国
-					};
-					*/
                     var statsdataId = "C00200502" + sid;
                     $.ajax({
                         type:"GET",
@@ -261,7 +252,7 @@ $(function(){
             };
             estatAjax().then(function(jsonText){
             	//33岡山県がデータがないようだ。
-            	//console.log(JSON.parse(jsonText))
+            	console.log(JSON.parse(jsonText))
                 cityDataAr = JSON.parse(jsonText)["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
                 var yearAr = cityDataAr[0]["VALUE"];
                 var option = "";
@@ -312,7 +303,8 @@ $(function(){
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
 				try {
-                    valueAr.push(Number(cityDataAr[i]["VALUE"][tgtYear]["$"]));//色をつけるための前準備
+                    var num = Number(cityDataAr[i]["VALUE"][tgtYear]["$"]);
+                    if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }else{
             	try {
@@ -323,8 +315,9 @@ $(function(){
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
-				try {
-                    valueAr.push(Number(cityDataAr[i]["VALUE"]["$"]));
+                try {
+                    var num = Number(cityDataAr[i]["VALUE"][tgtYear]["$"]);
+                    if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }
         }
