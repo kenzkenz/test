@@ -7,11 +7,12 @@ $proxy = array(
 );
 $proxy_context = stream_context_create($proxy);
 $tgtUrl = $_GET["tgtUrl"];
+$statsDataId = $_GET["statsDataId"];
 //パラメータ作成
 $params = array(
     "appId"=>"63bd852098e1a13aeea70ed78cba31f9f3918d2f",
     //"statsDataId"=>"C0020050245000",
-    "statsDataId"=>"C0020050245201",
+    "statsDataId"=>$statsDataId,
     "cntGetFlg"=>"Y"
 );
 // URLエンコード
