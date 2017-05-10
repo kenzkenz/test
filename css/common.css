@@ -229,13 +229,13 @@ label:hover{
 /*estat関係--------------------------------------------------------------------*/
 .estat-tbl-div{
     /*margin-top:10px;*/
-    max-height:200px;
+    /*max-height:200px;*/
     overflow:auto;
 }
 .estat-tbl th{
     font-weight:normal;
     font-size:10px;
-    text-align:center;
+    /*text-align:center;*/
     padding:2px!important;
 }
 .estat-tbl td{

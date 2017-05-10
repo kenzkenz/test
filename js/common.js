@@ -5,6 +5,23 @@ $(document).ajaxStop(function (){
     $("#loading-fa").hide(500);
 });
 //-----------------------------------------------------------------------------
+function funcColor100(valueAr) {
+    var max = Math.max.apply(null,valueAr);
+    var min = Math.min.apply(null,valueAr);
+    var minM = 0;
+    if (min < 0) {//最小値がマイナスだったとき
+        console.log(min);
+        max = max;
+        minM = min;
+        min = 0;
+    }
+    //var d3Color = d3.interpolateLab("white", "red");
+    var plus100 = (max - min) / 100;//最大値と最小値の差を1としたとき0.01あたりの差
+    //var d3ColorM = d3.interpolateLab("white", "blue");
+    var minus100 = (0 - minM) / 100;
+    return [plus100,minus100,min];
+}
+//-----------------------------------------------------------------------------
 function funcMaps(element){
 	var mapName = element.parents(".maps").attr("id");
 	var mapElement = element.parents(".maps");
@@ -30,7 +47,7 @@ function funcHaikeiTblDivHeight(){
 		}
 	}
 	$(".haikei-tbl-div").css("max-height",height + "px");
-    $(".estat-tbl-div").css("max-height",height-20 + "px");
+    $(".estat-tbl-div").css("max-height",height-50 + "px");
 }
 //------------------------------------------------------------------------------
 //エクステントの座標系を変換する
