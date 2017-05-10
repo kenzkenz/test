@@ -4,6 +4,87 @@ $(function(){
 	var cityDataAr = null;
 	var citySelectOption = null;
 	var prefSelectOption = null;
+
+    var cityTableAjax = function(){
+        return new Promise(function(resolve,reject){
+            //estatの表情報を取得してセレクトボックスのオプションを作る。市町村用
+            var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
+            $.ajax({
+                type:"get",
+                url:"php/proxy-estat.php",
+                dataType:"json",
+                data:{
+                    tgtUrl:tgtUrl,
+                    statsDataId:"C0020050245201",
+                    cntGetFlg:"Y"
+                }
+            }).done(function(json){
+                var metainfoAr = json["json"]["GET_META_INFO"]["METADATA_INF"]["CLASS_INF"]["CLASS_OBJ"][1]["CLASS"];
+                var option = "<option value='99'>統計表を選択</option>";
+                for (i=0; i<metainfoAr.length; i++){
+                    option += "<option value='" + metainfoAr[i]["@code"] + "'>" + (i+1) + "-"  + metainfoAr[i]["@name"] + "</option>";
+                }
+                citySelectOption = option;
+                //$("#" + mapName + " .estat-table-select").html(option);
+                //$.unblockUI();
+                //resolve();
+            }).fail(function(){
+                console.log("セレクトボックス作成失敗!");
+            });
+        });
+    };
+    var prefTableAjax = function(){
+        return new Promise(function(resolve,reject){
+            //estatの表情報を取得してセレクトボックスのオプションを作る。全国用（都道府県）
+            var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
+            $.ajax({
+                type:"get",
+                url:"php/proxy-estat.php",
+                dataType:"json",
+                data:{
+                    tgtUrl:tgtUrl,
+                    statsDataId:"C0020050245000",
+                    cntGetFlg:"Y"
+                }
+            }).done(function(json){
+                var metainfoAr = json["json"]["GET_META_INFO"]["METADATA_INF"]["CLASS_INF"]["CLASS_OBJ"][1]["CLASS"];
+                var option = "<option value='99'>統計表を選択</option>";
+                for (i=0; i<metainfoAr.length; i++){
+                    option += "<option value='" + metainfoAr[i]["@code"] + "'>" + (i+1) + "-"  + metainfoAr[i]["@name"] + "</option>";
+                }
+                prefSelectOption = option;
+                //resolve();
+            }).fail(function(){
+                console.log("セレクトボックス作成失敗!");
+            });
+        });
+    };
+    //ここは本当は必要ない。最初にアクセスしておくと二回目が早いようなので。
+    //国交省のapiを使用　http://www.land.mlit.go.jp/webland/api.html#todofukenlist
+    var tgtUrl = "http://www.land.mlit.go.jp/webland/api/CitySearch?";
+    var area = 45;
+    var cityAjax = function () {
+        return new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "GET",
+                url: "php/proxy-webland.php",
+                dataType: "json",
+                data: {
+                    tgtUrl: tgtUrl,
+                    area: area
+                }
+            }).done(function (json) {
+                //resolve(json);
+            }).fail(function () {
+                console.log("失敗!");
+            });
+        });
+    };
+    //下三つは特にプロミスの必要はない。
+    cityAjax();
+    cityTableAjax();
+    prefTableAjax();
+
 	//----------------------------------------------------------------------------------------------
 	$(".estat-a").click(function(){
 		var mapObj = funcMaps($(this));
@@ -11,9 +92,10 @@ $(function(){
 		//既に存在しているときは抜ける。
 		if($("#mydialog-estat-dialog-" + mapName).length!=0){
 			$("#mydialog-estat-dialog-" + mapName).show();
+            eval(mapName).addLayer(eval("estatLayer" + mapName));
 			return;
 		}
-        $.blockUI({message:null});
+        //$.blockUI({message:null});
         var content = "";
 			content += "<select class='estat-pref-select'></select>";
 			content += "<select class='estat-table-select'></select>";
@@ -42,7 +124,9 @@ $(function(){
 		$("#" + mapName + " .estat-table-select").select2({
 			width:"250px"
 		});
+        $("#" + mapName + " .estat-table-select").html(citySelectOption);
         //------------------------------------------------------------------------------------------
+        /*
         var cityTableAjax = function(){
             return new Promise(function(resolve,reject){
 				//estatの表情報を取得してセレクトボックスを作る。市町村用
@@ -100,6 +184,7 @@ $(function(){
         Promise.all([cityTableAjax(),prefTableAjax()]).then(function(results){
             $.unblockUI();
         });
+        */
 		//ここまでセレクトボックス作成
 		//-----------------------------------------------------------------------------------------
 		//都道府県セレクトボックスを選択したとき
@@ -281,6 +366,12 @@ $(function(){
 		});
 	});
 	//-----------------------------------------------------------------------------
+    $("body").on("click",".estat-dialog .dialog-hidden",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        eval(mapName).removeLayer(eval("estatLayer" + mapName));
+    });
+	//-----------------------------------------------------------------------------
     $("body").on("change",".estat-year-select",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
@@ -290,6 +381,7 @@ $(function(){
 	//----------------------------------------------------------------------------
 	// tdに数値等をセットしていく関数
 	function estatTdSet(mapName,tgtYear){
+        $("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
 		var valueAr = [];
         for (i=0; i<cityDataAr.length; i++){
 			if(!tgtYear) tgtYear = cityDataAr[i]["VALUE"].length - 1;//最後の年を取得している。
@@ -358,6 +450,7 @@ $(function(){
             $(this).find("td").css({
                 background:rgba
             });
+            //$("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
         });
 	}
 	//----------------------------------------------------------------------------
