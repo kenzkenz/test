@@ -10,7 +10,6 @@ function funcColor100(valueAr) {
     var min = Math.min.apply(null,valueAr);
     var minM = 0;
     if (min < 0) {//最小値がマイナスだったとき
-        console.log(min);
         max = max;
         minM = min;
         min = 0;
