@@ -1,7 +1,7 @@
 $(function(){
 	//ダイアログをクリックしたときにそのダイアログを最前面にする。
 	$("body").on("click",".dialog-base",function(){
-		dialogbaseMaxzindex($(this))
+		dialogbaseMaxzindex($(this));
 	});
 	//--------------------------------------------------------------------------
 	//ダイアログを閉じる
@@ -18,19 +18,16 @@ $(function(){
 			}
 		}
 	});
+    //--------------------------------------------------------------------------
+    //ダイアログを最小化する。
+    $("body").on("click",".mydialog .dialog-min",function(){
+        $(this).parents(".dialog-base").find(".minmax-div").hide(500);
+    });
 	//--------------------------------------------------------------------------
-	//ダイアログを最小化する。
-	$("body").on("click",".mydialog .dialog-minmax",function(){
-		var thisErement = $(this);
-		var targetErement = $(this).parents(".dialog-base").find(".minimize");
-		targetErement.toggle(500,function(){
-			if(targetErement.css("display")=="none") {
-				thisErement.text("□");
-			}else{
-				thisErement.text("ー");
-			}
-		});
-	});
+	//ダイアログを最大化する。
+    $("body").on("click",".mydialog .dialog-max",function(){
+        $(this).parents(".dialog-base").find(".minmax-div").show(500);
+    });
 });
 //------------------------------------------------------------------------------
 //z-indexを最大に
@@ -58,7 +55,8 @@ function mydialog(options){
 	var right = opts.right;
     var width = opts.width;
 	var rmDialog = opts.rmDialog;
-	var hide = opts.hide
+	var hide = opts.hide;
+	var minMax = opts.minMax;
 	if(!right){
 		$(".dialog-base:visible").each(function(){
 			if(left==$(this).css("left")){
@@ -83,7 +81,6 @@ function mydialog(options){
         }else{
             dialog.toggle("drop",{direction:"right"});
         }
-
 		//dialog.toggle("drop");
 		return;
 	}
@@ -103,7 +100,12 @@ function mydialog(options){
     htmlStr += 		'<div class="drag-handle"></div>';
 	htmlStr += 		'<p>' + title + '</p>';
 	htmlStr += 		headerMenu?headerMenu:"";
-	htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '"><i class="fa fa-times fa-2x"></i></span>';
+	if(minMax){
+        htmlStr += '<span class="dialog-min winicon"><i class="fa fa-window-minimize fa-2x"></i></span>';
+        htmlStr += '<span class="dialog-max winicon"><i class="fa fa-window-maximize fa-2x"></i></span>';
+    }
+    htmlStr += 		'<span class="dialog-hidden winicon" data-remove="' + rmDialog + '"><i class="fa fa-window-close-o fa-2x"></i></span>';
+    //htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '"><i class="fa fa-times fa-2x"></i></span>';
 	htmlStr += 	'</div>';
 	htmlStr += 	'<div class="dialog-content">' + content + '</div>';
 	htmlStr += '</div>';
@@ -135,7 +137,13 @@ function mydialog(options){
     if(hide) dialog.css("visibility","hidden");//生成はするが隠す場合
 	dialog.show(function(){
 		//ドラッグのハンドルの幅を調整するために。スマホ、タブレットのため。PCだけだったら必要ない。
-        var handleWidth = dialog.find(".drag-handle").width()-dialog.find(".dialog-hidden").width()-10;
+		var winiconAr = dialog.find(".winicon");
+		var winiconsWidth = 0;
+        for(i=0;i<winiconAr.length;i++){
+            winiconsWidth = winiconsWidth + winiconAr.eq(i).width() + 7;
+        }
+        //var handleWidth = dialog.find(".drag-handle").width()-dialog.find(".winicon").width()-15;
+        var handleWidth = dialog.find(".drag-handle").width() - winiconsWidth - 15;
         dialog.find(".drag-handle").width(handleWidth);
         if(hide){
             dialog.css("visibility","visible");//次回の呼び出し時のために見えるようにする。

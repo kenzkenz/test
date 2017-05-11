@@ -14,6 +14,8 @@ function funcColor100(valueAr) {
         minM = min;
         min = 0;
     }
+    //console.log(max);
+	//console.log(min);
     //var d3Color = d3.interpolateLab("white", "red");
     var plus100 = (max - min) / 100;//最大値と最小値の差を1としたとき0.01あたりの差
     //var d3ColorM = d3.interpolateLab("white", "blue");

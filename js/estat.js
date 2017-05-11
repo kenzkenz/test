@@ -4,7 +4,6 @@ $(function(){
 	var cityDataAr = null;
 	var citySelectOption = null;
 	var prefSelectOption = null;
-
     var cityTableAjax = function(){
         return new Promise(function(resolve,reject){
             //estatの表情報を取得してセレクトボックスのオプションを作る。市町村用
@@ -63,8 +62,8 @@ $(function(){
     //国交省のapiを使用　http://www.land.mlit.go.jp/webland/api.html#todofukenlist
     var tgtUrl = "http://www.land.mlit.go.jp/webland/api/CitySearch?";
     var area = 45;
-    var cityAjax = function () {
-        return new Promise(function (resolve, reject) {
+    var cityAjax = function(){
+        return new Promise(function (resolve,reject){
             $.ajax({
                 type: "GET",
                 url: "php/proxy-webland.php",
@@ -84,7 +83,6 @@ $(function(){
     cityAjax();
     cityTableAjax();
     prefTableAjax();
-
 	//----------------------------------------------------------------------------------------------
 	$(".estat-a").click(function(){
 		var mapObj = funcMaps($(this));
@@ -100,20 +98,21 @@ $(function(){
 			content += "<select class='estat-pref-select'></select>";
 			content += "<select class='estat-table-select'></select>";
 			content += "<div class='estat-year-div'></div>";
-			content += "<div class='estat-tbl-div'></div>";
+			content += "<div class='estat-tbl-div minmax-div'></div>";
 		mydialog({
 			id:"estat-dialog-" + mapName,
 			class:"estat-dialog",
 			map:mapName,
-			title:"e-stat　作成中",
+			title:"e-stat",
 			content:content,
 			top:"55px",
 			left:"20px",
 			//width:"400px",
 			rmDialog:false,
-			//hide:true
+			//hide:true,
+            minMax:true
 		});
-		var option = "<option value=''>都道府県を選択</option><option value='pref'>全国</option>";
+		var option = "<option value=''>都道府県</option><option value='pref'>全国</option>";
         for(var i = 0; i <prefAr.length; i++){
         	option += "<option value='" + prefAr[i]["id"] + "'>" + prefAr[i]["id"].substr(0,2) + "-" + prefAr[i]["name"] +  "</option>";
         }
@@ -197,16 +196,15 @@ $(function(){
                     format: new ol.format.GeoJSON()
                 })
                 estatLayerCreate(vectorSource,mapName);
-
-                eval("estatLayer" + mapName).getSource().once("change", function(evt){//
+                eval("estatLayer" + mapName).getSource().once("change", function(evt){
                     var extent = eval("estatLayer" + mapName).getSource().getExtent();
                     eval(mapName).getView().fit(extent,eval(mapName).getSize());
                 });
-
                 var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
                 tblHtml += "<thead><tr class='info'><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
                 for (var i = 0; i < prefAr.length; i++) {
                     tblHtml += "<tr class='tr-" + prefAr[i]["id"] + "'>";
+
                     tblHtml += "<td>" + prefAr[i]["id"] + "</td>";
                     tblHtml += "<td class='estat-city-td'>" + prefAr[i]["name"] + "</td>";
                     tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
@@ -287,9 +285,10 @@ $(function(){
                     //---------------------------------
                     var cityAr = results[0]["json"]["data"];
                     var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
-                    tblHtml += "<thead><tr class='info'><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
+                    tblHtml += "<thead><tr class='info'><th></th></th><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
                     for (var i = 0; i < cityAr.length; i++) {
                         tblHtml += "<tr class='tr-" + cityAr[i]["id"] + "'>";
+                        tblHtml += "<td class='estat-lank-td'></td>";
                         tblHtml += "<td>" + cityAr[i]["id"] + "</td>";
                         tblHtml += "<td class='estat-city-td'>" + cityAr[i]["name"] + "</td>";
                         tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
@@ -408,24 +407,28 @@ $(function(){
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
                 try {
-                    var num = Number(cityDataAr[i]["VALUE"][tgtYear]["$"]);
+                    var num = Number(cityDataAr[i]["VALUE"]["$"]);
                     if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }
         }
 		if($("#" + mapName + " .estat-tbl .header").length==0){//初めてのとき
-            $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[3,1]]});
+            $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
         }else{//２回目以降のとき
             var html = $("#" + mapName + " .estat-tbl-div").html();
             $("#" + mapName + " .estat-tbl-div").html(html);
-            $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[3,1]]});
+            $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
 		}
+
+
+
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
         var min = color100Ar[2];
         var d3Color = d3.interpolateLab("white", "red");
         var d3ColorM = d3.interpolateLab("white", "blue");
-        $("#" + mapName + " .estat-tbl tbody tr").each(function(){
+        $("#" + mapName + " .estat-tbl tbody tr").each(function(i){
+            $(this).find(".estat-lank-td").text(i+1);
         	var tgt = ".estat-value-td";
             var value = Number($(this).find(tgt).text());
             if(value>0){//値がプラスだったとき
@@ -433,31 +436,65 @@ $(function(){
                 var color0 = new RGBColor(d3Color(c100));
                 var rgb = new RGBColor(d3Color(c100)).toRGB();
                 var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
+                var targetFillColor = d3Color(c100);
             }else{//値がマイナスだったとき
                 var c100 = (0-value)/color100/100;
                 var color0 = new RGBColor(d3ColorM(c100));
                 var rgb = new RGBColor(d3ColorM(c100)).toRGB();
                 var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
+                var targetFillColor = d3ColorM(c100);
             }
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
                 if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){
+                    var prevFillColor = features[i]["H"]["_fillColor"];
+                    //if(prevFillColor) {
+                        prevFillColor = prevFillColor.replace("rgba", "rgb").replace(",0.8)", ")");
+                        prevFillColor = new RGBColor(prevFillColor);
+                        prevFillColor = prevFillColor.toHex();
+                    //}
+                    features[i]["H"]["_prevFillColor"] = prevFillColor;
+                    features[i]["H"]["_targetFillColor"] = targetFillColor;
                     features[i]["H"]["_fillColor"] = rgba;
                     features[i]["H"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
+                    features[i]["H"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                    features[i]["H"]["lank"] = $(this).find(".estat-lank-td").text();
                 }
             }
-            eval("estatLayer" + mapName).getSource().changed();
+            //eval("estatLayer" + mapName).getSource().changed();
+            var count = 1;
+            var saiki = function(){
+                for (i=0; i<features.length; i++){
+                    var prevFillColor = features[i]["H"]["_prevFillColor"];
+                    var targetFillColor = features[i]["H"]["_targetFillColor"];
+                    var d3Color = d3.interpolateLab(prevFillColor,targetFillColor);
+                    var color0 = new RGBColor(d3Color(count*0.2));
+                    var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
+                    features[i]["H"]["_fillColor"] = rgba;
+                };
+                eval("estatLayer" + mapName).getSource().changed();
+                count++
+                var st = setTimeout(saiki,70);
+                if(count>5){
+                    clearTimeout(st);
+                }
+            };
+            saiki();
+
             $(this).find("td").css({
                 background:rgba
             });
             //$("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
         });
+
+        $("#" + mapName + " .estat-tbl").trigger("update");
 	}
 	//----------------------------------------------------------------------------
     function estatLayerCreate(vectorSource,mapName){
         eval(mapName).removeLayer(eval("estatLayer" + mapName));
         this["estatLayer" + mapName] = new ol.layer.Vector({
-            name:"estatLayer_zinkouOn",
+            name:"estatLayer",
+            zinkouset:"on",
             source:vectorSource,
             //minResolution:611,
             style: function(feature,resolution){

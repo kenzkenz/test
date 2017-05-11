@@ -1,8 +1,8 @@
 //国土地理院淡色地図のレイヤー
 var pale1 = new ol.layer.Tile({
     title:"国土地理院_淡色地図",
-    origin:"国土地理院",
-    detail:"国土地理院の淡色地図",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -13,8 +13,8 @@ var pale1 = new ol.layer.Tile({
 });
 var pale2 = new ol.layer.Tile({
     title:"国土地理院_淡色地図",
-    origin:"国土地理院",
-    detail:"国土地理院の淡色地図",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -23,17 +23,62 @@ var pale2 = new ol.layer.Tile({
         maxZoom:18
     })
 });
+//国土地理院_白地図
+var blank1 = new ol.layer.Tile({
+    title:"国土地理院_白地図",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
+    })
+});
+var blank2 = new ol.layer.Tile({
+    title:"国土地理院_白地図",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
+    })
+});
+//国土地理院_色別標高図
+var relief1 = new ol.layer.Tile({
+    title:"国土地理院_色別標高図",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
+    })
+});
+var relief2 = new ol.layer.Tile({
+    title:"国土地理院_色別標高図",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
+    })
+});
+
+
 //オープンストリートマップ
 var osm1 = new ol.layer.Tile({
     title:"OpenStreetMap",
-    origin:"OpenStreetMap Japan",
+    origin:"<a href='https://openstreetmap.jp' target='_blank'>OpenStreetMap</a>",
     detail:"OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    source: new ol.source.OSM
+    source: new ol.source.OSM({
+
+    })
 });
 var osm2 = new ol.layer.Tile({
     title:"OpenStreetMap",
-    origin:"OpenStreetMap Japan",
+    origin:"<a href='https://openstreetmap.jp' target='_blank'>OpenStreetMap</a>",
     detail:"OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.OSM
@@ -111,8 +156,8 @@ var ort2 = new ol.layer.Tile({
 //空中写真のレイヤー
 var seamlessphoto1 = new ol.layer.Tile({
     title:"国土地理院_空中写真",
-    origin:"国土地理院",
-    detail:"国土地理院の空中写真",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -123,8 +168,8 @@ var seamlessphoto1 = new ol.layer.Tile({
 });
 var seamlessphoto2 = new ol.layer.Tile({
     title:"国土地理院_空中写真",
-    origin:"国土地理院",
-    detail:"国土地理院の空中写真",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"国土画像情報（第一期1974～1978年撮影）",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -136,8 +181,8 @@ var seamlessphoto2 = new ol.layer.Tile({
 //40年前の写真
 var gazo11 = new ol.layer.Tile({
     title:"国土地理院_40年前の写真",
-    origin:"国土地理院",
-    detail:"",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"国土画像情報（第一期1974～1978年撮影）",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -148,7 +193,7 @@ var gazo11 = new ol.layer.Tile({
 });
 var gazo12 = new ol.layer.Tile({
     title:"国土地理院_40年前の写真",
-    origin:"国土地理院",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     source: new ol.source.XYZ({
@@ -427,7 +472,7 @@ var tisitu2 = new ol.layer.Tile({
 //日本CS立体図
 var nihonCs1 = new ol.layer.Tile({
     title:"日本CS立体図",
-    origin:"<a href='./php/proxy-png.php?url=http://kouapp.main.jp/csmap/japan/csjapan.html' target='_blank'>日本CS立体図</a>",
+    origin:"<a href='http://kouapp.main.jp/csmap/japan/csjapan.html' target='_blank'>日本CS立体図</a>",
     detail:"CS立体図（国土地理院承認番号　平29情使、 第77号）",
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
@@ -437,7 +482,7 @@ var nihonCs1 = new ol.layer.Tile({
 });
 var nihonCs2 = new ol.layer.Tile({
     title:"日本CS立体図",
-    origin:"<a href='./php/proxy-png.php?url=http://kouapp.main.jp/csmap/japan/csjapan.html' target='_blank'>日本CS立体図</a>",
+    origin:"<a href='http://kouapp.main.jp/csmap/japan/csjapan.html' target='_blank'>日本CS立体図</a>",
     detail:"CS立体図（国土地理院承認番号　平29情使、 第77号）",
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({

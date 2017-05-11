@@ -29,9 +29,13 @@ $(function(){
         var layer = layerObj["layer"];
         var feature = layerObj["feature"];
         var layerName = layerObj["layer"].getProperties()["name"];
+        console.log(layerName);
         switch (layerName){//ここで処理を分岐
             case "wikiCommonsLayer":
                 funcWikiPopup(feature,map);
+                break;
+            case "estatLayer":
+                funcEstatPopup(feature,map,evt);
                 break;
             default:
         }
@@ -50,6 +54,26 @@ $(function(){
         */
     }
     //-----------------------------------------------
+    function funcEstatPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType=="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        console.log($(".estat-year-div").text().split("　")[1]);
+        var content = $(".estat-year-div").text().split("　")[1] + "<br>";//表名
+            content += featureProp["自治体名"] + "　" + featureProp["value"];
+            content += "<br>" + featureProp["lank"];
+        if(map=="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
     function funcWikiPopup(feature,map){
         var featureProp = feature.getProperties();
         var content = "";
@@ -59,7 +83,7 @@ $(function(){
         content += "copy:" +  featureProp["copy"];
         content += "<br>user:" +  featureProp["user"];
         content += "<br><a href='" + featureProp["descriptionurl"] + "?uselang=ja' TARGET='_blank'><label>Wikiへ</label></a>";
-        var coord = feature.getGeometry().getCoordinates();
+        var coord = "<br>" + feature.getGeometry().getCoordinates() + "位";
         //popup1.show(coord,content);
         if(map=="map1") {
             popup1.show(coord,content);
@@ -72,7 +96,7 @@ $(function(){
             //ロード完了で画像を表示
             $("#" + map + " .img-loading").hide();
             $("#" + map + " .wiki-img").attr({'src':url});
-        }
+        };
         imgPreloader.src=url;
     }
     //-----------------------------------------------
