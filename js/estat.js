@@ -447,12 +447,7 @@ $(function(){
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
                 if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){
-                    var prevFillColor = features[i]["H"]["_fillColor"];
-                    //if(prevFillColor) {
-                        prevFillColor = prevFillColor.replace("rgba", "rgb").replace(",0.8)", ")");
-                        prevFillColor = new RGBColor(prevFillColor);
-                        prevFillColor = prevFillColor.toHex();
-                    //}
+                    var prevFillColor = features[i]["H"]["_targetFillColor"];
                     features[i]["H"]["_prevFillColor"] = prevFillColor;
                     features[i]["H"]["_targetFillColor"] = targetFillColor;
                     features[i]["H"]["_fillColor"] = rgba;
@@ -464,18 +459,18 @@ $(function(){
             //eval("estatLayer" + mapName).getSource().changed();
             var count = 1;
             var saiki = function(){
-                for (i=0; i<features.length; i++){
-                    var prevFillColor = features[i]["H"]["_prevFillColor"];
-                    var targetFillColor = features[i]["H"]["_targetFillColor"];
+                for (j=0; j<features.length; j++){
+                    var prevFillColor = features[j]["H"]["_prevFillColor"];
+                    var targetFillColor = features[j]["H"]["_targetFillColor"];
                     var d3Color = d3.interpolateLab(prevFillColor,targetFillColor);
-                    var color0 = new RGBColor(d3Color(count*0.2));
+                    var color0 = new RGBColor(d3Color(count*0.1));
                     var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
-                    features[i]["H"]["_fillColor"] = rgba;
+                    features[j]["H"]["_fillColor"] = rgba;
                 };
                 eval("estatLayer" + mapName).getSource().changed();
-                count++
-                var st = setTimeout(saiki,70);
-                if(count>5){
+                count++;
+                var st = setTimeout(saiki,50);
+                if(count>10){
                     clearTimeout(st);
                 }
             };
