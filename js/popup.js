@@ -75,6 +75,7 @@ $(function(){
     }
     //-----------------------------------------------
     function funcWikiPopup(feature,map){
+        console.log(11)
         var featureProp = feature.getProperties();
         var content = "";
         content += featureProp["title"] + "<br>";
@@ -83,7 +84,7 @@ $(function(){
         content += "copy:" +  featureProp["copy"];
         content += "<br>user:" +  featureProp["user"];
         content += "<br><a href='" + featureProp["descriptionurl"] + "?uselang=ja' TARGET='_blank'><label>Wikiへ</label></a>";
-        var coord = "<br>" + feature.getGeometry().getCoordinates() + "位";
+        var coord = feature.getGeometry().getCoordinates();
         //popup1.show(coord,content);
         if(map=="map1") {
             popup1.show(coord,content);
