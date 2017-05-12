@@ -38,6 +38,7 @@ var blank2 = new ol.layer.Tile({
     title:"国土地理院_白地図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
@@ -64,8 +65,6 @@ var relief2 = new ol.layer.Tile({
         url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
     })
 });
-
-
 //オープンストリートマップ
 var osm1 = new ol.layer.Tile({
     title:"OpenStreetMap",

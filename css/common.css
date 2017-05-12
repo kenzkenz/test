@@ -250,3 +250,22 @@ label:hover{
 .estat-year-div{
     margin:5px 0;
 }
+/*resas関係--------------------------------------------------------------------*/
+.resas-tbl-div{
+    overflow:auto;
+}
+.resas-tbl th{
+    font-weight:normal;
+    font-size:10px;
+    /*text-align:center;*/
+    padding:2px!important;
+}
+.resas-tbl td{
+    padding:2px!important;
+}
+.resas-zinkou-td,.resas-nensyou-td,.resas-seisan-td,.resas-rounen-td{
+    text-align:right;
+}
+.resas-year-div{
+    margin:5px 0;
+}

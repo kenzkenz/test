@@ -49,6 +49,7 @@ function funcHaikeiTblDivHeight(){
 	}
 	$(".haikei-tbl-div").css("max-height",height + "px");
     $(".estat-tbl-div").css("max-height",height-50 + "px");
+    $(".resas-tbl-div").css("max-height",height-50 + "px");
 }
 //------------------------------------------------------------------------------
 //エクステントの座標系を変換する

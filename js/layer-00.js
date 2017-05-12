@@ -67,7 +67,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
         checkboxClass:"icheckbox_flat-blue",
         radioClass:"iradio_flat-blue"
     });
-
     //チェックボックスを押した時★★★★★-------------------------------------------------------------------------
     mapElement.find("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
     //mapElement.find("input").on("ifChanged",function(event){
@@ -129,7 +128,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
 //------------------------------------------------------------------------------
 //背景レイヤーの重なり順をtr順に変更する。
 function funcHaikeiLayerSort(mapElement,mapName){
-
     //--------------------------------------
     //swipeのため
     if(mapName=="map1"){
@@ -205,7 +203,7 @@ $(function(){
             map:mapObj["name"],
             title:"インフォメーション",
             content:content,
-            top:"90px",
+            top:"100px",
             right:"20px",
             rmDialog:true
         });

@@ -29,7 +29,7 @@ $(function(){
         var layer = layerObj["layer"];
         var feature = layerObj["feature"];
         var layerName = layerObj["layer"].getProperties()["name"];
-        console.log(layerName);
+        //console.log(layerName);
         switch (layerName){//ここで処理を分岐
             case "wikiCommonsLayer":
                 funcWikiPopup(feature,map);
@@ -75,7 +75,6 @@ $(function(){
     }
     //-----------------------------------------------
     function funcWikiPopup(feature,map){
-        console.log(11)
         var featureProp = feature.getProperties();
         var content = "";
         content += featureProp["title"] + "<br>";

@@ -1,7 +1,7 @@
 var estatLayermap1 = null;
 var estatLayermap2 = null;
 $(function(){
-	var cityDataAr = null;
+	var estatDataAr = null;
 	var citySelectOption = null;
 	var prefSelectOption = null;
     var cityTableAjax = function(){
@@ -34,7 +34,7 @@ $(function(){
     };
     var prefTableAjax = function(){
         return new Promise(function(resolve,reject){
-            //estatの表情報を取得してセレクトボックスのオプションを作る。全国用（都道府県）
+            //estatの表情報を取得して統計表セレクトボックスのオプションを作る。全国用（都道府県）
             var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
             $.ajax({
                 type:"get",
@@ -85,6 +85,20 @@ $(function(){
     prefTableAjax();
 	//----------------------------------------------------------------------------------------------
 	$(".estat-a").click(function(){
+        $.notify({//options
+            message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>このサービスは、政府統計総合窓口（e-stat）のAPI機能を使用していますが、サービスの内容は国によって保証されたものではありません。</div>"
+        },{//settings
+            type:"info",
+            z_index:999999,
+            placement: {
+                from:"bottom",
+                align:"center"
+            },
+            animate: {
+                enter:"animated fadeInDown",
+                exit:"animated fadeOutUp"
+            }
+        });
 		var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
 		//既に存在しているときは抜ける。
@@ -194,17 +208,17 @@ $(function(){
                 var vectorSource = new ol.source.Vector({
                     url:"geojson/pref.geojson",
                     format: new ol.format.GeoJSON()
-                })
+                });
                 estatLayerCreate(vectorSource,mapName);
                 eval("estatLayer" + mapName).getSource().once("change", function(evt){
                     var extent = eval("estatLayer" + mapName).getSource().getExtent();
                     eval(mapName).getView().fit(extent,eval(mapName).getSize());
                 });
                 var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
-                tblHtml += "<thead><tr class='info'><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
+                tblHtml += "<thead><tr class='info'><th></th><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
                 for (var i = 0; i < prefAr.length; i++) {
                     tblHtml += "<tr class='tr-" + prefAr[i]["id"] + "'>";
-
+                    tblHtml += "<td class='estat-lank-td'></td>";
                     tblHtml += "<td>" + prefAr[i]["id"] + "</td>";
                     tblHtml += "<td class='estat-city-td'>" + prefAr[i]["name"] + "</td>";
                     tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
@@ -240,8 +254,8 @@ $(function(){
                 }).fail(function(json){
                     console.log("失敗!");
                 });
-                //国交省のapiを使用　http://www.land.mlit.go.jp/webland/api.html#todofukenlist
                 $("#" + mapName + " .estat-table-select").html(citySelectOption);
+                //国交省のapiを使用　http://www.land.mlit.go.jp/webland/api.html#todofukenlist
                 var tgtUrl = "http://www.land.mlit.go.jp/webland/api/CitySearch?";
                 var area = $(this).val().substr(0, 2);
                 var cityAjax = function () {
@@ -285,7 +299,7 @@ $(function(){
                     //---------------------------------
                     var cityAr = results[0]["json"]["data"];
                     var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
-                    tblHtml += "<thead><tr class='info'><th></th></th><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
+                    tblHtml += "<thead><tr class='info'><th></th><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
                     for (var i = 0; i < cityAr.length; i++) {
                         tblHtml += "<tr class='tr-" + cityAr[i]["id"] + "'>";
                         tblHtml += "<td class='estat-lank-td'></td>";
@@ -337,8 +351,8 @@ $(function(){
             estatAjax().then(function(jsonText){
             	//33岡山県がデータがないようだ。
             	console.log(JSON.parse(jsonText))
-                cityDataAr = JSON.parse(jsonText)["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
-                var yearAr = cityDataAr[0]["VALUE"];
+                estatDataAr = JSON.parse(jsonText)["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
+                var yearAr = estatDataAr[0]["VALUE"];
                 var option = "";
                 for(i=0;i<yearAr.length;i++){
                 	if(yearAr.length-1==i) {
@@ -350,10 +364,10 @@ $(function(){
                 var selectBox = "<select class='estat-year-select'>" + option + "</select>";
                 if(yearAr.length>0){
                     $("#" + mapName + " .estat-year-div").html(selectBox + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
-                    var unit = cityDataAr[0]["VALUE"][0]["@unit"];
+                    var unit = estatDataAr[0]["VALUE"][0]["@unit"];
                 }else{
-                    $("#" + mapName + " .estat-year-div").html(cityDataAr[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
-                    var unit = cityDataAr[0]["VALUE"]["@unit"];
+                    $("#" + mapName + " .estat-year-div").html(estatDataAr[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
+                    var unit = estatDataAr[0]["VALUE"]["@unit"];
                 }
                 $("#" + mapName + " .estat-year-select").select2({
                     width:"60px",
@@ -382,32 +396,32 @@ $(function(){
 	function estatTdSet(mapName,tgtYear){
         $("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
 		var valueAr = [];
-        for (i=0; i<cityDataAr.length; i++){
-			if(!tgtYear) tgtYear = cityDataAr[i]["VALUE"].length - 1;//最後の年を取得している。
-            if(cityDataAr[i]["VALUE"].length>0){
+        for (i=0; i<estatDataAr.length; i++){
+			if(!tgtYear) tgtYear = estatDataAr[i]["VALUE"].length - 1;//最後の年を取得している。
+            if(estatDataAr[i]["VALUE"].length>0){
             	try {
-                    var erement = $("#" + mapName + " .tr-" + cityDataAr[i]["VALUE"][tgtYear]["@area"]);
-                    erement.find(".estat-value-td").html(cityDataAr[i]["VALUE"][tgtYear]["$"]);
+                    var erement = $("#" + mapName + " .tr-" + estatDataAr[i]["VALUE"][tgtYear]["@area"]);
+                    erement.find(".estat-value-td").html(estatDataAr[i]["VALUE"][tgtYear]["$"]);
                 }catch(e){
                     erement.find(".estat-value-td").html("");
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
 				try {
-                    var num = Number(cityDataAr[i]["VALUE"][tgtYear]["$"]);
+                    var num = Number(estatDataAr[i]["VALUE"][tgtYear]["$"]);
                     if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }else{
             	try {
-                    var erement = $("#" + mapName + " .tr-" + cityDataAr[i]["VALUE"]["@area"]);
-                    erement.find(".estat-value-td").html(cityDataAr[i]["VALUE"]["$"]);
+                    var erement = $("#" + mapName + " .tr-" + estatDataAr[i]["VALUE"]["@area"]);
+                    erement.find(".estat-value-td").html(estatDataAr[i]["VALUE"]["$"]);
                 }catch(e){
                     erement.find(".estat-value-td").html("");
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
                 try {
-                    var num = Number(cityDataAr[i]["VALUE"]["$"]);
+                    var num = Number(estatDataAr[i]["VALUE"]["$"]);
                     if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }
@@ -419,8 +433,6 @@ $(function(){
             $("#" + mapName + " .estat-tbl-div").html(html);
             $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
 		}
-
-
 
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
@@ -457,6 +469,8 @@ $(function(){
                 }
             }
             //eval("estatLayer" + mapName).getSource().changed();
+            //---------------------------------------------------------------------------
+            //再起処理
             var count = 1;
             var saiki = function(){
                 for (j=0; j<features.length; j++){
@@ -466,7 +480,7 @@ $(function(){
                     var color0 = new RGBColor(d3Color(count*0.1));
                     var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
                     features[j]["H"]["_fillColor"] = rgba;
-                };
+                }
                 eval("estatLayer" + mapName).getSource().changed();
                 count++;
                 var st = setTimeout(saiki,50);
@@ -475,6 +489,7 @@ $(function(){
                 }
             };
             saiki();
+            //---------------------------------------------------------------------------
 
             $(this).find("td").css({
                 background:rgba

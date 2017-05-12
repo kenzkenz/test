@@ -42,13 +42,10 @@ $(function(){
             var layer = wikiCommonsLayer2;
         }
         if($(this).prop("checked")){
-            $.notify({
-                // options
+            $.notify({//options
                 icon: 'glyphicon glyphicon-warning-sign',
-                //title: 'Bootstrap notify',
                 message: 'ズーム率11以上で表示されます。'
-            },{
-                // settings
+            },{//settings
                 type: "info",
                 z_index: 999999,
                 placement: {
@@ -60,7 +57,6 @@ $(function(){
                     exit: 'animated fadeOutUp'
                 }
             });
-
             //alert("ある程度ズームアップしないと表示されません。ズーム率11以上\nまた、表示に時間がかかるかもしれません。しばらく様子を見てください。")
             layer.set("altitudeMode","clampToGround");
             eval(mapObj["name"]).addLayer(layer);

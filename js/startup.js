@@ -13,6 +13,20 @@ $(function(){
     //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
     //--------------------------------------------------------------------------
+    $.notify({//options
+        message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>機能は随時追加されていきます。<br>現在RESAS連携機能を作成中です。<br>宮崎県情報政策課<br>最終更新:2017/05/12</div>"
+    },{//settings
+        type:"danger",
+        z_index:999999,
+        placement: {
+            from:"bottom",
+            align:"center"
+        },
+        animate: {
+            enter:"animated fadeInDown",
+            exit:"animated fadeOutUp"
+        }
+    });
     //webストレージから中陣地座標、ズーム率を取得
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");
