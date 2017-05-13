@@ -273,3 +273,13 @@ label:hover{
 .resas-year-div{
     margin:5px 0;
 }
+/*weather関係--------------------------------------------------------------------*/
+.weather-tbl{
+    margin-bottom:10px;
+}
+.weather-td{
+    width:60px;
+}
+.weather-span{
+    font-size: 14px;
+}

@@ -5,6 +5,23 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var content = "";
+        content += "<input type='checkbox' data-toggle='toggle' class='weather-toggle bs-toggle'>：<a class='hidden-div-open'>最新の気象データ</a>";
+        content += "<div class='hidden-div hidden-div-weather'>";
+        content += "出典：<a href='http://www.data.jma.go.jp/obd/stats/data/mdrr/docs/csv_dl_readme.html' target='_blank'>気象庁</a>";
+        content += "　<a href='https://github.com/mq-sol/amedas' target='_blank'>geojson</a>";
+        content += "<select class='weather-select'>";
+        content += "<option value='00'>選択してください。</option>";
+        content += "<option value='pre_rct/alltable/pre1h00'>1時間降水量</option>";
+        content += "<option value='pre_rct/alltable/pre3h00'>3時間降水量</option>";
+        content += "<option value='pre_rct/alltable/pre24h00'>24時間降水量</option>";
+        content += "<option value='pre_rct/alltable/pre48h00'>48時間降水量</option>";
+        content += "<option value='pre_rct/alltable/pre72h00'>72時間降水量</option>";
+        content += "<option value='tem_rct/alltable/mxtemsadext00'>今日の最高気温</option>";
+        content += "<option value='tem_rct/alltable/mntemsadext00'>今日の最低気温</option>";
+        content += "<option value='wind_rct/alltable/mxwsp00'>今日の最大風速</option>";
+        content += "<option value='wind_rct/alltable/gust00'>今日の最大瞬間風速</option>";
+        content += "</select></div>";
+        content += "<hr class='my-hr'>";
         content += "<input type='checkbox' data-toggle='toggle' class='swipe-toggle bs-toggle'>：<a class='hidden-div-open'>画面スワイプ</a>";
         content += "<div class='hidden-div'>";
         content += "分割方法を設定します。<br>";
@@ -44,7 +61,7 @@ $(function(){
             hide:true
         });
         $(".bs-toggle").bootstrapToggle();
-        $(".flood-select").selectpicker({
+        $(".flood-select,.weather-select").selectpicker({
             "selectedText": "cat"
         });
         $("input:radio[name='swipe-radio-" + mapName + "']").iCheck({

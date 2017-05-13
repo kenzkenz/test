@@ -37,6 +37,9 @@ $(function(){
             case "estatLayer":
                 funcEstatPopup(feature,map,evt);
                 break;
+            case "weatherLayer":
+                funcWeatherPopup(feature,map,evt);
+                break;
             default:
         }
         /*
@@ -52,6 +55,24 @@ $(function(){
             popup2.show(coord,content);
         }
         */
+    }
+    //-----------------------------------------------
+    function funcWeatherPopup(feature,map,evt){
+        var coord = feature.getGeometry().getCoordinates();
+        var featureProp = feature.getProperties();
+        var value = featureProp["value"];
+        if(value) var keys = Object.keys(value);
+        var content = "<table class='weather-tbl table table-bordered table-condensed'>";
+            content += "<tr><td class='weather-td'>所在地</td><td>" + featureProp["所在地"] + "</td></tr>";
+            content += "<tr><td>観測所名</td><td>" + featureProp["観測所名"] + "</td><tr>";
+            content += "</table>";
+            if(value) content += "<span class='weather-span'>" + keys[0] + value[keys[0]] + "</span>";
+
+        if(map=="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
     }
     //-----------------------------------------------
     function funcEstatPopup(feature,map,evt){
