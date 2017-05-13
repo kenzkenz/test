@@ -250,6 +250,10 @@ label:hover{
 .estat-year-div{
     margin:5px 0;
 }
+.estat-chart-icon{
+    color:rgb(51,122,183);
+    cursor:pointer;
+}
 /*resas関係--------------------------------------------------------------------*/
 .resas-tbl-div{
     overflow:auto;

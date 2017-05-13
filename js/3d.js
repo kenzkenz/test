@@ -19,6 +19,22 @@ $(function(){
     $(".d3d2-btn").click(function(){
         var mapObj = funcMaps($(this));
         if($(this).text()=="3D"){
+
+            $.notify({//options
+                message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>十字コントーラーはドラッグで移動可能です。</div>"
+            },{//settings
+                type:"info",
+                z_index:999999,
+                placement: {
+                    from:"top",
+                    align:"center"
+                },
+                animate: {
+                    enter:"animated fadeInDown",
+                    exit:"animated fadeOutUp"
+                }
+            });
+            
             if(ol3d1==null){
                 ol3d1 = new olcs.OLCesium({
                     map:map1

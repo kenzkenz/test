@@ -47,7 +47,7 @@ $(function(){
             id:"resas-dialog-" + mapName,
             class:"resas-dialog",
             map:mapName,
-            title:"RESAS 作成中",
+            title:"RESAS 作成中 まだ動きません！！",
             content:content,
             top:"55px",
             left:"20px",

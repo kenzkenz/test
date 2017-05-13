@@ -5,6 +5,15 @@ $(document).ajaxStop(function (){
     $("#loading-fa").hide(500);
 });
 //-----------------------------------------------------------------------------
+function funcTextColor(R,G,B){
+    var cY = 0.3*R + 0.6*G + 0.1*B;
+    if(cY > 50) {//最高値は255。今回は50で判断させる。
+        return "black";
+    }else{
+        return "white";
+    }
+}
+//-----------------------------------------------------------------------------
 function funcColor100(valueAr) {
     var max = Math.max.apply(null,valueAr);
     var min = Math.min.apply(null,valueAr);

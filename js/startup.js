@@ -14,7 +14,7 @@ $(function(){
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
     //--------------------------------------------------------------------------
     $.notify({//options
-        message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>機能は随時追加されていきます。<br>現在RESAS連携機能を作成中です。<br>宮崎県情報政策課<br>最終更新:2017/05/12</div>"
+        message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>機能は随時追加されていきます。<br>現在RESAS連携機能を作成中です。<br>背景にtonerを追加しました。<br>宮崎県情報政策課<br>最終更新:2017/05/13</div>"
     },{//settings
         type:"danger",
         z_index:999999,

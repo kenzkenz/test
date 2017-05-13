@@ -6,7 +6,7 @@ var pale1 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
         minZoom:2,
         maxZoom:18
     })
@@ -18,7 +18,7 @@ var pale2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
         minZoom:2,
         maxZoom:18
     })
@@ -125,6 +125,29 @@ var mieruneMono2 = new ol.layer.Tile({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
         url:"https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png",
         maxZoom:18
+    })
+});
+//toner
+var toner1 = new ol.layer.Tile({
+    title:"toner",
+    origin:"<a href='http://maps.stamen.com/#toner/5/35.661/139.380' target='_blank'>maps.stamen.com</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:""})],
+        url:"./php/proxy-png.php?url=http://a.tile.stamen.com/toner/{z}/{x}/{y}.png",
+        maxZoom:20
+    })
+});
+var toner2 = new ol.layer.Tile({
+    title:"toner",
+    origin:"<a href='http://maps.stamen.com/#toner/5/35.661/139.380' target='_blank'>maps.stamen.com</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:""})],
+        url:"./php/proxy-png.php?url=http://a.tile.stamen.com/toner/{z}/{x}/{y}.png",
+        maxZoom:20
     })
 });
 //宮崎県オルソ

@@ -1,7 +1,8 @@
 var estatLayermap1 = null;
 var estatLayermap2 = null;
+var estatDataArmap1 = null;
+var estatDataArmap2 = null;
 $(function(){
-	var estatDataAr = null;
 	var citySelectOption = null;
 	var prefSelectOption = null;
     var cityTableAjax = function(){
@@ -91,7 +92,7 @@ $(function(){
             type:"info",
             z_index:999999,
             placement: {
-                from:"bottom",
+                from:"top",
                 align:"center"
             },
             animate: {
@@ -349,10 +350,9 @@ $(function(){
                 });
             };
             estatAjax().then(function(jsonText){
-            	//33岡山県がデータがないようだ。
             	console.log(JSON.parse(jsonText))
-                estatDataAr = JSON.parse(jsonText)["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
-                var yearAr = estatDataAr[0]["VALUE"];
+                this["estatDataAr" + mapName] = JSON.parse(jsonText)["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
+                var yearAr = eval("estatDataAr" + mapName)[0]["VALUE"];
                 var option = "";
                 for(i=0;i<yearAr.length;i++){
                 	if(yearAr.length-1==i) {
@@ -363,11 +363,11 @@ $(function(){
                 }
                 var selectBox = "<select class='estat-year-select'>" + option + "</select>";
                 if(yearAr.length>0){
-                    $("#" + mapName + " .estat-year-div").html(selectBox + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
-                    var unit = estatDataAr[0]["VALUE"][0]["@unit"];
+                    $("#" + mapName + " .estat-year-div").html(selectBox + "年　<i class='estat-chart-icon fa fa-line-chart fa-fw fa-lg'></i>" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
+                    var unit = eval("estatDataAr" + mapName)[0]["VALUE"][0]["@unit"];
                 }else{
-                    $("#" + mapName + " .estat-year-div").html(estatDataAr[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
-                    var unit = estatDataAr[0]["VALUE"]["@unit"];
+                    $("#" + mapName + " .estat-year-div").html(eval("estatDataAr" + mapName)[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
+                    var unit = eval("estatDataAr" + mapName)[0]["VALUE"]["@unit"];
                 }
                 $("#" + mapName + " .estat-year-select").select2({
                     width:"60px",
@@ -379,49 +379,52 @@ $(function(){
 		});
 	});
 	//-----------------------------------------------------------------------------
+    //ダイアログを消した時
     $("body").on("click",".estat-dialog .dialog-hidden",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         eval(mapName).removeLayer(eval("estatLayer" + mapName));
     });
 	//-----------------------------------------------------------------------------
+    //年を選択
     $("body").on("change",".estat-year-select",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
 		var tgtYear = $(this).val();
         estatTdSet(mapName,tgtYear);
     });
+
 	//----------------------------------------------------------------------------
 	// tdに数値等をセットしていく関数
 	function estatTdSet(mapName,tgtYear){
         $("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
 		var valueAr = [];
-        for (i=0; i<estatDataAr.length; i++){
-			if(!tgtYear) tgtYear = estatDataAr[i]["VALUE"].length - 1;//最後の年を取得している。
-            if(estatDataAr[i]["VALUE"].length>0){
+        for (i=0; i<eval("estatDataAr" + mapName).length; i++){
+			if(!tgtYear) tgtYear = eval("estatDataAr" + mapName)[i]["VALUE"].length - 1;//最後の年を取得している。
+            if(eval("estatDataAr" + mapName)[i]["VALUE"].length>0){
             	try {
-                    var erement = $("#" + mapName + " .tr-" + estatDataAr[i]["VALUE"][tgtYear]["@area"]);
-                    erement.find(".estat-value-td").html(estatDataAr[i]["VALUE"][tgtYear]["$"]);
+                    var erement = $("#" + mapName + " .tr-" + eval("estatDataAr" + mapName)[i]["VALUE"][tgtYear]["@area"]);
+                    erement.find(".estat-value-td").html(eval("estatDataAr" + mapName)[i]["VALUE"][tgtYear]["$"]);
                 }catch(e){
                     erement.find(".estat-value-td").html("");
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
 				try {
-                    var num = Number(estatDataAr[i]["VALUE"][tgtYear]["$"]);
+                    var num = Number(eval("estatDataAr" + mapName)[i]["VALUE"][tgtYear]["$"]);
                     if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }else{
             	try {
-                    var erement = $("#" + mapName + " .tr-" + estatDataAr[i]["VALUE"]["@area"]);
-                    erement.find(".estat-value-td").html(estatDataAr[i]["VALUE"]["$"]);
+                    var erement = $("#" + mapName + " .tr-" + eval("estatDataAr" + mapName)[i]["VALUE"]["@area"]);
+                    erement.find(".estat-value-td").html(eval("estatDataAr" + mapName)[i]["VALUE"]["$"]);
                 }catch(e){
                     erement.find(".estat-value-td").html("");
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
                 try {
-                    var num = Number(estatDataAr[i]["VALUE"]["$"]);
+                    var num = Number(eval("estatDataAr" + mapName)[i]["VALUE"]["$"]);
                     if(isNaN(num)==false) valueAr.push(num);//色をつけるための前準備
                 }catch(e){}
             }
@@ -490,10 +493,10 @@ $(function(){
             };
             saiki();
             //---------------------------------------------------------------------------
-
             $(this).find("td").css({
-                background:rgba
-            });
+                background:rgba,
+                color:funcTextColor(color0.r,color0.g,color0.b)//背景に応じて色を変える。
+            })
             //$("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
         });
 
