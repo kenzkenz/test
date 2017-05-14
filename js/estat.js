@@ -93,7 +93,7 @@ $(function(){
             z_index:999999,
             placement: {
                 from:"top",
-                align:"center"
+                align:"right"
             },
             animate: {
                 enter:"animated fadeInDown",
@@ -363,7 +363,7 @@ $(function(){
                 }
                 var selectBox = "<select class='estat-year-select'>" + option + "</select>";
                 if(yearAr.length>0){
-                    $("#" + mapName + " .estat-year-div").html(selectBox + "年　<i class='estat-chart-icon fa fa-line-chart fa-fw fa-lg'></i>" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
+                    $("#" + mapName + " .estat-year-div").html(selectBox + "年　<i class='estat-chart-icon fa fa-line-chart fa-fw fa-2x'></i>" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
                     var unit = eval("estatDataAr" + mapName)[0]["VALUE"][0]["@unit"];
                 }else{
                     $("#" + mapName + " .estat-year-div").html(eval("estatDataAr" + mapName)[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
@@ -401,9 +401,13 @@ $(function(){
 		var valueAr = [];
         for (i=0; i<eval("estatDataAr" + mapName).length; i++){
             //自治体名がないのでテーブルから取得する。--------------------------------------------
-            var cityId = eval("estatDataAr" + mapName)[i]["VALUE"][0]["@area"];
-            var cityName = $("#" + mapName + " .tr-" + cityId).find(".estat-city-td").text();
-            eval("estatDataAr" + mapName)[i]["VALUE"][0]["cityname"] = cityName;
+            try {
+                var cityId = eval("estatDataAr" + mapName)[i]["VALUE"][0]["@area"];
+                var cityName = $("#" + mapName + " .tr-" + cityId).find(".estat-city-td").text();
+                eval("estatDataAr" + mapName)[i]["VALUE"][0]["cityname"] = cityName;
+            }catch(e){
+                //eval("estatDataAr" + mapName)[i]["VALUE"][0]["cityname"] = cityId;
+            }
             //-------------------------------------------------------------------------------
 
 			if(!tgtYear) tgtYear = eval("estatDataAr" + mapName)[i]["VALUE"].length - 1;//最後の年を取得している。
@@ -479,25 +483,29 @@ $(function(){
             }
             //eval("estatLayer" + mapName).getSource().changed();
             //---------------------------------------------------------------------------
-            //再起処理
-            var count = 1;
-            var saiki = function(){
-                for (j=0; j<features.length; j++){
-                    var prevFillColor = features[j]["H"]["_prevFillColor"];
-                    var targetFillColor = features[j]["H"]["_targetFillColor"];
-                    var d3Color = d3.interpolateLab(prevFillColor,targetFillColor);
-                    var color0 = new RGBColor(d3Color(count*0.1));
-                    var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
-                    features[j]["H"]["_fillColor"] = rgba;
-                }
+            if(features.length>100){
                 eval("estatLayer" + mapName).getSource().changed();
-                count++;
-                var st = setTimeout(saiki,50);
-                if(count>10){
-                    clearTimeout(st);
-                }
-            };
-            saiki();
+            }else {
+                //再起処理
+                var count = 1;
+                var saiki = function () {
+                    for (j = 0; j < features.length; j++) {
+                        var prevFillColor = features[j]["H"]["_prevFillColor"];
+                        var targetFillColor = features[j]["H"]["_targetFillColor"];
+                        var d3Color = d3.interpolateLab(prevFillColor, targetFillColor);
+                        var color0 = new RGBColor(d3Color(count * 0.1));
+                        var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
+                        features[j]["H"]["_fillColor"] = rgba;
+                    }
+                    eval("estatLayer" + mapName).getSource().changed();
+                    count++;
+                    var st = setTimeout(saiki, 100);
+                    if (count > 10) {
+                        clearTimeout(st);
+                    }
+                };
+                saiki();
+            }
             //---------------------------------------------------------------------------
             $(this).find("td").css({
                 background:rgba,

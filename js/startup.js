@@ -1,5 +1,7 @@
 var map1 = null;
 var map2 = null;
+var centerTarget1 = null;
+var centerTarget2 = null;
 var swipeCtr1 = null;
 var swipeCtr2 = null;
 $(function(){
@@ -17,9 +19,9 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
         msg += "<span class='label label-default label-danger'>New</span><br>";
-        msg += "1 estatにグラフ機能を追加しました。グラフアイコンから<br>";
-        msg += "2 気象データ取得機能を追加しました。三本線から<br>";
-        msg += "3 背景にtonerを追加しました。<br>";
+        msg += "1 PNG保存機能を追加しました。<br>";
+        msg += "2 estatにグラフ機能を追加しました。<br>";
+        msg += "3 気象データ取得機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
         msg += "宮崎県情報政策課<br>最終更新:2017/05/14</div>";
     $.notify({//options
@@ -92,8 +94,8 @@ $(function(){
         }),
         radius: 15
     }];
-    var centerTarget1 =  new ol.control.Target ({style:style});
-    var centerTarget2 =  new ol.control.Target ({style:style});
+    centerTarget1 =  new ol.control.Target ({style:style});
+    centerTarget2 =  new ol.control.Target ({style:style});
     map1.addControl(centerTarget1);
     map2.addControl(centerTarget2);
     //--------------------------------------------------------------------------

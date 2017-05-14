@@ -48,6 +48,8 @@ $(function(){
         content += "onにするとスマホ、タブレットのタッチ操作での回転を止めます。</div>";
         content += "<hr class='my-hr'>動作がおかしいときにリセットします。";
         content += "<button type='button' class='reset-btn btn btn-primary btn-block'>座標リセット</button>";
+        content += "<hr class='my-hr'>PNG形式で保存します。";
+        content += "<a type='button' class='png-btn btn btn-primary btn-block'>PNG保存</a>";
         mydialog({
             id:"menu-dialog-" + mapName,
             class:"menu-dialog",
@@ -88,6 +90,74 @@ $(function(){
         location.reload(true);
         localStorage.clear();
         location.reload(true);
+    });
+    //--------------------------------------------------------------------------
+    //PNG保存ボタン
+    $("body").on("click",".png-btn",function(){
+        var msg = "";
+        msg += "PNG保存、利用は各背景の利用規約等を参照してください。";
+        $.notify({//options
+            message:msg
+        },{//settings
+            type:"danger",
+            z_index:999999,
+            placement: {
+                from:"top",
+                align:"center"
+            },
+            animate: {
+                enter:"animated fadeInDown",
+                exit:"animated fadeOutUp"
+            }
+        });
+
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        if($("#" + mapName + " .d3d2-btn").html()=="3D"){//表示が３Ｄのときは２Ｄ
+
+            map1.removeControl(centerTarget1);
+            map2.removeControl(centerTarget2);
+            eval(mapName).once("postcompose",function(event){
+
+                var type = 'image/png';
+                var canvas = $("#" + mapName).find("canvas")[0];
+                var dataurl = canvas.toDataURL(type);
+                var bin = atob(dataurl.split(',')[1]);
+                var buffer = new Uint8Array(bin.length);
+                for (var i = 0; i < bin.length; i++){
+                    buffer[i] = bin.charCodeAt(i);
+                }
+                var blob = new Blob([buffer.buffer],{type:type});
+                $("#" + mapName + " .png-btn").attr({
+                    "href":window.URL.createObjectURL(blob),
+                    "download":"map2d.png"
+                });
+                map1.addControl(centerTarget1);
+                map2.addControl(centerTarget2);
+                console.log("完了")
+            });
+            eval(mapName).renderSync();
+        }else{
+            if(mapName=="map1"){
+                var pngScene = ol3d1.getCesiumScene();
+            }else{
+                var pngScene = ol3d2.getCesiumScene();
+            }
+            var type = 'image/png';
+            var canvas = document.createElement("canvas");
+            pngScene.render();//セシウムのsceneを使う。
+            var dataurl = pngScene.canvas.toDataURL(type);
+            var bin = atob(dataurl.split(',')[1]);
+            var buffer = new Uint8Array(bin.length);
+            for (var i = 0; i < bin.length; i++){
+                buffer[i] = bin.charCodeAt(i);
+            }
+            var blob = new Blob([buffer.buffer],{type:type});
+            $("#" + mapName + " .png-btn").attr({
+                "href":window.URL.createObjectURL(blob),
+                "download":"map3d.png"
+            })
+        }
     });
     //--------------------------------------------------------------------------
     //この２行は特になくても構わない。事前にメニューを読み込んで表示を滑らかにしているだけ

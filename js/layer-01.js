@@ -7,6 +7,7 @@ var pale1 = new ol.layer.Tile({
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         minZoom:2,
         maxZoom:18
     })
@@ -19,6 +20,7 @@ var pale2 = new ol.layer.Tile({
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         minZoom:2,
         maxZoom:18
     })
@@ -32,6 +34,7 @@ var blank1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous"
     })
 });
 var blank2 = new ol.layer.Tile({
@@ -42,6 +45,7 @@ var blank2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous"
     })
 });
 //国土地理院_色別標高図
@@ -53,6 +57,7 @@ var relief1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous"
     })
 });
 var relief2 = new ol.layer.Tile({
@@ -63,6 +68,7 @@ var relief2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous"
     })
 });
 //オープンストリートマップ
@@ -72,7 +78,7 @@ var osm1 = new ol.layer.Tile({
     detail:"OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.OSM({
-
+        crossOrigin:"anonymous"
     })
 });
 var osm2 = new ol.layer.Tile({
@@ -80,7 +86,9 @@ var osm2 = new ol.layer.Tile({
     origin:"<a href='https://openstreetmap.jp' target='_blank'>OpenStreetMap</a>",
     detail:"OpenStreetMapは、道路地図などの地理情報データを誰でも利用できるよう、フリーの地理情報データを作成することを目的としたプロジェクトです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    source: new ol.source.OSM
+    source: new ol.source.OSM({
+        crossOrigin:"anonymous"
+    })
 });
 //ミエルネ地図
 var mierune1 = new ol.layer.Tile({
@@ -91,6 +99,7 @@ var mierune1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
         url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         maxZoom:15
     })
 });
@@ -102,6 +111,7 @@ var mierune2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
         url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         maxZoom:15
     })
 });
@@ -113,6 +123,7 @@ var mieruneMono1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
         url:"https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         maxZoom:18
     })
 });
@@ -124,6 +135,7 @@ var mieruneMono2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by OpenStreetMap contributors, under ODbL."})],
         url:"https://tile.mierune.co.jp/mierune_mono/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         maxZoom:18
     })
 });
@@ -136,6 +148,7 @@ var toner1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:""})],
         url:"./php/proxy-png.php?url=http://a.tile.stamen.com/toner/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         maxZoom:20
     })
 });
@@ -147,6 +160,7 @@ var toner2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:""})],
         url:"./php/proxy-png.php?url=http://a.tile.stamen.com/toner/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         maxZoom:20
     })
 });
@@ -159,6 +173,7 @@ var ort1 = new ol.layer.Tile({
     extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
         minZoom :1,
         maxZoom:19
     })
@@ -171,6 +186,7 @@ var ort2 = new ol.layer.Tile({
     extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
         minZoom :1,
         maxZoom:19
     })
@@ -184,6 +200,7 @@ var seamlessphoto1 = new ol.layer.Tile({
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
+        crossOrigin:"anonymous",
         minZoom:2,
         maxZoom:18
     })
@@ -196,6 +213,7 @@ var seamlessphoto2 = new ol.layer.Tile({
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg",
+        crossOrigin:"anonymous",
         minZoom:2,
         maxZoom:18
     })
@@ -209,6 +227,7 @@ var gazo11 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
+        crossOrigin:"anonymous",
         minZoom :10,
         maxZoom:17
     })
@@ -221,6 +240,7 @@ var gazo12 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
+        crossOrigin:"anonymous",
         minZoom :10,
         maxZoom:17
     })
@@ -236,6 +256,7 @@ var muro1 = new ol.layer.Tile({
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'https://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
         maxZoom:20
     })
 });
@@ -250,6 +271,7 @@ muro2 = new ol.layer.Tile({
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url: 'https://kenzkenz2.xsrv.jp/muroran3/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
         maxZoom: 20
     })
 });
@@ -264,6 +286,7 @@ var muroQ1 = new ol.layer.Tile({
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:"./php/proxy-jpeg.php?url=https://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
+        crossOrigin:"anonymous",
         //minZoom:12,
         maxZoom:21
     })
@@ -278,6 +301,7 @@ var muroQ2 = new ol.layer.Tile({
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:"./php/proxy-jpeg.php?url=https://neogis.net/muroran/TILE/1.0.0/H25/{z}/{x}/{-y}.jpg",
+        crossOrigin:"anonymous",
         //minZoom:12,
         maxZoom:21
     })
@@ -292,6 +316,7 @@ var tunami1 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:17
 
@@ -305,6 +330,7 @@ var tunami2 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:17
 	})
@@ -318,6 +344,7 @@ var sinsuisoutei1 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:18
 	})
@@ -330,6 +357,7 @@ var sinsuisoutei2 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:18
 	})
@@ -343,6 +371,7 @@ var kikenkeiryuu1 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -355,6 +384,7 @@ var kikenkeiryuu2 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -368,6 +398,7 @@ var kyuukeisyakikenkasyo1 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -380,6 +411,7 @@ var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:16
 	})
@@ -394,6 +426,7 @@ var ryuuiki1 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>"})],
         url:"./php/proxy-png.php?url=http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom:4,
 		maxZoom:14
 	})
@@ -406,6 +439,7 @@ var ryuuiki2 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>"})],
         url:"./php/proxy-png.php?url=http://tiles.dammaps.jp/ryuiki_t/1/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom:4,
 		maxZoom:14
 	})
@@ -419,6 +453,7 @@ var ecoris1 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
 		url:"https://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom:5,
 		maxZoom:15
 	})
@@ -431,6 +466,7 @@ var ecoris2 = new ol.layer.Tile({
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>"})],
 		url:"https://map.ecoris.info/tiles/vegehill/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
 		minZoom:5,
 		maxZoom:15
 	})
@@ -447,6 +483,7 @@ var obi1 = new ol.layer.Tile({
 	extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
 	source: new ol.source.XYZ({
 		url:"https://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
 		maxZoom:19
 	})
 });
@@ -460,6 +497,7 @@ var obi2 = new ol.layer.Tile({
 	extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
 	source: new ol.source.XYZ({
 		url:"https://mtile.pref.miyazaki.lg.jp/tile/obi/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
 		maxZoom:19
 	})
 });
@@ -474,6 +512,7 @@ var tisitu1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url:"https://gbank.gsj.jp/seamless/tilemap/detailed/glfn/{z}/{y}/{x}.png",//ｘとｙを国土地理院流の反対にすること。
         attributions:[new ol.Attribution({html:"<a href='https://www.gsj.jp/HomePageJP.html' target='_blank'>産業技術総合研究所地質調査総合センター</a>"})],
+        crossOrigin:"anonymous",
         minZoom:5,
         maxZoom:13
     })
@@ -487,6 +526,7 @@ var tisitu2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url:"https://gbank.gsj.jp/seamless/tilemap/detailed/glfn/{z}/{y}/{x}.png",//ｘとｙを国土地理院流の反対にすること。
         attributions:[new ol.Attribution({html:"<a href='https://www.gsj.jp/HomePageJP.html' target='_blank'>産業技術総合研究所地質調査総合センター</a>"})],
+        crossOrigin:"anonymous",
         minZoom:5,
         maxZoom:13
     })
@@ -499,6 +539,8 @@ var nihonCs1 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
         url:"./php/proxy-jpeg.php?url=http://kouapp.main.jp/csmap/tile/japan/{z}/{x}/{y}.jpg",
+        crossOrigin:"anonymous",
+        minZoom:9,
         maxZoom:15
     })
 });
@@ -509,6 +551,8 @@ var nihonCs2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
         url:"./php/proxy-jpeg.php?url=http://kouapp.main.jp/csmap/tile/japan/{z}/{x}/{y}.jpg",
+        crossOrigin:"anonymous",
+        minZoom:9,
         maxZoom:15
     })
 });

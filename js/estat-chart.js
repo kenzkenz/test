@@ -58,25 +58,26 @@ $(function() {
             timeAr.push(time);
         }
         for (i=0; i<estatDataAr.length; i++){
-            var cityName = estatDataAr[i]["VALUE"][0]["cityname"];
-            for (j=0; j<estatDataAr[i]["VALUE"].length; j++){
-                //if(target==".zinkouwariTd" || target==".mensekiwariTd" || target==".ziyuuwariTd"){
-                //    var value = Number(cityDataAr[i]["VALUE"][j]["$"])/Number(filterValue[0][target]);
-                //    graphAr0.push(value);
+            if(estatDataAr[i]["VALUE"][0]) {
+                var cityName = estatDataAr[i]["VALUE"][0]["cityname"];
+                for (j = 0; j < estatDataAr[i]["VALUE"].length; j++) {
+                    //if(target==".zinkouwariTd" || target==".mensekiwariTd" || target==".ziyuuwariTd"){
+                    //    var value = Number(cityDataAr[i]["VALUE"][j]["$"])/Number(filterValue[0][target]);
+                    //    graphAr0.push(value);
 
-                //}else{
+                    //}else{
                     var value = Number(estatDataAr[i]["VALUE"][j]["$"]);
                     chartAr0.push(value);
-                //};
+                    //};
+                }
+                chartAr1.push({
+                    "name": cityName,
+                    "type": "line",
+                    "data": chartAr0
+                });
+                chartAr0 = [];
             }
-            chartAr1.push({
-                "name":cityName,
-                "type":"line",
-                "data":chartAr0
-            });
-            chartAr0=[];
         }
-        console.log(chartAr1);
 
         estatHichart = Highcharts.chart({
             chart:{
