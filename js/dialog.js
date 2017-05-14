@@ -81,7 +81,7 @@ function mydialog(options){
         }else{
             dialog.toggle("drop",{direction:"right"});
         }
-		//dialog.toggle("drop");
+        dialogbaseMaxzindex(dialog);
 		return;
 	}
 	if(className){

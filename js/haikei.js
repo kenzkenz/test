@@ -24,7 +24,7 @@ $(function(){
                     type: "info",
                     z_index: 999999,
                     placement: {
-                        from: "top",
+                        from: "bottom",
                         align: "center"
                     },
                     animate: {

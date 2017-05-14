@@ -92,8 +92,8 @@ $(function(){
             type:"info",
             z_index:999999,
             placement: {
-                from:"top",
-                align:"right"
+                from: "bottom",
+                align: "center"
             },
             animate: {
                 enter:"animated fadeInDown",
@@ -105,7 +105,7 @@ $(function(){
 		//既に存在しているときは抜ける。
 		if($("#mydialog-estat-dialog-" + mapName).length!=0){
 			$("#mydialog-estat-dialog-" + mapName).show();
-            eval(mapName).addLayer(eval("estatLayer" + mapName));
+            if(eval("estatLayer" + mapName)) eval(mapName).addLayer(eval("estatLayer" + mapName));
 			return;
 		}
         //$.blockUI({message:null});
@@ -139,6 +139,7 @@ $(function(){
 			width:"250px"
 		});
         $("#" + mapName + " .estat-table-select").html(citySelectOption);
+
         //------------------------------------------------------------------------------------------
         /*
         var cityTableAjax = function(){
