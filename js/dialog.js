@@ -67,8 +67,8 @@ function mydialog(options){
 	}else{
 		$(".dialog-base:not('.haikei-dialog'):visible").each(function(){
 			if(right==$(this).css("right")){
-				right = (Number(right.replace(/px/gi,"")) + 20) + "px";
-				top = (Number(top.replace(/px/gi,"")) + 20) + "px";
+				right = (Number(right.replace(/px/gi,"")) + 40) + "px";
+				top = (Number(top.replace(/px/gi,"")) + 40) + "px";
 			}
 		});
 	}
@@ -149,6 +149,6 @@ function mydialog(options){
             dialog.css("visibility","visible");//次回の呼び出し時のために見えるようにする。
         	dialog.hide();
         }
+        dialogbaseMaxzindex(dialog);
 	});
-	dialogbaseMaxzindex(dialog);
 }

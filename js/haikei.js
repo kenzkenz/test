@@ -19,7 +19,7 @@ $(function(){
         }else {
             if(haikeiMsgFlg) {
                 $.notify({//options
-                    message: "<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>背景は順次追加していく予定です。</div>"
+                    message: "<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>背景は順次追加していく予定です。tonerを追加しました。</div>"
                 }, {//settings
                     type: "info",
                     z_index: 999999,

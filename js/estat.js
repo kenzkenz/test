@@ -400,6 +400,12 @@ $(function(){
         $("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
 		var valueAr = [];
         for (i=0; i<eval("estatDataAr" + mapName).length; i++){
+            //自治体名がないのでテーブルから取得する。--------------------------------------------
+            var cityId = eval("estatDataAr" + mapName)[i]["VALUE"][0]["@area"];
+            var cityName = $("#" + mapName + " .tr-" + cityId).find(".estat-city-td").text();
+            eval("estatDataAr" + mapName)[i]["VALUE"][0]["cityname"] = cityName;
+            //-------------------------------------------------------------------------------
+
 			if(!tgtYear) tgtYear = eval("estatDataAr" + mapName)[i]["VALUE"].length - 1;//最後の年を取得している。
             if(eval("estatDataAr" + mapName)[i]["VALUE"].length>0){
             	try {

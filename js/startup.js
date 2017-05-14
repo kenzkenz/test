@@ -13,8 +13,17 @@ $(function(){
     //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
     //--------------------------------------------------------------------------
+    var msg = "";
+        //msg += "<i class='fa fa-exclamation fa-fw'></i>";
+        //msg += "機能は随時追加されていきます。<br>";
+        msg += "<span class='label label-default label-danger'>New</span><br>";
+        msg += "1 estatにグラフ機能を追加しました。グラフアイコンから<br>";
+        msg += "2 気象データ取得機能を追加しました。三本線から<br>";
+        msg += "3 背景にtonerを追加しました。<br>";
+        msg += "<div style='text-align:center;'>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/05/14</div>";
     $.notify({//options
-        message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>機能は随時追加されていきます。<br>現在RESAS連携機能を作成中です。<br>背景にtonerを追加しました。<br>宮崎県情報政策課<br>最終更新:2017/05/13</div>"
+        message:msg
     },{//settings
         type:"danger",
         z_index:999999,
