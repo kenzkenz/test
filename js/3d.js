@@ -6,6 +6,7 @@ $(function(){
     //3Dボタン
     $(".d3d2-btn").click(function(){
         var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
         if($(this).text()=="3D"){
             if(d3Flg) {
                 $.notify({//options
@@ -24,7 +25,6 @@ $(function(){
                 });
                 d3Flg = false;
             }
-            
             if(ol3d1==null){
                 ol3d1 = new olcs.OLCesium({
                     map:map1
@@ -79,6 +79,14 @@ $(function(){
             }
             cTilt();
             $(this).text("2D");
+
+            var estatLayer = eval("estatLayer" + mapName);
+            if(estatLayer){
+                var features = eval("estatLayer" + mapName).getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+            }
+
         }else{
             var ol3d = eval(mapObj["ol3d"]);
             //ol3d.setEnabled(false);
@@ -93,8 +101,8 @@ $(function(){
                     clearTimeout(st);
                     ol3d.getCamera().setTilt(0);
                     ol3d.setEnabled(false);
-                };
-            };
+                }
+            }
             cTilt2();
             $(this).text("3D");
         }
@@ -181,47 +189,43 @@ $(function(){
 });
 
 //------------------------------------------------------------------------------
-function czmlCreate(featureArr,element){
-    console.log(element);
-    var ol3dStr = ol3dStrFunc(element);
-    console.log(ol3dStr);
-
-    eval(ol3dStr).getDataSources().removeAll();
-
+function czmlCreate(features,element){
+    var mapObj = funcMaps(element);
+    var ol3d = eval(mapObj["ol3d"]);
+    ol3d.getDataSources().removeAll();
     var czml = [{
         "id":"document",
         "version":"1.0"
-    }]
+    }];
     var czmlId = 1;
-    for (i=0; i<featureArr.length; i++){
+    for (i=0; i<features.length; i++){
         var coordArr2 =[];
-        if(featureArr[i].getGeometry().getType()!="MultiPolygon"){
-            var coordArr = featureArr[i].getGeometry().getCoordinates()[0];
-            ddd();
+        if(features[i].getGeometry().getType()!="MultiPolygon"){
+            var coordArr = features[i].getGeometry().getCoordinates()[0];
+            funcCoordPush();
         }else{
-            var coordArr = featureArr[i].getGeometry().getCoordinates()[0][0];
-            ddd();
+            var coordArr = features[i].getGeometry().getCoordinates()[0][0];
+            funcCoordPush();
         }
-        function ddd(){
+        function funcCoordPush(){
             for (ii=0; ii<coordArr.length; ii++){
                 var coord = ol.proj.transform(coordArr[ii],"EPSG:3857","EPSG:4326");
                 coordArr2.push(Number(coord[0]));
                 coordArr2.push(Number(coord[1]));
                 coordArr2.push(0)
-            };
-        };
-
-        var fillColor = featureArr[i].getProperties()["_fillColor"];
+            }
+        }
+        var fillColor = features[i].getProperties()["_fillColor"];
         var fillColorRgb =fillColor.replace("a","").substr(0,fillColor.lastIndexOf(",")-1)+")";
         var color0 = new RGBColor(fillColorRgb);
-        if(featureArr[i].getProperties()["_fillOpacity"]){
+        if(features[i].getProperties()["_fillOpacity"]){
             var rgba = [Number(color0.r),Number(color0.g),Number(color0.b),150];
         }else{
             var rgba = [Number(color0.r),Number(color0.g),Number(color0.b),150];
         }
-        var polygonHeight = featureArr[i].getProperties()["_polygonHeight"];
+        var polygonHeight = features[i].getProperties()["_polygonHeight"];
         //var polygonHeight = 40
-        var description = featureArr[i].getProperties()["hover"];
+        var description = features[i].getProperties()["hover"];
         var d3Polygon =	[
             {
                 "id":czmlId++,"description":description,
@@ -248,7 +252,7 @@ function czmlCreate(featureArr,element){
     //console.log(JSON.stringify(czml))
     //console.log(czml)
     //console.log(czml[1]["polygon"])
-    eval(ol3dStr).getDataSources().add(Cesium.CzmlDataSource.load(
+    ol3d.getDataSources().add(Cesium.CzmlDataSource.load(
         czml,{
             //camera: scene.camera,
             //canvas: scene.canvas

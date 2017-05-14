@@ -476,7 +476,12 @@ $(function(){
                     features[i]["H"]["_prevFillColor"] = prevFillColor;
                     features[i]["H"]["_targetFillColor"] = targetFillColor;
                     features[i]["H"]["_fillColor"] = rgba;
-                    features[i]["H"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
+                    //features[i]["H"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
+                    if(value>0) {
+                        features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                    }else{
+                        features[i]["H"]["_polygonHeight"] = 1000;
+                    }
                     features[i]["H"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
                     features[i]["H"]["lank"] = $(this).find(".estat-lank-td").text();
                 }
