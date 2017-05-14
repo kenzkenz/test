@@ -488,28 +488,40 @@ $(function(){
             }
             //eval("estatLayer" + mapName).getSource().changed();
             //---------------------------------------------------------------------------
-            if(features.length>100){
+            if($("#" + mapName + " .d3d2-btn").text()!="3D") {//3dのときアニメ処理しない
                 eval("estatLayer" + mapName).getSource().changed();
+                var element = $("#" + mapName + " .estat-tbl-div");
+                var mapObj = funcMaps(element);
+                var ol3d = eval(mapObj["ol3d"]);
+                var estatLayer = eval("estatLayer" + mapName);
+                if (estatLayer) {
+                    var features = estatLayer.getSource().getFeatures();
+                    czmlCreate(features,element);
+                }
             }else {
-                //再起処理
-                var count = 1;
-                var saiki = function () {
-                    for (j = 0; j < features.length; j++) {
-                        var prevFillColor = features[j]["H"]["_prevFillColor"];
-                        var targetFillColor = features[j]["H"]["_targetFillColor"];
-                        var d3Color = d3.interpolateLab(prevFillColor, targetFillColor);
-                        var color0 = new RGBColor(d3Color(count * 0.1));
-                        var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
-                        features[j]["H"]["_fillColor"] = rgba;
-                    }
+                if (features.length > 100) {//市町村数が100を超える都道府県の場合アニメ処理しない
                     eval("estatLayer" + mapName).getSource().changed();
-                    count++;
-                    var st = setTimeout(saiki, 100);
-                    if (count > 10) {
-                        clearTimeout(st);
-                    }
-                };
-                saiki();
+                } else {
+                    //再起処理
+                    var count = 1;
+                    var saiki = function () {
+                        for (j = 0; j < features.length; j++) {
+                            var prevFillColor = features[j]["H"]["_prevFillColor"];
+                            var targetFillColor = features[j]["H"]["_targetFillColor"];
+                            var d3Color = d3.interpolateLab(prevFillColor, targetFillColor);
+                            var color0 = new RGBColor(d3Color(count * 0.1));
+                            var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
+                            features[j]["H"]["_fillColor"] = rgba;
+                        }
+                        eval("estatLayer" + mapName).getSource().changed();
+                        count++;
+                        var st = setTimeout(saiki, 100);
+                        if (count > 10) {
+                            clearTimeout(st);
+                        }
+                    };
+                    saiki();
+                }
             }
             //---------------------------------------------------------------------------
             $(this).find("td").css({
