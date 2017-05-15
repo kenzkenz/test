@@ -306,6 +306,43 @@ var muroQ2 = new ol.layer.Tile({
         maxZoom:21
     })
 });
+
+
+//室蘭市米軍地図
+var murous1 = new ol.layer.Tile({
+    title:"室蘭市戦後米軍地図",
+    origin:"",
+    detail:"",
+    coord:[140.973774,42.315226],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-jpeg.php?url=http://t.tilemap.jp/jcp_maps/muroran/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        //maxZoom:21
+    })
+});
+var murous2 = new ol.layer.Tile({
+    title:"室蘭市戦後米軍地図",
+    origin:"",
+    detail:"",
+    coord:[140.973774,42.315226],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-jpeg.php?url=http://t.tilemap.jp/jcp_maps/muroran/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        //maxZoom:21
+    })
+});
+
+
+
+
 //ハザードマップ関係------------------------------------------------------------------------------------------------------------------------------------------------------
 //津波
 var tunami1 = new ol.layer.Tile({

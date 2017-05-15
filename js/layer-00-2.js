@@ -2,10 +2,12 @@ var useLayersArr1 = null;
 var useLayersArr2 = null;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,seamlessphoto1,gazo11,muro1,murous1,
-                    ryuuiki1,ecoris1,tisitu1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,seamlessphoto2,gazo12,muro2,murous2,
-                    ryuuiki2,ecoris2,tisitu2,nihonCs2,csArr2];
+    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,ort1,seamlessphoto1,gazo11,muro1,murous1,
+                    tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
+                    ryuuiki1,ecoris1,obi1,tisitu1,nihonCs1,csArr1];
+    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,ort2,seamlessphoto2,gazo12,muro2,murous2,
+                    tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
+                    ryuuiki2,ecoris2,obi2,tisitu2,nihonCs2,csArr2];
     /*
     useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,amArr1,ort1,seamlessphoto1,gazo11,muro1,muroQ1,
         tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,ryuuiki1,ecoris1,
