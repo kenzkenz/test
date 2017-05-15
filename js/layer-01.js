@@ -92,7 +92,7 @@ var osm2 = new ol.layer.Tile({
 });
 //ミエルネ地図
 var mierune1 = new ol.layer.Tile({
-    title:"ミエルネ地図",
+    title:"MIERUNE地図",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -104,7 +104,7 @@ var mierune1 = new ol.layer.Tile({
     })
 });
 var mierune2 = new ol.layer.Tile({
-    title:"ミエルネ地図",
+    title:"MIERUNE地図",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -116,7 +116,7 @@ var mierune2 = new ol.layer.Tile({
     })
 });
 var mieruneMono1 = new ol.layer.Tile({
-    title:"ミエルネ地図モノクロ",
+    title:"MIERUNE地図モノクロ",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -128,7 +128,7 @@ var mieruneMono1 = new ol.layer.Tile({
     })
 });
 var mieruneMono2 = new ol.layer.Tile({
-    title:"ミエルネ地図モノクロ",
+    title:"MIERUNE地図モノクロ",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
