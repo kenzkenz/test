@@ -288,3 +288,7 @@ label:hover{
 .weather-span{
     font-size: 14px;
 }
+
+.plus-input{
+    width:400px;
+}

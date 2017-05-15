@@ -57,6 +57,7 @@ function mydialog(options){
 	var rmDialog = opts.rmDialog;
 	var hide = opts.hide;
 	var minMax = opts.minMax;
+	var plus =  opts.plus;
 	if(!right){
 		$(".dialog-base:visible").each(function(){
 			if(left==$(this).css("left")){
@@ -104,6 +105,10 @@ function mydialog(options){
         htmlStr += '<span class="dialog-min winicon"><i class="fa fa-window-minimize fa-2x"></i></span>';
         htmlStr += '<span class="dialog-max winicon"><i class="fa fa-window-maximize fa-2x"></i></span>';
     }
+    if(plus){
+        htmlStr += '<span class="dialog-plus winicon"><i class="fa fa-plus-square fa-2x"></i></span>';
+	}
+
     htmlStr += 		'<span class="dialog-hidden winicon" data-remove="' + rmDialog + '"><i class="fa fa-window-close-o fa-2x"></i></span>';
     //htmlStr += 		'<span class="dialog-hidden" data-remove="' + rmDialog + '"><i class="fa fa-times fa-2x"></i></span>';
 	htmlStr += 	'</div>';

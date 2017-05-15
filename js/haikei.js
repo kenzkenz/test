@@ -13,7 +13,8 @@ $(function(){
                 content: content,
                 top: "55px",
                 right: "20px",
-                hide:true
+                hide:true,
+                plus:true
             });
             funcHaikeiTableCreate(mapObj["element"], mapObj["name"]);//ファンクションはlayer-00.js
         }else {

@@ -214,5 +214,49 @@ $(function(){
     $("body").on("change",".swipe-toggle",function(){
         var mapObj = funcMaps($(this));
         funcHaikeiLayerSort(mapObj["element"], mapObj["name"]);
-    })
+    });
+    //------------------------------------------------------------
+    //プラスアイコンを押した時
+    $("body").on("click",".dialog-plus",function(){
+        alert("作成中");
+        var mapObj = funcMaps($(this));
+        var id = "plus-dialog-" + mapObj["name"];
+        var content = "<input type='text' class='form-control plus-input'>";
+        content += '<button type="button" class="btn btn-primary plus-btn">追加</button>';
+        mydialog({
+            id: id,
+            class: "plus-dialog",
+            map: mapObj["name"],
+            title: "背景レイヤー追加",
+            content: content,
+            top: "55px",
+            right: "20px",
+            //hide:true,
+            //plus:true
+        });
+    });
+    //------------------------------------------------------------
+    //プラスアイコンを押した時
+    $("body").on("click",".plus-btn",function() {
+        alert();
+        var plusUrl = $(this).parents(".dialog-base").find(".plus-input").val()
+        console.log(plusUrl);
+        var plusLayer = new ol.layer.Tile({
+            title:"pulus",
+            origin:"",
+            detail:"",
+            icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+            source:new ol.source.XYZ({
+                //url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+                url:"./php/proxy-png.php?url=" + plusUrl,
+                //url:plusUrl,
+                crossOrigin:"anonymous"
+            })
+        });
+
+
+
+        map1.addLayer(plusLayer)
+
+    });
 });
