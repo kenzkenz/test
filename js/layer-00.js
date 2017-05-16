@@ -266,6 +266,7 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var plusUrl = $(this).parents(".dialog-base").find(".plus-input").val();
+        $(this).parents(".dialog-base").find(".plus-input").val("");
         plusLayer1[plI] = new ol.layer.Tile({
             title:"pulus",
             origin:"",
