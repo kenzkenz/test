@@ -1,5 +1,8 @@
 var useLayersArr1 = null;
 var useLayersArr2 = null;
+var plusLayer1 = [];
+var plusLayer2 = [];
+var plI = 0;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,seamlessphoto1,gazo11,muro1,murous1,
@@ -62,14 +65,13 @@ function funcHaikeiTableCreate(mapElement,mapName){
             funcHaikeiLayerSort(mapElement,mapName);
         }
     }).disableSelection();
-    //チェックボックスをカスタム
+    //チェックボックスをカスタム。iCheckに。
     mapElement.find("input:checkbox[name='haikei-check']").iCheck({
         checkboxClass:"icheckbox_flat-blue",
         radioClass:"iradio_flat-blue"
     });
     //チェックボックスを押した時★★★★★-------------------------------------------------------------------------
     mapElement.find("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
-    //mapElement.find("input").on("ifChanged",function(event){
         //背景レイヤーの追加、削除
         var layer = layers[Number($(this).val())];
         var trErement = $(this).parents("tr");
@@ -150,33 +152,54 @@ function funcHaikeiLayerSort(mapElement,mapName){
         }else{
             var layer = useLayersArr2[Number($(this).find("input:checkbox").val())];
         }
-        if(!Array.isArray(layer)){
-            layer.setZIndex(-e);
-
-            //------------------------------
-            //swipeのため
-            swipeCtr.removeLayer(layer);
-            if(e==1) {
-                swipeCtr.addLayer(layer,true);
-            }else if(e==0) {
-                swipeCtr.addLayer(layer);
-            }
-            //------------------------------
-
-        }else{
-            for (var i = 0; i < layer.length; i++){
-                layer[i].setZIndex(-e);
+        if($(this).attr("class")!="plus-tr") {
+            if (!Array.isArray(layer)) {
+                layer.setZIndex(-e);
 
                 //------------------------------
                 //swipeのため
                 swipeCtr.removeLayer(layer);
-                if(e==1) {
-                    swipeCtr.addLayer(layer,true);
-                }else if(e==0) {
+                if (e == 1) {
+                    swipeCtr.addLayer(layer, true);
+                } else if (e == 0) {
                     swipeCtr.addLayer(layer);
                 }
                 //------------------------------
+
+            } else {
+                for (var i = 0; i < layer.length; i++) {
+                    layer[i].setZIndex(-e);
+
+                    //------------------------------
+                    //swipeのため
+                    swipeCtr.removeLayer(layer);
+                    if (e == 1) {
+                        swipeCtr.addLayer(layer, true);
+                    } else if (e == 0) {
+                        swipeCtr.addLayer(layer);
+                    }
+                    //------------------------------
+                }
             }
+        }else{
+            var Num = Number($(this).find("input:checkbox[name='haikei-check-plus']").val());
+            if(mapName=="map1") {
+                var plusLayer = plusLayer1[Num];
+            }else{
+                var plusLayer = plusLayer2[Num];
+            }
+            plusLayer.setZIndex(-e);
+
+            //------------------------------
+            //swipeのため
+            swipeCtr.removeLayer(plusLayer);
+            if (e == 1) {
+                swipeCtr.addLayer(plusLayer, true);
+            } else if (e == 0) {
+                swipeCtr.addLayer(plusLayer);
+            }
+            //------------------------------
+
         }
     });
 }
@@ -218,11 +241,11 @@ $(function(){
     //------------------------------------------------------------
     //プラスアイコンを押した時
     $("body").on("click",".dialog-plus",function(){
-        alert("作成中");
         var mapObj = funcMaps($(this));
         var id = "plus-dialog-" + mapObj["name"];
-        var content = "<input type='text' class='form-control plus-input'>";
-        content += '<button type="button" class="btn btn-primary plus-btn">追加</button>';
+        var content = "地図タイルのURLを入力します。";
+            content += "<input type='text' class='form-control plus-input' placeholder='例：http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'>";
+            content += '<div class="plus-div"><button type="button" class="btn btn-primary plus-btn">追加</button></div>';
         mydialog({
             id: id,
             class: "plus-dialog",
@@ -234,29 +257,74 @@ $(function(){
             //hide:true,
             //plus:true
         });
+        return false;
     });
     //------------------------------------------------------------
-    //プラスアイコンを押した時
+    //レイヤー追加ボタンを押した時
     $("body").on("click",".plus-btn",function() {
-        alert();
-        var plusUrl = $(this).parents(".dialog-base").find(".plus-input").val()
-        console.log(plusUrl);
-        var plusLayer = new ol.layer.Tile({
+        plI++;
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        var plusUrl = $(this).parents(".dialog-base").find(".plus-input").val();
+        plusLayer1[plI] = new ol.layer.Tile({
             title:"pulus",
             origin:"",
             detail:"",
             icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
             source:new ol.source.XYZ({
-                //url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
                 url:"./php/proxy-png.php?url=" + plusUrl,
-                //url:plusUrl,
                 crossOrigin:"anonymous"
             })
         });
-
-
-
-        map1.addLayer(plusLayer)
-
+        plusLayer2[plI] = new ol.layer.Tile({
+            title:"pulus",
+            origin:"",
+            detail:"",
+            icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+            source:new ol.source.XYZ({
+                url:"./php/proxy-png.php?url=" + plusUrl,
+                crossOrigin:"anonymous"
+            })
+        });
+        if(mapName=="map1") {
+            var plusLayer = plusLayer1[plI];
+        }else{
+            var plusLayer = plusLayer2[plI];
+        }
+        eval(mapName).addLayer(plusLayer);
+        var htmlChar = "<tr class='plus-tr'>";
+        htmlChar += "<td><label><input type='checkbox' name='haikei-check-plus' value='" + plI + "' checked> <i class='fa fa-map-o fa-fw' style='color:red;'></i> 追加レイヤー" + plI + "</label></td>";
+        htmlChar += "<td class='td-slider'><div class='haikei-slider'></div></td>";
+        htmlChar += "<td class='td-sort' title='ドラッグします。'><i class='fa fa-bars fa-lg'></i></td>";
+        htmlChar += "<td class='td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
+        htmlChar += "</tr>";
+        $(this).parents(".dialog-base").hide(500);
+        $("#" + mapName + " .haikei-tbl tbody").prepend(htmlChar);
+        //チェックボックスをカスタム。iCheckに。
+        var tgtTr = $("#" + mapName + " .haikei-tbl tbody tr:first");
+        tgtTr.find("input:checkbox[name='haikei-check-plus']").iCheck({
+            checkboxClass:"icheckbox_flat-blue",
+            radioClass:"iradio_flat-blue"
+        });
+        //
+        tgtTr.find("input:checkbox[name='haikei-check-plus']").on("ifChanged",function(event) {
+            var Num = Number($(this).val());;
+            if (mapName == "map1") {
+                var plusLayer = plusLayer1[Num];
+            } else {
+                var plusLayer = plusLayer2[Num];
+            }
+            if($(this).prop("checked")) {
+                eval(mapName).addLayer(plusLayer);
+            }else {
+                eval(mapName).removeLayer(plusLayer);
+            }
+        });
+        tgtTr.find(".haikei-slider").slider({
+            min:0,max:1,value:1,step:0.01,
+            slide: function(event, ui){
+                plusLayer.setOpacity(ui.value);
+            }
+        });
     });
 });

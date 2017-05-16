@@ -484,7 +484,7 @@ var ryuuiki2 = new ol.layer.Tile({
 //エコリス植生図
 var ecoris1 = new ol.layer.Tile({
     title:"エコリス植生図",
-    origin:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'><br>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:blue;'></i>",
 	source: new ol.source.XYZ({
@@ -497,7 +497,7 @@ var ecoris1 = new ol.layer.Tile({
 });
 var ecoris2 = new ol.layer.Tile({
     title:"エコリス植生図",
-    origin:"<a href='http://map.ecoris.info/' target='_blank'>エコリス地図タイル</a>",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'><br>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:blue;'></i>",
 	source: new ol.source.XYZ({

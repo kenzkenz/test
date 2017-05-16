@@ -288,7 +288,12 @@ label:hover{
 .weather-span{
     font-size: 14px;
 }
-
+/*レイヤー追加関係----------------------------------------------------------------*/
+.plus-div{
+    text-align:right;
+    margin-top:10px;
+}
 .plus-input{
     width:400px;
+    font-size:12px;
 }

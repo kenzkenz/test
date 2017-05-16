@@ -116,6 +116,7 @@ function mydialog(options){
 	htmlStr += '</div>';
 	$("#" + map).append(htmlStr);
 	var dialog = $("#" + map).find("#mydialog-" + id);
+    dialogbaseMaxzindex(dialog);
 	if(!right){
 		dialog.css({
 			top:top,
@@ -154,6 +155,6 @@ function mydialog(options){
             dialog.css("visibility","visible");//次回の呼び出し時のために見えるようにする。
         	dialog.hide();
         }
-        dialogbaseMaxzindex(dialog);
+        //dialogbaseMaxzindex(dialog);
 	});
 }
