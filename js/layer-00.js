@@ -266,6 +266,11 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var plusUrl = $(this).parents(".dialog-base").find(".plus-input").val();
+        if(plusUrl.indexOf("mtile.pref.miyazaki")!=-1) {
+            plusUrl = plusUrl;
+        }else{
+            plusUrl = "./php/proxy-png.php?url=" + plusUrl;
+        }
         $(this).parents(".dialog-base").find(".plus-input").val("");
         plusLayer1[plI] = new ol.layer.Tile({
             title:"pulus",
@@ -273,7 +278,7 @@ $(function(){
             detail:"",
             icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
             source:new ol.source.XYZ({
-                url:"./php/proxy-png.php?url=" + plusUrl,
+                url:plusUrl,
                 crossOrigin:"anonymous"
             })
         });
@@ -283,7 +288,7 @@ $(function(){
             detail:"",
             icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
             source:new ol.source.XYZ({
-                url:"./php/proxy-png.php?url=" + plusUrl,
+                url:plusUrl,
                 crossOrigin:"anonymous"
             })
         });

@@ -4,7 +4,6 @@ var resasLayermap1 = null;
 var resasLayermap2 = null;
 $(function(){
 	$(".resas-a").click(function(){
-
         $.notify({//options
             message:"<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>RESAS人口構成連携機能は現在作成中です！！！！</div>"
         },{//settings
@@ -19,7 +18,6 @@ $(function(){
                 exit:"animated fadeOutUp"
             }
         });
-
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         //既に存在しているときは抜ける。
@@ -93,74 +91,53 @@ $(function(){
                 });
             };
             resasAjax().then(function(jsontext){
-                var estatDataAr = JSON.parse(jsontext);
-                console.log(estatDataAr);
-                var cityCode = estatDataAr[0]["cityCode"];
-                var cityName = estatDataAr[0]["cityName"];
+                var resasDataAr = JSON.parse(jsontext);
+                console.log(resasDataAr);
+                var cityCode = resasDataAr[0]["cityCode"];
+                var cityName = resasDataAr[0]["cityName"];
+                var boundaryYear = resasDataAr[0]["zinkou"]["boundaryYear"];
+                console.log(boundaryYear);
                 console.log(cityCode);
                 console.log(cityName);
-
-                //var cityAr = json["json"]["data"];
                 var tblHtml = "<table class='resas-tbl table table-bordered table-hover tablesorter'>";
                 tblHtml += "<thead><tr class='info'>";
                 tblHtml += "<th></th>";
                 tblHtml += "<th>コード</th>";
                 tblHtml += "<th>自治体名</th>";
+                tblHtml += "<th class='resas-kizyun-th'></th>";//基準年・・・boundaryYearから拾えないので後でDOMで書き換える。
                 tblHtml += "<th class='resas-zinkou-th'>総人口</th>";
-                tblHtml += "<th>年少人口</th>";
-                tblHtml += "<th>生産年齢人口</th>";
-                tblHtml += "<th>老年人口</th>";
+                //tblHtml += "<th>年少人口</th>";
+                //tblHtml += "<th>生産年齢<br>人口</th>";
+                //tblHtml += "<th>老年人口</th>";
                 tblHtml += "</tr></thead><tbody>";
-                var lastYearNum = estatDataAr[0]["zinkou"]["data"][0]["data"].length-1;
-                console.log(lastYearNum);
-                var lastYear = estatDataAr[0]["zinkou"]["data"][0]["data"][lastYearNum]["year"];
-                console.log(lastYear);
-                for (var i = 0; i < estatDataAr.length; i++) {
-                    tblHtml += "<tr class='tr-" + estatDataAr[i]["cityCode"] + "'>";
+                for (var i = 0; i < resasDataAr.length; i++) {
+                    var yearAr = resasDataAr[i]["zinkou"]["data"][0]["data"];
+                    for (var j = 0; j < yearAr.length; j++) {
+                        if(yearAr[j]["year"]<boundaryYear){
+                            //console.log(yearAr[j]["year"])
+                            //console.log(j);
+                            var boundaryYear2 = yearAr[j+1]["year"];//実際に存在する年で基準年を取り直している。
+                            var boundaryYearNum = j+1;
+                        }
+                    }
+                    var lastYearNum = resasDataAr[i]["zinkou"]["data"][0]["data"].length-1;
+                    var lastYear = resasDataAr[i]["zinkou"]["data"][0]["data"][lastYearNum]["year"];
+                    tblHtml += "<tr class='tr-" + resasDataAr[i]["cityCode"] + "'>";
                     tblHtml += "<td class='resas-lank-td'></td>";
-                    tblHtml += "<td>" + estatDataAr[i]["cityCode"] + "</td>";
-                    tblHtml += "<td class='resas-city-td'>" + estatDataAr[i]["cityName"] + "</td>";
-                    tblHtml += "<td class='resas-zinkou-td'>" + estatDataAr[i]["zinkou"]["data"][0]["data"][lastYearNum]["value"] + "</td>";
-                    tblHtml += "<td class='resas-nensyou-td'>" + estatDataAr[i]["zinkou"]["data"][1]["data"][lastYearNum]["value"] + "</td>";
-                    tblHtml += "<td class='resas-seisan-td'>" + estatDataAr[i]["zinkou"]["data"][2]["data"][lastYearNum]["value"] + "</td>";
-                    tblHtml += "<td class='resas-rounen-td'>" + estatDataAr[i]["zinkou"]["data"][3]["data"][lastYearNum]["value"] + "</td>";
+                    tblHtml += "<td>" + resasDataAr[i]["cityCode"] + "</td>";
+                    tblHtml += "<td class='resas-city-td'>" + resasDataAr[i]["cityName"] + "</td>";
+                    tblHtml += "<td>" + resasDataAr[i]["zinkou"]["data"][0]["data"][boundaryYearNum]["value"] + "</td>";//基準年
+                    tblHtml += "<td class='resas-zinkou-td'>" + resasDataAr[i]["zinkou"]["data"][0]["data"][lastYearNum]["value"] + "</td>";//総人口
+                    //tblHtml += "<td class='resas-nensyou-td'>" + resasDataAr[i]["zinkou"]["data"][1]["data"][lastYearNum]["value"] + "</td>";//年少人口
+                    //tblHtml += "<td class='resas-seisan-td'>" + resasDataAr[i]["zinkou"]["data"][2]["data"][lastYearNum]["value"] + "</td>";//生産年齢人口
+                    //tblHtml += "<td class='resas-rounen-td'>" + resasDataAr[i]["zinkou"]["data"][3]["data"][lastYearNum]["value"] + "</td>";//老年人口
                     tblHtml += "</tr>";
                 }
                 tblHtml += "</tbody></table>";
                 $("#" + mapName + " .resas-tbl-div").html(tblHtml);
+                $("#" + mapName + " .resas-tbl-div .resas-kizyun-th").text(boundaryYear2);
                 funcHaikeiTblDivHeight();
             });
-            /*
-            cityAjax().then(function(json){
-                console.log(json);
-                var cityAr = json["json"]["data"];
-                var tblHtml = "<table class='resas-tbl table table-bordered table-hover tablesorter'>";
-                tblHtml += "<thead><tr class='info'>";
-                tblHtml += "<th></th>";
-                tblHtml += "<th>コード</th>";
-                tblHtml += "<th>自治体名</th>";
-                tblHtml += "<th class='resas-zinkou-th'>総人口</th>";
-                tblHtml += "<th>年少人口</th>";
-                tblHtml += "<th>生産年齢人口</th>";
-                tblHtml += "<th>老年人口</th>";
-                tblHtml += "</tr></thead><tbody>";
-                for (var i = 0; i < cityAr.length; i++) {
-                    tblHtml += "<tr class='tr-" + cityAr[i]["id"] + "'>";
-                    tblHtml += "<td class='resas-lank-td'></td>";
-                    tblHtml += "<td>" + cityAr[i]["id"] + "</td>";
-                    tblHtml += "<td class='resas-city-td'>" + cityAr[i]["name"] + "</td>";
-                    tblHtml += "<td class='resas-zinkou-td'>" + "" + "</td>";
-                    tblHtml += "<td class='resas-nensyou-td'>" + "" + "</td>";
-                    tblHtml += "<td class='resas-seisan-td'>" + "" + "</td>";
-                    tblHtml += "<td class='resas-rounen-td'>" + "" + "</td>";
-                    tblHtml += "</tr>";
-                }
-                tblHtml += "</tbody></table>";
-                console.log(tblHtml);
-                $("#" + mapName + " .resas-tbl-div").html(tblHtml);
-                funcHaikeiTblDivHeight();
-            });
-            */
         });
 	});
 	//------------------------------------------------------------------------------------------------------------------
