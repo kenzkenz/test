@@ -272,7 +272,7 @@ label:hover{
 .resas-tbl td{
     padding:2px!important;
 }
-.resas-zinkou-td,.resas-nensyou-td,.resas-seisan-td,.resas-rounen-td{
+.resas-zinkou-td,.resas-zougen-td,.resas-zougenritu-td,.resas-kizyun-td{
     text-align:right;
 }
 .resas-year-div{

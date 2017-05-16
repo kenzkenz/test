@@ -243,7 +243,8 @@ $(function(){
     $("body").on("click",".dialog-plus",function(){
         var mapObj = funcMaps($(this));
         var id = "plus-dialog-" + mapObj["name"];
-        var content = "地図タイルのURLを入力します。";
+        var content = "地図タイルのURLを入力します。<br>・国土地理院標準地図の例：<br>　http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
+            content += "<br>・国土地理院空中写真（1936年頃：東京都23区）の例<br>　http://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png"
             content += "<input type='text' class='form-control plus-input' placeholder='例：http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'>";
             content += '<div class="plus-div"><button type="button" class="btn btn-primary plus-btn">追加</button></div>';
         mydialog({
@@ -266,6 +267,7 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var plusUrl = $(this).parents(".dialog-base").find(".plus-input").val();
+        if(plusUrl=="") return;
         if(plusUrl.indexOf("mtile.pref.miyazaki")!=-1) {
             plusUrl = plusUrl;
         }else{
