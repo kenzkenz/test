@@ -310,7 +310,7 @@ var muroQ2 = new ol.layer.Tile({
 var murous1 = new ol.layer.Tile({
     title:"室蘭市戦後米軍地図",
     origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
-    detail:"",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
     coord:[140.973774,42.315226],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
@@ -325,7 +325,7 @@ var murous1 = new ol.layer.Tile({
 var murous2 = new ol.layer.Tile({
     title:"室蘭市戦後米軍地図",
     origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
-    detail:"",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！",
     coord:[140.973774,42.315226],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",

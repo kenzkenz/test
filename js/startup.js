@@ -19,9 +19,10 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
         msg += "<span class='label label-default label-danger'>New</span><br>";
-        msg += "1 背景追加機能を追加しました。<br>";
-        msg += "2 PNG保存機能を追加しました。<br>";
-        msg += "3 estatにグラフ機能を追加しました。<br>";
+        msg += "1 室蘭市戦後米軍地図を追加しました。<br>";
+        msg += "2 背景追加機能を追加しました。<br>";
+        msg += "3 PNG保存機能を追加しました。<br>";
+        msg += "4 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
         msg += "宮崎県情報政策課<br>最終更新:2017/05/17</div>";
     $.notify({//options
