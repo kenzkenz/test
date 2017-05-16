@@ -306,12 +306,10 @@ var muroQ2 = new ol.layer.Tile({
         maxZoom:21
     })
 });
-
-
 //室蘭市米軍地図
 var murous1 = new ol.layer.Tile({
     title:"室蘭市戦後米軍地図",
-    origin:"",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
     detail:"",
     coord:[140.973774,42.315226],
     zoom:14,
@@ -326,7 +324,7 @@ var murous1 = new ol.layer.Tile({
 });
 var murous2 = new ol.layer.Tile({
     title:"室蘭市戦後米軍地図",
-    origin:"",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
     detail:"",
     coord:[140.973774,42.315226],
     zoom:14,
