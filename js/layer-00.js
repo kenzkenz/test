@@ -5,9 +5,9 @@ var plusLayer2 = [];
 var plI = 0;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,seamlessphoto1,gazo11,muro1,murous1,
+    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,senzenmiya1,seamlessphoto1,gazo11,muro1,murous1,
                     ryuuiki1,ecoris1,tisitu1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,seamlessphoto2,gazo12,muro2,murous2,
+    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,senzenmiya2,seamlessphoto2,gazo12,muro2,murous2,
                     ryuuiki2,ecoris2,tisitu2,nihonCs2,csArr2];
     /*
     useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,amArr1,ort1,seamlessphoto1,gazo11,muro1,muroQ1,

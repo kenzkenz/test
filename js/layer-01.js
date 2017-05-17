@@ -591,3 +591,33 @@ var nihonCs2 = new ol.layer.Tile({
         maxZoom:15
     })
 });
+
+//宮崎市米軍地図
+var senzenmiya1 = new ol.layer.Tile({
+    title:"宮崎市戦後米軍地図",
+    origin:"",
+    detail:"",
+    coord:[131.423860,31.911069],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'https://kenzkenz2.xsrv.jp/usarmy/miyazaki/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+var senzenmiya2 = new ol.layer.Tile({
+    title:"宮崎市戦後米軍地図",
+    origin:"",
+    detail:"",
+    coord:[131.423860,31.911069],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'https://kenzkenz2.xsrv.jp/usarmy/miyazaki/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
