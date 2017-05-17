@@ -592,11 +592,11 @@ var nihonCs2 = new ol.layer.Tile({
     })
 });
 
-//宮崎市米軍地図
-var senzenmiya1 = new ol.layer.Tile({
+//宮崎市戦後米軍地図
+var sengomiya1 = new ol.layer.Tile({
     title:"宮崎市戦後米軍地図",
-    origin:"",
-    detail:"",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
     coord:[131.423860,31.911069],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -607,10 +607,10 @@ var senzenmiya1 = new ol.layer.Tile({
         maxZoom:19
     })
 });
-var senzenmiya2 = new ol.layer.Tile({
+var sengomiya2 = new ol.layer.Tile({
     title:"宮崎市戦後米軍地図",
-    origin:"",
-    detail:"",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
     coord:[131.423860,31.911069],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -619,5 +619,65 @@ var senzenmiya2 = new ol.layer.Tile({
         url:'https://kenzkenz2.xsrv.jp/usarmy/miyazaki/{z}/{x}/{-y}.png',
         crossOrigin:"anonymous",
         maxZoom:19
+    })
+});
+//延岡市戦後米軍地図
+var sengonobe1 = new ol.layer.Tile({
+    title:"延岡市戦後米軍地図",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
+    coord:[131.664854,32.582407],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'https://kenzkenz2.xsrv.jp/usarmy/nobeoka/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+var sengonobe2 = new ol.layer.Tile({
+    title:"延岡市戦後米軍地図",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
+    coord:[131.664854,32.582407],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'https://kenzkenz2.xsrv.jp/usarmy/nobeoka/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+//都城市市米軍地図
+var sengomiyako1 = new ol.layer.Tile({
+    title:"都城市戦後米軍地図",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
+    coord:[131.061498,31.719552],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-jpeg.php?url=http://t.tilemap.jp/jcp_maps/miyakonojo/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        //maxZoom:21
+    })
+});
+var sengomiyako2 = new ol.layer.Tile({
+    title:"都城市戦後米軍地図",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
+    coord:[131.061498,31.719552],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-jpeg.php?url=http://t.tilemap.jp/jcp_maps/miyakonojo/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        //maxZoom:21
     })
 });
