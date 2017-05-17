@@ -410,7 +410,6 @@ $(function(){
                 //eval("estatDataAr" + mapName)[i]["VALUE"][0]["cityname"] = cityId;
             }
             //-------------------------------------------------------------------------------
-
 			if(!tgtYear) tgtYear = eval("estatDataAr" + mapName)[i]["VALUE"].length - 1;//最後の年を取得している。
             if(eval("estatDataAr" + mapName)[i]["VALUE"].length>0){
             	try {
@@ -470,6 +469,7 @@ $(function(){
                 var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
                 var targetFillColor = d3ColorM(c100);
             }
+            //------------------------------------------------------------------------------------
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
                 if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){

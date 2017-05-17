@@ -19,10 +19,11 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
         msg += "<span class='label label-default label-danger'>New</span><br>";
-        msg += "1 室蘭市戦後米軍地図を追加しました。<br>";
-        msg += "2 背景追加機能を追加しました。<br>";
-        msg += "3 PNG保存機能を追加しました。<br>";
-        msg += "4 estatにグラフ機能を追加しました。<br>";
+        msg += "1 resas人口体系連携機能を作成中です。（５割程度）<br>"
+        msg += "2 室蘭市戦後米軍地図を追加しました。<br>";
+        msg += "3 背景追加機能を追加しました。<br>";
+        msg += "4 PNG保存機能を追加しました。<br>";
+        msg += "5 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
         msg += "宮崎県情報政策課<br>最終更新:2017/05/17</div>";
     $.notify({//options
