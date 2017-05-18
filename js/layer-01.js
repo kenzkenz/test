@@ -141,9 +141,9 @@ var mieruneMono2 = new ol.layer.Tile({
 });
 //toner
 var toner1 = new ol.layer.Tile({
-    title:"toner",
+    title:"Stamen Toner",
     origin:"<a href='http://maps.stamen.com/#toner/5/35.661/139.380' target='_blank'>maps.stamen.com</a>",
-    detail:"",
+    detail:"Map Tiles by Stamen Design, under CC BY 3.0, Date by OpenStreetMap, Under CC BY SA.",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:""})],
@@ -153,9 +153,9 @@ var toner1 = new ol.layer.Tile({
     })
 });
 var toner2 = new ol.layer.Tile({
-    title:"toner",
+    title:"Stamen Toner",
     origin:"<a href='http://maps.stamen.com/#toner/5/35.661/139.380' target='_blank'>maps.stamen.com</a>",
-    detail:"",
+    detail:"Map Tiles by Stamen Design, under CC BY 3.0, Date by OpenStreetMap, Under CC BY SA.",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:""})],
@@ -679,5 +679,61 @@ var sengomiyako2 = new ol.layer.Tile({
         crossOrigin:"anonymous",
         //minZoom:12,
         //maxZoom:21
+    })
+});
+//綾ユネスコエコパーク
+var aya1 = new ol.layer.Tile({
+    title:"綾ユネスコエコパーク",
+    origin:"",
+    detail:"" ,
+    coord:[131.253644,31.998996],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/aya/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        maxZoom:19
+    })
+});
+var aya2 = new ol.layer.Tile({
+    title:"綾ユネスコエコパーク",
+    origin:"",
+    detail:"" ,
+    coord:[131.253644,31.998996],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/aya/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        maxZoom:19
+    })
+});
+//宮崎県赤色立体地図
+var seki1 = new ol.layer.Tile({
+    title:"宮崎県(九州)赤色立体地図",
+    origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図</a><br><br>赤色立体地図©アジア航測株式会社",
+    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span><br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。商用利用禁止です！" ,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
+        url:"http://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:16
+    })
+});
+var seki2 = new ol.layer.Tile({
+    title:"宮崎県(九州)赤色立体地図",
+    origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図<br><br>赤色立体地図©アジア航測株式会社</a>",
+    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span><br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。商用利用禁止です！" ,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
+        url:"http://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:16
     })
 });

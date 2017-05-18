@@ -7,20 +7,14 @@ $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,
                     sengomiya1,sengonobe1,sengomiyako1,
+                    aya1,
                     seamlessphoto1,gazo11,muro1,murous1,
-                    ryuuiki1,ecoris1,tisitu1,nihonCs1,csArr1];
+                    ryuuiki1,ecoris1,seki1,tisitu1,nihonCs1,csArr1];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,
                     sengomiya2,sengonobe2,sengomiyako2,
+                    aya2,
                     seamlessphoto2,gazo12,muro2,murous2,
-                    ryuuiki2,ecoris2,tisitu2,nihonCs2,csArr2];
-    /*
-    useLayersArr1 = [pale1,osm1,mierune1,mieruneMono1,amArr1,ort1,seamlessphoto1,gazo11,muro1,muroQ1,
-        tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,ryuuiki1,ecoris1,
-        obi1,tisitu1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,osm2,mierune2,mieruneMono2,amArr2,ort2,seamlessphoto2,gazo12,muro2,muroQ2,
-        tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,ryuuiki2,ecoris2,
-        obi2,tisitu2,nihonCs2,csArr2];
-     */
+                    ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2];
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
@@ -221,7 +215,7 @@ $(function(){
         }
         var content = "<table class='info-tbl table table-bordered table-condensed'>";
         content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
-        content += "<tr><td>出展</td><td>" + prop["origin"] + "</td></tr>";
+        content += "<tr><td>出典</td><td>" + prop["origin"] + "</td></tr>";
         content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
         content += "</table>";
         mydialog({
