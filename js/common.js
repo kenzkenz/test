@@ -4,7 +4,47 @@ $(document).ajaxStart(function (){
 $(document).ajaxStop(function (){
     $("#loading-fa").hide(500);
 });
+//↓産業技術総合研究所の西岡さんから頂きました。自分流に体裁をちょっと変えました。
+// ********************************************************************************
+// getElev, タイル座標とズームレベルを指定して標高値を取得する関数
+//	rx, ry: タイル座標(実数表現）z:　ズームレベル
+//	thenは終了時に呼ばれるコールバック関数
+//	成功時には標高(単位m)，無効値の場合は'e'を返す
+// ********************************************************************************
+//function getElev(rx,ry,z,then){
+var prevImgSrc = "";
+function getElev(coordinate,mapName,then){
+    var elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/';
+    var z = Math.floor(eval(mapName).getView().getZoom());
+    if(z>13) z=13;
+    var R = 6378137;// 地球の半径(m);
+    var rx = (0.5 + coordinate[0]/(2*R*Math.PI))*Math.pow(2,z);
+    var ry = (0.5 - coordinate[1]/(2*R*Math.PI))*Math.pow(2,z);
+
+    var x = Math.floor(rx);// タイルX座標
+    var y = Math.floor(ry);// タイルY座標
+    var i = (rx - x) * 256;// タイル内i座標
+    var j = (ry - y) * 256;// タイル内j座標
+    var img = new Image();
+    img.crossOrigin = 'anonymouse';
+    img.onload = function(){
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var h = "e";
+        var data = null;
+        canvas.width = 1;
+        canvas.height = 1;
+        context.drawImage(img,i,j,1,1,0,0,1,1);
+        data = context.getImageData(0,0,1,1).data;
+        if(data[3] === 255){
+            h = (data[0] * 256 * 256 + data[1] * 256 + data[2]) / 100;
+        };
+        then(h);
+    };
+    img.src = elevServer + z + '/' + y + '/' + x + '.png?res=cm';
+}
 //-----------------------------------------------------------------------------
+//バックグラウンドで色を判断する。
 function funcTextColor(R,G,B){
     var cY = 0.3*R + 0.6*G + 0.1*B;
     if(cY > 50) {//最高値は255。今回は50で判断させる。

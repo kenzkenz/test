@@ -19,13 +19,14 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
         msg += "<span class='label label-default label-danger'>New</span><br>";
-        msg += "1 resas人口体系連携機能を作成中です。（５割程度）<br>"
-        msg += "2 室蘭市戦後米軍地図を追加しました。<br>";
-        msg += "3 背景追加機能を追加しました。<br>";
-        msg += "4 PNG保存機能を追加しました。<br>";
-        msg += "5 estatにグラフ機能を追加しました。<br>";
+        msg += "1 都城市、延岡市戦後米軍地図を追加しました。<br>";
+        msg += "2 resas人口体系連携機能を作成中です。<br>";
+        msg += "3 室蘭市戦後米軍地図を追加しました。<br>";
+        msg += "4 背景追加機能を追加しました。<br>";
+        msg += "5 PNG保存機能を追加しました。<br>";
+        msg += "6 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/05/17</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/05/18</div>";
     $.notify({//options
         message:msg
     },{//settings
@@ -102,11 +103,34 @@ $(function(){
     map2.addControl(centerTarget2);
     //--------------------------------------------------------------------------
     //マップイベント関係
-    //ムーブエンド時にwevストレージに中心座標とズーム率を記憶origin:"<a href='http://tiles.dammaps.jp/ryuiki/' target='_blank'>川と流域地図</a>",
+    //ムーブエンド時にwevストレージに中心座標とズーム率を記憶
     map1.on("moveend",function(evt){
         localStorage.setItem("lonlat",JSON.stringify(map1.getView().getCenter()));
         localStorage.setItem("zoom",map1.getView().getZoom());
-        $("#map1 .zoom-div").text("zoom=" + Math.floor(map1.getView().getZoom()));
+        $("#map1 .zoom-div .zoom-span").text("zoom=" + Math.floor(map1.getView().getZoom()));
+    });
+    map2.on("moveend",function(evt){
+        $("#map2 .zoom-div .zoom-span").text("zoom=" + Math.floor(map2.getView().getZoom()));
+    });
+    //ムーブ時に・・・。
+    map1.on("pointermove",function(evt){
+        funcElevation(evt,"map1");
+    });
+    map2.on("pointermove",function(evt){
+        funcElevation(evt,"map2");
+    });
+    function funcElevation(evt,mapName){
+        getElev(evt.coordinate,mapName,function(h){
+            if(h=="e"){
+                $("#" + mapName + " .zoom-div .elevation-span").text("");
+            }else{
+                var elevationChar = " 標高:" + h + "m";
+                $("#" + mapName + " .zoom-div .elevation-span").text(elevationChar);
+            }
+        });
+    }
+    map2.on("pointermove",function(evt){
+        console.log(evt);
     });
     //--------------------------------------------------------------------------
     //ピンチ時の回転を制御
