@@ -19,12 +19,13 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
         msg += "<span class='label label-default label-danger'>New</span><br>";
-        msg += "1 都城市、延岡市戦後米軍地図を追加しました。<br>";
-        msg += "2 resas人口体系連携機能を作成中です。<br>";
-        msg += "3 室蘭市戦後米軍地図を追加しました。<br>";
-        msg += "4 背景追加機能を追加しました。<br>";
-        msg += "5 PNG保存機能を追加しました。<br>";
-        msg += "6 estatにグラフ機能を追加しました。<br>";
+        msg += "1 画面左下に標高表示機能を追加しました。<br>";
+        msg += "2 都城市、延岡市戦後米軍地図を追加しました。<br>";
+        msg += "3 resas人口体系連携機能を作成中です。<br>";
+        msg += "4 室蘭市戦後米軍地図を追加しました。<br>";
+        msg += "5 背景追加機能を追加しました。<br>";
+        msg += "6 PNG保存機能を追加しました。<br>";
+        msg += "7 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
         msg += "宮崎県情報政策課<br>最終更新:2017/05/18</div>";
     $.notify({//options
