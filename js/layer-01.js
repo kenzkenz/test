@@ -686,12 +686,12 @@ var aya1 = new ol.layer.Tile({
     title:"綾ユネスコエコパーク",
     origin:"",
     detail:"" ,
-    coord:[131.253644,31.998996],
+    coord:[131.222659,32.0078758],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    extent:transformE([131.16240,31.9749595,131.2840757,32.046935]),
     source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/ayaeco/{z}/{x}/{-y}.png",
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/ayaeco2/{z}/{x}/{-y}.png",
         crossOrigin:"anonymous",
         //minZoom:12,
         maxZoom:19
@@ -701,12 +701,12 @@ var aya2 = new ol.layer.Tile({
     title:"綾ユネスコエコパーク",
     origin:"",
     detail:"" ,
-    coord:[131.253644,31.998996],
+    coord:[131.222659,32.0078758],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    extent:transformE([131.16240,31.9749595,131.2840757,32.046935]),
     source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/ayaeco/{z}/{x}/{-y}.png",
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/ayaeco2/{z}/{x}/{-y}.png",
         crossOrigin:"anonymous",
         //minZoom:12,
         maxZoom:19
