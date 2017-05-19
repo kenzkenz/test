@@ -691,7 +691,7 @@ var aya1 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/aya/{z}/{x}/{-y}.png",
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/ayaeco/{z}/{x}/{-y}.png",
         crossOrigin:"anonymous",
         //minZoom:12,
         maxZoom:19
@@ -706,7 +706,7 @@ var aya2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/aya/{z}/{x}/{-y}.png",
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/ayaeco/{z}/{x}/{-y}.png",
         crossOrigin:"anonymous",
         //minZoom:12,
         maxZoom:19
