@@ -720,7 +720,7 @@ var seki1 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
-        url:"http://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
         //minZoom :1,
         maxZoom:16
     })
@@ -732,7 +732,7 @@ var seki2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
-        url:"http://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
         //minZoom :1,
         maxZoom:16
     })

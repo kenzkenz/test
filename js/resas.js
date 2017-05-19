@@ -26,8 +26,8 @@ $(function(){
             eval(mapName).addLayer(eval("resasLayer" + mapName));
             return;
         }
-        //$.blockUI({message:null});
         var content = "";
+        content += "　出典:<a href='https://opendata.resas-portal.go.jp/docs/api/v1/population/composition/perYear.html' target='_blank'>RESAS-API 人口構成</a><br>";
         content += "<select class='resas-pref-select'></select>";
         //content += "<select class='resas-table-select'></select>";
         content += "<select class='resas-zinkou-select'>";
@@ -263,7 +263,6 @@ $(function(){
             });
             //-----------------------------------------------------------------------------------
         });
-
     }
     //----------------------------------------------------------------------------
     function resasLayerCreate(vectorSource,mapName){
