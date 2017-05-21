@@ -3,7 +3,21 @@ $(function() {
     $("body").on("click",".pano-btn",function(){
         if($("#map1").height()>$(window).height()/2) {
             if($("#map1 .dualscreen-btn").text()=="1画面"){
-                alert("2画面時には使用できません。1画面に戻してください。");
+                //alert("2画面時には使用できません。1画面に戻してください。");
+                $.notify({//options
+                    message: "<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>2画面時には使用できません。1画面に戻してください。</div>"
+                }, {//settings
+                    type: "info",
+                    z_index: 999999,
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    },
+                    animate: {
+                        enter: "animated fadeInDown",
+                        exit: "animated fadeOutUp"
+                    }
+                });
                 return;
             }
             $("#map1").animate({"width": "100%", "height": $(window).height() / 2 + "px"}, 500, function () {

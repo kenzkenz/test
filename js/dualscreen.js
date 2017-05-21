@@ -1,7 +1,20 @@
 $(function(){
     $("body").on("click",".dualscreen-btn",function(){
         if($("#pano-div").length!=0){
-            alert("パノラマ時には2画面機能は使えません。");
+            $.notify({//options
+                message: "<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>パノラマ時には2画面機能は使えません。</div>"
+            }, {//settings
+                type: "info",
+                z_index: 999999,
+                placement: {
+                    from: "top",
+                    align: "center"
+                },
+                animate: {
+                    enter: "animated fadeInDown",
+                    exit: "animated fadeOutUp"
+                }
+            });
             return;
         }
         if($(this).text()==="2画面"){//起動時はこっち
