@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+
+    {
+      "type": "Feature",
+      "properties": {
+        "xml":"tour06.xml",
+        "名称": "青島神社",
+        "説明": "青島神社の説明を書く"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.47539496421814,
+          31.804880305443593
+        ]
+      }
+    },
+
+    {
+      "type": "Feature",
+      "properties": {
+        "xml":"tour01.xml",
+        "名称": "青島神社1",
+        "説明": "青島神社1の説明を書く"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.476,
+          31.805
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "xml":"tour02.xml",
+        "名称": "青島神社2",
+        "説明": "青島神社2の説明を書く"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.474,
+          31.804
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "xml":"tour03.xml",
+        "名称": "青島神社3",
+        "説明": "青島神社3の説明を書く"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          131.4746,
+          31.804
+        ]
+      }
+    }
+
+  ]
+}

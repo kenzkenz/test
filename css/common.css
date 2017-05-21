@@ -258,7 +258,6 @@ label:hover{
 .estat-chart-div{
     height:600px;
 }
-
 /*resas関係--------------------------------------------------------------------*/
 .resas-tbl-div{
     overflow:auto;
@@ -297,3 +296,26 @@ label:hover{
     width:400px;
     font-size:12px;
 }
+/*パノラマ関係-------------------------------------------------------------------*/
+#pano-div{
+    width:100%;;
+    float:left;
+    background:gainsboro;
+    text-align:center;
+}
+.fullscreen-btn{
+    position:absolute;
+    bottom:5px;
+    width:70px;
+    margin-left:-35px;
+    z-index:2;
+}
+/*右クリック　コンテキストメニュー関係---------------------------------------------*/
+.myContextOverlay-div{
+    position:absolute;
+    top:50%;
+    z-index:2;
+    display:none;
+
+}
+

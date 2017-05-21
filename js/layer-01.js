@@ -684,8 +684,8 @@ var sengomiyako2 = new ol.layer.Tile({
 //綾ユネスコエコパーク
 var aya1 = new ol.layer.Tile({
     title:"綾ユネスコエコパーク",
-    origin:"",
-    detail:"" ,
+    origin:"<a href='http://www.town.aya.miyazaki.jp/ayatown/index.html' target='_blank'>綾町役場</a> 綾ユネスコエコパーク推進室",
+    detail:"<a href='http://ayahpm.miyazaki-nw.or.jp/tempimg/150623164126201506231657430f.pdf' target='_blank'>パンフレット</a>",
     coord:[131.222659,32.0078758],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -699,8 +699,8 @@ var aya1 = new ol.layer.Tile({
 });
 var aya2 = new ol.layer.Tile({
     title:"綾ユネスコエコパーク",
-    origin:"",
-    detail:"" ,
+    origin:"<a href='http://www.town.aya.miyazaki.jp/ayatown/index.html' target='_blank'>綾町役場</a> 綾ユネスコエコパーク推進室",
+    detail:"<a href='http://ayahpm.miyazaki-nw.or.jp/tempimg/150623164126201506231657430f.pdf' target='_blank'>パンフレット</a>",
     coord:[131.222659,32.0078758],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -735,5 +735,63 @@ var seki2 = new ol.layer.Tile({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/sekisyoku/{z}/{x}/{-y}.png",
         //minZoom :1,
         maxZoom:16
+    })
+});
+//鹿児島市オルソ
+var kago1 = new ol.layer.Tile({
+    title:"鹿児島市航空写真（試行中）",
+    origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
+    detail:"確認中です。",
+    coord:[130.557143,31.596715],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+var kago2 = new ol.layer.Tile({
+    title:"鹿児島市航空写真（試行中）",
+    origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
+    detail:"確認中です。",
+    coord:[130.557143,31.596715],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+//鹿児島市 戦後米軍地図
+var sengokago1 = new ol.layer.Tile({
+    title:"鹿児島市戦後米軍地図",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
+    coord:[130.557143,31.596715],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'https://kenzkenz2.xsrv.jp/usarmy/kagosima/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+var sengokago2 = new ol.layer.Tile({
+    title:"鹿児島市戦後米軍地図",
+    origin:"<a href='https://github.com/code4nara/jcp_maps/wiki' target='_blank' >テキサス大学図書館Japan City PlansのTMS化プロジェクト</a>",
+    detail:"戦後の米軍作成地図をみんなで地図タイル化するプロジェクトです。面白くて大変ためになるプロジェクトなので是非参加しましょう！" ,
+    coord:[130.557143,31.596715],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:'https://kenzkenz2.xsrv.jp/usarmy/kagosima/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:19
     })
 });

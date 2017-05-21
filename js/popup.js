@@ -40,6 +40,11 @@ $(function(){
             case "weatherLayer":
                 funcWeatherPopup(feature,map,evt);
                 break;
+            case "panoLayer":
+                funcPanoPopup(feature,map,evt);
+                break;
+
+
             default:
         }
         /*
@@ -56,6 +61,56 @@ $(function(){
         }
         */
     }
+    //-----------------------------------------------
+    function funcPanoPopup(feature,map,evt) {
+        var coord = feature.getGeometry().getCoordinates();
+        var featureProp = feature.getProperties();
+        var value = featureProp["value"];
+        //if(value) var keys = Object.keys(value);
+        var content = "<table class='weather-tbl table table-bordered table-condensed'>";
+        content += "<tr><td class='weather-td'>名称</td><td>" + featureProp["名称"] + "</td></tr>";
+        content += "<tr><td>説明</td><td>" + featureProp["説明"] + "</td><tr>";
+        content += "</table>";
+        //if(value) content += "<span class='weather-span'>" + keys[0] + value[keys[0]] + "</span>";
+
+        if(map=="map1") {
+            popup1.show(coord,content);
+
+            $("#pano-div").remove();
+            var content = "";
+            content += "<div id='pano-div' style='height:" + $(window).height() / 2 + "px'>";
+            content += "<button type='button' class='fullscreen-btn btn btn-primary'>全画面</button>";
+            content += "<div>";
+            $("#map1").after(content);
+            embedpano({
+                id: "krpanoObj",
+                swf: "panos/tour.swf",
+                xml: "panos/" + featureProp["xml"],
+                target: "pano-div",
+                html5: "auto",
+                mobilescale: 1.0,
+                passQueryParameters: true
+            });
+
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    $("body").on("click",".fullscreen-btn",function() {
+        if ($(this).text() == "全画面"){
+            $("#map1").animate({"width": "100%", "height": "0px"}, 500, function () {
+                $("#pano-div").animate({"width": "100%", "height": $(window).height() + "px"}, 500, function () {
+                })
+            });
+            $(this).text("解除");
+        }else{
+            $("#map1").animate({"width": "100%", "height": $(window).height() / 2 + "px"}, 500, function () {
+                $("#pano-div").animate({"width": "100%", "height": $(window).height()/2 + "px"}, 500, function () {
+                })
+            });
+            $(this).text("全画面");
+        }
+    });
     //-----------------------------------------------
     function funcWeatherPopup(feature,map,evt){
         var coord = feature.getGeometry().getCoordinates();

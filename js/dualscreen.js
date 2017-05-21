@@ -1,5 +1,9 @@
 $(function(){
     $("body").on("click",".dualscreen-btn",function(){
+        if($("#pano-div").length!=0){
+            alert("パノラマ時には2画面機能は使えません。");
+            return;
+        }
         if($(this).text()==="2画面"){//起動時はこっち
             if($(window).width()>1000){//横幅が大きいときは横に分割
                 $("#map1").animate({"width":"50%"},500,function(){map1.updateSize();});
