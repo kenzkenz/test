@@ -18,18 +18,19 @@ $(function(){
     var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
-        msg += "<span class='label label-default label-danger'>New</span><br>";
-        msg += "1 綾ユネスコエコパークを追加しました。<br>";
-        msg += "2 宮崎県(九州)赤色立体地図を追加しました。<br>";
-        msg += "3 画面左下に標高表示機能を追加しました。<br>";
-        msg += "4 都城市、延岡市戦後米軍地図を追加しました。<br>";
-        msg += "5 resas人口体系連携機能を作成中です。<br>";
-        msg += "6 室蘭市戦後米軍地図を追加しました。<br>";
-        msg += "7 背景追加機能を追加しました。<br>";
-        msg += "8 PNG保存機能を追加しました。<br>";
-        msg += "9 estatにグラフ機能を追加しました。<br>";
+        msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
+        msg += "1 パノラマ写真表示機能実験中。カメラアイコンから<br>";
+        msg += "2 綾ユネスコエコパークを追加しました。<br>";
+        msg += "3 宮崎県(九州)赤色立体地図を追加しました。<br>";
+        msg += "4 画面左下に標高表示機能を追加しました。<br>";
+        msg += "5 都城市、延岡市戦後米軍地図を追加しました。<br>";
+        msg += "6 resas人口体系連携機能を作成中です。<br>";
+        msg += "7 室蘭市戦後米軍地図を追加しました。<br>";
+        msg += "8 背景追加機能を追加しました。<br>";
+        msg += "9 PNG保存機能を追加しました。<br>";
+        msg += "10 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/05/19</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/05/22</div>";
     $.notify({//options
         message:msg
     },{//settings
