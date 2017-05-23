@@ -739,9 +739,9 @@ var seki2 = new ol.layer.Tile({
 });
 //鹿児島市オルソ
 var kago1 = new ol.layer.Tile({
-    title:"鹿児島市航空写真（試行中）",
+    title:"鹿児島市航空写真",
     origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"確認中です。",
+    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
@@ -753,9 +753,9 @@ var kago1 = new ol.layer.Tile({
     })
 });
 var kago2 = new ol.layer.Tile({
-    title:"鹿児島市航空写真（試行中）",
+    title:"鹿児島市航空写真",
     origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"確認中です。",
+    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
