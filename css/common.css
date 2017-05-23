@@ -312,10 +312,10 @@ label:hover{
 }
 /*右クリック　コンテキストメニュー関係---------------------------------------------*/
 .myContextOverlay-div{
-    position:absolute;
+    /*position:absolute;
     top:50%;
-    z-index:2;
-    display:none;
+    z-index:9999;
+    display:none;*/
 
 }
 
