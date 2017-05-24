@@ -741,13 +741,14 @@ var seki2 = new ol.layer.Tile({
 var kago1 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
     origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    detail:"<a href='https://www.city.kagoshima.lg.jp/jousys/opendata.html' target='_blank'>鹿児島市</a>よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        attributions:[new ol.Attribution({html:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>matoken氏サイト</a>"})],
         crossOrigin:"anonymous",
         maxZoom:19
     })
@@ -755,13 +756,14 @@ var kago1 = new ol.layer.Tile({
 var kago2 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
     origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    detail:"<a href='https://www.city.kagoshima.lg.jp/jousys/opendata.html' target='_blank'>鹿児島市</a>よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        attributions:[new ol.Attribution({html:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>matoken氏サイト</a>"})],
         crossOrigin:"anonymous",
         maxZoom:19
     })
