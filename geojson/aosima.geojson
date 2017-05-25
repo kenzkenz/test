@@ -122,7 +122,36 @@
            32.710950
          ]
        }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-Virginia_Beach.xml",
+         "名称": "バージニアビーチ広場",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.421192,
+           31.912313
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-morotsuka_yamagishi.xml",
+         "名称": "諸塚やましぎの杜",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.294171,
+           32.523401
+         ]
+       }
      }
-
   ]
 }
