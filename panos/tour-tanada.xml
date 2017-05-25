@@ -1,0 +1,35 @@
+﻿<krpano bgcolor="0x000000">
+
+	<!-- the skin and the flat pano viewing and controlling setup -->
+	<!--<include url="skin/defaultskin.xml" />-->
+	<include url="skin/flatpano_setup.xml" />
+
+	<!-- preview pano image -->
+	<preview url="panos/gigapix_tnada.tiles/preview.jpg" />
+
+	<!-- pano image -->
+	<image type="CYLINDER" hfov="1.00" vfov="0.749368" voffset="0.00" multires="true" tilesize="512" progressive="true">
+		<level tiledimagewidth="42240" tiledimageheight="31654">
+			<cylinder url="panos/gigapix_tnada.tiles/l7/%v/l7_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="21120" tiledimageheight="15826">
+			<cylinder url="panos/gigapix_tnada.tiles/l6/%v/l6_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="10496" tiledimageheight="7866">
+			<cylinder url="panos/gigapix_tnada.tiles/l5/%v/l5_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="5248" tiledimageheight="3934">
+			<cylinder url="panos/gigapix_tnada.tiles/l4/%v/l4_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="2624" tiledimageheight="1966">
+			<cylinder url="panos/gigapix_tnada.tiles/l3/%v/l3_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="1280" tiledimageheight="960">
+			<cylinder url="panos/gigapix_tnada.tiles/l2/%v/l2_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="640" tiledimageheight="480">
+			<cylinder url="panos/gigapix_tnada.tiles/l1/%v/l1_%v_%h.jpg" />
+		</level>
+	</image>
+
+</krpano>

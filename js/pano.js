@@ -21,10 +21,10 @@ $(function() {
                 return;
             }
             $("#map1").animate({"width": "100%", "height": $(window).height() / 2 + "px"}, 500, function () {
-                var lonlat = [131.47539496421814,31.804880305443593];
+                var lonlat = [131.423860,31.911069];
                 lonlat = ol.proj.transform(lonlat,"EPSG:4326","EPSG:3857");
                 map1.getView().setCenter(lonlat);
-                map1.getView().setZoom(16);
+                map1.getView().setZoom(10);
                 map1.updateSize();
                 $("#map1").after("<div id='pano-div' style='height:" + $(window).height() / 2 + "px'><br>！！！実験中！！！<br>緑のポイントをクリックしてください。<br>パノラマ写真のデータはYさんからお借りしております。<div>");
                 //embedpano({swf:"panos/tour.swf", xml:"panos/tour.xml", target:"pano-div", html5:"auto", mobilescale:1.0, passQueryParameters:true});

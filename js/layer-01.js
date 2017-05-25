@@ -741,14 +741,13 @@ var seki2 = new ol.layer.Tile({
 var kago1 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
     origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"<a href='https://www.city.kagoshima.lg.jp/jousys/opendata.html' target='_blank'>鹿児島市</a>よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
-        attributions:[new ol.Attribution({html:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>matoken氏サイト</a>"})],
         crossOrigin:"anonymous",
         maxZoom:19
     })
@@ -756,14 +755,13 @@ var kago1 = new ol.layer.Tile({
 var kago2 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
     origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"<a href='https://www.city.kagoshima.lg.jp/jousys/opendata.html' target='_blank'>鹿児島市</a>よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
-        attributions:[new ol.Attribution({html:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>matoken氏サイト</a>"})],
         crossOrigin:"anonymous",
         maxZoom:19
     })
@@ -795,5 +793,63 @@ var sengokago2 = new ol.layer.Tile({
         url:'https://kenzkenz2.xsrv.jp/usarmy/kagosima/{z}/{x}/{-y}.png',
         crossOrigin:"anonymous",
         maxZoom:19
+    })
+});
+//千葉県管内全図(大正14年)
+var mrtiba1 = new ol.layer.Tile({
+    title:"千葉県管内全図(大正14年)",
+    origin:"<a href='http://mapwarper.net/maps/20822' target='_blank' >Map Warper</a>",
+    detail:"sHigashiさんがNDLデジコレにあったパブリックドメインな大正末期頃の千葉県地図を地図タイル化したものです。" ,
+    coord:[140.28233,35.55577],
+    zoom:9,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([139.70417,34.892768,140.893444,36.113549]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=http://mapwarper.net/maps/tile/20822/{z}/{x}/{y}.png',
+        crossOrigin:"anonymous",
+        //maxZoom:19
+    })
+});
+var mrtiba2 = new ol.layer.Tile({
+    title:"千葉県管内全図(大正14年)",
+    origin:"<a href='http://mapwarper.net/maps/20822' target='_blank' >Map Warper</a>",
+    detail:"sHigashiさんがNDLデジコレにあったパブリックドメインな大正末期頃の千葉県地図を地図タイル化したものです。" ,
+    coord:[140.28233,35.55577],
+    zoom:9,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([139.70417,34.892768,140.893444,36.113549]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=http://mapwarper.net/maps/tile/20822/{z}/{x}/{y}.png',
+        crossOrigin:"anonymous",
+        //maxZoom:19
+    })
+});
+//安政改正御江戸大絵図
+var mransei1 = new ol.layer.Tile({
+    title:"安政改正御江戸大絵図",
+    origin:"<a href='http://mapwarper.net/maps/16142' target='_blank' >Map Warper</a>",
+    detail:"" ,
+    coord:[139.7515142,35.68605197],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([139.70417,34.892768,140.893444,36.113549]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=http://mapwarper.net/maps/tile/16142/{z}/{x}/{y}.png',
+        crossOrigin:"anonymous",
+        //maxZoom:19
+    })
+});
+var mransei2 = new ol.layer.Tile({
+    title:"安政改正御江戸大絵図",
+    origin:"<a href='http://mapwarper.net/maps/16142' target='_blank' >Map Warper</a>",
+    detail:"" ,
+    coord:[139.7515142,35.68605197],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([139.70417,34.892768,140.893444,36.113549]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=http://mapwarper.net/maps/tile/16142/{z}/{x}/{y}.png',
+        crossOrigin:"anonymous",
+        //maxZoom:19
     })
 });

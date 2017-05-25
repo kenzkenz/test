@@ -23,6 +23,7 @@
         <script src="js/ol3/ol-cesium-v1.26/olcesium.js"></script>
         <link rel="stylesheet" href="css/common.css" />
         <link rel="stylesheet" href="css/dialog.css" />
+        <script src="js/encoding.js"></script>
         <script src="js/common.js"></script>
         <script src="js/layer-00.js"></script>
         <script src="js/layer-01.js"></script>
@@ -42,6 +43,7 @@
         <script src="js/estat.js"></script>
         <script src="js/estat-chart.js"></script>
         <script src="js/resas.js"></script>
+        <script src="js/csvdrop.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
         <script src="js/jquery.ui.touch-punch.js"></script>
@@ -66,11 +68,12 @@
         <script src="panos/tour.js"></script>
         <script src="js/pano.js"></script>
         <script src="js/jcpmaps.js"></script>
+
     </head>
     <body>
         <i id="loading-fa" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
         <div id="map1" class="maps">
-            <div class="myContextOverlay-div">右クリック実験中！！実験中！！実験中</div>
+            <!--<div id="myContextOverlay-div">右クリック実験中！！実験中！！実験中</div>-->
             <div class="top-left-div">
                 <button type="button" class="menu-btn btn btn-primary"><i class='fa fa-bars fa-lg'></i></button>
                 <button type="button" class="here-btn btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="現在地取得"><i class='fa fa-map-marker fa-lg'></i></button>

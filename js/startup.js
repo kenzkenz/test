@@ -19,8 +19,8 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         //msg += "機能は随時追加されていきます。<br>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
-        msg += "1 鹿児島市航空写真を追加しました。<br>";
-        msg += "2 パノラマ写真表示機能実験中。カメラアイコンから<br>";
+        msg += "2 パノラマ写真表示機能実験中。写真４枚追加。<br>";
+        msg += "2 鹿児島市航空写真を追加しました。<br>";
         msg += "3 綾ユネスコエコパークを追加しました。<br>";
         msg += "4 宮崎県(九州)赤色立体地図を追加しました。<br>";
         msg += "5 画面左下に標高表示機能を追加しました。<br>";
@@ -31,7 +31,7 @@ $(function(){
         msg += "10 PNG保存機能を追加しました。<br>";
         msg += "11 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/05/22</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/05/26</div>";
     $.notify({//options
         message:msg
     },{//settings
@@ -135,7 +135,7 @@ $(function(){
         });
     }
     map2.on("pointermove",function(evt){
-        console.log(evt);
+        //console.log(evt);
     });
     map1.on("click",function(evt){
         console.log(ol.proj.transform(evt.coordinate,"EPSG:3857","EPSG:4326"));

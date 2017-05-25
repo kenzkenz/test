@@ -38,7 +38,7 @@ function getElev(coordinate,mapName,then){
         data = context.getImageData(0,0,1,1).data;
         if(data[3] === 255){
             h = (data[0] * 256 * 256 + data[1] * 256 + data[2]) / 100;
-        };
+        }
         then(h);
     };
     img.src = elevServer + z + '/' + y + '/' + x + '.png?res=cm';
@@ -105,6 +105,20 @@ function funcHaikeiTblDivHeight(){
 function transformE(extent) {
 	return ol.proj.transformExtent(extent,'EPSG:4326','EPSG:3857');
 }
+//-----------------------------------------------------------------------------------------
+// 文字列から，Unicodeコードポイントの配列を作る
+function str_to_unicode_array( str ){
+    var arr = [];
+    for( var i = 0; i < str.length; i ++ ){
+        arr.push( str.charCodeAt( i ) );
+    }
+    return arr;
+};
+function str2Array(str) {
+    var array = [],i,il=str.length;
+    for(i=0;i<il;i++) array.push(str.charCodeAt(i));
+    return array;
+};
 //------------------------------------------------------------------------------
 //2015年10月1日　国勢調査人口
 var prefAr =

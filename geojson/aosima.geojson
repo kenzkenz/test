@@ -62,7 +62,67 @@
           31.8048538
         ]
       }
-    }
+    },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-erekottyaa.xml",
+         "名称": "えれこっちゃ宮崎",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.422802,
+           31.9144060
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-shibasakura.xml",
+         "名称": "新富芝桜",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.453355,
+           32.110616
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-tanada.xml",
+         "名称": "日南棚田",
+         "説明": "ギガピクセル。ズームしてみてください。"
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.259405,
+           31.656332
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-tsuno_winery.xml",
+         "名称": "五ヶ瀬ワイナリー",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.199499,
+           32.710950
+         ]
+       }
+     }
 
   ]
 }

@@ -5,18 +5,24 @@ var plusLayer2 = [];
 var plI = 0;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,
+    useLayersArr1 = [
+                    pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,
                     sengomiya1,sengonobe1,sengomiyako1,
                     aya1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
-                    ryuuiki1,ecoris1,seki1,tisitu1,nihonCs1,csArr1];
-    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,
+                    ryuuiki1,ecoris1,seki1,tisitu1,nihonCs1,csArr1,
+                    mrtiba1,mransei1
+                    ];
+    useLayersArr2 = [
+                    pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,
                     sengomiya2,sengonobe2,sengomiyako2,
                     aya2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
-                    ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2];
+                    ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2,
+                    mrtiba2,mransei2
+                    ];
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
@@ -247,9 +253,6 @@ $(function(){
             content += "<br>・国土地理院空中写真（1936年頃：東京都23区）の例<br>　http://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png"
             content += "<input type='text' class='form-control plus-input' placeholder='例：http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'>";
             content += '<div class="plus-div"><button type="button" class="btn btn-primary plus-btn">追加</button></div>';
-            //content += "<hr class='my-hr'>";
-            //content += "ここから下は作成中作成中";
-            //content += '<div class="plus-div"><button type="button" class="btn btn-primary jcp-btn">追加</button></div>';
         mydialog({
             id: id,
             class: "plus-dialog",
@@ -337,45 +340,5 @@ $(function(){
                 plusLayer.setOpacity(ui.value);
             }
         });
-    });
-    //------------------------------------------------------------
-    //プラスアイコンを押した時
-    $("body").on("click",".jcp-btn",function(){
-        alert("作成中");
-        var jcpJson = [];
-        for(i=0;i<jcpMaps.length;i++){
-            console.log(jcpMaps[i]);
-            jcpJson[i] =
-                new Promise(function(resolve,reject) {
-                    $.ajax({
-                        type: "GET",
-                        url: jcpMaps[i],
-                        dataType: "json"
-                    }).done(function (json) {
-                        console.log(json);
-                        //resolve(json["jsontext"])
-                        resolve(json);
-                    }).fail(function (json) {
-                        console.log("失敗!");
-                    });
-                })
-
-        }
-        Promise.all(jcpJson).then(function(jcpJson) {
-            console.log(jcpJson);
-
-        });
-        /*
-        $.ajax({
-            type:"GET",
-            url:"https://t.tilemap.jp/jcp_maps/akashi.json",
-            dataType:"json"
-        }).done(function(json){
-            console.log(json);
-            //resolve(json["jsontext"])
-        }).fail(function(json){
-            console.log("失敗!");
-        });
-        */
     });
 });
