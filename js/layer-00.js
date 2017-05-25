@@ -247,6 +247,9 @@ $(function(){
             content += "<br>・国土地理院空中写真（1936年頃：東京都23区）の例<br>　http://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png"
             content += "<input type='text' class='form-control plus-input' placeholder='例：http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'>";
             content += '<div class="plus-div"><button type="button" class="btn btn-primary plus-btn">追加</button></div>';
+            //content += "<hr class='my-hr'>";
+            //content += "ここから下は作成中作成中";
+            //content += '<div class="plus-div"><button type="button" class="btn btn-primary jcp-btn">追加</button></div>';
         mydialog({
             id: id,
             class: "plus-dialog",
@@ -334,5 +337,45 @@ $(function(){
                 plusLayer.setOpacity(ui.value);
             }
         });
+    });
+    //------------------------------------------------------------
+    //プラスアイコンを押した時
+    $("body").on("click",".jcp-btn",function(){
+        alert("作成中");
+        var jcpJson = [];
+        for(i=0;i<jcpMaps.length;i++){
+            console.log(jcpMaps[i]);
+            jcpJson[i] =
+                new Promise(function(resolve,reject) {
+                    $.ajax({
+                        type: "GET",
+                        url: jcpMaps[i],
+                        dataType: "json"
+                    }).done(function (json) {
+                        console.log(json);
+                        //resolve(json["jsontext"])
+                        resolve(json);
+                    }).fail(function (json) {
+                        console.log("失敗!");
+                    });
+                })
+
+        }
+        Promise.all(jcpJson).then(function(jcpJson) {
+            console.log(jcpJson);
+
+        });
+        /*
+        $.ajax({
+            type:"GET",
+            url:"https://t.tilemap.jp/jcp_maps/akashi.json",
+            dataType:"json"
+        }).done(function(json){
+            console.log(json);
+            //resolve(json["jsontext"])
+        }).fail(function(json){
+            console.log("失敗!");
+        });
+        */
     });
 });
