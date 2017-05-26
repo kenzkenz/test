@@ -167,8 +167,82 @@
            31.914470
          ]
        }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-toimisaki.xml",
+         "名称": "都井岬",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.345471,
+           31.367155
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-hakubutkan_sakura.xml",
+         "名称": "博物館　桜",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.423671,
+           31.940051
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-bunnkamori_1.xml",
+         "名称": "文化の森1",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.4177751,
+           31.93345480
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-bunnkamori_2.xml",
+         "名称": "文化の森2",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.4187751,
+           31.93345480
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-bunnkamori_3.xml",
+         "名称": "文化の森3",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.41994763,
+           31.934286701
+         ]
+       }
      }
-
 
   ]
 }
