@@ -112,14 +112,14 @@
        "type": "Feature",
        "properties": {
          "xml":"tour-tsuno_winery.xml",
-         "名称": "五ヶ瀬ワイナリー",
+         "名称": "都農ワイナリー",
          "説明": ""
        },
        "geometry": {
          "type": "Point",
          "coordinates": [
-           131.199499,
-           32.710950
+           131.552279,
+           32.275719
          ]
        }
      },
@@ -242,7 +242,68 @@
            31.934286701
          ]
        }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-miyazaki_marina.xml",
+         "名称": "サンマリーナ宮崎",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.469720,
+           31.925158
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-minamimiyazaki_st.xml",
+         "名称": "南宮崎駅",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.422269,
+           31.895095
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-morotsuka_primary_school.xml",
+         "名称": "諸塚小学校",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.334191,
+           32.519096
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-tachibanaST_HIGH.xml",
+         "名称": "橘通",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.422983,
+           31.9151613
+         ]
+       }
      }
+
 
   ]
 }
