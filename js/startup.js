@@ -17,9 +17,8 @@ $(function(){
     //--------------------------------------------------------------------------
     var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
-        //msg += "機能は随時追加されていきます。<br>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
-        msg += "2 パノラマ写真表示機能実験中。写真４枚追加。<br>";
+        msg += "1 パノラマ写真表示機能実験中。写真8枚追加。<br>";
         msg += "2 鹿児島市航空写真を追加しました。<br>";
         msg += "3 綾ユネスコエコパークを追加しました。<br>";
         msg += "4 宮崎県(九州)赤色立体地図を追加しました。<br>";
