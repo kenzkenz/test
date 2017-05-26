@@ -152,6 +152,23 @@
            32.523401
          ]
        }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-planetarium.xml",
+         "名称": "プラネタリウム",
+         "説明": ""
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.433715,
+           31.914470
+         ]
+       }
      }
+
+
   ]
 }

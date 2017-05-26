@@ -1,4 +1,8 @@
 ﻿<krpano version="1.19" title="Virtual Tour">
+
+	<!--<include url="skin/vtourskin.xml" />-->
+
+
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="false"
 	               maps_type="google"
@@ -69,22 +73,32 @@
 		loadscene(get(startscene), null, MERGE);
 		if(startactions !== null, startactions() );
 	</action>
-	<scene name="scene_aoshima_01" title="青島" onstart="" havevrimage="true" thumburl="panos/aoshima_01.tiles/thumb.jpg" lat="" lng="" heading="">
+
+
+	
+	<scene name="scene_planetarium" title="planetarium" onstart="" havevrimage="true" thumburl="panos/planetarium.tiles/thumb.jpg" lat="" lng="" heading="">
+
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
-		<preview url="panos/aoshima_01.tiles/preview.jpg" />
+
+		<preview url="panos/planetarium.tiles/preview.jpg" />
+
 		<image type="CUBE" multires="true" tilesize="512" if="!webvr.isenabled">
-			<level tiledimagewidth="2816" tiledimageheight="2816">
-				<cube url="panos/aoshima_01.tiles/%s/l3/%v/l3_%s_%v_%h.jpg" />
+			<level tiledimagewidth="4352" tiledimageheight="4352">
+				<cube url="panos/planetarium.tiles/%s/l3/%0v/l3_%s_%0v_%0h.jpg" />
 			</level>
-			<level tiledimagewidth="1536" tiledimageheight="1536">
-				<cube url="panos/aoshima_01.tiles/%s/l2/%v/l2_%s_%v_%h.jpg" />
+			<level tiledimagewidth="2176" tiledimageheight="2176">
+				<cube url="panos/planetarium.tiles/%s/l2/%0v/l2_%s_%0v_%0h.jpg" />
 			</level>
-			<level tiledimagewidth="768" tiledimageheight="768">
-				<cube url="panos/aoshima_01.tiles/%s/l1/%v/l1_%s_%v_%h.jpg" />
+			<level tiledimagewidth="1152" tiledimageheight="1152">
+				<cube url="panos/planetarium.tiles/%s/l1/%0v/l1_%s_%0v_%0h.jpg" />
 			</level>
 		</image>
+
 		<image if="webvr.isenabled">
-			<cube url="panos/aoshima_01.tiles/vr/pano_%s.jpg" />
+			<cube url="panos/planetarium.tiles/vr/pano_%s.jpg" />
 		</image>
+
 	</scene>
+
+
 </krpano>
