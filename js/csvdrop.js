@@ -10,8 +10,7 @@ $(function(){
         e.preventDefault();
     });
     $("#map1,#map2").on('drop',function(e){
-        //var mapElement = $(e["currentTarget"]);
-        //var mapElementID = mapElement.attr("id");
+        console.log(3344455);
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
 

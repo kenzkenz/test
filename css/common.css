@@ -318,7 +318,7 @@ label:hover{
     display:none;*/
 
 }
-/*マウスムーブ時のメッセージ*/
+/*マウスムーブ時のメッセージ-----------------------------------------------------*/
 #moveinfo-div{
     position:absolute;
     top:50%;
@@ -328,3 +328,6 @@ label:hover{
     color:black;
     padding:2px;
 }
+
+
+
