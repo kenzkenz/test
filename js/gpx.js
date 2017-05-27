@@ -1,14 +1,19 @@
 $(function(){
 
+
+    $("body").append("<div id='moveinfo-div'></div>");
+
+
+
     var defaultStyle = {
         'Point': new ol.style.Style({
             image: new ol.style.Circle({
                 fill: new ol.style.Fill({
-                    color: 'rgba(255,255,0,0.5)'
+                    color: 'blue'
                 }),
-                radius: 5,
+                radius: 7,
                 stroke: new ol.style.Stroke({
-                    color: '#ff0',
+                    color: 'white',
                     width: 1
                 })
             })
@@ -82,10 +87,50 @@ $(function(){
         var vectorSource = new ol.source.Vector({
             features: event.features
         });
-        map1.addLayer(new ol.layer.Vector({
+        var gpxLayer = new ol.layer.Vector({
             source: vectorSource,
             style: styleFunction
-        }));
+        });
+        map1.addLayer(gpxLayer);
         map1.getView().fit(vectorSource.getExtent());
+        gpxLayer.setZIndex(9999);
     });
+
+    var displayFeatureInfo = function(pixel) {
+        var features = [];
+        map1.forEachFeatureAtPixel(pixel, function(feature) {
+            features.push(feature);
+        });
+        if (features.length > 0) {
+            var info = [];
+            var i, ii;
+            for (i = 0, ii = features.length; i < ii; ++i) {
+                info.push(features[i].get('name'));
+            }
+            //document.getElementById('info').innerHTML = info.join(', ') || '&nbsp';
+            console.log(info.join(','));
+            console.log(pixel);
+            $("#moveinfo-div").css({
+               "top":pixel[1] + "px",
+               "left":pixel[0] + "px",
+            });
+            $("#moveinfo-div").html(info.join(','));
+        } else {
+            //document.getElementById('info').innerHTML = '&nbsp;';
+            $("#moveinfo-div").html("");
+        }
+    };
+
+
+
+    map1.on('pointermove', function(evt) {
+        if (evt.dragging) {
+            return;
+        }
+        var pixel = map1.getEventPixel(evt.originalEvent);
+        //console.log(pixel);
+        displayFeatureInfo(pixel);
+    });
+
+
 });
