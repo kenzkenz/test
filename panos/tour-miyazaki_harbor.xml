@@ -1,0 +1,35 @@
+﻿<krpano bgcolor="0x000000">
+
+	<!-- the skin and the flat pano viewing and controlling setup -->
+	<!--<include url="skin/defaultskin.xml" />-->
+	<include url="skin/flatpano_setup.xml" />
+	
+	<!-- preview pano image -->
+	<preview url="panos/gigapix_miyazaki_harbor.tiles/preview.jpg" />
+
+	<!-- pano image -->
+	<image type="CYLINDER" hfov="1.00" vfov="0.202524" voffset="0.00" multires="true" tilesize="512" progressive="true">
+		<level tiledimagewidth="92224" tiledimageheight="18678">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l7/%v/l7_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="46144" tiledimageheight="9346">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l6/%v/l6_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="23040" tiledimageheight="4668">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l5/%v/l5_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="11520" tiledimageheight="2334">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l4/%v/l4_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="5760" tiledimageheight="1168">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l3/%v/l3_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="2816" tiledimageheight="570">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l2/%v/l2_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="1536" tiledimageheight="312">
+			<cylinder url="panos/gigapix_miyazaki_harbor.tiles/l1/%v/l1_%v_%h.jpg" />
+		</level>
+	</image>
+
+</krpano>

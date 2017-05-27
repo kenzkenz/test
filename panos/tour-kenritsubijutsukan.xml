@@ -1,0 +1,35 @@
+﻿<krpano bgcolor="0x000000">
+
+	<!-- the skin and the flat pano viewing and controlling setup -->
+	<!--<include url="skin/defaultskin.xml" />-->
+	<include url="skin/flatpano_setup.xml" />
+	
+	<!-- preview pano image -->
+	<preview url="panos/gigapix_kenritsubijutsukan.tiles/preview.jpg" />
+
+	<!-- pano image -->
+	<image type="CYLINDER" hfov="1.00" vfov="0.259729" voffset="0.00" multires="true" tilesize="512" progressive="true">
+		<level tiledimagewidth="99072" tiledimageheight="25732">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l7/%v/l7_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="49664" tiledimageheight="12900">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l6/%v/l6_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="24832" tiledimageheight="6450">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l5/%v/l5_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="12416" tiledimageheight="3226">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l4/%v/l4_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="6208" tiledimageheight="1614">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l3/%v/l3_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="3072" tiledimageheight="800">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l2/%v/l2_%v_%h.jpg" />
+		</level>
+		<level tiledimagewidth="1536" tiledimageheight="400">
+			<cylinder url="panos/gigapix_kenritsubijutsukan.tiles/l1/%v/l1_%v_%h.jpg" />
+		</level>
+	</image>
+
+</krpano>

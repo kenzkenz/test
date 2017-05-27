@@ -302,6 +302,36 @@
            31.9151613
          ]
        }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-miyazaki_harbor.xml",
+         "名称": "宮崎港",
+         "説明": "ギガピクセル。ズームしてみてください。"
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.457842,
+           31.910903
+         ]
+       }
+     },
+     {
+       "type": "Feature",
+       "properties": {
+         "xml":"tour-kenritsubijutsukan.xml",
+         "名称": "県立美術館",
+         "説明": "ギガピクセル。ズームしてみてください。"
+       },
+       "geometry": {
+         "type": "Point",
+         "coordinates": [
+           131.41969,
+           31.934286701
+         ]
+       }
      }
 
 
