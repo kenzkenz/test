@@ -1,8 +1,10 @@
-var gpxLayer = null;
-var profil = null;
+var gpxLayer1 = null;
+var profil1 = null;
+var gpxLayer2 = null;
+var profil2 = null;
 $(function(){
-
-    var dragAndDropInteraction = new ol.interaction.DragAndDrop({
+    //ドラッグアンドドロップのインタラクション-----------------------------
+    var dragAndDropInteraction1 = new ol.interaction.DragAndDrop({
         formatConstructors: [
             ol.format.GPX,
             ol.format.GeoJSON,
@@ -11,10 +13,25 @@ $(function(){
             ol.format.TopoJSON
         ]
     });
-    map1.addInteraction(dragAndDropInteraction);
+    map1.addInteraction(dragAndDropInteraction1);
+    var dragAndDropInteraction2 = new ol.interaction.DragAndDrop({
+        formatConstructors: [
+            ol.format.GPX,
+            ol.format.GeoJSON,
+            ol.format.IGC,
+            ol.format.KML,
+            ol.format.TopoJSON
+        ]
+    });
+    map2.addInteraction(dragAndDropInteraction2);
+    //----------------------------------------------------------------
 
-    profil = new ol.control.Profil();
-    map1.addControl(profil);
+    profil1 = new ol.control.Profil();
+    map1.addControl(profil1);
+    profil2 = new ol.control.Profil();
+    map2.addControl(profil2);
+
+    //----------------------------------------------------------------
 
     $("body").append("<div id='moveinfo-div'></div>");
 
@@ -74,7 +91,7 @@ $(function(){
             })
         })
     };
-
+    /*
     var style =
         [	new ol.style.Style(
             {	image: new ol.style.RegularShape(
@@ -92,7 +109,7 @@ $(function(){
                     })
             })
         ];
-
+    */
 
 
     var styleFunction = function(feature, resolution) {
@@ -105,7 +122,8 @@ $(function(){
     };
 
     //ドラッグアンドドロップでレイヤーを作る
-    dragAndDropInteraction.on('addfeatures', function(event) {
+    dragAndDropInteraction1.on('addfeatures', function(event) {
+        map1.removeLayer(gpxLayer1);
         console.log(event);
         console.log(event.file);
         if(event.features==null) {
@@ -130,32 +148,30 @@ $(function(){
                 console.log(csvarr);
 
             };
-
             return;
         }
         var vectorSource = new ol.source.Vector({
             features: event.features,
             //format: new ol.format.GPX()
         });
-        gpxLayer = new ol.layer.Vector({
+        gpxLayer1 = new ol.layer.Vector({
             source: vectorSource,
             style: styleFunction
             //style:style
         });
-        map1.addLayer(gpxLayer);
+        map1.addLayer(gpxLayer1);
         map1.getView().fit(vectorSource.getExtent());
-        gpxLayer.setZIndex(9999);
-        
+        gpxLayer1.setZIndex(9999);
+
         var faturesAr = vectorSource.getFeatures();
         for (var i=0; i < faturesAr.length; i++) {
-            console.log(faturesAr[i].getGeometry().getType())
             if(faturesAr[i].getGeometry().getType()!="Point") {
-                profil.setGeometry(faturesAr[i]);
+                profil1.setGeometry(faturesAr[i]);
                 break;
             }
         }
-        //profil.setGeometry(vectorSource.getFeatures()[0]);
-        profil.show();
+        //profil1.setGeometry(vectorSource.getFeatures()[0]);
+        profil1.show();
 
         var pt = new ol.Feature(new ol.geom.Point([0,0]));
         pt.setStyle([]);
@@ -172,13 +188,66 @@ $(function(){
                 pt.setStyle([]);
             }
         }
-        profil.on(["over","out"], function(e){
-            if (e.type=="over") profil.popup(e.coord[2]+" m");
+        profil1.on(["over","out"], function(e){
+            if (e.type=="over") profil1.popup(e.coord[2]+" m");
             drawPoint(e);
         });
-
-
     });
+
+
+    dragAndDropInteraction2.on('addfeatures', function(event) {
+        map2.removeLayer(gpxLayer2);
+        console.log(event);
+        console.log(event.file);
+        if(event.features==null) {
+            return;
+        }
+        var vectorSource = new ol.source.Vector({
+            features: event.features,
+            //format: new ol.format.GPX()
+        });
+        gpxLayer2 = new ol.layer.Vector({
+            source: vectorSource,
+            style: styleFunction
+            //style:style
+        });
+        map2.addLayer(gpxLayer2);
+        map2.getView().fit(vectorSource.getExtent());
+        gpxLayer2.setZIndex(9999);
+
+        var faturesAr = vectorSource.getFeatures();
+        for (var i=0; i < faturesAr.length; i++) {
+            if(faturesAr[i].getGeometry().getType()!="Point") {
+                profil2.setGeometry(faturesAr[i]);
+                break;
+            }
+        }
+        //profil.setGeometry(vectorSource.getFeatures()[0]);
+        profil2.show();
+
+        var pt = new ol.Feature(new ol.geom.Point([0,0]));
+        pt.setStyle([]);
+        vectorSource.addFeature(pt);
+
+        function drawPoint(e){
+            if (!pt) return;
+            if (e.type=="over"){
+                // Show point at coord
+                pt.setGeometry(new ol.geom.Point(e.coord));
+                pt.setStyle(null);
+            }else{
+                // hide point
+                pt.setStyle([]);
+            }
+        }
+        profil2.on(["over","out"], function(e){
+            if (e.type=="over") profil2.popup(e.coord[2]+" m");
+            drawPoint(e);
+        });
+    });
+
+
+
     //インフォに書き込む
     var displayFeatureInfo = function(pixel) {
         var features = [];
