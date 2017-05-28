@@ -447,7 +447,6 @@ $(function(){
             $("#" + mapName + " .estat-tbl-div").html(html);
             $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
 		}
-
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
         var min = color100Ar[2];

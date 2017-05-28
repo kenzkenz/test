@@ -77,6 +77,26 @@
 
     </head>
     <body>
+        <!-- モーダル・ダイアログ -->
+        <div class="modal fade" id="modal-div" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+                        <h4 class="modal-title">色塗り</h4>
+                    </div>
+                    <div class="modal-body">
+                        色塗りの基準列を選択してください。「数値」の場合3D表示も可能になります。
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>
+                        <button type="button" class="btn btn-primary" id="suuti-btn">数値</button>
+                        <button type="button" class="btn btn-primary" id="iro-btn">色</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <i id="loading-fa" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
         <div id="map1" class="maps">
             <!--<div id="myContextOverlay-div">右クリック実験中！！実験中！！実験中</div>-->

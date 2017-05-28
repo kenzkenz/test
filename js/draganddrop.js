@@ -5,6 +5,9 @@ var profil2 = null;
 var csvLayer1 = null;
 var csvLayer2 = null;
 $(function(){
+    var cityObjAr = [];
+    var inChar = "";
+    var valueAr =[];
     //ドラッグアンドドロップのインタラクション-----------------------------
     var dragAndDropInteraction1 = new ol.interaction.DragAndDrop({
         formatConstructors: [
@@ -129,7 +132,6 @@ $(function(){
         //console.log(event["file"]["name"]);
         if(event.features==null) {
             var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length-1];
-            console.log(fileExtension);
             switch (fileExtension){
                 case "csv":
                     csvRead(event.file);
@@ -299,13 +301,14 @@ $(function(){
                 var split = this.replace("\r", "").split(/,|\t/);//\rが余計についてしまうので取った上でsplit
                 csvarr.push(split);
             });
-            var cityObjAr = [];
+            cityObjAr = [];
             var cityCode = null;
             var suuti = null;
             var iro = null;
-            var inChar = "";
+            inChar = "";
+            valueAr = [];
             for (var i=0; i < csvarr.length-1; i++) {
-                if(i==0) {
+                if(i===0) {
                     for (var j = 0; j < csvarr[0].length; j++) {
                         /*
                         if (csvarr[0][j] == "経度") var lon = j;
@@ -318,9 +321,9 @@ $(function(){
                             layerTypeFlg = "area";
                         }
                         */
-                        if (csvarr[0][j] == "市町村コード") cityCode = j;
-                        if (csvarr[0][j] == "数値") suuti = j;
-                        if (csvarr[0][j] == "色") iro = j;
+                        if (csvarr[0][j] === "市町村コード") cityCode = j;
+                        if (csvarr[0][j] === "数値") suuti = j;
+                        if (csvarr[0][j] === "色") iro = j;
                     }
                 }else{
                     //-----------------------------------------------
@@ -335,81 +338,108 @@ $(function(){
                     cityObjAr.push(obj);
                     //-----------------------------------------------
                     inChar += "," + csvarr[i][cityCode];
+                    valueAr.push(csvarr[i][suuti]);
                 }
             }
-            inChar = inChar.substr(1);
-            var citycode = inChar;
-            $.ajax({
-                type:"GET",
-                url:"php/city.php",
-                dataType:"json",
-                data:{
-                    layerid:"gyouseikai",
-                    citycode:citycode
-                }
-            }).done(function(json){
-                map1.removeLayer(csvLayer1);
-                var geojsonObject = json.geojson;
-                var vectorSource = new ol.source.Vector({
-                    features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
-                });
-                var csvStyleFunction = function(feature, resolution) {
-                    var fillColor = feature.getProperties()["_fillColor"];
-                    style = [
-                        new ol.style.Style({
-                            stroke: new ol.style.Stroke({
-                                color:"gray",
-                                width: 1
-                            }),
-                            fill: new ol.style.Fill({
-                                color:fillColor ? fillColor:"rgba(0,120,200,0.2)"
-                            })
-                        })
-                    ];
-                    return style;
-                };
-                csvLayer1 = new ol.layer.Vector({
-                    source: vectorSource,
-                    style: csvStyleFunction
-                    //style:style
-                });
-                map1.addLayer(csvLayer1);
-                map1.getView().fit(vectorSource.getExtent());
-                csvLayer1.setZIndex(9999);
-                var features = csvLayer1.getSource().getFeatures();
-                for (i=0; i<features.length; i++){
-                    for (j=0; j<cityObjAr.length; j++) {
-                        if (features[i]["H"]["コード"] === cityObjAr[j]["citycode"]) {
-                            var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
-                            var rgba = "rgba(" + color.r + "," + color.g + "," + color.b + "," + "0.7)";
-                            features[i]["H"]["_fillColor"] = rgba;
-                        }
-                    }
-                    /*
-                    if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){
-                        var prevFillColor = features[i]["H"]["_targetFillColor"];
-                        features[i]["H"]["_prevFillColor"] = prevFillColor;
-                        features[i]["H"]["_targetFillColor"] = targetFillColor;
-                        features[i]["H"]["_fillColor"] = rgba;
-                        //features[i]["H"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
-                        if(value>0) {
-                            features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
-                        }else{
-                            features[i]["H"]["_polygonHeight"] = 1000;
-                        }
-                        features[i]["H"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
-                        features[i]["H"]["lank"] = $(this).find(".estat-lank-td").text();
-                    }
-                    */
-                }
-                csvLayer1.getSource().changed();
-                //----------------------------------------------------------
-            }).fail(function(json){
-                console.log("失敗!");
-            });
+            $("#modal-div").modal();
         };
     }
-
+    //----------------------------------------------------------------------------
+    $("body").on("click","#suuti-btn",function() {
+        csvLayerCreate("suuti");
+        $("#modal-div").modal("hide");
+    });
+    //----------------------------------------------------------------------------
+    $("body").on("click","#iro-btn",function() {
+        csvLayerCreate("iro");
+        $("#modal-div").modal("hide");
+    });
+    //----------------------------------------------------------------------------
+    //function csvLayerCreate(cityObjAr,inChar,valueAr){
+    function csvLayerCreate(coll){
+        var color100Ar = funcColor100(valueAr);
+        var color100 = color100Ar[0];
+        var min = color100Ar[2];
+        var d3Color = d3.interpolateLab("white", "red");
+        var d3ColorM = d3.interpolateLab("white", "blue");
+        inChar = inChar.substr(1);
+        var citycode = inChar;
+        $.ajax({
+            type:"GET",
+            url:"php/city.php",
+            dataType:"json",
+            data:{
+                layerid:"gyouseikai",
+                citycode:citycode
+            }
+        }).done(function(json){
+            map1.removeLayer(csvLayer1);
+            var geojsonObject = json.geojson;
+            var vectorSource = new ol.source.Vector({
+                features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
+            });
+            var csvStyleFunction = function(feature, resolution) {
+                var fillColor = feature.getProperties()["_fillColor"];
+                style = [
+                    new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color:"gray",
+                            width: 1
+                        }),
+                        fill: new ol.style.Fill({
+                            color:fillColor ? fillColor:"rgba(0,120,200,0.2)"
+                        })
+                    })
+                ];
+                return style;
+            };
+            csvLayer1 = new ol.layer.Vector({
+                source: vectorSource,
+                style: csvStyleFunction
+                //style:style
+            });
+            csvLayer1.set("altitudeMode","clampToGround");
+            map1.addLayer(csvLayer1);
+            map1.getView().fit(vectorSource.getExtent());
+            csvLayer1.setZIndex(9999);
+            var features = csvLayer1.getSource().getFeatures();
+            for (i=0; i<features.length; i++){
+                for (j=0; j<cityObjAr.length; j++) {
+                    var value = Number(cityObjAr[j]["prop"]["suuti"]);
+                    if (features[i]["H"]["コード"] === cityObjAr[j]["citycode"]) {
+                        if(coll==="suuti") {
+                            if (value > 0) {//値がプラスだったとき
+                                var c100 = (value - min) / color100 / 100;
+                                var color0 = new RGBColor(d3Color(c100));
+                                var rgb = new RGBColor(d3Color(c100)).toRGB();
+                                var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
+                                var targetFillColor = d3Color(c100);
+                            } else {//値がマイナスだったとき
+                                var c100 = (0 - value) / color100 / 100;
+                                var color0 = new RGBColor(d3ColorM(c100));
+                                var rgb = new RGBColor(d3ColorM(c100)).toRGB();
+                                var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
+                                var targetFillColor = d3ColorM(c100);
+                            }
+                            if (value > 0) {
+                                features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                            } else {
+                                features[i]["H"]["_polygonHeight"] = 1000;
+                            }
+                        }else{
+                            var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
+                            var rgba = "rgba(" + color.r + "," + color.g + "," + color.b + "," + "0.7)";
+                        }
+                        features[i]["H"]["_fillColor"] = rgba;
+                    }
+                }
+            }
+            csvLayer1.getSource().changed();
+            //----------------------------------------------------------
+        }).fail(function(){
+            console.log("失敗!");
+        });
+    }
 
 
 });

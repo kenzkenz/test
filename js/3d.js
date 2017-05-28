@@ -86,6 +86,17 @@ $(function(){
                 console.log(features);
                 czmlCreate(features,$(this));
             }
+            if(mapName==="map1") {
+                var csvLayer = csvLayer1;
+            }else{
+                var csvLayer = csvLayer2;
+            }
+            if(csvLayer){
+                var features = csvLayer.getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+            }
+
 
         }else{
             var ol3d = eval(mapObj["ol3d"]);
