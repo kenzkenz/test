@@ -43,7 +43,9 @@ $(function(){
             case "panoLayer":
                 funcPanoPopup(feature,map,evt);
                 break;
-
+            case "csvLayer":
+                funcCsvPopup(feature,map,evt);
+                break;
 
             default:
         }
@@ -60,6 +62,29 @@ $(function(){
             popup2.show(coord,content);
         }
         */
+    }
+    //-----------------------------------------------
+    function funcCsvPopup(feature,map,evt) {
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if (geoType == "Point") {
+            var coord = feature.getGeometry().getCoordinates();
+        } else {
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        //console.log($(".estat-year-div").text().split("　")[1]);
+        //var content = $(".estat-year-div").text().split("　")[1] + "<br>";//表名
+        //content += featureProp["自治体名"] + "　" + featureProp["value"];
+        //content += "<br>" + featureProp["lank"];
+        var content = "";
+            content += featureProp["自治体名"] + "<br>";
+            content += featureProp["数値"];
+        if (map == "map1") {
+            popup1.show(coord, content);
+        } else {
+            popup2.show(coord, content);
+        }
     }
     //-----------------------------------------------
     function funcPanoPopup(feature,map,evt) {

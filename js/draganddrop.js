@@ -8,6 +8,7 @@ $(function(){
     var cityObjAr = [];
     var inChar = "";
     var valueAr =[];
+    var mapName = null;
     //ドラッグアンドドロップのインタラクション-----------------------------
     var dragAndDropInteraction1 = new ol.interaction.DragAndDrop({
         formatConstructors: [
@@ -126,6 +127,7 @@ $(function(){
 
     //ドラッグアンドドロップでレイヤーを作る
     dragAndDropInteraction1.on('addfeatures', function(event) {
+        mapName = "map1";
         map1.removeLayer(gpxLayer1);
         //console.log(event);
         console.log(event.file);
@@ -196,10 +198,28 @@ $(function(){
 
 
     dragAndDropInteraction2.on('addfeatures', function(event) {
+        mapName = "map2";
         map2.removeLayer(gpxLayer2);
         console.log(event);
         console.log(event.file);
         if(event.features==null) {
+            var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length-1];
+            switch (fileExtension){
+                case "csv":
+                    csvRead(event.file);
+                    break;
+                case "":
+
+                    break;
+                case "":
+
+                    break;
+                case "":
+
+                    break;
+
+                default:
+            }
             return;
         }
         var vectorSource = new ol.source.Vector({
@@ -245,9 +265,6 @@ $(function(){
             drawPoint(e);
         });
     });
-
-
-
     //インフォに書き込む
     var displayFeatureInfo = function(pixel) {
         var features = [];
@@ -355,8 +372,8 @@ $(function(){
         $("#modal-div").modal("hide");
     });
     //----------------------------------------------------------------------------
-    //function csvLayerCreate(cityObjAr,inChar,valueAr){
     function csvLayerCreate(coll){
+        console.log(mapName);
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
         var min = color100Ar[2];
@@ -373,7 +390,11 @@ $(function(){
                 citycode:citycode
             }
         }).done(function(json){
-            map1.removeLayer(csvLayer1);
+            if(mapName==="map1") {
+                map1.removeLayer(csvLayer1);
+            }else{
+                map2.removeLayer(csvLayer2);
+            }
             var geojsonObject = json.geojson;
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
@@ -393,16 +414,31 @@ $(function(){
                 ];
                 return style;
             };
-            csvLayer1 = new ol.layer.Vector({
-                source: vectorSource,
-                style: csvStyleFunction
-                //style:style
-            });
-            csvLayer1.set("altitudeMode","clampToGround");
-            map1.addLayer(csvLayer1);
-            map1.getView().fit(vectorSource.getExtent());
-            csvLayer1.setZIndex(9999);
-            var features = csvLayer1.getSource().getFeatures();
+            if(mapName==="map1") {
+                csvLayer1 = new ol.layer.Vector({
+                    name:"csvLayer",
+                    zinkouset:"on",
+                    source: vectorSource,
+                    style: csvStyleFunction
+                });
+                csvLayer1.set("altitudeMode","clampToGround");
+                map1.addLayer(csvLayer1);
+                map1.getView().fit(vectorSource.getExtent());
+                csvLayer1.setZIndex(9999);
+                var features = csvLayer1.getSource().getFeatures();
+            }else{
+                csvLayer2 = new ol.layer.Vector({
+                    name:"csvLayer",
+                    zinkouset:"on",
+                    source: vectorSource,
+                    style: csvStyleFunction
+                });
+                csvLayer2.set("altitudeMode","clampToGround");
+                map2.addLayer(csvLayer2);
+                map2.getView().fit(vectorSource.getExtent());
+                csvLayer2.setZIndex(9999);
+                var features = csvLayer2.getSource().getFeatures();
+            }
             for (i=0; i<features.length; i++){
                 for (j=0; j<cityObjAr.length; j++) {
                     var value = Number(cityObjAr[j]["prop"]["suuti"]);
@@ -429,12 +465,28 @@ $(function(){
                         }else{
                             var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
                             var rgba = "rgba(" + color.r + "," + color.g + "," + color.b + "," + "0.7)";
+                            if (value > 0) {
+                                var c100 = (value - min) / color100 / 100;
+                                features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                            } else {
+                                features[i]["H"]["_polygonHeight"] = 1000;
+                            }
                         }
                         features[i]["H"]["_fillColor"] = rgba;
+                        features[i]["H"]["数値"] = value;
                     }
                 }
             }
-            csvLayer1.getSource().changed();
+
+
+
+
+            if(mapName==="map1") {
+                csvLayer1.getSource().changed();
+            }else{
+                csvLayer2.getSource().changed();
+            }
+
             //----------------------------------------------------------
         }).fail(function(){
             console.log("失敗!");
