@@ -2,6 +2,8 @@ var gpxLayer1 = null;
 var profil1 = null;
 var gpxLayer2 = null;
 var profil2 = null;
+var csvLayer1 = null;
+var csvLayer2 = null;
 $(function(){
     //ドラッグアンドドロップのインタラクション-----------------------------
     var dragAndDropInteraction1 = new ol.interaction.DragAndDrop({
@@ -110,8 +112,6 @@ $(function(){
             })
         ];
     */
-
-
     var styleFunction = function(feature, resolution) {
         var featureStyleFunction = feature.getStyleFunction();
         if (featureStyleFunction) {
@@ -124,30 +124,28 @@ $(function(){
     //ドラッグアンドドロップでレイヤーを作る
     dragAndDropInteraction1.on('addfeatures', function(event) {
         map1.removeLayer(gpxLayer1);
-        console.log(event);
+        //console.log(event);
         console.log(event.file);
+        //console.log(event["file"]["name"]);
         if(event.features==null) {
-            var csvarr = [];
-            var file_reader = new FileReader();
-            file_reader.readAsBinaryString(event.file);//ここ超重要。文字コード変換のために必要
-            file_reader.onload = function(e) {
-                //console.log(file_reader.result);
-                var result = e.target.result;
-                var sjisArray = str2Array(result);
-                var uniArray = Encoding.convert(sjisArray, 'UNICODE', 'SJIS');
-                var result = Encoding.codeToString(uniArray);
-                //console.log(result); //csvデータ(string)
-                // 選択したCSVファイルから２次元配列を生成
-                var rows = result.split("\n");
-                var max = 0;
-                rangemin = 9999999999;
-                $(rows).each(function () {
-                    var split = this.replace("\r", "").split(/,|\t/);//\rが余計についてしまうので取った上でsplit
-                    csvarr.push(split);
-                });
-                console.log(csvarr);
+            var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length-1];
+            console.log(fileExtension);
+            switch (fileExtension){
+                case "csv":
+                    csvRead(event.file);
+                    break;
+                case "":
 
-            };
+                    break;
+                case "":
+
+                    break;
+                case "":
+
+                    break;
+
+                default:
+            }
             return;
         }
         var vectorSource = new ol.source.Vector({
@@ -281,5 +279,137 @@ $(function(){
         displayFeatureInfo(pixel);
     });
     */
+    //-------------------------------------------------------------------------------------
+    function csvRead(file) {
+        var csvarr = [];
+        var file_reader = new FileReader();
+        file_reader.readAsBinaryString(file);//ここ超重要。文字コード変換のために必要
+        file_reader.onload = function(e) {
+            //console.log(file_reader.result);
+            var result = e.target.result;
+            var sjisArray = str2Array(result);
+            var uniArray = Encoding.convert(sjisArray, 'UNICODE', 'SJIS');
+            var result = Encoding.codeToString(uniArray);
+            //console.log(result); //csvデータ(string)
+            // 選択したCSVファイルから２次元配列を生成
+            var rows = result.split("\n");
+            var max = 0;
+            rangemin = 9999999999;
+            $(rows).each(function () {
+                var split = this.replace("\r", "").split(/,|\t/);//\rが余計についてしまうので取った上でsplit
+                csvarr.push(split);
+            });
+            var cityObjAr = [];
+            var cityCode = null;
+            var suuti = null;
+            var iro = null;
+            var inChar = "";
+            for (var i=0; i < csvarr.length-1; i++) {
+                if(i==0) {
+                    for (var j = 0; j < csvarr[0].length; j++) {
+                        /*
+                        if (csvarr[0][j] == "経度") var lon = j;
+                        if (csvarr[0][j] == "緯度") var lat = j;
+                        if (csvarr[0][j] == "lon") var lon = j;
+                        if (csvarr[0][j] == "lat") var lat = j;
+                        if (csvarr[0][j] == "百分率") var hyaku = j;
+                        if (csvarr[0][j] == "area") {
+                            var area = j;
+                            layerTypeFlg = "area";
+                        }
+                        */
+                        if (csvarr[0][j] == "市町村コード") cityCode = j;
+                        if (csvarr[0][j] == "数値") suuti = j;
+                        if (csvarr[0][j] == "色") iro = j;
+                    }
+                }else{
+                    //-----------------------------------------------
+                    var obj = {
+                                "citycode":csvarr[i][cityCode],
+                                "prop":{
+                                    "citycode":csvarr[i][cityCode],
+                                    "suuti":csvarr[i][suuti],
+                                    "iro":csvarr[i][iro]
+                                }
+                    };
+                    cityObjAr.push(obj);
+                    //-----------------------------------------------
+                    inChar += "," + csvarr[i][cityCode];
+                }
+            }
+            inChar = inChar.substr(1);
+            var citycode = inChar;
+            $.ajax({
+                type:"GET",
+                url:"php/city.php",
+                dataType:"json",
+                data:{
+                    layerid:"gyouseikai",
+                    citycode:citycode
+                }
+            }).done(function(json){
+                map1.removeLayer(csvLayer1);
+                var geojsonObject = json.geojson;
+                var vectorSource = new ol.source.Vector({
+                    features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
+                });
+                var csvStyleFunction = function(feature, resolution) {
+                    var fillColor = feature.getProperties()["_fillColor"];
+                    style = [
+                        new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color:"gray",
+                                width: 1
+                            }),
+                            fill: new ol.style.Fill({
+                                color:fillColor ? fillColor:"rgba(0,120,200,0.2)"
+                            })
+                        })
+                    ];
+                    return style;
+                };
+                csvLayer1 = new ol.layer.Vector({
+                    source: vectorSource,
+                    style: csvStyleFunction
+                    //style:style
+                });
+                map1.addLayer(csvLayer1);
+                map1.getView().fit(vectorSource.getExtent());
+                csvLayer1.setZIndex(9999);
+                var features = csvLayer1.getSource().getFeatures();
+                for (i=0; i<features.length; i++){
+                    for (j=0; j<cityObjAr.length; j++) {
+                        if (features[i]["H"]["コード"] === cityObjAr[j]["citycode"]) {
+                            var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
+                            var rgba = "rgba(" + color.r + "," + color.g + "," + color.b + "," + "0.7)";
+                            features[i]["H"]["_fillColor"] = rgba;
+                        }
+                    }
+                    /*
+                    if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){
+                        var prevFillColor = features[i]["H"]["_targetFillColor"];
+                        features[i]["H"]["_prevFillColor"] = prevFillColor;
+                        features[i]["H"]["_targetFillColor"] = targetFillColor;
+                        features[i]["H"]["_fillColor"] = rgba;
+                        //features[i]["H"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
+                        if(value>0) {
+                            features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                        }else{
+                            features[i]["H"]["_polygonHeight"] = 1000;
+                        }
+                        features[i]["H"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                        features[i]["H"]["lank"] = $(this).find(".estat-lank-td").text();
+                    }
+                    */
+                }
+                csvLayer1.getSource().changed();
+                //----------------------------------------------------------
+            }).fail(function(json){
+                console.log("失敗!");
+            });
+        };
+    }
+
+
 
 });
