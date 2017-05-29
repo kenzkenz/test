@@ -348,13 +348,13 @@ var tunami1 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([131.161,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
 		minZoom :1,
 		maxZoom:17
-
 	})
 });
 var tunami2 = new ol.layer.Tile({
@@ -362,6 +362,7 @@ var tunami2 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([131.161,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/tsunamishinsui/{z}/{x}/{y}.png",
@@ -376,6 +377,7 @@ var sinsuisoutei1 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
@@ -389,6 +391,7 @@ var sinsuisoutei2 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/SHINSUI/{z}/{x}/{y}.png",
@@ -403,6 +406,7 @@ var kikenkeiryuu1 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
@@ -416,6 +420,7 @@ var kikenkeiryuu2 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
@@ -430,6 +435,7 @@ var kyuukeisyakikenkasyo1 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
@@ -443,6 +449,7 @@ var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
 		url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",

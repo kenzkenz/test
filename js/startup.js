@@ -20,18 +20,18 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         msg += "1 GPX機能追加。GPXを画面にドロップします。<br>";
         msg += "2 パノラマ写真表示機能実験中。写真8枚追加。<br>";
-        msg += "3 鹿児島市航空写真を追加しました。<br>";
-        msg += "4 綾ユネスコエコパークを追加しました。<br>";
-        msg += "5 宮崎県(九州)赤色立体地図を追加しました。<br>";
-        msg += "6 画面左下に標高表示機能を追加しました。<br>";
-        msg += "7 都城市、延岡市戦後米軍地図を追加しました。<br>";
-        msg += "8 resas人口体系連携機能を作成中です。<br>";
-        msg += "9 室蘭市戦後米軍地図を追加しました。<br>";
-        msg += "10 背景追加機能を追加しました。<br>";
+        //msg += "3 鹿児島市航空写真を追加しました。<br>";
+        msg += "3 綾ユネスコエコパークを追加しました。<br>";
+        msg += "4 宮崎県(九州)赤色立体地図を追加しました。<br>";
+        msg += "5 画面左下に標高表示機能を追加しました。<br>";
+        msg += "6 都城市、延岡市戦後米軍地図を追加しました。<br>";
+        msg += "7 resas人口体系連携機能を作成中です。<br>";
+        msg += "8 室蘭市戦後米軍地図を追加しました。<br>";
+        msg += "9 背景追加機能を追加しました。<br>";
         //msg += "10 PNG保存機能を追加しました。<br>";
         //msg += "11 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/05/27</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/05/29</div>";
     $.notify({//options
         message:msg
     },{//settings

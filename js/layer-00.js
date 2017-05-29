@@ -9,17 +9,19 @@ $(function(){
                     sengomiya1,sengonobe1,sengomiyako1,
                     aya1,
                     seamlessphoto1,gazo11,muro1,murous1,
-                    kago1,sengokago1,
+                    //kago1,sengokago1,
                     ryuuiki1,ecoris1,seki1,tisitu1,nihonCs1,csArr1,
-                    mrtiba1,mransei1
+                    mrtiba1,mransei1,
+                    tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1
                     ];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,
                     sengomiya2,sengonobe2,sengomiyako2,
                     aya2,
                     seamlessphoto2,gazo12,muro2,murous2,
-                    kago2,sengokago2,
+                    //kago2,sengokago2,
                     ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2,
-                    mrtiba2,mransei2
+                    mrtiba2,mransei2,
+                    tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2
                     ];
 });
 //------------------------------------------------------------------------------

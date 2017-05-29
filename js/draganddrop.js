@@ -31,14 +31,11 @@ $(function(){
     });
     map2.addInteraction(dragAndDropInteraction2);
     //----------------------------------------------------------------
-
     profil1 = new ol.control.Profil();
     map1.addControl(profil1);
     profil2 = new ol.control.Profil();
     map2.addControl(profil2);
-
     //----------------------------------------------------------------
-
     $("body").append("<div id='moveinfo-div'></div>");
 
     var defaultStyle = {
@@ -124,7 +121,6 @@ $(function(){
             return defaultStyle[feature.getGeometry().getType()];
         }
     };
-
     //ドラッグアンドドロップでレイヤーを作る
     dragAndDropInteraction1.on('addfeatures', function(event) {
         mapName = "map1";
@@ -174,7 +170,6 @@ $(function(){
         }
         //profil1.setGeometry(vectorSource.getFeatures()[0]);
         profil1.show();
-
         var pt = new ol.Feature(new ol.geom.Point([0,0]));
         pt.setStyle([]);
         vectorSource.addFeature(pt);
@@ -195,8 +190,7 @@ $(function(){
             drawPoint(e);
         });
     });
-
-
+    //-----------------------------------------------------------------------------------------------------------
     dragAndDropInteraction2.on('addfeatures', function(event) {
         mapName = "map2";
         map2.removeLayer(gpxLayer2);
@@ -242,7 +236,6 @@ $(function(){
                 break;
             }
         }
-        //profil.setGeometry(vectorSource.getFeatures()[0]);
         profil2.show();
 
         var pt = new ol.Feature(new ol.geom.Point([0,0]));
@@ -373,7 +366,6 @@ $(function(){
     });
     //----------------------------------------------------------------------------
     function csvLayerCreate(coll){
-        console.log(mapName);
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
         var min = color100Ar[2];
@@ -400,7 +392,9 @@ $(function(){
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
             var csvStyleFunction = function(feature, resolution) {
-                var fillColor = feature.getProperties()["_fillColor"];
+                var fillColor = feature["H"]["_fillColor"];
+                var text = String(feature["H"]["数値"]);
+                var textColor = feature["H"]["_textColor"];
                 style = [
                     new ol.style.Style({
                         stroke: new ol.style.Stroke({
@@ -409,6 +403,14 @@ $(function(){
                         }),
                         fill: new ol.style.Fill({
                             color:fillColor ? fillColor:"rgba(0,120,200,0.2)"
+                        }),
+                        text: new ol.style.Text({
+                            font: "14px helvetica,sans-serif",
+                            text: text,
+                            fill: new ol.style.Fill({
+                                //color:feature.getProperties()["_top"]=="TOP\n" ? "white":"dimgray"
+                                color:textColor
+                            })
                         })
                     })
                 ];
@@ -447,6 +449,7 @@ $(function(){
                             if (value > 0) {//値がプラスだったとき
                                 var c100 = (value - min) / color100 / 100;
                                 var color0 = new RGBColor(d3Color(c100));
+                                var textColor = funcTextColor(color0.r,color0.g,color0.b);//背景に応じて色を変える。
                                 var rgb = new RGBColor(d3Color(c100)).toRGB();
                                 var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
                                 var targetFillColor = d3Color(c100);
@@ -462,8 +465,9 @@ $(function(){
                             } else {
                                 features[i]["H"]["_polygonHeight"] = 1000;
                             }
-                        }else{
+                        }else{//色のとき
                             var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
+                            var textColor = funcTextColor(color.r,color.g,color.b);//背景に応じて色を変える。
                             var rgba = "rgba(" + color.r + "," + color.g + "," + color.b + "," + "0.7)";
                             if (value > 0) {
                                 var c100 = (value - min) / color100 / 100;
@@ -474,12 +478,10 @@ $(function(){
                         }
                         features[i]["H"]["_fillColor"] = rgba;
                         features[i]["H"]["数値"] = value;
+                        features[i]["H"]["_textColor"] = textColor;
                     }
                 }
             }
-
-
-
 
             if(mapName==="map1") {
                 csvLayer1.getSource().changed();

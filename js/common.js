@@ -47,7 +47,7 @@ function getElev(coordinate,mapName,then){
 //バックグラウンドで色を判断する。
 function funcTextColor(R,G,B){
     var cY = 0.3*R + 0.6*G + 0.1*B;
-    if(cY > 50) {//最高値は255。今回は50で判断させる。
+    if(cY > 100) {//最高値は255。今回は100で判断させる。
         return "black";
     }else{
         return "white";
