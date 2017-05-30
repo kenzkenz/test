@@ -36,7 +36,7 @@ $(function(){
     profil2 = new ol.control.Profil();
     map2.addControl(profil2);
     //----------------------------------------------------------------
-    $("body").append("<div id='moveinfo-div'></div>");
+    //$("body").append("<div id='moveinfo-div'></div>");
 
     var defaultStyle = {
         'Point': new ol.style.Style({
@@ -309,7 +309,12 @@ $(function(){
             rangemin = 9999999999;
             $(rows).each(function () {
                 var split = this.replace("\r", "").split(/,|\t/);//\rが余計についてしまうので取った上でsplit
-                csvarr.push(split);
+                //console.log(split[0]);
+                if(split[0]) {//先頭列に何も書いていないときは抜ける。
+                    csvarr.push(split);
+                }else{
+                    return false;
+                }
             });
             cityObjAr = [];
             var cityCode = null;
@@ -317,7 +322,8 @@ $(function(){
             var iro = null;
             inChar = "";
             valueAr = [];
-            for (var i=0; i < csvarr.length-1; i++) {
+            //console.log(csvarr);
+            for (var i=0; i < csvarr.length; i++) {
                 if(i===0) {
                     for (var j = 0; j < csvarr[0].length; j++) {
                         /*
@@ -347,11 +353,14 @@ $(function(){
                     };
                     cityObjAr.push(obj);
                     //-----------------------------------------------
-                    inChar += "," + csvarr[i][cityCode];
-                    valueAr.push(csvarr[i][suuti]);
+                    if(csvarr[i][cityCode]){
+                        inChar += "," + csvarr[i][cityCode];
+                        valueAr.push(csvarr[i][suuti]);
+                    }
                 }
             }
             $("#modal-div").modal();
+            console.log(inChar);
         };
     }
     //----------------------------------------------------------------------------
@@ -364,7 +373,19 @@ $(function(){
         csvLayerCreate("iro");
         $("#modal-div").modal("hide");
     });
+    //-----------------------------------------------------------------------------
+    //ダイアログを消した時
+    $("body").on("click",".csv-dialog .dialog-hidden",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        if(mapName==="map1") {
+            map1.removeLayer(csvLayer1);
+        }else{
+            map2.removeLayer(csvLayer2);
+        }
+    });
     //----------------------------------------------------------------------------
+    //CSV
     function csvLayerCreate(coll){
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
@@ -482,18 +503,33 @@ $(function(){
                     }
                 }
             }
-
             if(mapName==="map1") {
                 csvLayer1.getSource().changed();
             }else{
                 csvLayer2.getSource().changed();
             }
 
+
+            var content = "実験中！作成中！実験中！作成中！実験中！作成中！";
+            mydialog({
+                id:"csv-dialog-" + mapName,
+                class:"csv-dialog",
+                map:mapName,
+                title:"CSV取り込み",
+                content:content,
+                top:"55px",
+                left:"20px",
+                //width:"400px",
+                rmDialog:false,
+                //hide:true,
+                minMax:true
+            });
+
+
+
             //----------------------------------------------------------
         }).fail(function(){
-            console.log("失敗!");
+            alert("失敗しました。ファイルを確認してください。");
         });
     }
-
-
 });
