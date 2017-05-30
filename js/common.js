@@ -85,7 +85,7 @@ function funcMaps(element){
 	return {"name":mapName,"element":mapElement,"ol3d":ol3d,"layers":layers};
 }
 //------------------------------------------------------------------------------
-//背景ダイアログの高さを設定する。
+//ダイアログの高さを設定する。
 function funcHaikeiTblDivHeight(){
 	if($(window).width()>1000){
 		var height = $(window).height()-150;
@@ -99,6 +99,7 @@ function funcHaikeiTblDivHeight(){
 	$(".haikei-tbl-div").css("max-height",height + "px");
     $(".estat-tbl-div").css("max-height",height-50 + "px");
     $(".resas-tbl-div").css("max-height",height-50 + "px");
+    $(".csv-tbl-div").css("max-height",height-50 + "px");
 }
 //------------------------------------------------------------------------------
 //エクステントの座標系を変換する

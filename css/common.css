@@ -328,6 +328,20 @@ label:hover{
     color:black;
     padding:2px;
 }
-
+/*CSV関係--------------------------------------------------------------------*/
+.csv-tbl-div{
+    /*margin-top:10px;*/
+    /*max-height:200px;*/
+    overflow:auto;
+}
+.csv-tbl th{
+    font-weight:normal;
+    font-size:10px;
+    /*text-align:center;*/
+    padding:2px!important;
+}
+.csv-tbl td{
+    padding:2px!important;
+}
 
 

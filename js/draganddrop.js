@@ -9,6 +9,9 @@ $(function(){
     var inChar = "";
     var valueAr =[];
     var mapName = null;
+    var csvarr = [];
+    var iro = null;
+    var suuti = null;
     //ドラッグアンドドロップのインタラクション-----------------------------
     var dragAndDropInteraction1 = new ol.interaction.DragAndDrop({
         formatConstructors: [
@@ -293,7 +296,7 @@ $(function(){
     */
     //-------------------------------------------------------------------------------------
     function csvRead(file) {
-        var csvarr = [];
+        csvarr = [];
         var file_reader = new FileReader();
         file_reader.readAsBinaryString(file);//ここ超重要。文字コード変換のために必要
         file_reader.onload = function(e) {
@@ -318,8 +321,8 @@ $(function(){
             });
             cityObjAr = [];
             var cityCode = null;
-            var suuti = null;
-            var iro = null;
+            suuti = null;
+            iro = null;
             inChar = "";
             valueAr = [];
             //console.log(csvarr);
@@ -375,14 +378,11 @@ $(function(){
     });
     //-----------------------------------------------------------------------------
     //ダイアログを消した時
-    $("body").on("click",".csv-dialog .dialog-hidden",function(){
-        var mapObj = funcMaps($(this));
-        var mapName = mapObj["name"];
-        if(mapName==="map1") {
-            map1.removeLayer(csvLayer1);
-        }else{
-            map2.removeLayer(csvLayer2);
-        }
+    $("body").on("click","#map1 .csv-dialog .dialog-hidden",function(){
+        map1.removeLayer(csvLayer1);
+    });
+    $("body").on("click","#map2 .csv-dialog .dialog-hidden",function(){
+        map2.removeLayer(csvLayer2);
     });
     //----------------------------------------------------------------------------
     //CSV
@@ -429,7 +429,6 @@ $(function(){
                             font: "14px helvetica,sans-serif",
                             text: text,
                             fill: new ol.style.Fill({
-                                //color:feature.getProperties()["_top"]=="TOP\n" ? "white":"dimgray"
                                 color:textColor
                             })
                         })
@@ -462,6 +461,69 @@ $(function(){
                 csvLayer2.setZIndex(9999);
                 var features = csvLayer2.getSource().getFeatures();
             }
+            //ヘッダーを作る。
+            var thHtml = "<th></th>";
+            for (var i = 0; i < csvarr[0].length; i++) {
+                console.log(csvarr[0][i]);
+                thHtml += "<th>";
+                thHtml += csvarr[0][i];
+                thHtml += "</th>";
+            }
+            //ボディを作る。
+            console.log(iro);
+            console.log(suuti);
+            var tdHtml = "";
+            for (var i = 1; i < csvarr.length; i++) {
+                tdHtml += "<tr class='tr-" + csvarr[i][0] +  "'><td class='csv-lank-td'></td>";
+                for (var j = 0; j < csvarr[i].length; j++) {
+                    //console.log(csvarr[i][j]);
+                    if(j===iro) {
+                        tdHtml += "<td style='background:" + csvarr[i][j] + ";'>";
+                        tdHtml += csvarr[i][j];
+                        tdHtml += "</td>";
+                    }else if(j===suuti) {
+                        tdHtml += "<td style='text-align:right;'>";
+                        tdHtml += csvarr[i][j];
+                        tdHtml += "</td>";
+                    }else{
+                        tdHtml += "<td>";
+                        tdHtml += csvarr[i][j];
+                        tdHtml += "</td>";
+                    }
+                }
+                tdHtml += "</tr>"
+            }
+            var tblHtml = "<table class='csv-tbl table table-bordered table-hover tablesorter'>";
+                tblHtml += "<thead><tr class='info'>";
+                tblHtml += thHtml;
+                tblHtml += "</tr></thead><tbody>";
+                tblHtml += tdHtml;
+                tblHtml += "</tbody></table>";
+            var content = "<div style='width:270px;'></div>";//ダイアログ幅が短くならないようにダミーのdiv
+                content += "<div class='csv-tbl-div minmax-div'>" + tblHtml + "</div>";
+
+            $("#" + mapName + " .csv-dialog").remove();//ダイアログを削除
+
+            mydialog({
+                id:"csv-dialog-" + mapName,
+                class:"csv-dialog",
+                map:mapName,
+                title:"CSV取り込み",
+                content:content,
+                top:"55px",
+                left:"20px",
+                //width:"400px",
+                rmDialog:true,
+                //hide:true,
+                minMax:true
+            });
+            funcHaikeiTblDivHeight();
+            $("#" + mapName + " .csv-tbl").tablesorter({sortList:[[suuti+1,1]]});
+            $("#" + mapName + " .csv-tbl tbody tr").each(function(i) {
+                $(this).find(".csv-lank-td").html(i+1);
+            });
+            $("#" + mapName + " .csv-tbl").trigger("update");
+
             for (i=0; i<features.length; i++){
                 for (j=0; j<cityObjAr.length; j++) {
                     var value = Number(cityObjAr[j]["prop"]["suuti"]);
@@ -486,6 +548,10 @@ $(function(){
                             } else {
                                 features[i]["H"]["_polygonHeight"] = 1000;
                             }
+                            console.log(features[i]["H"]["コード"]);
+
+                            $("#" + mapName + " .csv-tbl tbody").find(".tr-" + features[i]["H"]["コード"] + " td").css({"background":rgb});
+
                         }else{//色のとき
                             var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
                             var textColor = funcTextColor(color.r,color.g,color.b);//背景に応じて色を変える。
@@ -508,25 +574,6 @@ $(function(){
             }else{
                 csvLayer2.getSource().changed();
             }
-
-
-            var content = "実験中！作成中！実験中！作成中！実験中！作成中！";
-            mydialog({
-                id:"csv-dialog-" + mapName,
-                class:"csv-dialog",
-                map:mapName,
-                title:"CSV取り込み",
-                content:content,
-                top:"55px",
-                left:"20px",
-                //width:"400px",
-                rmDialog:false,
-                //hide:true,
-                minMax:true
-            });
-
-
-
             //----------------------------------------------------------
         }).fail(function(){
             alert("失敗しました。ファイルを確認してください。");
