@@ -412,9 +412,43 @@ $(function(){
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
-            var csvStyleFunction = function(feature, resolution) {
+            var csvStyleFunction1 = function(feature, resolution) {
                 var fillColor = feature["H"]["_fillColor"];
-                var text = String(feature["H"]["数値"]);
+                var val = $("input:radio[name='csv-radio-map1']:checked").val();
+                if(val==="on") {
+                    var text = String(feature["H"]["数値"]);
+                }else{
+                    var text = "";
+                }
+                var textColor = feature["H"]["_textColor"];
+                style = [
+                    new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color:"gray",
+                            width: 1
+                        }),
+                        fill: new ol.style.Fill({
+                            color:fillColor ? fillColor:"rgba(0,120,200,0.2)"
+                        }),
+                        text: new ol.style.Text({
+                            font: "14px helvetica,sans-serif",
+                            text: text,
+                            fill: new ol.style.Fill({
+                                color:textColor
+                            })
+                        })
+                    })
+                ];
+                return style;
+            };
+            var csvStyleFunction2 = function(feature, resolution) {
+                var fillColor = feature["H"]["_fillColor"];
+                var val = $("input:radio[name='csv-radio-map2']:checked").val();
+                if(val==="on") {
+                    var text = String(feature["H"]["数値"]);
+                }else{
+                    var text = "";
+                }
                 var textColor = feature["H"]["_textColor"];
                 style = [
                     new ol.style.Style({
@@ -441,7 +475,7 @@ $(function(){
                     name:"csvLayer",
                     zinkouset:"on",
                     source: vectorSource,
-                    style: csvStyleFunction
+                    style: csvStyleFunction1
                 });
                 csvLayer1.set("altitudeMode","clampToGround");
                 map1.addLayer(csvLayer1);
@@ -453,7 +487,7 @@ $(function(){
                     name:"csvLayer",
                     zinkouset:"on",
                     source: vectorSource,
-                    style: csvStyleFunction
+                    style: csvStyleFunction2
                 });
                 csvLayer2.set("altitudeMode","clampToGround");
                 map2.addLayer(csvLayer2);
@@ -476,7 +510,6 @@ $(function(){
             for (var i = 1; i < csvarr.length; i++) {
                 tdHtml += "<tr class='tr-" + csvarr[i][0] +  "'><td class='csv-lank-td'></td>";
                 for (var j = 0; j < csvarr[i].length; j++) {
-                    //console.log(csvarr[i][j]);
                     if(j===iro) {
                         tdHtml += "<td style='background:" + csvarr[i][j] + ";'>";
                         tdHtml += csvarr[i][j];
@@ -499,7 +532,10 @@ $(function(){
                 tblHtml += "</tr></thead><tbody>";
                 tblHtml += tdHtml;
                 tblHtml += "</tbody></table>";
-            var content = "<div style='width:270px;'></div>";//ダイアログ幅が短くならないようにダミーのdiv
+            var content = "";//"<div style='width:270px;'></div>";//ダイアログ幅が短くならないようにダミーのdiv
+                content += "ラベル";
+                content += "　<label><input type='radio' name='csv-radio-" + mapName + "' value='on' checked> on</label>";
+                content += "　<label><input type='radio' name='csv-radio-" + mapName + "' value='off'> off</label>　　　　　　　";
                 content += "<div class='csv-tbl-div minmax-div'>" + tblHtml + "</div>";
 
             $("#" + mapName + " .csv-dialog").remove();//ダイアログを削除
@@ -523,6 +559,24 @@ $(function(){
                 $(this).find(".csv-lank-td").html(i+1);
             });
             $("#" + mapName + " .csv-tbl").trigger("update");
+
+            $("input:radio[name='csv-radio-" + mapName + "']").iCheck({
+                checkboxClass: "icheckbox_flat-blue",
+                radioClass: "iradio_square-blue"
+            });
+            $("input:radio[name='csv-radio-" + mapName + "']").on("ifChecked", function (event) {
+
+                var mapObj = funcMaps($(this));
+                var mapName = mapObj["name"];
+                console.log($("input:radio[name='csv-radio-" + mapName + "']:checked").val());
+                if(mapName==="map1") {
+                    csvLayer1.getSource().changed();
+                }else{
+                    csvLayer2.getSource().changed();
+                }
+
+                //funcHaikeiLayerSort(mapObj["element"], mapObj["name"]);
+            });
 
             for (i=0; i<features.length; i++){
                 for (j=0; j<cityObjAr.length; j++) {
@@ -548,10 +602,7 @@ $(function(){
                             } else {
                                 features[i]["H"]["_polygonHeight"] = 1000;
                             }
-                            console.log(features[i]["H"]["コード"]);
-
                             $("#" + mapName + " .csv-tbl tbody").find(".tr-" + features[i]["H"]["コード"] + " td").css({"background":rgb});
-
                         }else{//色のとき
                             var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
                             var textColor = funcTextColor(color.r,color.g,color.b);//背景に応じて色を変える。

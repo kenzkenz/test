@@ -344,7 +344,7 @@ var murous2 = new ol.layer.Tile({
 //ハザードマップ関係------------------------------------------------------------------------------------------------------------------------------------------------------
 //津波
 var tunami1 = new ol.layer.Tile({
-    title:"津波浸水想定区域",
+    title:"津波浸水想定区域（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -358,7 +358,7 @@ var tunami1 = new ol.layer.Tile({
 	})
 });
 var tunami2 = new ol.layer.Tile({
-    title:"津波浸水想定区域",
+    title:"津波浸水想定区域（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -373,7 +373,7 @@ var tunami2 = new ol.layer.Tile({
 });
 //浸水想定
 var sinsuisoutei1 = new ol.layer.Tile({
-    title:"洪水浸水想定",
+    title:"洪水浸水想定（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -387,7 +387,7 @@ var sinsuisoutei1 = new ol.layer.Tile({
 	})
 });
 var sinsuisoutei2 = new ol.layer.Tile({
-    title:"洪水浸水想定区域",
+    title:"洪水浸水想定区域（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -402,7 +402,7 @@ var sinsuisoutei2 = new ol.layer.Tile({
 });
 //土石流危険渓流
 var kikenkeiryuu1 = new ol.layer.Tile({
-    title:"土石流危険渓流",
+    title:"土石流危険渓流（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -416,7 +416,7 @@ var kikenkeiryuu1 = new ol.layer.Tile({
 	})
 });
 var kikenkeiryuu2 = new ol.layer.Tile({
-    title:"土石流危険渓流",
+    title:"土石流危険渓流（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -431,7 +431,7 @@ var kikenkeiryuu2 = new ol.layer.Tile({
 });
 //急傾斜地崩壊危険箇所
 var kyuukeisyakikenkasyo1 = new ol.layer.Tile({
-    title:"急傾斜地崩壊危険箇所",
+    title:"急傾斜地崩壊危険箇所（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
@@ -445,7 +445,7 @@ var kyuukeisyakikenkasyo1 = new ol.layer.Tile({
 	})
 });
 var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
-    title:"急傾斜地崩壊危険箇所",
+    title:"急傾斜地崩壊危険箇所（宮崎県）",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
