@@ -96,7 +96,16 @@ $(function(){
                 console.log(features);
                 czmlCreate(features,$(this));
             }
-
+            if(mapName==="map1") {
+                var mesh500Layer = mesh500Layer1;
+            }else{
+                var mesh500Layer = mesh500Layer2;
+            }
+            if(mesh500Layer){
+                var features = mesh500Layer.getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+            }
 
         }else{
             var ol3d = eval(mapObj["ol3d"]);
