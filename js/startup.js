@@ -108,6 +108,7 @@ $(function(){
     centerTarget2 =  new ol.control.Target ({style:style});
     map1.addControl(centerTarget1);
     map2.addControl(centerTarget2);
+
     //--------------------------------------------------------------------------
     //マップイベント関係
     //ムーブエンド時にwevストレージに中心座標とズーム率を記憶

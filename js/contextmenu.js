@@ -37,47 +37,50 @@ $(function(){
     $("#map1 .kmtext,#map2 .kmtext").spinner({
         max:50, min:5, step:1,
         spin:function(event,ui){
-            map1.removeLayer(circleLayer1);
-            map1.removeLayer(mesh500Layer1);
-            var km = ui.value;
-            var circleCenterX = coord1[0];//15438034; //the X center of your circle
-            var circleCenterY = coord1[1];//4186771; //the Y center of your circle
-            var circleRadius = km * 1179;
-            var pointsToFind = 30;
-            var circleCoords1 = createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind);
-            //console.log(circleCoords1);
-            var circlesource = new ol.source.Vector({
-                features: [
-                    new ol.Feature({
-                    	id:1,
-                    	geometry: new ol.geom.Polygon([circleCoords1])
-                    })
-                ]
-            });
-            //-------------------------------------
-            circleLayer1 = new ol.layer.Vector({
-                name:"circleLayer",
-                source: circlesource,
-                style: function(feature,resolution){
-                    style = [
-                        new ol.style.Style({
-                            stroke: new ol.style.Stroke({
-                                color: "grey",
-                                width: 1
-                            }),
-                            fill: new ol.style.Fill({
-                                color: 'rgba(0,100,200,0.3)'
-                            })
-                        })
-                    ];
-                    return style;
-                }
-            });
-            circleLayer1.set("altitudeMode","clampToGround");
-            map1.addLayer(circleLayer1);
-            circleLayer1.setZIndex(9999);
-        }//
+            bbb(ui.value);
+        }
     });
+    function bbb(val) {
+        map1.removeLayer(circleLayer1);
+        map1.removeLayer(mesh500Layer1);
+        var km = val;
+        var circleCenterX = coord1[0];//15438034; //the X center of your circle
+        var circleCenterY = coord1[1];//4186771; //the Y center of your circle
+        var circleRadius = km * 1179;
+        var pointsToFind = 30;
+        var circleCoords1 = createCirclePointCoords(circleCenterX, circleCenterY, circleRadius, pointsToFind);
+        //console.log(circleCoords1);
+        var circlesource = new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    id: 1,
+                    geometry: new ol.geom.Polygon([circleCoords1])
+                })
+            ]
+        });
+        //-------------------------------------
+        circleLayer1 = new ol.layer.Vector({
+            name: "circleLayer",
+            source: circlesource,
+            style: function (feature, resolution) {
+                style = [
+                    new ol.style.Style({
+                        stroke: new ol.style.Stroke({
+                            color: "grey",
+                            width: 1
+                        }),
+                        fill: new ol.style.Fill({
+                            color: 'rgba(0,100,200,0.3)'
+                        })
+                    })
+                ];
+                return style;
+            }
+        });
+        circleLayer1.set("altitudeMode", "clampToGround");
+        map1.addLayer(circleLayer1);
+        circleLayer1.setZIndex(9999);
+    }
     //--------------------------------------------------------------------------------------
     $(".myContextOverlay-close").click(function(){
         var mapObj = funcMaps($(this));
@@ -98,6 +101,10 @@ $(function(){
         console.log(currentFeatureLayer);
         if(!currentFeatureLayer){
             alert("範囲を設定してください。");
+
+
+
+
             return;
         }
         var extent = currentFeatureLayer[0].getGeometry().getExtent();
@@ -315,6 +322,11 @@ $(function(){
         coord1 = map1.getCoordinateFromPixel([myContextmenuLeft,myContextmenuTop]);
         evt.preventDefault();
         myContextOverlay1.setPosition(coord1);
+
+        var val = $("#map1 .kmtext").spinner().spinner("value");
+        bbb(val);
+
+
     }
     function myContextmenu2(evt){
         var myContextmenuTop = evt.clientY;
@@ -323,6 +335,17 @@ $(function(){
         evt.preventDefault();
         myContextOverlay2.setPosition(coord2);
     }
+    //---------------------------------------------------------
+    var touchi1 = new ol.interaction.LongTouch({
+        handleLongTouchEvent: function(e) {
+            coord1 = e.coordinate;
+            myContextOverlay1.setPosition(coord1);
+            var val = $("#map1 .kmtext").spinner().spinner("value");
+            bbb(val);
+        }
+    });
+    map1.addInteraction(touchi1);
+
 });
 
 
