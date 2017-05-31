@@ -93,6 +93,8 @@ $(function(){
     });
     //--------------------------------------------------------------------------------------
     $(".zinkoumesh-btn").click(function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
         //var coord = map1.getCoordinateFromPixel([myContextmenuLeft,myContextmenuTop])
         var pixel = map1.getPixelFromCoordinate(coord1);
         var currentFeatureLayer = map1.forEachFeatureAtPixel(pixel,function(feature,layer){
@@ -101,9 +103,6 @@ $(function(){
         console.log(currentFeatureLayer);
         if(!currentFeatureLayer){
             alert("範囲を設定してください。");
-
-
-
 
             return;
         }
@@ -243,6 +242,7 @@ $(function(){
                 var color100 = (max-min)/100
                 var d3Color = d3.interpolateLab("mistyrose","red");
                 var meshCodeStr = "";
+                var souzinkou = 0;
                 for (i=0; i<features.length; i++){
                     //console.log(features[i].getProperties()["meshCode"]);
                     meshCodeStr += features[i].getProperties()["meshCode"] + ",";
@@ -262,8 +262,13 @@ $(function(){
                     features[i]["I"]["_polygonHeight"] = zinkou;
                     features[i]["I"]["_top"] = top;
 
+                    souzinkou += Number(zinkou);
+
                     //souzinkou[layerId] = souzinkou[layerId] + Number(zinkou);
                 }
+
+                //alert(souzinkou);
+
                 //console.log(meshCodeStr);
                 /*
                 if(currentFeatureLayer[1].get("name").split("_")[1] != "zinkouOn"){
@@ -281,7 +286,25 @@ $(function(){
                 map1.addLayer(mesh500Layer1);
                 mesh500Layer1.setZIndex(9999);
                 //sliderCreate();
-                console.log("aaa終了")
+                console.log("aaa終了");
+
+                $("#" + mapName + " .csv-dialog").remove();
+
+                var content = "500Mメッシュ<br>";
+                    content += "総人口：<span style='font-size:20px'>" + souzinkou.toLocaleString() + "</span>人";
+                mydialog({
+                    id:"mesh-dialog-" + mapName,
+                    class:"csv-dialog",
+                    map:mapName,
+                    title:"人口",
+                    content:content,
+                    top:"55px",
+                    left:"20px",
+                    //width:"400px",
+                    rmDialog:true,
+                    //hide:true,
+                    minMax:false
+                });
             }
         };
 
