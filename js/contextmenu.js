@@ -326,7 +326,6 @@ $(function(){
         var val = $("#map1 .kmtext").spinner().spinner("value");
         bbb(val);
 
-
     }
     function myContextmenu2(evt){
         var myContextmenuTop = evt.clientY;

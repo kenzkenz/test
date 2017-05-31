@@ -18,7 +18,7 @@ $(function(){
     var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
-        msg += "1 右クリックで人口機能作成中<br>";
+        msg += "1 右クリックで人口機能作成中 スマホは長押し<br>";
         msg += "2 CSV機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
         msg += "3 GPX機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
         msg += "4 パノラマ写真表示機能実験中。写真8枚追加。<br>";
