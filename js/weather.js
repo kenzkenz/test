@@ -80,47 +80,47 @@ $(function(){
             var maxbb = 0;
             var maxKansokuzyoNo;
             for (i = 0; i < features.length; i++) {
-                features[i]["H"]["_fillColor"] = "rgba(0,0,0,0.0)";
-                features[i]["H"]["_max"] = "";
+                features[i]["I"]["_fillColor"] = "rgba(0,0,0,0.0)";
+                features[i]["I"]["_max"] = "";
                 var text = $("#" + mapName + " .weather-select option:selected").text();
                 for (j = 0; j < json["kisyoujson"].length; j++) {
-                    if (Number(json["kisyoujson"][j]["観測所番号"]) == features[i]["H"]["観測所番号"]) {
+                    if (Number(json["kisyoujson"][j]["観測所番号"]) == features[i]["I"]["観測所番号"]) {
                         var aa = json["kisyoujson"][j];
                         if (pass.split("/")[0] == "pre_rct") {
                             var d3Color = d3.interpolateLab("white", "blue");
                             var bb = aa["現在値(mm)"];
-                            features[i]["H"]["value"] = {"降水量": bb + "mm"};
+                            features[i]["I"]["value"] = {"降水量": bb + "mm"};
                             var fillColor = d3Color(bb / 10);
-                            features[i]["H"]["_fillColor"] = fillColor;
+                            features[i]["I"]["_fillColor"] = fillColor;
                         }else if (text == "今日の最高気温") {
                             var d3Color = d3.interpolateLab("white", "red");
                             var bb = aa["今日の最高気温(℃)"];
-                            features[i]["H"]["value"] = {"今日の最高気温(℃)":bb + "℃"};
+                            features[i]["I"]["value"] = {"今日の最高気温(℃)":bb + "℃"};
                             var fillColor = d3Color((bb/35)*(bb/35));
-                            features[i]["H"]["_fillColor"] = fillColor;
+                            features[i]["I"]["_fillColor"] = fillColor;
                         } else if (text == "今日の最低気温") {
                             var d3Color = d3.interpolateLab("white", "red");
                             var bb = aa["今日の最低気温(℃)"];
-                            features[i]["H"]["value"] = {"今日の最低気温(℃)":bb + "℃"};
+                            features[i]["I"]["value"] = {"今日の最低気温(℃)":bb + "℃"};
                             var fillColor = d3Color((bb/25)*(bb/25));
-                            features[i]["H"]["_fillColor"] = fillColor;
+                            features[i]["I"]["_fillColor"] = fillColor;
                         } else if (text == "今日の最大風速") {
                             var d3Color = d3.interpolateLab("white", "green");
                             var bb = aa["今日の最大値(m/s)"];
-                            features[i]["H"]["value"] = {"今日の最大風速":bb + "(m/s)"};
+                            features[i]["I"]["value"] = {"今日の最大風速":bb + "(m/s)"};
                             var fillColor = d3Color(bb / 30);
-                            features[i]["H"]["_fillColor"] = fillColor;
+                            features[i]["I"]["_fillColor"] = fillColor;
                         } else if (text == "今日の最大瞬間風速") {
                             var d3Color = d3.interpolateLab("white", "green");
                             var bb = aa["今日の最大値(m/s)"];
-                            features[i]["H"]["value"] = {"今日の最大瞬間風速":bb + "(m/s)"};
+                            features[i]["I"]["value"] = {"今日の最大瞬間風速":bb + "(m/s)"};
                             var fillColor = d3Color(bb / 30);
-                            features[i]["H"]["_fillColor"] = fillColor;
+                            features[i]["I"]["_fillColor"] = fillColor;
                         }
                         json["kisyoujson"].splice(j, 1);
                         if(maxbb<Number(bb)){
                             maxbb = Number(bb);
-                            maxKansokuzyoNo = features[i]["H"]["観測所番号"];
+                            maxKansokuzyoNo = features[i]["I"]["観測所番号"];
                         }
                         break;
                     }
@@ -129,8 +129,8 @@ $(function(){
             //console.log(maxbb);
             //console.log(maxKansokuzyoNo);
             for (i = 0; i < features.length; i++) {
-                if (maxKansokuzyoNo == features[i]["H"]["観測所番号"]) {
-                    features[i]["H"]["_max"] = 1;
+                if (maxKansokuzyoNo == features[i]["I"]["観測所番号"]) {
+                    features[i]["I"]["_max"] = 1;
                     break
                 }
             }

@@ -473,18 +473,18 @@ $(function(){
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
                 if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){
-                    var prevFillColor = features[i]["H"]["_targetFillColor"];
-                    features[i]["H"]["_prevFillColor"] = prevFillColor;
-                    features[i]["H"]["_targetFillColor"] = targetFillColor;
-                    features[i]["H"]["_fillColor"] = rgba;
-                    //features[i]["H"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
+                    var prevFillColor = features[i]["I"]["_targetFillColor"];
+                    features[i]["I"]["_prevFillColor"] = prevFillColor;
+                    features[i]["I"]["_targetFillColor"] = targetFillColor;
+                    features[i]["I"]["_fillColor"] = rgba;
+                    //features[i]["I"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
                     if(value>0) {
-                        features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                        features[i]["I"]["_polygonHeight"] = (c100 * 50000) + 1000;
                     }else{
-                        features[i]["H"]["_polygonHeight"] = 1000;
+                        features[i]["I"]["_polygonHeight"] = 1000;
                     }
-                    features[i]["H"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
-                    features[i]["H"]["lank"] = $(this).find(".estat-lank-td").text();
+                    features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                    features[i]["I"]["lank"] = $(this).find(".estat-lank-td").text();
                 }
             }
             //eval("estatLayer" + mapName).getSource().changed();
@@ -507,12 +507,12 @@ $(function(){
                     var count = 1;
                     var saiki = function () {
                         for (j = 0; j < features.length; j++) {
-                            var prevFillColor = features[j]["H"]["_prevFillColor"];
-                            var targetFillColor = features[j]["H"]["_targetFillColor"];
+                            var prevFillColor = features[j]["I"]["_prevFillColor"];
+                            var targetFillColor = features[j]["I"]["_targetFillColor"];
                             var d3Color = d3.interpolateLab(prevFillColor, targetFillColor);
                             var color0 = new RGBColor(d3Color(count * 0.1));
                             var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
-                            features[j]["H"]["_fillColor"] = rgba;
+                            features[j]["I"]["_fillColor"] = rgba;
                         }
                         eval("estatLayer" + mapName).getSource().changed();
                         count++;

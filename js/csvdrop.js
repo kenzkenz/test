@@ -13,7 +13,6 @@ $(function(){
         console.log(3344455);
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-
         csvI++;
         e.preventDefault();
         var file = e.originalEvent.dataTransfer.files[0];

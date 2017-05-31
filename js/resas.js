@@ -246,17 +246,17 @@ $(function(){
                 var features = eval("resasLayer" + mapName).getSource().getFeatures();
                 for (i=0; i<features.length; i++){
                     if(features[i].getProperties()["自治体名"]==$(this).find(".resas-city-td").text()){
-                        var prevFillColor = features[i]["H"]["_targetFillColor"];
-                        features[i]["H"]["_prevFillColor"] = prevFillColor;
-                        features[i]["H"]["_targetFillColor"] = targetFillColor;
-                        features[i]["H"]["_fillColor"] = rgba;
+                        var prevFillColor = features[i]["I"]["_targetFillColor"];
+                        features[i]["I"]["_prevFillColor"] = prevFillColor;
+                        features[i]["I"]["_targetFillColor"] = targetFillColor;
+                        features[i]["I"]["_fillColor"] = rgba;
                         if(value>0) {
-                            features[i]["H"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                            features[i]["I"]["_polygonHeight"] = (c100 * 50000) + 1000;
                         }else{
-                            features[i]["H"]["_polygonHeight"] = 1000;
+                            features[i]["I"]["_polygonHeight"] = 1000;
                         }
-                        //features[i]["H"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
-                        features[i]["H"]["lank"] = $(this).find(".estat-lank-td").text();
+                        //features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                        features[i]["I"]["lank"] = $(this).find(".estat-lank-td").text();
                     }
                 }
                 eval("resasLayer" + mapName).getSource().changed();
