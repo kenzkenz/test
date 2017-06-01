@@ -16,7 +16,7 @@ $(function(){
     var content = "";
         content += "<button type='button' class='close myContextOverlay-close'>&times;</button>";
         content += "作成中！<br>";
-        content += "<div style='margin:10px 0;'>半径：<input type='text' class='kmtext' value='5' size='2'> KM</div>";
+        content += "<div style='margin:10px 0;'>半径：<input type='text' class='kmtext' value='3' size='2'> KM</div>";
         content += "<button type='button' class='zinkoumesh-btn btn btn-primary btn-block'>500M人口メッシュ</button>";
         content += "<button type='button' class='circlrdelete-btn btn btn-primary btn-block'>円削除</button>";
     $("#map1").append('<div id="myContextOverlay-div1" class="myContextOverlay-div">' + content + '</div>');
@@ -35,7 +35,7 @@ $(function(){
     map2.addOverlay(myContextOverlay2);
 
     $("#map1 .kmtext,#map2 .kmtext").spinner({
-        max:50, min:5, step:1,
+        max:50, min:3, step:1,
         spin:function(event,ui){
             bbb(ui.value);
         }
@@ -290,8 +290,9 @@ $(function(){
 
                 $("#" + mapName + " .csv-dialog").remove();
 
-                var content = "500Mメッシュ<br>";
-                    content += "総人口：<span style='font-size:20px'>" + souzinkou.toLocaleString() + "</span>人";
+                var content = "<div style='text-align:center;'>500Mメッシュ 総人口<br>";
+                    content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人</div>";
+                    content += "<br>出典：平成22年国勢調査500Mメッシュ";
                 mydialog({
                     id:"mesh-dialog-" + mapName,
                     class:"csv-dialog",
@@ -328,27 +329,31 @@ $(function(){
     $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
     $("body").on("mouseenter",".dialog-content,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
         $("#map1")[0].removeEventListener('contextmenu',myContextmenu1,false);
+        console.log(1111);
     }).on("mouseleave",".dialog-content,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
         $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
-    });
 
+        console.log(2222);
+
+    });
+    $("body").on("click",".mydialog .dialog-hidden",function(){
+        $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
+    });
     $("#map2")[0].addEventListener('contextmenu',myContextmenu2,false);
     $("body").on("mouseenter",".dialog-content,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
         $("#map2")[0].removeEventListener('contextmenu',myContextmenu2,false);
     }).on("mouseleave",".dialog-content,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
         $("#map2")[0].addEventListener('contextmenu',myContextmenu2,false);
     });
-
+    //---------------------------------------------------------
     function myContextmenu1(evt){
         var myContextmenuTop = evt.clientY;
         var myContextmenuLeft = evt.clientX;
         coord1 = map1.getCoordinateFromPixel([myContextmenuLeft,myContextmenuTop]);
         evt.preventDefault();
         myContextOverlay1.setPosition(coord1);
-
         var val = $("#map1 .kmtext").spinner().spinner("value");
         bbb(val);
-
     }
     function myContextmenu2(evt){
         var myContextmenuTop = evt.clientY;
@@ -367,10 +372,7 @@ $(function(){
         }
     });
     map1.addInteraction(touchi1);
-
 });
-
-
 //-----------------------------------------------------------------------------------------
 //円の座標を作る。
 function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind){
@@ -497,7 +499,6 @@ function meshcode2polygon(meshCodeStr,targetFeature){
         }
     });
     if(pixelFeature){
-        console.log(111111111111111)
         var newFeature = new ol.Feature({
             geometry:geometry,
             //name: "newFeature",
