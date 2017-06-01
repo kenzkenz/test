@@ -8,12 +8,14 @@ $proxy = array(
 $proxy_context = stream_context_create($proxy);
 $tgtUrl = $_GET["tgtUrl"];
 $statsDataId = $_GET["statsDataId"];
+$cdArea = $_GET["cdArea"];
 //パラメータ作成
 $params = array(
     "appId"=>"63bd852098e1a13aeea70ed78cba31f9f3918d2f",
     //"statsDataId"=>"C0020050245000",
     "statsDataId"=>$statsDataId,
-    "cntGetFlg"=>"Y"
+    "cdArea"=>$cdArea,
+    "cntGetFlg"=>"N"
 );
 // URLエンコード
 $query = http_build_query($params,'','&',PHP_QUERY_RFC3986);

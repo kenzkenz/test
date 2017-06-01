@@ -35,18 +35,38 @@ $(function(){
     });
     map2.addOverlay(myContextOverlay2);
 
-    $("#map1 .kmtext,#map2 .kmtext").spinner({
+    $("#map1 .kmtext").spinner({
         max:50, min:3, step:1,
         spin:function(event,ui){
-            bbb(ui.value);
+            bbb(ui.value,"map1");
         }
     });
-    function bbb(val) {
-        map1.removeLayer(circleLayer1);
-        map1.removeLayer(mesh500Layer1);
+    $("#map2 .kmtext").spinner({
+        max:50, min:3, step:1,
+        spin:function(event,ui){
+            bbb(ui.value,"map2");
+        }
+    });
+    function bbb(val,mapName) {
+        if(mapName==="map1") {
+            map1.removeLayer(circleLayer1);
+            map1.removeLayer(mesh500Layer1);
+            //var circleLayer = circleLayer1;
+            var circleCenterX = coord1[0];//15438034; //the X center of your circle
+            var circleCenterY = coord1[1];//4186771; //the Y center of your circle
+
+        }else{
+            map2.removeLayer(circleLayer2);
+            map2.removeLayer(mesh500Layer2);
+            //var circleLayer = circleLayer2;
+            var circleCenterX = coord2[0];//15438034; //the X center of your circle
+            var circleCenterY = coord2[1];//4186771; //the Y center of your circle
+
+        }
         var km = val;
-        var circleCenterX = coord1[0];//15438034; //the X center of your circle
-        var circleCenterY = coord1[1];//4186771; //the Y center of your circle
+        //var circleCenterX = coord1[0];//15438034; //the X center of your circle
+        //var circleCenterY = coord1[1];//4186771; //the Y center of your circle
+
         var circleRadius = km * 1179;
         var pointsToFind = 30;
         var circleCoords1 = createCirclePointCoords(circleCenterX, circleCenterY, circleRadius, pointsToFind);
@@ -60,27 +80,52 @@ $(function(){
             ]
         });
         //-------------------------------------
-        circleLayer1 = new ol.layer.Vector({
-            name: "circleLayer",
-            source: circlesource,
-            style: function (feature, resolution) {
-                style = [
-                    new ol.style.Style({
-                        stroke: new ol.style.Stroke({
-                            color: "grey",
-                            width: 1
-                        }),
-                        fill: new ol.style.Fill({
-                            color: 'rgba(0,100,200,0.3)'
+        if(mapName==="map1") {
+            circleLayer1 = new ol.layer.Vector({
+                name: "circleLayer",
+                source: circlesource,
+                style: function (feature, resolution) {
+                    style = [
+                        new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: "grey",
+                                width: 1
+                            }),
+                            fill: new ol.style.Fill({
+                                color: 'rgba(0,100,200,0.3)'
+                            })
                         })
-                    })
-                ];
-                return style;
-            }
-        });
-        circleLayer1.set("altitudeMode", "clampToGround");
-        map1.addLayer(circleLayer1);
-        circleLayer1.setZIndex(9999);
+                    ];
+                    return style;
+                }
+            });
+            circleLayer1.set("altitudeMode", "clampToGround");
+            map1.addLayer(circleLayer1);
+            circleLayer1.setZIndex(9999);
+        }else{
+            circleLayer2 = new ol.layer.Vector({
+                name: "circleLayer",
+                source: circlesource,
+                style: function (feature, resolution) {
+                    style = [
+                        new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color: "grey",
+                                width: 1
+                            }),
+                            fill: new ol.style.Fill({
+                                color: 'rgba(0,100,200,0.3)'
+                            })
+                        })
+                    ];
+                    return style;
+                }
+            });
+            circleLayer2.set("altitudeMode", "clampToGround");
+            map2.addLayer(circleLayer2);
+            circleLayer2.setZIndex(9999);
+        }
+
     }
     //--------------------------------------------------------------------------------------
     $(".myContextOverlay-close").click(function(){
@@ -95,61 +140,103 @@ $(function(){
     //-------------------------------------------------------------------------------------
     //
     $(".zinkoumesh-btn,.zyuugyouinmesh-btn").click(function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
         if($(this).hasClass("zinkoumesh-btn")){
             var meshType = "zinkouMesh";
         }else{
             var meshType = "keizaiMesh";
         }
-        var mapObj = funcMaps($(this));
-        var mapName = mapObj["name"];
-        //var coord = map1.getCoordinateFromPixel([myContextmenuLeft,myContextmenuTop])
-        var pixel = map1.getPixelFromCoordinate(coord1);
-        var currentFeatureLayer = map1.forEachFeatureAtPixel(pixel,function(feature,layer){
+        if(mapName==="map1") {
+            var pixel = map1.getPixelFromCoordinate(coord1);
+            mesh500Source1 = new ol.source.Vector({});
+        }else{
+            var pixel = map2.getPixelFromCoordinate(coord2);
+            mesh500Source2 = new ol.source.Vector({});
+        }
+        //var pixel = map1.getPixelFromCoordinate(coord1);
+        var currentFeatureLayer = eval(mapName).forEachFeatureAtPixel(pixel,function(feature,layer){
             return [feature,layer];
         });
         if(!currentFeatureLayer){
             alert("範囲を設定してください。");
-
             return;
         }
         var extent = currentFeatureLayer[0].getGeometry().getExtent();
-        mesh500Source1 = new ol.source.Vector({});
-        mesh500Layer1 = new ol.layer.Vector({
-            //deleteflg:true,
-            name:"mesh500Layer",
-            source: mesh500Source1,
-            style: function(feature,resolution){
-                if(resolution<9.6){
-                    var text = feature.getProperties()["_top"] + Number(feature.getProperties()["zinkou"]).toLocaleString() + "人";
-                }else{
-                    var text = feature.getProperties()["_top"]=="TOP\n" ? "TOP":""
-                }
-                var fillColor = feature.getProperties()["_fillColor"];
-                if(resolution<76.5){
-                    var stroke = new ol.style.Stroke({
-                        color:"gray",
-                        lineDash: [1],
-                        width:1
-                    })
-                }else{
-                    var stroke = null
-                }
-                style = [new ol.style.Style({
-                    stroke:stroke,
-                    fill: new ol.style.Fill({
-                        color:fillColor
-                    }),
-                    text: new ol.style.Text({
-                        font: "16px helvetica,sans-serif",
-                        text: text,
-                        fill: new ol.style.Fill({
-                            color:feature.getProperties()["_top"]=="TOP\n" ? "white":"dimgray"
+        //mesh500Source1 = new ol.source.Vector({});
+        if(mapName==="map1") {
+            mesh500Layer1 = new ol.layer.Vector({
+                name: "mesh500Layer",
+                source: mesh500Source1,
+                style: function (feature, resolution) {
+                    if (resolution < 9.6) {
+                        var text = feature.getProperties()["_top"] + Number(feature.getProperties()["zinkou"]).toLocaleString() + "人";
+                    } else {
+                        var text = feature.getProperties()["_top"] == "TOP\n" ? "TOP" : ""
+                    }
+                    var fillColor = feature.getProperties()["_fillColor"];
+                    if (resolution < 76.5) {
+                        var stroke = new ol.style.Stroke({
+                            color: "gray",
+                            lineDash: [1],
+                            width: 1
                         })
-                    })
-                })];
-                return style;
-            }
-        });
+                    } else {
+                        var stroke = null
+                    }
+                    style = [new ol.style.Style({
+                        stroke: stroke,
+                        fill: new ol.style.Fill({
+                            color: fillColor
+                        }),
+                        text: new ol.style.Text({
+                            font: "16px helvetica,sans-serif",
+                            text: text,
+                            fill: new ol.style.Fill({
+                                color: feature.getProperties()["_top"] == "TOP\n" ? "white" : "dimgray"
+                            })
+                        })
+                    })];
+                    return style;
+                }
+            });
+        }else{
+            mesh500Layer2= new ol.layer.Vector({
+                name: "mesh500Layer",
+                source: mesh500Source2,
+                style: function (feature, resolution) {
+                    if (resolution < 9.6) {
+                        var text = feature.getProperties()["_top"] + Number(feature.getProperties()["zinkou"]).toLocaleString() + "人";
+                    } else {
+                        var text = feature.getProperties()["_top"] == "TOP\n" ? "TOP" : ""
+                    }
+                    var fillColor = feature.getProperties()["_fillColor"];
+                    if (resolution < 76.5) {
+                        var stroke = new ol.style.Stroke({
+                            color: "gray",
+                            lineDash: [1],
+                            width: 1
+                        })
+                    } else {
+                        var stroke = null
+                    }
+                    style = [new ol.style.Style({
+                        stroke: stroke,
+                        fill: new ol.style.Fill({
+                            color: fillColor
+                        }),
+                        text: new ol.style.Text({
+                            font: "16px helvetica,sans-serif",
+                            text: text,
+                            fill: new ol.style.Fill({
+                                color: feature.getProperties()["_top"] == "TOP\n" ? "white" : "dimgray"
+                            })
+                        })
+                    })];
+                    return style;
+                }
+            });
+        }
         var extentLeftTop = ol.proj.transform([extent[0],extent[3]],"EPSG:3857","EPSG:4326");
         var extentRightTop = ol.proj.transform([extent[2],extent[3]],"EPSG:3857","EPSG:4326");
         var extentRightTopMeshcode = coord2meshcode(extentRightTop);
@@ -162,11 +249,15 @@ $(function(){
         worker.postMessage({prevMeshcode:prevMeshcode,extentRightTopMeshcode:extentRightTopMeshcode,extentLeftDown:extentLeftDown,target:target});
         worker.onmessage=function(evt) {
             for (i=0; i<evt.data.length; i++){
-                meshcode2polygon(evt.data[i],currentFeatureLayer[0]);
+                meshcode2polygon(evt.data[i],currentFeatureLayer[0],mapName);
             }
             var zinkouAjax = function(){//プロミスのファンクション
                 return new Promise(function(resolve,reject){
-                    var features = mesh500Source1.getFeatures();
+                    if(mapName==="map1") {
+                        var features = mesh500Source1.getFeatures();
+                    }else{
+                        var features = mesh500Source2.getFeatures();
+                    }
                     var instr = "";
                     for (i=0; i<features.length; i++){
                         instr += features[i].getProperties()["meshCode"] + ",";
@@ -189,7 +280,11 @@ $(function(){
             };
             zinkouAjax().then(function(jsonMeshtype) {
                 var setProp = new Promise(function(resolve,reject){
-                    var features = mesh500Source1.getFeatures();
+                    if(mapName==="map1") {
+                        var features = mesh500Source1.getFeatures();
+                    }else{
+                        var features = mesh500Source2.getFeatures();
+                    }
                     var resultCopy = jsonMeshtype[0]["result"];
                     if(jsonMeshtype[0].result){
                         for (i=0; i<features.length; i++){
@@ -219,7 +314,11 @@ $(function(){
                 });
             });
             function aaa(){
-                var features = mesh500Source1.getFeatures();
+                if(mapName==="map1") {
+                    var features = mesh500Source1.getFeatures();
+                }else{
+                    var features = mesh500Source2.getFeatures();
+                }
                 var zinkouArr = [];
                 for (i=0; i<features.length; i++){
                     zinkouArr.push(features[i].getProperties()["zinkou"]);
@@ -268,9 +367,16 @@ $(function(){
                 measureTooltipElement.className = "tooltip tooltip-static " + "tStatic" + layerI;
                 measureTooltipElement = null;
                 */
-                mesh500Layer1.set("altitudeMode","clampToGround");
-                map1.addLayer(mesh500Layer1);
-                mesh500Layer1.setZIndex(9999);
+                if(mapName==="map1") {
+                    mesh500Layer1.set("altitudeMode", "clampToGround");
+                    map1.addLayer(mesh500Layer1);
+                    mesh500Layer1.setZIndex(9999);
+                }else{
+                    mesh500Layer2.set("altitudeMode", "clampToGround");
+                    map2.addLayer(mesh500Layer2);
+                    mesh500Layer2.setZIndex(9999);
+                }
+
                 //sliderCreate();
 
                 $("#" + mapName + " .csv-dialog").remove();
@@ -336,7 +442,7 @@ $(function(){
         evt.preventDefault();
         myContextOverlay1.setPosition(coord1);
         var val = $("#map1 .kmtext").spinner().spinner("value");
-        bbb(val);
+        bbb(val,"map1");
     }
     function myContextmenu2(evt){
         var myContextmenuTop = evt.clientY;
@@ -344,6 +450,8 @@ $(function(){
         coord2 = map2.getCoordinateFromPixel([myContextmenuLeft,myContextmenuTop]);
         evt.preventDefault();
         myContextOverlay2.setPosition(coord2);
+        var val = $("#map2 .kmtext").spinner().spinner("value");
+        bbb(val,"map2");
     }
     //---------------------------------------------------------
     var touchi1 = new ol.interaction.LongTouch({
@@ -351,10 +459,19 @@ $(function(){
             coord1 = e.coordinate;
             myContextOverlay1.setPosition(coord1);
             var val = $("#map1 .kmtext").spinner().spinner("value");
-            bbb(val);
+            bbb(val,"map1");
         }
     });
     map1.addInteraction(touchi1);
+    var touchi2 = new ol.interaction.LongTouch({
+        handleLongTouchEvent: function(e) {
+            coord2 = e.coordinate;
+            myContextOverlay2.setPosition(coord2);
+            var val = $("#map2 .kmtext").spinner().spinner("value");
+            bbb(val,"map2");
+        }
+    });
+    map2.addInteraction(touchi2);
 });
 //-----------------------------------------------------------------------------------------
 //円の座標を作る。
@@ -414,7 +531,7 @@ function coord2meshcode(coordinate){
 };
 //--------------------------------------------------------------------------------------------------
 //メッシュコードからポリゴンを作る
-function meshcode2polygon(meshCodeStr,targetFeature){
+function meshcode2polygon(meshCodeStr,targetFeature,mapName){
     //console.log(meshCodeStr)
     var z11 = Number(meshCodeStr.slice(0,2));
     //console.log(z11)
@@ -475,7 +592,9 @@ function meshcode2polygon(meshCodeStr,targetFeature){
     var featureExtent = geometry.getExtent();
     var featureCenter = ol.extent.getCenter(featureExtent);
     var pixel = map1.getPixelFromCoordinate(featureCenter);
-    var pixelFeature = map1.forEachFeatureAtPixel(pixel,function(feature,layer){
+
+    var pixelFeature = eval(mapName).forEachFeatureAtPixel(pixel,function(feature,layer){
+
         if(feature===targetFeature){
             //console.log(layer.getProperties()["name"])
             return feature
@@ -491,6 +610,10 @@ function meshcode2polygon(meshCodeStr,targetFeature){
             _top:"",
             _popup:"zinkou"
         });
-        mesh500Source1.addFeature(newFeature);
+        if(mapName==="map1") {
+            mesh500Source1.addFeature(newFeature);
+        }else{
+            mesh500Source2.addFeature(newFeature);
+        }
     }
 }

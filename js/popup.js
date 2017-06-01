@@ -72,85 +72,114 @@ $(function(){
     }
     //-----------------------------------------------
     function funcMesh500Popup(feature,map,evt) {
-        console.log(111);
-
         var properties = feature.getProperties();
         var coord = evt.coordinate;
-        var content = "";
-        //content += "総人口" + properties["zinkou"] + "人";
-        var sdsJson =[];
         var meshCodeStr = properties["meshCode"];
-        var sdId = "T000609M" + meshCodeStr.slice(0,4);
-
-        var sdsAArr ={"statsDataId":sdId,"cdArea":meshCodeStr};
-        sdsJson.push(sdsAArr);
-        var sdId = "T000617M" + meshCodeStr.slice(0,4);
-        var sdsAArr ={"statsDataId":sdId,"cdArea":meshCodeStr};
-        sdsJson.push(sdsAArr);
-
-        console.log(JSON.stringify(sdsJson));
-
-        /*
-        var url = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsDatas/";
-        $.ajax({
-            type:"POST",
-            url:url,
-            dataType:"json",
-            data:{
-                appId:"63bd852098e1a13aeea70ed78cba31f9f3918d2f",
-                statsDatasSpec:JSON.stringify(sdsJson)
-            }
-        */
         var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsData?";
-        $.ajax({
-            type:"GET",
-            url:"php/proxy-estat-zinkou.php",
-            dataType:"json",
-            data:{
-                tgtUrl:tgtUrl,
-                statsDataId:sdId
-                //statsDatasSpec:sdsJson
-            }
-        }).done(function(json){
-            console.log(json);
-
-            /*
-            var dataInfArr = json["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
-            console.log(dataInfArr);
-            if(dataInfArr){
-                if(dataInfArr.length==2){
-                    content += "総人口：" + dataInfArr[0]["VALUE"][0]["$"] + "人";
-                    content += "<br>男：" + dataInfArr[0]["VALUE"][1]["$"] + "人";
-                    content += "　女：" + dataInfArr[0]["VALUE"][2]["$"] + "人";
-                    content += "<br>世帯数：" + dataInfArr[0]["VALUE"][3]["$"] + "世帯";
-                    content += "<hr>事業所数：" + dataInfArr[1]["VALUE"][0]["$"] + "事業所";
-                    content += "<br>従業員数：" + dataInfArr[1]["VALUE"][1]["$"] + "人";
-                    content += "<hr>従業員数/総人口：" + (dataInfArr[1]["VALUE"][1]["$"] / dataInfArr[0]["VALUE"][0]["$"]).toFixed(3);
-                }else{
-                    if(dataInfArr["@requestNo"]=="1"){
-                        content += "総人口：" + dataInfArr["VALUE"][0]["$"] + "人";
-                        content += "<br>男：" + dataInfArr["VALUE"][1]["$"] + "人";
-                        content += "　女：" + dataInfArr["VALUE"][2]["$"] + "人";
-                        content += "<br>世帯数：" + dataInfArr["VALUE"][3]["$"] + "世帯";
-                        content += "<hr>事業所数：0事業所";
-                        content += "<br>従業員数：0人";
-                    }else{
-                        content += "総人口：0人";
-                        content += "<br>男：0人";
-                        content += "　女：0人";
-                        content += "<br>世帯数：0世帯";
-                        content += "<hr>事業所数：" + dataInfArr["VALUE"][0]["$"] + "事業所";
-                        content += "<br>従業員数：" + dataInfArr["VALUE"][1]["$"] + "人";
-                    };
-                };
+        var zinkouAjax = function(){
+            var sdId = "T000609M" + meshCodeStr.slice(0,4);
+            return new Promise(function(resolve,reject){
+                $.ajax({
+                    type:"GET",
+                    url:"php/proxy-estat-zinkou.php",
+                    dataType:"json",
+                    data:{
+                        tgtUrl:tgtUrl,
+                        statsDataId:sdId,
+                        cdArea:meshCodeStr
+                    }
+                }).done(function(json){
+                    resolve(json);
+                }).fail(function(json){
+                    alert("失敗!");
+                });
+            });
+        };
+        var keizaiAjax = function(){
+            var sdId = "T000617M" + meshCodeStr.slice(0,4);
+            return new Promise(function(resolve,reject){
+                $.ajax({
+                    type:"GET",
+                    url:"php/proxy-estat-zinkou.php",
+                    dataType:"json",
+                    data:{
+                        tgtUrl:tgtUrl,
+                        statsDataId:sdId,
+                        cdArea:meshCodeStr
+                    }
+                }).done(function(json){
+                    resolve(json);
+                    console.log(json)
+                    //console.log(JSON.stringify(json));
+                    /*
+                     var dataInfArr = json["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
+                     console.log(dataInfArr);
+                     if(dataInfArr){
+                     if(dataInfArr.length==2){
+                     content += "総人口：" + dataInfArr[0]["VALUE"][0]["$"] + "人";
+                     content += "<br>男：" + dataInfArr[0]["VALUE"][1]["$"] + "人";
+                     content += "　女：" + dataInfArr[0]["VALUE"][2]["$"] + "人";
+                     content += "<br>世帯数：" + dataInfArr[0]["VALUE"][3]["$"] + "世帯";
+                     content += "<hr>事業所数：" + dataInfArr[1]["VALUE"][0]["$"] + "事業所";
+                     content += "<br>従業員数：" + dataInfArr[1]["VALUE"][1]["$"] + "人";
+                     content += "<hr>従業員数/総人口：" + (dataInfArr[1]["VALUE"][1]["$"] / dataInfArr[0]["VALUE"][0]["$"]).toFixed(3);
+                     }else{
+                     if(dataInfArr["@requestNo"]=="1"){
+                     content += "総人口：" + dataInfArr["VALUE"][0]["$"] + "人";
+                     content += "<br>男：" + dataInfArr["VALUE"][1]["$"] + "人";
+                     content += "　女：" + dataInfArr["VALUE"][2]["$"] + "人";
+                     content += "<br>世帯数：" + dataInfArr["VALUE"][3]["$"] + "世帯";
+                     content += "<hr>事業所数：0事業所";
+                     content += "<br>従業員数：0人";
+                     }else{
+                     content += "総人口：0人";
+                     content += "<br>男：0人";
+                     content += "　女：0人";
+                     content += "<br>世帯数：0世帯";
+                     content += "<hr>事業所数：" + dataInfArr["VALUE"][0]["$"] + "事業所";
+                     content += "<br>従業員数：" + dataInfArr["VALUE"][1]["$"] + "人";
+                     };
+                     };
+                     }else{
+                     content += "総人口、事業所、従業員全て０";
+                     }
+                     //eval(popupCtrStr).show(coord,content);
+                     console.log(content);
+                     */
+                }).fail(function(json){
+                    alert("失敗!");
+                });
+            });
+        };
+        Promise.all([zinkouAjax(),keizaiAjax()]).then(function(results){
+            var content = "";
+            console.log(results[0])
+            var datainfZ = results[0]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"];
+            console.log(datainfZ);
+            if(datainfZ) {
+                content += "総人口：" + datainfZ["VALUE"][0]["$"] + "人";
+                content += "<br>男：" + datainfZ["VALUE"][1]["$"] + "人";
+                content += "　女：" + datainfZ["VALUE"][2]["$"] + "人";
+                content += "<br>世帯数：" + datainfZ["VALUE"][3]["$"] + "世帯";
             }else{
-                content += "総人口、事業所、従業員全て０";
+                content += "総人口：0人";
+                content += "<br>男：0人";
+                content += "　女：0人";
+                content += "<br>世帯数：0世帯";
             }
-            //eval(popupCtrStr).show(coord,content);
-            console.log(content);
-            */
-        }).fail(function(json){
-            alert("失敗!");
+            var datainfZ = results[1]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"];
+            if(datainfZ) {
+                content += "<hr class='my-hr'>事業所数：" + datainfZ["VALUE"][0]["$"] + "事業所";
+                content += "<br>従業員数：" + datainfZ["VALUE"][1]["$"] + "人";
+            }else{
+                content += "<hr class='my-hr'>事業所数：0事業所";
+                content += "<br>従業員数：0人";
+            }
+            if(map=="map1") {
+                popup1.show(coord,content);
+            }else{
+                popup2.show(coord,content);
+            }
         });
     }
     //-----------------------------------------------
