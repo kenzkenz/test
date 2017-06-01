@@ -15,9 +15,10 @@ $(function(){
     //自作コンテキストメニュー（右クリックメニュー）
     var content = "";
         content += "<button type='button' class='close myContextOverlay-close'>&times;</button>";
-        content += "作成中！<br>";
+        content += "";
         content += "<div style='margin:10px 0;'>半径：<input type='text' class='kmtext' value='3' size='2'> KM</div>";
         content += "<button type='button' class='zinkoumesh-btn btn btn-primary btn-block'>500M人口メッシュ</button>";
+        content += "<button type='button' class='zyuugyouinmesh-btn btn btn-primary btn-block'>500M従業員メッシュ</button>";
         content += "<button type='button' class='circlrdelete-btn btn btn-primary btn-block'>円削除</button>";
     $("#map1").append('<div id="myContextOverlay-div1" class="myContextOverlay-div">' + content + '</div>');
     $("#map2").append('<div id="myContextOverlay-div2" class="myContextOverlay-div">' + content + '</div>');
@@ -91,8 +92,14 @@ $(function(){
             myContextOverlay2.setPosition(null);
         }
     });
-    //--------------------------------------------------------------------------------------
-    $(".zinkoumesh-btn").click(function(){
+    //-------------------------------------------------------------------------------------
+    //
+    $(".zinkoumesh-btn,.zyuugyouinmesh-btn").click(function(){
+        if($(this).hasClass("zinkoumesh-btn")){
+            var meshType = "zinkouMesh";
+        }else{
+            var meshType = "keizaiMesh";
+        }
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         //var coord = map1.getCoordinateFromPixel([myContextmenuLeft,myContextmenuTop])
@@ -100,14 +107,12 @@ $(function(){
         var currentFeatureLayer = map1.forEachFeatureAtPixel(pixel,function(feature,layer){
             return [feature,layer];
         });
-        console.log(currentFeatureLayer);
         if(!currentFeatureLayer){
             alert("範囲を設定してください。");
 
             return;
         }
         var extent = currentFeatureLayer[0].getGeometry().getExtent();
-        console.log(extent);
         mesh500Source1 = new ol.source.Vector({});
         mesh500Layer1 = new ol.layer.Vector({
             //deleteflg:true,
@@ -118,7 +123,7 @@ $(function(){
                     var text = feature.getProperties()["_top"] + Number(feature.getProperties()["zinkou"]).toLocaleString() + "人";
                 }else{
                     var text = feature.getProperties()["_top"]=="TOP\n" ? "TOP":""
-                };
+                }
                 var fillColor = feature.getProperties()["_fillColor"];
                 if(resolution<76.5){
                     var stroke = new ol.style.Stroke({
@@ -145,37 +150,24 @@ $(function(){
                 return style;
             }
         });
-
         var extentLeftTop = ol.proj.transform([extent[0],extent[3]],"EPSG:3857","EPSG:4326");
         var extentRightTop = ol.proj.transform([extent[2],extent[3]],"EPSG:3857","EPSG:4326");
         var extentRightTopMeshcode = coord2meshcode(extentRightTop);
         var extentLeftDown = ol.proj.transform([extent[0],extent[1]],"EPSG:3857","EPSG:4326");
         var target = extentLeftTop;
-        var end = extentRightTop;
+        //var end = extentRightTop;
         var ii =0;
         var prevMeshcode = "";
-        console.log(target);
-        console.log(end);
         //---------------------------------------------------------------------------------
         worker.postMessage({prevMeshcode:prevMeshcode,extentRightTopMeshcode:extentRightTopMeshcode,extentLeftDown:extentLeftDown,target:target});
         worker.onmessage=function(evt) {
-            console.log(evt.data.length);
             for (i=0; i<evt.data.length; i++){
                 meshcode2polygon(evt.data[i],currentFeatureLayer[0]);
             }
             var zinkouAjax = function(){//プロミスのファンクション
                 return new Promise(function(resolve,reject){
                     var features = mesh500Source1.getFeatures();
-                    var meshType = "zinkouMesh";
-                    /*
-                     if(elementId == "featureInCircle"){
-                     meshType = "zinkouMesh";
-                     }else{
-                     meshType = "keizaiMesh";
-                     }
-                     */
                     var instr = "";
-                    console.log(features.length);
                     for (i=0; i<features.length; i++){
                         instr += features[i].getProperties()["meshCode"] + ",";
                     }
@@ -189,9 +181,6 @@ $(function(){
                             meshType:meshType
                         }
                     }).done(function(json){
-                        console.log("done-mysqlRead");
-                        //console.log(JSON.stringify(json["meshcodeAr"]));
-                        console.log(json);
                         resolve([json,meshType]);
                     }).fail(function(json){
                         console.log("失敗!");
@@ -199,11 +188,10 @@ $(function(){
                 });
             };
             zinkouAjax().then(function(jsonMeshtype) {
-                console.log(jsonMeshtype[0]);
                 var setProp = new Promise(function(resolve,reject){
                     var features = mesh500Source1.getFeatures();
                     var resultCopy = jsonMeshtype[0]["result"];
-                    if(jsonMeshtype[0].result){//★どうやらここが遅い
+                    if(jsonMeshtype[0].result){
                         for (i=0; i<features.length; i++){
                             var meshCode = features[i].getProperties()["meshCode"];
                             for (ii=0; ii<resultCopy.length; ii++){
@@ -228,7 +216,6 @@ $(function(){
                 setProp.then(function(json) {
                     console.log(json);
                     aaa();
-
                 });
             });
             function aaa(){
@@ -244,7 +231,6 @@ $(function(){
                 var meshCodeStr = "";
                 var souzinkou = 0;
                 for (i=0; i<features.length; i++){
-                    //console.log(features[i].getProperties()["meshCode"]);
                     meshCodeStr += features[i].getProperties()["meshCode"] + ",";
                     var zinkou = features[i].getProperties()["zinkou"]
                     var c100 = (zinkou-min)/color100/100;
@@ -286,13 +272,18 @@ $(function(){
                 map1.addLayer(mesh500Layer1);
                 mesh500Layer1.setZIndex(9999);
                 //sliderCreate();
-                console.log("aaa終了");
 
                 $("#" + mapName + " .csv-dialog").remove();
 
-                var content = "<div style='text-align:center;'>500Mメッシュ 総人口<br>";
+                if(meshType==="zinkouMesh") {
+                    var content = "<div style='text-align:center;'>500Mメッシュ 総人口<br>";
                     content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人</div>";
-                    content += "<br>出典：平成22年国勢調査500Mメッシュ";
+                    content += "<br>出典：平成22年国勢調査500Mメッシュ";//T000609M
+                }else{
+                    var content = "<div style='text-align:center;'>500Mメッシュ 従業員総数<br>";
+                    content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人</div>";
+                    content += "<br>出典：平成21年経済センサス500Mメッシュ";//T000617M
+                }
                 mydialog({
                     id:"mesh-dialog-" + mapName,
                     class:"csv-dialog",
@@ -308,9 +299,6 @@ $(function(){
                 });
             }
         };
-
-        //map1.addLayer(mesh500Layer1);
-
     });
     //--------------------------------------------------------------------------------------
     $(".circlrdelete-btn").click(function(){
@@ -325,16 +313,11 @@ $(function(){
         }
     });
     //-------------------------------------------------------------------------------------
-
     $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
     $("body").on("mouseenter",".dialog-content,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
         $("#map1")[0].removeEventListener('contextmenu',myContextmenu1,false);
-        console.log(1111);
     }).on("mouseleave",".dialog-content,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
         $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
-
-        console.log(2222);
-
     });
     $("body").on("click",".mydialog .dialog-hidden",function(){
         $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
