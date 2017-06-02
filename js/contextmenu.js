@@ -125,7 +125,6 @@ $(function(){
             map2.addLayer(circleLayer2);
             circleLayer2.setZIndex(9999);
         }
-
     }
     //--------------------------------------------------------------------------------------
     $(".myContextOverlay-close").click(function(){
@@ -291,14 +290,26 @@ $(function(){
                             var meshCode = features[i].getProperties()["meshCode"];
                             for (ii=0; ii<resultCopy.length; ii++){
                                 if (resultCopy[ii]["meshCode"] == meshCode){
+
+                                    console.log(resultCopy[ii]);
+
                                     //console.log("マッチ")
                                     if(jsonMeshtype[1]==="zinkouMesh"){
                                         var zinkou = resultCopy[ii]["zinkou"];
+                                        var otoko = resultCopy[ii]["otoko"];
+                                        var onna = resultCopy[ii]["onna"];
+                                        var setai = resultCopy[ii]["setai"];
+                                        features[i]["I"]["otoko"] = otoko;
+                                        features[i]["I"]["onna"] = onna;
+                                        features[i]["I"]["setai"] = setai;
                                     }else {
                                         var zinkou = resultCopy[ii]["zyuugyouin"];
+                                        var zigyousyo = resultCopy[ii]["zigyousyo"];
+                                        features[i]["I"]["zigyousyo"] = zigyousyo;
                                     }
                                     features[i]["I"]["zinkou"] = zinkou;
                                     features[i]["I"]["_polygonHeight"] = zinkou;
+
                                     resultCopy.splice(ii,1);
                                     break;
                                 }
@@ -329,9 +340,13 @@ $(function(){
                 var d3Color = d3.interpolateLab("mistyrose","red");
                 var meshCodeStr = "";
                 var souzinkou = 0;
+                var souotoko = 0;
+                var souonna = 0;
+                var sousetai = 0;
+                var souzigyousyo = 0;
                 for (i=0; i<features.length; i++){
-                    meshCodeStr += features[i].getProperties()["meshCode"] + ",";
-                    var zinkou = features[i].getProperties()["zinkou"]
+                    meshCodeStr += features[i]["I"]["meshCode"] + ",";
+                    var zinkou = features[i]["I"]["zinkou"];
                     var c100 = (zinkou-min)/color100/100;
                     var color0 = new RGBColor(d3Color(c100));
                     var rgb = new RGBColor(d3Color(c100)).toRGB();
@@ -348,12 +363,18 @@ $(function(){
                     features[i]["I"]["_top"] = top;
 
                     souzinkou += Number(zinkou);
+                    souotoko += Number(features[i]["I"]["otoko"]);
+                    souonna += Number(features[i]["I"]["onna"]);
+                    sousetai += Number(features[i]["I"]["setai"]);
+                    souzigyousyo += Number(features[i]["I"]["zigyousyo"]);
 
                     //souzinkou[layerId] = souzinkou[layerId] + Number(zinkou);
                 }
+                console.log(souotoko);
+                console.log(souonna);
+                console.log(sousetai);
 
                 //alert(souzinkou);
-
                 //console.log(meshCodeStr);
                 /*
                 if(currentFeatureLayer[1].get("name").split("_")[1] != "zinkouOn"){
@@ -383,11 +404,16 @@ $(function(){
 
                 if(meshType==="zinkouMesh") {
                     var content = "<div style='text-align:center;'>500Mメッシュ 総人口<br>";
-                    content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人</div>";
+                    content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人<br>";
+                    content += "男：" + souotoko.toLocaleString() + "<br>";
+                    content += "女：" + souonna.toLocaleString() + "<br>";
+                    content += "世帯数：" + sousetai.toLocaleString() + "</div>";
                     content += "<br>出典：平成22年国勢調査500Mメッシュ";//T000609M
                 }else{
                     var content = "<div style='text-align:center;'>500Mメッシュ 従業員総数<br>";
-                    content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人</div>";
+                    content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人<br>";
+                    content += "事業所数：" + souzigyousyo.toLocaleString() + "</div>";
+
                     content += "<br>出典：平成21年経済センサス500Mメッシュ";//T000617M
                 }
                 mydialog({

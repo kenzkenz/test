@@ -109,7 +109,7 @@ $(function(){
                     }
                 }).done(function(json){
                     resolve(json);
-                    console.log(json)
+                    //console.log(json)
                     //console.log(JSON.stringify(json));
                     /*
                      var dataInfArr = json["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
@@ -153,13 +153,13 @@ $(function(){
         };
         Promise.all([zinkouAjax(),keizaiAjax()]).then(function(results){
             var content = "";
-            console.log(results[0])
+            //console.log(results[0]);
             var datainfZ = results[0]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"];
-            console.log(datainfZ);
+            //console.log(datainfZ);
             if(datainfZ) {
-                content += "総人口：" + datainfZ["VALUE"][0]["$"] + "人";
+                content += "総人口：<b>" + datainfZ["VALUE"][0]["$"] + "</b>人";
                 content += "<br>男：" + datainfZ["VALUE"][1]["$"] + "人";
-                content += "　女：" + datainfZ["VALUE"][2]["$"] + "人";
+                content += "<br>女：" + datainfZ["VALUE"][2]["$"] + "人";
                 content += "<br>世帯数：" + datainfZ["VALUE"][3]["$"] + "世帯";
             }else{
                 content += "総人口：0人";
@@ -169,13 +169,15 @@ $(function(){
             }
             var datainfZ = results[1]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"];
             if(datainfZ) {
-                content += "<hr class='my-hr'>事業所数：" + datainfZ["VALUE"][0]["$"] + "事業所";
-                content += "<br>従業員数：" + datainfZ["VALUE"][1]["$"] + "人";
+                content += "<hr class='my-hr'>従業員数：<b>" + datainfZ["VALUE"][1]["$"] + "</b>人";
+                content += "<br>事業所数：" + datainfZ["VALUE"][0]["$"] + "";
+
             }else{
                 content += "<hr class='my-hr'>事業所数：0事業所";
                 content += "<br>従業員数：0人";
             }
-            if(map=="map1") {
+            content = "<div style='font-size:14px;'>" + content + "</div>";
+            if(map==="map1") {
                 popup1.show(coord,content);
             }else{
                 popup2.show(coord,content);
@@ -219,7 +221,6 @@ $(function(){
 
         if(map=="map1") {
             popup1.show(coord,content);
-
             $("#pano-div").remove();
             var content = "";
             content += "<div id='pano-div' style='height:" + $(window).height() / 2 + "px'>";
@@ -235,7 +236,6 @@ $(function(){
                 mobilescale: 1.0,
                 passQueryParameters: true
             });
-
         }else{
             popup2.show(coord,content);
         }
@@ -328,7 +328,7 @@ $(function(){
                 //if(layer.getProperties()["name"]=="WikiCommonsLayer"){
                     return feature;
                 //};
-            };
+            }
         });
         if(feature){
             $(".ol-viewport").css({cursor:"pointer"});

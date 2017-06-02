@@ -1,9 +1,5 @@
 <?php
-
-	$USER= 'root';
-	$PW= 'P@ssw0rd';
-	$dnsinfo= "mysql:dbname=mapdb;host=localhost;charset=utf8";
-	$pdo = new PDO($dnsinfo,$USER,$PW);
+	require_once "pwd.php";
 	$meshtype = $_POST["meshType"];
 	//SQL文------------------------------------------------------------------------------------------
 	//$mysql = $_POST["sql"];
@@ -24,12 +20,16 @@
 		if($meshtype=="zinkouMesh"){
 			$result[] = array(
 				"meshCode" => $row["500meshcode"],
-				"zinkou" => $row["zinkou"]
+				"zinkou" => $row["zinkou"],
+                "otoko" => $row["otoko"],
+                "onna" => $row["onna"],
+                "setai" => $row["setai"]
 			);
 		}else{
 			$result[] = array(
 				"meshCode" => $row["500meshcode"],
-				"zyuugyouin" => $row["zyuugyouin"]
+				"zyuugyouin" => $row["zyuugyouin"],
+                "zigyousyo" => $row["zigyousyo"]
 			);
 		};
 		array_push($meshcodeAr,$row["500meshcode"]);
