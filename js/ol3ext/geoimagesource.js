@@ -43,7 +43,8 @@ ol.source.GeoImage = function(opt_options)
 
     // Load Image
     this.image = (opt_options.image ? opt_options.image : new Image );
-    this.image.crossOrigin = opt_options.crossOrigin; // 'anonymous';
+    //this.image.crossOrigin = opt_options.crossOrigin; // 'anonymous';
+    this.image.crossOrigin = 'anonymous';
     // Show image on load
     var self = this;
     this.image.onload = function()
@@ -88,6 +89,7 @@ ol.source.GeoImage = function(opt_options)
         ctx.translate(pixel[0],pixel[1]);
         if (this.rotate) ctx.rotate(this.rotate);
         ctx.drawImage(this.image, this.crop[0], this.crop[1], this.imageSize[0], this.imageSize[1], -dx, -dy, sx,sy);
+        console.log(this.imageSize[0])
         return canvas;
     }
 

@@ -19,7 +19,11 @@ var pale2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source:new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        //url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        urls:[
+            "./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+            "./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png"
+        ],
         crossOrigin:"anonymous",
         minZoom:2,
         maxZoom:18
@@ -98,7 +102,11 @@ var mierune1 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
-        url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        //url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        urls:[
+            "https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+            "https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png"
+        ],
         crossOrigin:"anonymous",
         maxZoom:15
     })
@@ -752,10 +760,10 @@ var kago1 = new ol.layer.Tile({
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
-    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    extent:transformE([130.370675,31.2819,130.732,31.767]),
     source: new ol.source.XYZ({
         //url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
-        url:'https://kenzkenz2.xsrv.jp/kagosima/{z}/{x}/{-y}.png',
+        url:'https://kenzkenz2.xsrv.jp/kagosima2/{z}/{x}/{-y}.png',
         crossOrigin:"anonymous",
         maxZoom:19
     })
@@ -767,10 +775,10 @@ var kago2 = new ol.layer.Tile({
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
-    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    extent:transformE([130.370675,31.2819,130.732,31.767]),
     source: new ol.source.XYZ({
         //url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
-        url:'https://kenzkenz2.xsrv.jp/kagosima/{z}/{x}/{-y}.png',
+        url:'https://kenzkenz2.xsrv.jp/kagosima2/{z}/{x}/{-y}.png',
         crossOrigin:"anonymous",
         maxZoom:19
     })

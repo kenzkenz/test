@@ -12,6 +12,7 @@ $(function(){
     var csvarr = [];
     var iro = null;
     var suuti = null;
+    var geoimg = null;
     //ドラッグアンドドロップのインタラクション-----------------------------
     var dragAndDropInteraction1 = new ol.interaction.DragAndDrop({
         formatConstructors: [
@@ -302,34 +303,82 @@ $(function(){
         console.log(map1.getView().getCenter());
         var center = map1.getView().getCenter();
 
-        var scaleX = 0.5;
-        var scaleY = 0.5;
+        var scaleX = 1;
+        var scaleY = 1;
 
         var xmin = 0;
         var ymin = 0;
-        var xmax = 5000;
-        var ymax = 5000;
+        var xmax = 50000;
+        var ymax = 50000;
 
-        var geoimg = new ol.layer.Image({
+        var geoimageSource = new ol.source.GeoImage({
+            url:bloburl,
+            imageCenter: center,
+            imageScale: [scaleX,scaleY],
+            imageCrop: [xmin,ymin,xmax,ymax],
+            imageRotate: 0,
+            projection: 'EPSG:3857',
+            crossOrigin:"anonymous"
+        })
+
+        geoimg = new ol.layer.Image({
             name: "Georef",
             opacity: 1,
-            source: new ol.source.GeoImage({
-                url:bloburl,
-                imageCenter: center,
-                imageScale: [scaleX,scaleY],
-                imageCrop: [xmin,ymin,xmax,ymax],
-                imageRotate: 0,
-                projection: 'EPSG:3857',
-                crossOrigin:"anonymous"
-            })
+            source:geoimageSource
         });
+
+        console.log(geoimageSource.getScale());
 
         geoimg.set("altitudeMode","clampToGround");
         map1.addLayer(geoimg);
         //map1.getView().fit(geoimg.getSource().getExtent());
         geoimg.setZIndex(9999);
 
+        var content = "";
+            content += "中心：lon<input class ='centerLon imgset' type='number' value='" + center[0] + "' step='10'>";
+            content += "lat<input class ='centerLat imgset' type='number' value='" + center[1] + "' step='10'><br>";
+            content += "倍率：横<input class ='scaleX imgset' type='number' value='1' step='0.01'>";
+            content += "縦<input class ='scaleY imgset' type='number' value='1' step='0.01'>";
+            content += "透過度<input class ='imgopa imgset' type='number' value='1' step='0.01'>";
+            //content += "<button type='button' class='img-btn btn btn-primary btn-block'>反映</button>";
+
+            mydialog({
+            id:"img-dialog-" + mapName,
+            class:"img-dialog",
+            map:mapName,
+            title:"img",
+            content:content,
+            top:"55px",
+            left:"20px",
+            //width:"400px",
+            rmDialog:true,
+            //hide:true,
+            minMax:false
+        });
     }
+    //----------------------------------------------------------------------------
+    $("body").on("change",".imgset",function() {
+        var centerLon = $(".centerLon").val();
+        var centerLat = $(".centerLat").val();
+        var scaleX = $(".scaleX").val();
+        var scaleY = $(".scaleY").val();
+        var opacity = $(".imgopa").val();
+        geoimg.getSource().setCenter([centerLon,centerLat]);
+        geoimg.getSource().setScale([scaleX,scaleY]);
+        geoimg.setOpacity(opacity);
+
+    });
+
+
+    //----------------------------------------------------------------------------
+    $("body").on("click",".img-btn",function() {
+        console.log(22222);
+        var centerLon = $(".centerLon").val();
+        var centerLat = $(".centerLat").val();
+
+        geoimg.getSource().setCenter([centerLon,centerLat]);
+
+    });
     //-------------------------------------------------------------------------------------
     function csvRead(file) {
         csvarr = [];
