@@ -120,7 +120,7 @@ $(function(){
     map2.on("moveend",function(evt){
         $("#map2 .zoom-div .zoom-span").text("zoom=" + Math.floor(map2.getView().getZoom()));
     });
-    //ムーブ時に・・・。
+    //ムーブ時に標高取得。
     map1.on("pointermove",function(evt){
         funcElevation(evt,"map1");
     });

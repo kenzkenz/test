@@ -12,6 +12,8 @@ $(function(){
 
     var coord1 = null;
     var coord2 = null;
+    var coord1Hyoukou = null;
+    var coord2Hyoukou = null;
     //自作コンテキストメニュー（右クリックメニュー）
     var content = "";
         content += "<button type='button' class='close myContextOverlay-close'>&times;</button>";
@@ -281,8 +283,10 @@ $(function(){
                 var setProp = new Promise(function(resolve,reject){
                     if(mapName==="map1") {
                         var features = mesh500Source1.getFeatures();
+                        var coordHyoukou = coord1Hyoukou;
                     }else{
                         var features = mesh500Source2.getFeatures();
+                        var coordHyoukou = coord2Hyoukou;
                     }
                     var resultCopy = jsonMeshtype[0]["result"];
                     if(jsonMeshtype[0].result){
@@ -290,10 +294,6 @@ $(function(){
                             var meshCode = features[i].getProperties()["meshCode"];
                             for (ii=0; ii<resultCopy.length; ii++){
                                 if (resultCopy[ii]["meshCode"] == meshCode){
-
-                                    console.log(resultCopy[ii]);
-
-                                    //console.log("マッチ")
                                     if(jsonMeshtype[1]==="zinkouMesh"){
                                         var zinkou = resultCopy[ii]["zinkou"];
                                         var otoko = resultCopy[ii]["otoko"];
@@ -308,7 +308,9 @@ $(function(){
                                         features[i]["I"]["zigyousyo"] = zigyousyo;
                                     }
                                     features[i]["I"]["zinkou"] = zinkou;
-                                    features[i]["I"]["_polygonHeight"] = zinkou;
+
+                                    //console.log(coordHyoukou);
+                                    //features[i]["I"]["_polygonHeight"] = zinkou + coordHyoukou;
 
                                     resultCopy.splice(ii,1);
                                     break;
@@ -327,8 +329,10 @@ $(function(){
             function aaa(){
                 if(mapName==="map1") {
                     var features = mesh500Source1.getFeatures();
+                    var coordHyoukou = coord1Hyoukou;
                 }else{
                     var features = mesh500Source2.getFeatures();
+                    var coordHyoukou = coord2Hyoukou;
                 }
                 var zinkouArr = [];
                 for (i=0; i<features.length; i++){
@@ -351,7 +355,12 @@ $(function(){
                     var color0 = new RGBColor(d3Color(c100));
                     var rgb = new RGBColor(d3Color(c100)).toRGB();
                     var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
-                    if (zinkou == 0) rgba = "rgba(0,0,255,0.3)";
+                    if (zinkou == 0) {
+                        rgba = "rgba(0,0,255,0.3)";
+                        features[i]["I"]["_polygonHeight"] = 0;
+                    }else{
+                        features[i]["I"]["_polygonHeight"] = Number(zinkou) + coordHyoukou;
+                    }
                     if (zinkou == max) {
                         var top = "TOP\n";
                     } else {
@@ -359,7 +368,7 @@ $(function(){
                     }
                     features[i]["I"]["zinkou"] = zinkou;
                     features[i]["I"]["_fillColor"] = rgba;
-                    features[i]["I"]["_polygonHeight"] = zinkou;
+                    //features[i]["I"]["_polygonHeight"] = Number(zinkou) + coordHyoukou;
                     features[i]["I"]["_top"] = top;
 
                     souzinkou += Number(zinkou);
@@ -368,14 +377,13 @@ $(function(){
                         souonna += Number(features[i]["I"]["onna"]);
                         sousetai += Number(features[i]["I"]["setai"]);
                     }
-                    if (features[i]["I"]["zigyousyo"]){
+                    if (features[i]["I"]["zigyousyo"]) {
                         souzigyousyo += Number(features[i]["I"]["zigyousyo"]);
                     }
-                    //souzinkou[layerId] = souzinkou[layerId] + Number(zinkou);
                 }
-                console.log(souotoko);
-                console.log(souonna);
-                console.log(sousetai);
+                //console.log(souotoko);
+                //console.log(souonna);
+                //console.log(sousetai);
 
                 //alert(souzinkou);
                 //console.log(meshCodeStr);
@@ -433,6 +441,7 @@ $(function(){
             }
         };
     });
+
     //--------------------------------------------------------------------------------------
     $(".circlrdelete-btn").click(function(){
         var mapObj = funcMaps($(this));
@@ -470,6 +479,11 @@ $(function(){
         myContextOverlay1.setPosition(coord1);
         var val = $("#map1 .kmtext").spinner().spinner("value");
         bbb(val,"map1");
+
+        getElev(coord1,"map1",function(h){
+            console.log(h);
+            coord1Hyoukou = h;
+        });
     }
     function myContextmenu2(evt){
         var myContextmenuTop = evt.clientY;
@@ -479,6 +493,11 @@ $(function(){
         myContextOverlay2.setPosition(coord2);
         var val = $("#map2 .kmtext").spinner().spinner("value");
         bbb(val,"map2");
+
+        getElev(coord1,"map2",function(h){
+            console.log(h);
+            coord1Hyoukou = h;
+        });
     }
     //---------------------------------------------------------
     var touchi1 = new ol.interaction.LongTouch({
