@@ -308,10 +308,7 @@ $(function(){
                                         features[i]["I"]["zigyousyo"] = zigyousyo;
                                     }
                                     features[i]["I"]["zinkou"] = zinkou;
-
-                                    //console.log(coordHyoukou);
                                     //features[i]["I"]["_polygonHeight"] = zinkou + coordHyoukou;
-
                                     resultCopy.splice(ii,1);
                                     break;
                                 }
@@ -381,12 +378,6 @@ $(function(){
                         souzigyousyo += Number(features[i]["I"]["zigyousyo"]);
                     }
                 }
-                //console.log(souotoko);
-                //console.log(souonna);
-                //console.log(sousetai);
-
-                //alert(souzinkou);
-                //console.log(meshCodeStr);
                 /*
                 if(currentFeatureLayer[1].get("name").split("_")[1] != "zinkouOn"){
                     circleLayer[layerId].getSource().getFeatures()[0].setProperties({

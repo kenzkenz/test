@@ -747,28 +747,30 @@ var seki2 = new ol.layer.Tile({
 //鹿児島市オルソ
 var kago1 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
-    origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    //origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
+    //detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        //url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        url:'https://kenzkenz2.xsrv.jp/kagosima/{z}/{x}/{-y}.png',
         crossOrigin:"anonymous",
         maxZoom:19
     })
 });
 var kago2 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
-    origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
-    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    //origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
+    //detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
     coord:[130.557143,31.596715],
     zoom:14,
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
-        url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        //url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        url:'https://kenzkenz2.xsrv.jp/kagosima/{z}/{x}/{-y}.png',
         crossOrigin:"anonymous",
         maxZoom:19
     })

@@ -130,15 +130,15 @@ $(function(){
         map1.removeLayer(gpxLayer1);
         //console.log(event);
         console.log(event.file);
-        //console.log(event["file"]["name"]);
+        console.log(event["file"]["name"]);
         if(event.features==null) {
             var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length-1];
             switch (fileExtension){
                 case "csv":
                     csvRead(event.file);
                     break;
-                case "":
-
+                case "jpg":
+                    imgSet(event.file);
                     break;
                 case "":
 
@@ -294,6 +294,42 @@ $(function(){
         displayFeatureInfo(pixel);
     });
     */
+    //-------------------------------------------------------------------------------------
+    function imgSet(file) {
+        var bloburl = window.URL.createObjectURL(file);
+        console.log(bloburl);
+
+        console.log(map1.getView().getCenter());
+        var center = map1.getView().getCenter();
+
+        var scaleX = 0.5;
+        var scaleY = 0.5;
+
+        var xmin = 0;
+        var ymin = 0;
+        var xmax = 5000;
+        var ymax = 5000;
+
+        var geoimg = new ol.layer.Image({
+            name: "Georef",
+            opacity: 1,
+            source: new ol.source.GeoImage({
+                url:bloburl,
+                imageCenter: center,
+                imageScale: [scaleX,scaleY],
+                imageCrop: [xmin,ymin,xmax,ymax],
+                imageRotate: 0,
+                projection: 'EPSG:3857',
+                crossOrigin:"anonymous"
+            })
+        });
+
+        geoimg.set("altitudeMode","clampToGround");
+        map1.addLayer(geoimg);
+        //map1.getView().fit(geoimg.getSource().getExtent());
+        geoimg.setZIndex(9999);
+
+    }
     //-------------------------------------------------------------------------------------
     function csvRead(file) {
         csvarr = [];
