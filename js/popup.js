@@ -153,9 +153,7 @@ $(function(){
         };
         Promise.all([zinkouAjax(),keizaiAjax()]).then(function(results){
             var content = "";
-            //console.log(results[0]);
             var datainfZ = results[0]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"];
-            //console.log(datainfZ);
             if(datainfZ) {
                 content += "総人口：<b>" + datainfZ["VALUE"][0]["$"] + "</b>人";
                 content += "<br>男：" + datainfZ["VALUE"][1]["$"] + "人";
@@ -171,7 +169,6 @@ $(function(){
             if(datainfZ) {
                 content += "<hr class='my-hr'>従業員数：<b>" + datainfZ["VALUE"][1]["$"] + "</b>人";
                 content += "<br>事業所数：" + datainfZ["VALUE"][0]["$"] + "";
-
             }else{
                 content += "<hr class='my-hr'>事業所数：0事業所";
                 content += "<br>従業員数：0人";
@@ -218,8 +215,7 @@ $(function(){
         content += "<tr><td>説明</td><td>" + featureProp["説明"] + "</td><tr>";
         content += "</table>";
         //if(value) content += "<span class='weather-span'>" + keys[0] + value[keys[0]] + "</span>";
-
-        if(map=="map1") {
+        if(map==="map1") {
             popup1.show(coord,content);
             $("#pano-div").remove();
             var content = "";

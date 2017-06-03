@@ -344,17 +344,17 @@ $(function(){
                 var souonna = 0;
                 var sousetai = 0;
                 var souzigyousyo = 0;
-                for (i=0; i<features.length; i++){
+                for (i=0; i<features.length; i++) {
                     meshCodeStr += features[i]["I"]["meshCode"] + ",";
                     var zinkou = features[i]["I"]["zinkou"];
-                    var c100 = (zinkou-min)/color100/100;
+                    var c100 = (zinkou - min) / color100 / 100;
                     var color0 = new RGBColor(d3Color(c100));
                     var rgb = new RGBColor(d3Color(c100)).toRGB();
-                    var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
-                    if(zinkou==0) rgba = "rgba(0,0,255,0.3)";
-                    if(zinkou==max){
+                    var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
+                    if (zinkou == 0) rgba = "rgba(0,0,255,0.3)";
+                    if (zinkou == max) {
                         var top = "TOP\n";
-                    }else{
+                    } else {
                         var top = "";
                     }
                     features[i]["I"]["zinkou"] = zinkou;
@@ -363,11 +363,14 @@ $(function(){
                     features[i]["I"]["_top"] = top;
 
                     souzinkou += Number(zinkou);
-                    souotoko += Number(features[i]["I"]["otoko"]);
-                    souonna += Number(features[i]["I"]["onna"]);
-                    sousetai += Number(features[i]["I"]["setai"]);
-                    souzigyousyo += Number(features[i]["I"]["zigyousyo"]);
-
+                    if (zinkou) {
+                        souotoko += Number(features[i]["I"]["otoko"]);
+                        souonna += Number(features[i]["I"]["onna"]);
+                        sousetai += Number(features[i]["I"]["setai"]);
+                    }
+                    if (features[i]["I"]["zigyousyo"]){
+                        souzigyousyo += Number(features[i]["I"]["zigyousyo"]);
+                    }
                     //souzinkou[layerId] = souzinkou[layerId] + Number(zinkou);
                 }
                 console.log(souotoko);
@@ -401,19 +404,17 @@ $(function(){
                 //sliderCreate();
 
                 $("#" + mapName + " .csv-dialog").remove();
-
                 if(meshType==="zinkouMesh") {
                     var content = "<div style='text-align:center;'>500Mメッシュ 総人口<br>";
                     content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人<br>";
-                    content += "男：" + souotoko.toLocaleString() + "<br>";
-                    content += "女：" + souonna.toLocaleString() + "<br>";
+                    content += "男：" + souotoko.toLocaleString() + "人<br>";
+                    content += "女：" + souonna.toLocaleString() + "人<br>";
                     content += "世帯数：" + sousetai.toLocaleString() + "</div>";
                     content += "<br>出典：平成22年国勢調査500Mメッシュ";//T000609M
                 }else{
                     var content = "<div style='text-align:center;'>500Mメッシュ 従業員総数<br>";
                     content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人<br>";
                     content += "事業所数：" + souzigyousyo.toLocaleString() + "</div>";
-
                     content += "<br>出典：平成21年経済センサス500Mメッシュ";//T000617M
                 }
                 mydialog({
