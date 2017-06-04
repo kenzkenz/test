@@ -783,6 +783,41 @@ var kago2 = new ol.layer.Tile({
         maxZoom:19
     })
 });
+
+//鹿児島市オルソ
+var kago91 = new ol.layer.Tile({
+    title:"鹿児島市航空写真２",
+    origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
+    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    coord:[130.557143,31.596715],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    extent:transformE([130.370675,31.2819,130.732,31.767]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        //url:'https://kenzkenz2.xsrv.jp/kagosima2/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var kago92 = new ol.layer.Tile({
+    title:"鹿児島市航空写真２",
+    origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
+    detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
+    coord:[130.557143,31.596715],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    extent:transformE([130.370675,31.2819,130.732,31.767]),
+    source: new ol.source.XYZ({
+        url:'./php/proxy-png.php?url=https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/{z}/{x}/{-y}.png',
+        //url:'https://kenzkenz2.xsrv.jp/kagosima2/{z}/{x}/{-y}.png',
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+
+
+
 //鹿児島市 戦後米軍地図
 var sengokago1 = new ol.layer.Tile({
     title:"鹿児島市戦後米軍地図",
