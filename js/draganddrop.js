@@ -4,6 +4,9 @@ var gpxLayer2 = null;
 var profil2 = null;
 var csvLayer1 = null;
 var csvLayer2 = null;
+var imgCenterPointLayer1 = null;
+var imgTargetPointLayer1 = null;
+var imgTargetPointLayer2 = null;
 $(function(){
     var cityObjAr = [];
     var inChar = "";
@@ -299,13 +302,10 @@ $(function(){
     function imgSet(file) {
         var bloburl = window.URL.createObjectURL(file);
         console.log(bloburl);
-
-        console.log(map1.getView().getCenter());
         var center = map1.getView().getCenter();
-
+        console.log(center);
         var scaleX = 1;
         var scaleY = 1;
-
         var xmin = 0;
         var ymin = 0;
         var xmax = 50000;
@@ -319,7 +319,7 @@ $(function(){
             imageRotate: 0,
             projection: 'EPSG:3857',
             crossOrigin:"anonymous"
-        })
+        });
 
         geoimg = new ol.layer.Image({
             name: "Georef",
@@ -335,14 +335,15 @@ $(function(){
         geoimg.setZIndex(9999);
 
         var content = "";
-            content += "中心：lon<input class ='centerLon imgset' type='number' value='" + center[0] + "' step='10'>";
-            content += "lat<input class ='centerLat imgset' type='number' value='" + center[1] + "' step='10'><br>";
-            content += "倍率：横<input class ='scaleX imgset' type='number' value='1' step='0.01'>";
-            content += "縦<input class ='scaleY imgset' type='number' value='1' step='0.01'>";
-            content += "透過度<input class ='imgopa imgset' type='number' value='1' step='0.01'>";
+            content += "<div style='display:none'>中心：lon<input class ='centerLon imgset' type='number' value='" + center[0] + "' step='10'>";
+            content += "lat<input class ='centerLat imgset' type='number' value='" + center[1] + "' step='10'><br></div>";
+            //content += "倍率：横<input class ='scaleX imgset' type='number' value='1' step='0.01'>";
+            //content += "縦<input class ='scaleY imgset' type='number' value='1' step='0.01'>";
+            content += "倍率：<input class ='scaleXY imgset' type='number' value='1' step='0.01'><br>";
+            //content += "透過度<input class ='imgopa imgset' type='number' value='1' step='0.01'>";
+            content += "<div class='imgopa-slider'></div>";
             //content += "<button type='button' class='img-btn btn btn-primary btn-block'>反映</button>";
-
-            mydialog({
+        mydialog({
             id:"img-dialog-" + mapName,
             class:"img-dialog",
             map:mapName,
@@ -355,30 +356,187 @@ $(function(){
             //hide:true,
             minMax:false
         });
+        imgCenterPointLayerCreate();
+
+        $(".imgopa-slider").slider({
+            min:0,max:1,value:1,step:0.01,
+            slide: function(event, ui){
+                geoimg.setOpacity(ui.value);
+            }
+        });
     }
-    //----------------------------------------------------------------------------
-    $("body").on("change",".imgset",function() {
-        var centerLon = $(".centerLon").val();
-        var centerLat = $(".centerLat").val();
-        var scaleX = $(".scaleX").val();
-        var scaleY = $(".scaleY").val();
+    //-----------------------------------------------------------------------------
+    function imgCenterPointLayerCreate(coord) {
+        map1.removeLayer(imgCenterPointLayer1);
+        if(!coord) {
+            coord = map1.getView().getCenter();
+        }
+        var imgPointSsource = new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(coord)
+                })
+            ]
+        });
+        imgCenterPointLayer1 = new ol.layer.Vector({
+            name: "imgPointLayer",
+            source: imgPointSsource,
+            style: new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 6,
+                    fill: new ol.style.Fill({color: "red"}),
+                    stroke: new ol.style.Stroke({color: "white", width: 1})
+                })
+            })
+        });
+        imgCenterPointLayer1.set("altitudeMode","clampToGround");
+        map1.addLayer(imgCenterPointLayer1);
+        imgCenterPointLayer1.setZIndex(9999);
+    }
+    //-----------------------------------------------------------------------------
+    var coordDiff = [];
+    function imgTargetPointLayerCreate(coord) {
+        map1.removeLayer(imgTargetPointLayer1);
+
+       // if(coordDiff.length>0){
+         //   coord = [coord[0] + coordDiff[0],coord[1] + coordDiff[1]];
+       // }
+        
+        var imgPointSsource = new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(coord)
+                })
+            ]
+        });
+        imgTargetPointLayer1 = new ol.layer.Vector({
+            name: "imgTargetPointLayer",
+            source: imgPointSsource,
+            style: new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 6,
+                    fill: new ol.style.Fill({color: "blue"}),
+                    stroke: new ol.style.Stroke({color: "white", width: 1})
+                })
+            })
+        });
+        imgTargetPointLayer1.set("altitudeMode","clampToGround");
+        map1.addLayer(imgTargetPointLayer1);
+        imgTargetPointLayer1.setZIndex(10000);
+
+        if(imgCenterPointLayer1) {
+            var imgCenterPointLayerCord = imgCenterPointLayer1.getSource().getFeatures()[0].getGeometry().getCoordinates();
+            console.log(imgCenterPointLayerCord);
+            coordDiff = [coord[0]-imgCenterPointLayerCord[0],coord[1]-imgCenterPointLayerCord[1]]
+        }
+        console.log(coordDiff);
+    }
+    //-----------------------------------------------------------------------------
+    function geoimgChange(){
+
+        if(coordDiff.length>0) {
+            var centerLon = Number($(".centerLon").val()) - coordDiff[0];
+            var centerLat = Number($(".centerLat").val()) - coordDiff[1];
+            imgTargetPointLayerCreate([centerLon,centerLat]);
+        }else{
+            var centerLon = $(".centerLon").val();
+            var centerLat = $(".centerLat").val();
+        }
+
+        var scaleX = $(".scaleXY").val();
+        var scaleY = $(".scaleXY").val();
         var opacity = $(".imgopa").val();
         geoimg.getSource().setCenter([centerLon,centerLat]);
         geoimg.getSource().setScale([scaleX,scaleY]);
         geoimg.setOpacity(opacity);
-
+        //imgCenterPointLayerCreate();
+    }
+    //----------------------------------------------------------------------------
+    $("body").on("change",".scaleXY",function() {
+        var scaleXY = $(".scaleXY").val();
+        geoimg.getSource().setScale([scaleXY,scaleXY])
+        /*
+        if(coordDiff.length>0) {
+            console.log(99999)
+            var centerLon = Number($(".centerLon").val()) - coordDiff[0];
+            var centerLat = Number($(".centerLat").val()) - coordDiff[1];
+            //imgTargetPointLayerCreate([centerLon,centerLat]);
+        }else{
+            var centerLon = $(".centerLon").val();
+            var centerLat = $(".centerLat").val();
+        }
+        geoimg.getSource().setCenter([centerLon,centerLat]);
+        */
     });
-
-
+    //----------------------------------------------------------------------------
+    $("body").on("change",".imgopa",function() {
+        var opacity = $(".imgopa").val();
+        geoimg.setOpacity(opacity);
+    });
+    //----------------------------------------------------------------------------
+    $("body").on("change",".imgset",function() {
+        //geoimgChange();
+    });
     //----------------------------------------------------------------------------
     $("body").on("click",".img-btn",function() {
-        console.log(22222);
         var centerLon = $(".centerLon").val();
         var centerLat = $(".centerLat").val();
 
         geoimg.getSource().setCenter([centerLon,centerLat]);
 
     });
+    //---------------------------------------------------------------------------
+    map2.on("dblclick",function(evt){
+        var coord = evt.coordinate;
+        console.log(ol.proj.transform(evt.coordinate,"EPSG:3857","EPSG:4326"));
+        $(".centerLon").val(coord[0]);
+        $(".centerLat").val(coord[1]);
+        geoimgChange();
+        imgCenterPointLayerCreate(coord);
+        if(coordDiff.length>0){
+            imgTargetPointLayerCreate(coord);
+        }
+
+        
+        map2.removeLayer(imgTargetPointLayer2);
+        var imgPointSsource = new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(coord)
+                })
+            ]
+        });
+        imgTargetPointLayer2 = new ol.layer.Vector({
+            name: "imgPointLayer",
+            source: imgPointSsource,
+            style: new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 6,
+                    fill: new ol.style.Fill({color: "red"}),
+                    stroke: new ol.style.Stroke({color: "white", width: 1})
+                })
+            })
+        });
+        imgTargetPointLayer2.set("altitudeMode","clampToGround");
+        map2.addLayer(imgTargetPointLayer2);
+        imgTargetPointLayer2.setZIndex(9999);
+        
+    });
+    //---------------------------------------------------------------------------
+    map1.on("dblclick",function(evt){
+        var coord = evt.coordinate;
+        console.log(ol.proj.transform(evt.coordinate,"EPSG:3857","EPSG:4326"));
+        $(".centerLon").val(coord[0]);
+        $(".centerLat").val(coord[1]);
+       //geoimgChange()
+
+        imgTargetPointLayerCreate(coord)
+
+        //imgCenterPointLayerCreate();
+    });
+
+
+
     //-------------------------------------------------------------------------------------
     function csvRead(file) {
         csvarr = [];

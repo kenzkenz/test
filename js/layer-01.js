@@ -783,7 +783,6 @@ var kago2 = new ol.layer.Tile({
         maxZoom:19
     })
 });
-
 //鹿児島市オルソ
 var kago91 = new ol.layer.Tile({
     title:"鹿児島市航空写真２",

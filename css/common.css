@@ -351,3 +351,10 @@ label:hover{
 .scaleX,.scaleY{
     width:50px;
 }
+.scaleXY{
+    width:50px;
+}
+.imgopa-slider{
+    margin:10px 10px;
+    width:200px;
+}
