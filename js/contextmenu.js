@@ -409,6 +409,7 @@ $(function(){
                     content += "男：" + souotoko.toLocaleString() + "人<br>";
                     content += "女：" + souonna.toLocaleString() + "人<br>";
                     content += "世帯数：" + sousetai.toLocaleString() + "</div>";
+                    content += "<div class='csv-zinkou-slider'></div>";
                     content += "<br>出典：平成22年国勢調査500Mメッシュ";//T000609M
                 }else{
                     var content = "<div style='text-align:center;'>500Mメッシュ 従業員総数<br>";
@@ -428,6 +429,12 @@ $(function(){
                     rmDialog:true,
                     //hide:true,
                     minMax:false
+                });
+                $(".csv-zinkou-slider").slider({
+                    min:0,max:1,value:1,step:0.01,
+                    slide: function(event, ui){
+                        mesh500Layer1.setOpacity(ui.value);
+                    }
                 });
             }
         };
