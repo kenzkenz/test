@@ -282,7 +282,11 @@ $(function(){
         console.log($(".estat-year-div").text().split("　")[1]);
         var content = $(".estat-year-div").text().split("　")[1] + "<br>";//表名
             content += featureProp["自治体名"] + "　" + featureProp["value"];
-            content += "<br>" + featureProp["lank"];
+            var lank = $("#" + map + " .tr-" + featureProp["コード"]).find(".estat-lank-td").text();
+            console.log(lank);
+
+            //featureProp["コード"]
+            content += "<br>順位" + lank;
         if(map=="map1") {
             popup1.show(coord,content);
         }else{

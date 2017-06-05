@@ -249,6 +249,8 @@ label:hover{
 }
 .estat-division-td{
     text-align:right;
+    /*width:20px;*/
+    font-size:10px;
 }
 .estat-year-div{
     margin:5px 0;
@@ -257,6 +259,7 @@ label:hover{
     color:rgb(51,122,183);
     cursor:pointer;
 }
+.es
 /*estatのグラフ関係-------------------------------------------------------------*/
 .estat-chart-div{
     height:600px;

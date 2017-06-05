@@ -319,7 +319,7 @@ $(function(){
                     for (var i = 0; i < cityAr.length; i++) {
                         tblHtml += "<tr class='tr-" + cityAr[i]["id"] + "'>";
                         tblHtml += "<td class='estat-lank-td'></td>";
-                        tblHtml += "<td>" + cityAr[i]["id"] + "</td>";
+                        tblHtml += "<td class='estat-city-code'>" + cityAr[i]["id"] + "</td>";
                         tblHtml += "<td class='estat-city-td'>" + cityAr[i]["name"] + "</td>";
                         tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
                         tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
@@ -419,20 +419,14 @@ $(function(){
     $("body").on("click",".header",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-        console.log(mapName);
-        console.log($(this).attr("class"));
-        console.log($(this).data("tgt"));
-        //estat-division-th
-
         var tgt = $(this).data("tgt");
+        console.log(tgt);
         var valueAr = [];
         if(tgt) {
             $("#" + mapName + " .estat-tbl tbody tr").each(function(i) {
-                var num = $(this).find(".estat-division-td").text();
-                console.log(num);
+                var num = $(this).find(tgt).text();
                 valueAr.push(num);
             });
-            console.log(valueAr);
             tdColor(mapName,valueAr,tgt);
         }
     });
@@ -493,7 +487,16 @@ $(function(){
             var html = $("#" + mapName + " .estat-tbl-div").html();
             $("#" + mapName + " .estat-tbl-div").html(html);
             $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
+
 		}
+        $("#" + mapName + " .estat-tbl").bind("sortEnd",function () {
+            console.log(555);
+            $("#" + mapName + " .estat-tbl tbody tr").each(function(i) {
+                $(this).find(".estat-lank-td").text(i + 1);
+            })
+        });
+
+
 		//----------------
         tdColor(mapName,valueAr,".estat-value-td");
         $("#" + mapName + " .estat-tbl").trigger("update");
@@ -506,10 +509,8 @@ $(function(){
         var d3Color = d3.interpolateLab("white", "red");
         var d3ColorM = d3.interpolateLab("white", "blue");
         $("#" + mapName + " .estat-tbl tbody tr").each(function(i){
+            //console.log(i);
             $(this).find(".estat-lank-td").text(i+1);
-
-            //var tgt = ".estat-value-td";
-
             var value = Number($(this).find(tgt).text());
             if(value>0){//値がプラスだったとき
                 var c100 = (value-min)/color100/100;
@@ -544,7 +545,7 @@ $(function(){
                     }
                     //features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
                     features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).parents("table").find(".estat-unit-th").text().split(":")[1];
-                    features[i]["I"]["lank"] = "順位" + $(this).find(".estat-lank-td").text() + "位";
+                    //features[i]["I"]["lank"] = "順位" + $(this).find(".estat-lank-td").text() + "位";
                 }
             }
             //eval("estatLayer" + mapName).getSource().changed();
