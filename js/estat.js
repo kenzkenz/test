@@ -313,8 +313,8 @@ $(function(){
                         tblHtml += "<th>コード</th>";
                         tblHtml += "<th>自治体名</th>";
                         tblHtml += "<th class='estat-zinkou-th'>人口</th>";
-                        tblHtml += "<th class='estat-unit-th'></th>";
-                        tblHtml += "<th class='estat-division-th'>@10万人</th>";
+                        tblHtml += "<th class='estat-unit-th' data-tgt='.estat-value-td'></th>";
+                        tblHtml += "<th class='estat-division-th' data-tgt='.estat-division-td'>@10万人</th>";
                         tblHtml += "</tr></thead><tbody>";
                     for (var i = 0; i < cityAr.length; i++) {
                         tblHtml += "<tr class='tr-" + cityAr[i]["id"] + "'>";
@@ -421,20 +421,21 @@ $(function(){
         var mapName = mapObj["name"];
         console.log(mapName);
         console.log($(this).attr("class"));
-
+        console.log($(this).data("tgt"));
         //estat-division-th
 
-
+        var tgt = $(this).data("tgt");
         var valueAr = [];
-        for (i=0; i<eval("estatDataAr" + mapName).length; i++){
-            console.log(i)
+        if(tgt) {
+            $("#" + mapName + " .estat-tbl tbody tr").each(function(i) {
+                var num = $(this).find(".estat-division-td").text();
+                console.log(num);
+                valueAr.push(num);
+            });
+            console.log(valueAr);
+            tdColor(mapName,valueAr,tgt);
         }
-        //tdColor(mapName,valueAr,tgt)
-
-
     });
-
-
 	//----------------------------------------------------------------------------
 	// tdに数値等をセットしていく関数
 	function estatTdSet(mapName,tgtYear){
