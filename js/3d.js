@@ -159,7 +159,6 @@ $(function(){
                     }else {
                         if (tilt > 0) ol3d.getCamera().setTilt(tilt - 0.05);
                     }
-
                 }
                 setTimeout(function(){tiltUp(upDown)},20);
             }else{

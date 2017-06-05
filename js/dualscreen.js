@@ -42,8 +42,8 @@ $(function(){
                 //ダイアログも移動-----------------------------------------------
                 //未作成
                 //十字ボタンも移動-----------------------------------------------
-                var top = $(".cesium-btn-div").css("top").replace("px","")/2 - $(".cesium-btn-div").height()/2;
-                $(".cesium-btn-div").animate({"top":top + "px"},500);
+               // var top = $(".cesium-btn-div").css("top").replace("px","")/2 - $(".cesium-btn-div").height()/2;
+               // $(".cesium-btn-div").animate({"top":top + "px"},500);
             }
             //同期非同期ボタン
             $("#sync-btn").show();
@@ -74,8 +74,8 @@ $(function(){
                 //ダイアログも移動-----------------------------------------------
                 //未作成
                 //十字ボタンも移動-----------------------------------------------
-                var top = $(".cesium-btn-div").css("top").replace("px","")*2 + $(".cesium-btn-div").height();
-                $(".cesium-btn-div").animate({"top":top + "px"},500);
+                //var top = $(".cesium-btn-div").css("top").replace("px","")*2 + $(".cesium-btn-div").height();
+                //$(".cesium-btn-div").animate({"top":top + "px"},500);
             }
             //同期非同期ボタン
             $("#sync-btn").hide(500);

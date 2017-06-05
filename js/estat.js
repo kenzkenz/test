@@ -134,7 +134,7 @@ $(function(){
         }
 		$("#" + mapName + " .estat-pref-select").html(option);
 		$("#" + mapName + " .estat-pref-select").select2({
-			width:"100px"
+			width:"115px"
 		});
 		$("#" + mapName + " .estat-table-select").select2({
 			width:"250px"
@@ -218,15 +218,21 @@ $(function(){
                     eval(mapName).getView().fit(extent,eval(mapName).getSize());
                 });
                 var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
-                tblHtml += "<thead><tr class='info'><th></th><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
+                    tblHtml += "<thead><tr class='info'>";
+                    tblHtml += "<th></th>";
+                    tblHtml += "<th>コード</th>";
+                    tblHtml += "<th>自治体名</th>";
+                    tblHtml += "<th class='estat-zinkou-th'>人口</th>";
+                    tblHtml += "<th class='estat-unit-th'></th>";
+                    tblHtml += "</tr></thead><tbody>";
                 for (var i = 0; i < prefAr.length; i++) {
                     tblHtml += "<tr class='tr-" + prefAr[i]["id"] + "'>";
                     tblHtml += "<td class='estat-lank-td'></td>";
                     tblHtml += "<td>" + prefAr[i]["id"] + "</td>";
                     tblHtml += "<td class='estat-city-td'>" + prefAr[i]["name"] + "</td>";
-                    tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
+                    tblHtml += "<td class='estat-zinkou-td'>" + prefAr[i]["zinkou"] + "</td>";
                     tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
-                    tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
+                    //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
                     tblHtml += "</tr>";
                 }
                 tblHtml += "</tbody></table>";
@@ -302,7 +308,14 @@ $(function(){
                     //---------------------------------
                     var cityAr = results[0]["json"]["data"];
                     var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
-                    tblHtml += "<thead><tr class='info'><th></th><th>コード</th><th>自治体名</th><th class='estat-zinkou-th'>人口</th><th>value</th><th>単位</th></tr></thead><tbody>";
+                        tblHtml += "<thead><tr class='info'>";
+                        tblHtml += "<th></th>";
+                        tblHtml += "<th>コード</th>";
+                        tblHtml += "<th>自治体名</th>";
+                        tblHtml += "<th class='estat-zinkou-th'>人口</th>";
+                        tblHtml += "<th class='estat-unit-th'></th>";
+                        tblHtml += "<th class='estat-division-th'>@10万人</th>";
+                        tblHtml += "</tr></thead><tbody>";
                     for (var i = 0; i < cityAr.length; i++) {
                         tblHtml += "<tr class='tr-" + cityAr[i]["id"] + "'>";
                         tblHtml += "<td class='estat-lank-td'></td>";
@@ -310,7 +323,8 @@ $(function(){
                         tblHtml += "<td class='estat-city-td'>" + cityAr[i]["name"] + "</td>";
                         tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
                         tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
-                        tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
+                        //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
+                        tblHtml += "<td class='estat-division-td'>" + "" + "</td>";
                         tblHtml += "</tr>";
                     }
                     tblHtml += "</tbody></table>";
@@ -371,11 +385,16 @@ $(function(){
                     $("#" + mapName + " .estat-year-div").html(eval("estatDataAr" + mapName)[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
                     var unit = eval("estatDataAr" + mapName)[0]["VALUE"]["@unit"];
                 }
+
+                $("#" + mapName + " .estat-unit-th").html("単位:" + unit);
+
+                console.log(unit);
+
                 $("#" + mapName + " .estat-year-select").select2({
                     width:"60px",
 					minimumResultsForSearch:Infinity
                 });
-                $("#" + mapName + " .estat-unit-td").html(unit);
+                //$("#" + mapName + " .estat-unit-td").html(unit);
               	estatTdSet(mapName);
             })
 		});
@@ -395,6 +414,26 @@ $(function(){
 		var tgtYear = $(this).val();
         estatTdSet(mapName,tgtYear);
     });
+    //-----------------------------------------------------------------------------
+    //表のヘッダーをクリックしたとき
+    $("body").on("click",".header",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        console.log(mapName);
+        console.log($(this).attr("class"));
+
+        //estat-division-th
+
+
+        var valueAr = [];
+        for (i=0; i<eval("estatDataAr" + mapName).length; i++){
+            console.log(i)
+        }
+        //tdColor(mapName,valueAr,tgt)
+
+
+    });
+
 
 	//----------------------------------------------------------------------------
 	// tdに数値等をセットしていく関数
@@ -416,8 +455,12 @@ $(function(){
             	try {
                     var erement = $("#" + mapName + " .tr-" + eval("estatDataAr" + mapName)[i]["VALUE"][tgtYear]["@area"]);
                     erement.find(".estat-value-td").html(eval("estatDataAr" + mapName)[i]["VALUE"][tgtYear]["$"]);
+                    var division = eval("estatDataAr" + mapName)[i]["VALUE"][tgtYear]["$"] / (erement.find(".estat-zinkou-td").text() / 100000);
+                    division = division.toFixed(3);
+                    erement.find(".estat-division-td").html(division);
                 }catch(e){
                     erement.find(".estat-value-td").html("");
+                    erement.find(".estat-division-td").html("");
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
@@ -429,8 +472,10 @@ $(function(){
             	try {
                     var erement = $("#" + mapName + " .tr-" + eval("estatDataAr" + mapName)[i]["VALUE"]["@area"]);
                     erement.find(".estat-value-td").html(eval("estatDataAr" + mapName)[i]["VALUE"]["$"]);
+
                 }catch(e){
                     erement.find(".estat-value-td").html("");
+                    erement.find(".estat-division-td").html("");
 				}
                 //var zinkouwari = Math.floor(erement.find(".valueTd").text()/erement.find(".zinkouTd").text()*1000)/1000;
                 //erement.find(".zinkouwariTd").html(zinkouwari);
@@ -440,6 +485,7 @@ $(function(){
                 }catch(e){}
             }
         }
+        //ソート-----------
 		if($("#" + mapName + " .estat-tbl .header").length==0){//初めてのとき
             $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
         }else{//２回目以降のとき
@@ -447,6 +493,12 @@ $(function(){
             $("#" + mapName + " .estat-tbl-div").html(html);
             $("#" + mapName + " .estat-tbl").tablesorter({sortList:[[4,1]]});
 		}
+		//----------------
+        tdColor(mapName,valueAr,".estat-value-td");
+        $("#" + mapName + " .estat-tbl").trigger("update");
+	}
+	//------------------------------------------------------------------------------------
+    function tdColor(mapName,valueAr,tgt) {
         var color100Ar = funcColor100(valueAr);
         var color100 = color100Ar[0];
         var min = color100Ar[2];
@@ -454,7 +506,9 @@ $(function(){
         var d3ColorM = d3.interpolateLab("white", "blue");
         $("#" + mapName + " .estat-tbl tbody tr").each(function(i){
             $(this).find(".estat-lank-td").text(i+1);
-        	var tgt = ".estat-value-td";
+
+            //var tgt = ".estat-value-td";
+
             var value = Number($(this).find(tgt).text());
             if(value>0){//値がプラスだったとき
                 var c100 = (value-min)/color100/100;
@@ -469,6 +523,10 @@ $(function(){
                 var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
                 var targetFillColor = d3ColorM(c100);
             }
+            $(this).find("td").css({
+                background:rgba,
+                color:funcTextColor(color0.r,color0.g,color0.b)//背景に応じて色を変える。
+            });
             //------------------------------------------------------------------------------------
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
@@ -483,8 +541,9 @@ $(function(){
                     }else{
                         features[i]["I"]["_polygonHeight"] = 1000;
                     }
-                    features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
-                    features[i]["I"]["lank"] = $(this).find(".estat-lank-td").text();
+                    //features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                    features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).parents("table").find(".estat-unit-th").text().split(":")[1];
+                    features[i]["I"]["lank"] = "順位" + $(this).find(".estat-lank-td").text() + "位";
                 }
             }
             //eval("estatLayer" + mapName).getSource().changed();
@@ -524,16 +583,8 @@ $(function(){
                     saiki();
                 }
             }
-            //---------------------------------------------------------------------------
-            $(this).find("td").css({
-                background:rgba,
-                color:funcTextColor(color0.r,color0.g,color0.b)//背景に応じて色を変える。
-            })
-            //$("#" + mapName + " .estat-tbl-div").animate({scrollTop:0});
         });
-
-        $("#" + mapName + " .estat-tbl").trigger("update");
-	}
+    }
 	//----------------------------------------------------------------------------
     function estatLayerCreate(vectorSource,mapName){
         eval(mapName).removeLayer(eval("estatLayer" + mapName));

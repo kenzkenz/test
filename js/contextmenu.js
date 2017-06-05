@@ -399,9 +399,6 @@ $(function(){
                     map2.addLayer(mesh500Layer2);
                     mesh500Layer2.setZIndex(9999);
                 }
-
-                //sliderCreate();
-
                 $("#" + mapName + " .csv-dialog").remove();
                 if(meshType==="zinkouMesh") {
                     var content = "<div style='text-align:center;'>500Mメッシュ 総人口<br>";
@@ -415,6 +412,7 @@ $(function(){
                     var content = "<div style='text-align:center;'>500Mメッシュ 従業員総数<br>";
                     content += "<span style='font-size:36px'>" + souzinkou.toLocaleString() + "</span> 人<br>";
                     content += "事業所数：" + souzigyousyo.toLocaleString() + "</div>";
+                    content += "<div class='csv-keizai-slider'></div>";
                     content += "<br>出典：平成21年経済センサス500Mメッシュ";//T000617M
                 }
                 mydialog({
@@ -430,16 +428,46 @@ $(function(){
                     //hide:true,
                     minMax:false
                 });
-                $(".csv-zinkou-slider").slider({
-                    min:0,max:1,value:1,step:0.01,
-                    slide: function(event, ui){
-                        mesh500Layer1.setOpacity(ui.value);
+                if(meshType==="zinkouMesh") {
+                    if (mapName === "map1") {
+                        $("#map1 .csv-zinkou-slider").slider({
+                            min: 0, max: 1, value: 1, step: 0.01,
+                            slide: function (event, ui) {
+                                mesh500Layer1.setOpacity(ui.value);
+                                circleLayer1.setOpacity(ui.value);
+                            }
+                        });
+                    } else {
+                        $("#map2 .csv-zinkou-slider").slider({
+                            min: 0, max: 1, value: 1, step: 0.01,
+                            slide: function (event, ui) {
+                                mesh500Layer2.setOpacity(ui.value);
+                                circleLayer2.setOpacity(ui.value);
+                            }
+                        });
                     }
-                });
+                }else{
+                    if (mapName === "map1") {
+                        $("#map1 .csv-keizai-slider").slider({
+                            min: 0, max: 1, value: 1, step: 0.01,
+                            slide: function (event, ui) {
+                                mesh500Layer1.setOpacity(ui.value);
+                                circleLayer1.setOpacity(ui.value);
+                            }
+                        });
+                    } else {
+                        $("#map2 .csv-keizai-slider").slider({
+                            min: 0, max: 1, value: 1, step: 0.01,
+                            slide: function (event, ui) {
+                                mesh500Layer2.setOpacity(ui.value);
+                                circleLayer2.setOpacity(ui.value);
+                            }
+                        });
+                    }
+                }
             }
         };
     });
-
     //--------------------------------------------------------------------------------------
     $(".circlrdelete-btn").click(function(){
         var mapObj = funcMaps($(this));

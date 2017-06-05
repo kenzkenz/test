@@ -18,7 +18,7 @@ $(function(){
     var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
-        msg += "1 右クリックで人口機能作成中 スマホは長押し<br>";
+        msg += "1 右クリックで人口機能完成 スマホは長押し<br>";
         msg += "2 CSV機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
         msg += "3 GPX機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
         msg += "4 パノラマ写真表示機能実験中。写真8枚追加。<br>";
@@ -33,7 +33,7 @@ $(function(){
         //msg += "10 PNG保存機能を追加しました。<br>";
         //msg += "11 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/05/31</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/06/05</div>";
     $.notify({//options
         message:msg
     },{//settings

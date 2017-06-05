@@ -247,6 +247,9 @@ label:hover{
 .estat-value-td{
     text-align:right;
 }
+.estat-division-td{
+    text-align:right;
+}
 .estat-year-div{
     margin:5px 0;
 }
@@ -335,7 +338,7 @@ label:hover{
 .csv-tbl td{
     padding:2px!important;
 }
-/*コンテキストメニュー関係--------------------------------------------------*/
+/*コンテキストメニュー関係（人口----------------------------------------------*/
 .myContextOverlay-div{
     padding:10px;
     background:white;
@@ -344,7 +347,10 @@ label:hover{
     /*border:1px solid rgba(51,122,183,1.0);*/
     z-index:3;
 }
-/**/
+.csv-zinkou-slider,.csv-keizai-slider{
+    margin:10px 10px;
+}
+/*img取り込み機能関係-------------------------------------------------------*/
 .centerLon,.centerLat{
     width:130px;
 }
@@ -360,6 +366,3 @@ label:hover{
 }
 
 
-.csv-zinkou-slider{
-    margin:10px 10px;
-}
