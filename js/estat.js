@@ -134,13 +134,14 @@ $(function(){
         }
 		$("#" + mapName + " .estat-pref-select").html(option);
 		$("#" + mapName + " .estat-pref-select").select2({
-			width:"115px"
+			width:"115px",
+            minimumResultsForSearch:Infinity
 		});
 		$("#" + mapName + " .estat-table-select").select2({
 			width:"250px"
 		});
         $("#" + mapName + " .estat-table-select").html(citySelectOption);
-
+        //$(".select2-results__options").css({"height":"500xp"});
         //------------------------------------------------------------------------------------------
         /*
         var cityTableAjax = function(){
@@ -385,11 +386,7 @@ $(function(){
                     $("#" + mapName + " .estat-year-div").html(eval("estatDataAr" + mapName)[0]["VALUE"]["@time"] + "年　" + $("#" + mapName + " .estat-table-select option:selected").text().split("-")[1]);
                     var unit = eval("estatDataAr" + mapName)[0]["VALUE"]["@unit"];
                 }
-
                 $("#" + mapName + " .estat-unit-th").html("単位:" + unit);
-
-                console.log(unit);
-
                 $("#" + mapName + " .estat-year-select").select2({
                     width:"60px",
 					minimumResultsForSearch:Infinity

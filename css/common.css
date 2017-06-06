@@ -226,6 +226,12 @@ label:hover{
     width: 132px;
     font-size: 11.2em;
 }
+
+
+.select2-results__options {
+    max-height:1500px;!important
+}
+
 /*estat関係--------------------------------------------------------------------*/
 .estat-tbl-div{
     /*margin-top:10px;*/
