@@ -175,8 +175,8 @@ var toner2 = new ol.layer.Tile({
 //宮崎県オルソ
 var ort1 = new ol.layer.Tile({
     title:"宮崎県航空写真",
-    origin:"",
-    detail:"",
+    origin:"宮崎県県土整備部砂防課",
+    detail:"砂防課が平成25年度に撮影した航空写真をオルソ補正したもの",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
@@ -188,8 +188,8 @@ var ort1 = new ol.layer.Tile({
 });
 var ort2 = new ol.layer.Tile({
     title:"宮崎県航空写真",
-    origin:"",
-    detail:"",
+    origin:"宮崎県県土整備部砂防課",
+    detail:"砂防課が平成25年度に撮影した航空写真をオルソ補正したもの",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
     extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
@@ -608,7 +608,6 @@ var nihonCs2 = new ol.layer.Tile({
         maxZoom:15
     })
 });
-
 //宮崎市戦後米軍地図
 var sengomiya1 = new ol.layer.Tile({
     title:"宮崎市戦後米軍地図",
@@ -816,9 +815,6 @@ var kago92 = new ol.layer.Tile({
         maxZoom:18
     })
 });
-
-
-
 //鹿児島市 戦後米軍地図
 var sengokago1 = new ol.layer.Tile({
     title:"鹿児島市戦後米軍地図",

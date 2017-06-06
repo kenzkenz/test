@@ -5,8 +5,8 @@ var plusLayer2 = [];
 var plI = 0;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,amArr1,
-                    sengomiya1,sengonobe1,sengomiyako1,
+    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
+                    ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
                     aya1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
@@ -14,8 +14,8 @@ $(function(){
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1
                     ];
-    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,amArr2,
-                    sengomiya2,sengonobe2,sengomiyako2,
+    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
+                    ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
                     aya2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,

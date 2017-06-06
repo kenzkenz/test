@@ -265,7 +265,9 @@ label:hover{
     color:rgb(51,122,183);
     cursor:pointer;
 }
-.es
+.estat-pref-select{
+    height:500px;
+}
 /*estatのグラフ関係-------------------------------------------------------------*/
 .estat-chart-div{
     height:600px;
