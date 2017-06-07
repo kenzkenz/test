@@ -131,6 +131,22 @@ function funcHaikeiTableCreate(mapElement,mapName){
                 }
             }
         });
+        //---------------------------------------------------------------------
+        var ua = navigator.userAgent;
+        var idandclass = layer.getProperties()["title"];
+        var myurl = location.href;
+        $.ajax({
+            type:"GET",
+            url:"php/log.php",
+            data:{
+                idandclass:idandclass,
+                ua:ua,
+                myurl:myurl
+            }
+        }).done(function(){
+        }).fail(function(){
+            console.log("ログ失敗!");
+        });
     });
 }
 //------------------------------------------------------------------------------
