@@ -29,6 +29,8 @@ $(function(){
         element:$("#myContextOverlay-div1")[0],
         autoPan:true
     });
+    console.log(myContextOverlay1);
+
     map1.addOverlay(myContextOverlay1);
 
     myContextOverlay2 = new ol.Overlay({
@@ -545,6 +547,8 @@ $(function(){
     });
     map2.addInteraction(touchi2);
 });
+
+
 //-----------------------------------------------------------------------------------------
 //円の座標を作る。
 function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind){
