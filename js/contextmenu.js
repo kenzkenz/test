@@ -7,9 +7,7 @@ var mesh500Layer1 = null;
 var mesh500Source2 = null;
 var mesh500Layer2 = null;
 $(function(){
-
     var worker = new Worker("js/worker.js");
-
     var coord1 = null;
     var coord2 = null;
     var coord1Hyoukou = null;
@@ -29,10 +27,7 @@ $(function(){
         element:$("#myContextOverlay-div1")[0],
         autoPan:true
     });
-    console.log(myContextOverlay1);
-
     map1.addOverlay(myContextOverlay1);
-
     myContextOverlay2 = new ol.Overlay({
         element:$("#myContextOverlay-div2")[0],
         autoPan:true
@@ -70,7 +65,6 @@ $(function(){
         var km = val;
         //var circleCenterX = coord1[0];//15438034; //the X center of your circle
         //var circleCenterY = coord1[1];//4186771; //the Y center of your circle
-
         var circleRadius = km * 1179;
         var pointsToFind = 30;
         var circleCoords1 = createCirclePointCoords(circleCenterX, circleCenterY, circleRadius, pointsToFind);
@@ -547,8 +541,6 @@ $(function(){
     });
     map2.addInteraction(touchi2);
 });
-
-
 //-----------------------------------------------------------------------------------------
 //円の座標を作る。
 function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind){

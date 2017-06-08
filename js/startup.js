@@ -109,7 +109,27 @@ $(function(){
     centerTarget2 =  new ol.control.Target ({style:style});
     map1.addControl(centerTarget1);
     map2.addControl(centerTarget2);
-
+    //-------------------------------------------------------------------------
+    //現在地取得
+    var hele1 = new ol.control.Button ({
+            html: "<i class='fa fa-map-marker'></i>",//<i class="fa fa-smile-o"></i>',
+            className: "here-btn",
+            title: "現在地取得",
+            handleClick: function(e) {
+                getHere("map1")
+            }
+    });
+    map1.addControl(hele1);
+    //------------------
+    var hele2 = new ol.control.Button ({
+        html: "<i class='fa fa-map-marker'></i>",//<i class="fa fa-smile-o"></i>',
+        className: "here-btn",
+        title: "現在地取得",
+        handleClick: function(e) {
+            getHere("map2")
+        }
+    });
+    map2.addControl(hele2);
     //--------------------------------------------------------------------------
     //マップイベント関係
     //ムーブエンド時にwevストレージに中心座標とズーム率を記憶
@@ -166,7 +186,29 @@ $(function(){
             pinchRotateInteraction2.setActive(true);
         }
     });
+
     //--------------------------------------------------------------------------
+    //現在地取得
+    function getHere(mapName) {
+        //var mapName = mapObj["name"];
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                function (position) {
+                    eval(mapName).getView().setCenter(ol.proj.transform([position.coords.longitude, position.coords.latitude], "EPSG:4326", "EPSG:3857"));
+                },
+                function () {
+                    alert("座標を取得できませんでした。.")
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 5000
+                }
+            );
+        } else {
+            alert("お使いのブラウザには座標取得機能がありません。")
+        }
+    }
+    /*
     //現在地取得
     $(".here-btn").click(function(){
         var mapObj = funcMaps($(this));
@@ -187,6 +229,7 @@ $(function(){
             alert("お使いのブラウザには座標取得機能がありません。")
         }
     });
+    */
     //--------------------------------------------------------------------------
     //クラスbtnにクリック感を付与。汎用性のため非cssで。今は使っていない。タッチがうまくいかないときがあるので
     /*

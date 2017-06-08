@@ -125,6 +125,25 @@ label:hover{
 }
 .haikei-btn{
 }
+/*データテーブル----------------------------------------------------------------*/
+.data-tbl-div{
+    overflow-x:auto;
+}
+.data-td-sort{
+    cursor:move;
+}
+#map1 .data-td-slider,#map2 .data-td-slider{/*bootstrapのcssにかぶせるため*/
+    vertical-align:middle;
+}
+#map1 .data-td-info,#map2 .data-td-info{
+    vertical-align:middle;
+    padding:2px;
+    margin:0;
+    cursor:pointer;
+}
+.data-slider{
+    width:50px;
+}
 /*背景テーブル-----------------------------------------------------------------*/
 .haikei-tbl-div{
     overflow-x:auto;
@@ -140,6 +159,9 @@ label:hover{
     padding:2px;
     margin:0;
     cursor:pointer;
+}
+.haikei-slider{
+    width:50px;
 }
 /*インフォメーションのテーブル--------------------------------------------------*/
 .info-tbl{
@@ -206,10 +228,6 @@ label:hover{
     width:40px;
     height:40px;
     margin-top:-20px;
-}
-/*スライダー--------------------------------------------------------------------*/
-.haikei-slider{
-    width:50px;
 }
 /*webフォント用-----------------------------------------------------------------*/
 .primary{
@@ -375,5 +393,24 @@ label:hover{
     margin:10px 10px;
     width:200px;
 }
-
-
+/*現在地取得ボタン---------------------------------------------------------*/
+.here-btn{
+    bottom:5.5em;
+    right:0.5em;
+}
+/*ポップアップ関係---------------------------------------------------------*/
+.popup-tbl{
+    width:200px;
+}
+.popup-th{
+    width:50px;
+    color:white;
+    background:rgba(51,122,183,1.0);
+    font-weight:normal;
+}
+.popup-td{
+    width:150px;
+}
+.popup-tbl img{
+    /*width:80px;*/
+}

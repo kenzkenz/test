@@ -1,5 +1,6 @@
+var ajaxStartFlg = true;
 $(document).ajaxStart(function (){
-    $("#loading-fa").show(500);
+    if(ajaxStartFlg) $("#loading-fa").show(500);
 });
 $(document).ajaxStop(function (){
     $("#loading-fa").hide(500);
@@ -96,6 +97,7 @@ function funcHaikeiTblDivHeight(){
 			var height = $(window).height()-150;
 		}
 	}
+    $(".data-tbl-div").css("max-height",height + "px");
 	$(".haikei-tbl-div").css("max-height",height + "px");
     $(".estat-tbl-div").css("max-height",height-65 + "px");
     $(".resas-tbl-div").css("max-height",height-50 + "px");
@@ -171,4 +173,4 @@ var prefAr =
 		{"id":"45000","name":"宮崎県","zinkou":1104069},
 		{"id":"46000","name":"鹿児島県","zinkou":1648177},
 		{"id":"47000","name":"沖縄県","zinkou":1433566}
-	]
+	];

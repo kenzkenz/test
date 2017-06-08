@@ -54,6 +54,9 @@ $(function(){
                 console.log("mesh500Layer");
                 funcMesh500Popup(feature,map,evt);
                 break;
+            case "dataLayer":
+                funcDataLayerPopup(feature,map,evt);
+                break;
             default:
         }
         /*
@@ -69,6 +72,41 @@ $(function(){
             popup2.show(coord,content);
         }
         */
+    }
+    //-----------------------------------------------
+    function funcDataLayerPopup(feature,map,evt) {
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if (geoType == "Point") {
+            var coord = feature.getGeometry().getCoordinates();
+        } else {
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            if(key!="geometry"){
+                if(String(key.indexOf("_"))==-1 && key != "id"){
+                    //if(String(featureProp[key]).indexOf("<table")==-1){
+                        table += "<tr>";
+                        table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + featureProp[key] + "</td>"
+                        table += "</tr>"
+                    //}else{
+                    //    var table2 = [key,properties[key]]
+                   // }
+                }
+            }
+        }
+        table += "</table>";
+        console.log(table);
+
+        var content = "";
+            content += table;
+        if (map==="map1") {
+            popup1.show(coord, content);
+        } else {
+            popup2.show(coord, content);
+        }
     }
     //-----------------------------------------------
     function funcMesh500Popup(feature,map,evt) {

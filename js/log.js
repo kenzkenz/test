@@ -3,7 +3,6 @@ $(function(){
 	var idandclass = "start-up";
 	var ua = navigator.userAgent;
 	var myurl = location.href;
-	console.log(myurl);
 	$.ajax({
 		type:"GET",
 		url:"php/log.php",
@@ -18,6 +17,7 @@ $(function(){
 	});
 	//対象要素クリック時
 	//$("body").on("click","a,input,span,button,select,.td,label",function(){
+
 	$("body").on("click","*:not(.maps)",function(){
 		var idName = $(this).attr("id");
 		var className = $(this).attr("class");
@@ -25,6 +25,7 @@ $(function(){
 		var ua = navigator.userAgent;
 		var idandclass = idName + "/" + className;
 		var myurl = location.href;
+        ajaxStartFlg = false;
 		$.ajax({
 			type:"GET",
 			url:"./php/log.php",
@@ -35,8 +36,10 @@ $(function(){
 				myurl:myurl
 			}
 		}).done(function(){
+            ajaxStartFlg = true;
 		}).fail(function(){
-				console.log("ログ失敗!");
+			ajaxStartFlg = true;
+			console.log("ログ失敗!");
 		});
 	});
 });
