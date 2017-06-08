@@ -65,25 +65,12 @@ $(function(){
             var mapObj = funcMaps($(this));
             var mapName = mapObj["name"];
             var dataLayerId = $(this).val();
-            if($(this).prop("checked")){
-                dataLayerCreate(dataLayerId,mapName);
-            }
-
             var tgtTr = $(this).parents("tr");
-            tgtTr.find(".data-slider").slider({
-                min:0,max:1,value:1,step:0.01,
-                slide: function(event, ui){
-                    /*
-                    if(!Array.isArray(layer)){
-                        layer.setOpacity(ui.value);
-                    }else{
-                        for(var i = 0; i < layer.length; i++){
-                            layer[i].setOpacity(ui.value);
-                        }
-                    }
-                    */
-                }
-            });
+            if($(this).prop("checked")) {
+                dataLayerCreate(dataLayerId, mapName, tgtTr);
+            }else{
+                
+            }
         })
     }
     //------------------------------------------------------------------------------------------------------------------
@@ -114,7 +101,7 @@ $(function(){
     });
     //------------------------------------------------------------------------------------------------------------------
     //
-    function dataLayerCreate(dataLayerId,mapName){
+    function dataLayerCreate(dataLayerId,mapName,tgtTr){
         $.ajax({
             type:"get",
             url:"php/geojson-create.php",
@@ -138,7 +125,7 @@ $(function(){
                 source:vectorSource,
                 style: new ol.style.Style({
                     image: new ol.style.Circle({
-                        radius: 6,
+                        radius: 12,
                         fill: new ol.style.Fill({color: "red"}),
                         stroke: new ol.style.Stroke({color: "white", width: 1})
                     })
@@ -148,6 +135,14 @@ $(function(){
             eval(mapName).addLayer(dataLayer);
             //dataLayer.setOpacity(opacity);
             dataLayer.setZIndex(9999);
+
+            tgtTr.find(".data-slider").slider({
+                min:0,max:1,value:1,step:0.01,
+                slide: function(event, ui){
+                    dataLayer.setOpacity(ui.value);
+                }
+            });
+
         }).fail(function(){
             alert("失敗!");
         });
