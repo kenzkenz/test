@@ -108,7 +108,6 @@ $(function(){
             var styleFunction = function(feature, resolution) {
                 var prop = feature.getProperties();
                 var geoType = feature.getGeometry().getType();
-                console.log(geoType);
                 var fillColor = prop["_fillColor"];
                 switch (geoType){
                     case "Point":
