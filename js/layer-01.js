@@ -550,6 +550,36 @@ var obi2 = new ol.layer.Tile({
 		maxZoom:19
 	})
 });
+//飫肥城古地図
+var obikoyizu1 = new ol.layer.Tile({
+    title:"飫肥城（古地図）",
+    origin:"承応年間飫肥城下図",
+    detail:"",
+    coord:[131.3502,31.6289],
+    zoom:16,
+    icon:"<i class='fa fa-file-image-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+var obikoyizu2 = new ol.layer.Tile({
+    title:"飫肥城（古地図）",
+    origin:"承応年間飫肥城下図",
+    detail:"",
+    coord:[131.3502,31.6289],
+    zoom:16,
+    icon:"<i class='fa fa-file-image-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});
+
 //------------------------------------------------------------------------------
 //シームレス地質図
 var tisitu1 = new ol.layer.Tile({

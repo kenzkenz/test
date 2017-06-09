@@ -141,8 +141,11 @@ label:hover{
     margin:0;
     cursor:pointer;
 }
+.data-td-slider{
+    width:60px;
+}
 .data-slider{
-    width:50px;
+    width:100%;
 }
 /*背景テーブル-----------------------------------------------------------------*/
 .haikei-tbl-div{
@@ -403,7 +406,7 @@ label:hover{
     width:200px;
 }
 .popup-th{
-    width:50px;
+    /*width:50px;*/
     color:white;
     background:rgba(51,122,183,1.0);
     font-weight:normal;

@@ -7,7 +7,7 @@ $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
-                    aya1,//obi1,
+                    aya1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
                     ryuuiki1,ecoris1,seki1,tisitu1,nihonCs1,csArr1,
@@ -16,7 +16,7 @@ $(function(){
                     ];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
-                    aya2,//obi2,
+                    aya2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
                     ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2,

@@ -82,28 +82,26 @@ $(function(){
         } else {
             var coord = evt.coordinate;
         }
-        console.log(featureProp);
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        var maxKeyLength = 0;
         for(key in featureProp){
             if(key!="geometry"){
                 if(String(key.indexOf("_"))==-1 && key != "id"){
-                    //if(String(featureProp[key]).indexOf("<table")==-1){
-                        table += "<tr>";
-                        table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + featureProp[key] + "</td>"
-                        table += "</tr>"
-                    //}else{
-                    //    var table2 = [key,properties[key]]
-                   // }
+                    table += "<tr>";
+                    table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + featureProp[key] + "</td>";
+                    table += "</tr>";
+                    if(maxKeyLength<key.length) maxKeyLength = key.length
                 }
             }
         }
         table += "</table>";
-        console.log(table);
-
         var content = "";
             content += table;
         if (map==="map1") {
             popup1.show(coord, content);
+            $("#map1 .popup-th").css({
+                "width":(maxKeyLength + 2) + "em"
+            })
         } else {
             popup2.show(coord, content);
         }
