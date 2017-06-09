@@ -6,16 +6,34 @@ var swipeCtr1 = null;
 var swipeCtr2 = null;
 $(function(){
     //--------------------------------------------------------------------------
-    //起動時に画面リサイズ
+    //起動時に画面リサイズ、部品リサイズ
     $("#map1").height($(window).height());
     $(window).on('resize',function(){
         $("#map1").height($(window).height());
+        funcResize();
     });
+    funcResize();
+    function funcResize() {
+        if ($("body").width() < 400) {
+            $(".data-btn").text("d");
+            $(".dropdown-div").hide();
+            $(".btn").css({
+                "padding":"6px 10px"
+            })
+        } else {
+            $(".data-btn").text("data").show();
+            $(".dropdown-div").show();
+            $(".btn").css({
+                "padding":"6px 12px"
+            })
+        }
+    }
     //--------------------------------------------------------------------------
     //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
     //--------------------------------------------------------------------------
-    var msg = "";
+    if ($("body").width() > 400) {
+        var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         msg += "1 estatに10万人あたりの列を追加<br>";
@@ -35,20 +53,21 @@ $(function(){
         //msg += "11 estatにグラフ機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
         msg += "宮崎県情報政策課<br>最終更新:2017/06/06</div>";
-    $.notify({//options
-        message:msg
-    },{//settings
-        type:"danger",
-        z_index:999999,
-        placement: {
-            from:"bottom",
-            align:"center"
-        },
-        animate: {
-            enter:"animated fadeInDown",
-            exit:"animated fadeOutUp"
-        }
-    });
+        $.notify({//options
+            message: msg
+        }, {//settings
+            type: "danger",
+            z_index: 999999,
+            placement: {
+                from: "bottom",
+                align: "center"
+            },
+            animate: {
+                enter: "animated fadeInDown",
+                exit: "animated fadeOutUp"
+            }
+        });
+    }
     //webストレージから中陣地座標、ズーム率を取得
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");

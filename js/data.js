@@ -31,7 +31,7 @@ $(function(){
             htmlChar += "<div class='data-tbl-div'><table class='data-tbl table table-bordered table-condensed'>";
         for(var i = 0; i < dataLayerArr.length; i++){
             var obj = dataLayerArr[i];
-            htmlChar += "<tr>";
+            htmlChar += "<tr data-opacity='" + obj["opacity"] + "'>";
             htmlChar += "<td><label><input type='checkbox' name='data-check' value='" + obj["id"] + "'>" + obj["icon"] + obj["title"] +  "</label></td>";
             htmlChar += "<td class='data-td-slider'><div class='data-slider'></div></td>";
             htmlChar += "<td class='data-td-sort' title='ドラッグします。'><i class='fa fa-bars fa-lg'></i></td>";
@@ -66,8 +66,10 @@ $(function(){
             var mapName = mapObj["name"];
             var dataLayerId = $(this).val();
             var tgtTr = $(this).parents("tr");
+            var opacity = tgtTr.data("opacity");
+            console.log(opacity);
             if($(this).prop("checked")) {
-                dataLayerCreate(dataLayerId, mapName, tgtTr);
+                dataLayerCreate(dataLayerId, mapName, tgtTr,opacity);
             }else{
                 
             }
@@ -101,7 +103,7 @@ $(function(){
     });
     //------------------------------------------------------------------------------------------------------------------
     //
-    function dataLayerCreate(dataLayerId,mapName,tgtTr){
+    function dataLayerCreate(dataLayerId,mapName,tgtTr,opacity){
         $.ajax({
             type:"get",
             url:"php/geojson-create.php",
@@ -133,7 +135,7 @@ $(function(){
             });
             dataLayer.set("altitudeMode","clampToGround");
             eval(mapName).addLayer(dataLayer);
-            //dataLayer.setOpacity(opacity);
+            dataLayer.setOpacity(opacity);
             dataLayer.setZIndex(9999);
 
             tgtTr.find(".data-slider").slider({
@@ -142,6 +144,9 @@ $(function(){
                     dataLayer.setOpacity(ui.value);
                 }
             });
+            tgtTr.find(".ui-slider-handle").css({
+                "left":opacity*100 + "%"
+            })
 
         }).fail(function(){
             alert("失敗!");
@@ -151,6 +156,20 @@ $(function(){
 //----------------------------------------------------------------------------------------------------------------------
 var dataLayerArr =
     [
-        {"id":"zinzya","title":"宮崎県神社","origin":"オリジン","detail":"ディティール","icon":"<i class='fa fa-picture-o fa-fw' style='color:gray;'></i>"},
-        {"id":"youtotiiki","title":"宮崎県用途地域","origin":"オリジン","detail":"ディティール","icon":"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>"}
+        {
+            "id":"zinzya",
+            "title":"宮崎県神社",
+            "origin":"オリジン",
+            "detail":"ディティール",
+            "icon":"<i class='fa fa-picture-o fa-fw' style='color:gray;'></i>",
+            "opacity":"0.5"
+        },
+        {
+            "id":"youtotiiki",
+            "title":"宮崎県用途地域",
+            "origin":"オリジン",
+            "detail":"ディティール",
+            "icon":"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+            "opacity":"0.5"
+        }
     ];
