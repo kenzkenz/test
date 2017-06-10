@@ -133,7 +133,11 @@ function funcHaikeiTableCreate(mapElement,mapName){
         });
         //---------------------------------------------------------------------
         var ua = navigator.userAgent;
-        var idandclass = layer.getProperties()["title"];
+        try {
+            var idandclass = layer.getProperties()["title"];
+        }catch(e){
+            var idandclass = layer[0].getProperties()["title"];
+        }
         var myurl = location.href;
         $.ajax({
             type:"GET",

@@ -107,6 +107,13 @@ $(function(){
                 czmlCreate(features,$(this));
             }
 
+            if(dataLayer["map1-senkyoku"]){
+                var features = dataLayer["map1-senkyoku"].getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+            }
+
+
         }else{
             var ol3d = eval(mapObj["ol3d"]);
             //ol3d.setEnabled(false);
@@ -218,6 +225,80 @@ function czmlCreate(features,element){
     }];
     var czmlId = 1;
     for (i=0; i<features.length; i++){
+        var multiLength = features[i].getGeometry().getCoordinates().length
+        for (j=0; j<multiLength;j++) {
+            var coordArr2 = [];
+            if(features[i].getGeometry().getType()!="MultiPolygon"){
+            //if(multiLength==1) {
+                var coordArr = features[i].getGeometry().getCoordinates()[0];
+            }else{
+                var coordArr = features[i].getGeometry().getCoordinates()[j][0];
+            }
+            for (k = 0; k < coordArr.length; k++) {
+                var coord = ol.proj.transform(coordArr[k], "EPSG:3857", "EPSG:4326");
+                coordArr2.push(Number(coord[0]));
+                coordArr2.push(Number(coord[1]));
+                coordArr2.push(0);
+            }
+            var fillColor = features[i].getProperties()["_fillColor"];
+            var fillColorRgb = fillColor.replace("a", "").substr(0, fillColor.lastIndexOf(",") - 1) + ")";
+            var color0 = new RGBColor(fillColorRgb);
+            if (features[i].getProperties()["_fillOpacity"]) {
+                var rgba = [Number(color0.r), Number(color0.g), Number(color0.b), 150];
+            } else {
+                var rgba = [Number(color0.r), Number(color0.g), Number(color0.b), 150];
+            }
+            var polygonHeight = features[i].getProperties()["_polygonHeight"];
+            //var polygonHeight = 40
+            var description = features[i].getProperties()["hover"];
+            var d3Polygon = [
+                {
+                    "id": czmlId++, "description": description,
+                    "polygon": {
+                        "extrudedHeight": polygonHeight,
+                        "outline": {"boolean": true},
+                        "outlineColor": {"rgba": [0, 0, 0, 255]},
+                        "material": {
+                            "solidColor": {
+                                "color": {
+                                    "rgba": rgba
+                                }
+                            }
+                        },
+                        "positions": {
+                            "cartographicDegrees": coordArr2
+                        }
+                    }
+                }
+            ]
+            //czml =d3Polygon;
+            czml.push(d3Polygon[0]);
+        }
+
+    }
+    //console.log(JSON.stringify(czml));
+    //console.log(czml)
+    //console.log(czml[1]["polygon"])
+    ol3d.getDataSources().add(Cesium.CzmlDataSource.load(
+        czml,{
+            //camera: scene.camera,
+            //canvas: scene.canvas
+        }
+    ));
+}
+
+/*
+//------------------------------------------------------------------------------
+function czmlCreate(features,element){
+    var mapObj = funcMaps(element);
+    var ol3d = eval(mapObj["ol3d"]);
+    ol3d.getDataSources().removeAll();
+    var czml = [{
+        "id":"document",
+        "version":"1.0"
+    }];
+    var czmlId = 1;
+    for (i=0; i<features.length; i++){
         var coordArr2 =[];
         if(features[i].getGeometry().getType()!="MultiPolygon"){
             var coordArr = features[i].getGeometry().getCoordinates()[0];
@@ -227,11 +308,11 @@ function czmlCreate(features,element){
             funcCoordPush();
         }
         function funcCoordPush(){
-            for (ii=0; ii<coordArr.length; ii++){
-                var coord = ol.proj.transform(coordArr[ii],"EPSG:3857","EPSG:4326");
+            for (k=0; k<coordArr.length; k++){
+                var coord = ol.proj.transform(coordArr[k],"EPSG:3857","EPSG:4326");
                 coordArr2.push(Number(coord[0]));
                 coordArr2.push(Number(coord[1]));
-                coordArr2.push(0)
+                coordArr2.push(0);
             }
         }
         var fillColor = features[i].getProperties()["_fillColor"];
@@ -268,7 +349,7 @@ function czmlCreate(features,element){
         //czml =d3Polygon;
         czml.push(d3Polygon[0])
     }
-    //console.log(JSON.stringify(czml))
+    console.log(JSON.stringify(czml))
     //console.log(czml)
     //console.log(czml[1]["polygon"])
     ol3d.getDataSources().add(Cesium.CzmlDataSource.load(
@@ -278,3 +359,5 @@ function czmlCreate(features,element){
         }
     ));
 }
+
+*/

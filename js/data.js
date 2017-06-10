@@ -68,11 +68,13 @@ $(function(){
     $("body").on("click",".data-td-info",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-        var targetId = $(this).parents("tr").find("input:checkbox[name='data-check']").val();
+        var targetId = $(this).parents("tr").find("input:checkbox[name='data-check']").val().split("-")[1];
+        console.log(targetId);
         var dataLayerFilter = dataLayerArr.filter(function (item,index) {
            if(item.id===targetId) return true;
         });
         var obj = dataLayerFilter[0];
+        console.log(obj);
         var content = "<table class='data-info-tbl table table-bordered table-condensed'>";
             content += "<tr><td>データ名</td><td>" + obj["title"] + "</td></tr>";
             content += "<tr><td>出典</td><td>" + obj["origin"] + "</td></tr>";
@@ -85,6 +87,7 @@ $(function(){
             title:"インフォメーション",
             content:content,
             top:"100px",
+
             left:"220px",
             rmDialog:true
         });
@@ -101,6 +104,8 @@ $(function(){
                 dataLayerId:dataLayerId.split("-")[1]
             }
         }).done(function(json){
+            //console.log(json.geojson);
+            //console.log(JSON.stringify(json.geojson));
             var geojsonObject = json.geojson;
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
@@ -120,12 +125,13 @@ $(function(){
                         });
                         break;
                     case "Polygon":
+                    case "MultiPolygon":
                         var style = new ol.style.Style({
                             fill: new ol.style.Fill({
                                 color:fillColor
                             }),
                             stroke: new ol.style.Stroke({
-                                color: '#0ff',
+                                color: "gray",
                                 width: 1
                             })
                         });
@@ -138,15 +144,6 @@ $(function(){
                 name:"dataLayer",
                 source:vectorSource,
                 style:styleFunction
-                /*
-                style: new ol.style.Style({
-                    image: new ol.style.Circle({
-                        radius: 12,
-                        fill: new ol.style.Fill({color: "red"}),
-                        stroke: new ol.style.Stroke({color: "white", width: 1})
-                    })
-                })
-                */
             });
             dataLayer[dataLayerId].set("altitudeMode","clampToGround");
             eval(mapName).addLayer(dataLayer[dataLayerId]);
@@ -163,6 +160,29 @@ $(function(){
             tgtTr.find(".ui-slider-handle").css({
                 "left":opacity*100 + "%"
             });
+            //----------------------------------------------------------------------------
+            if(dataLayerId.split("-")[1]==="senkyoku"){
+                var features = dataLayer[dataLayerId].getSource().getFeatures();
+                var valueAr = [];
+                for (i = 0; i < features.length; i++) {
+                    valueAr.push(features[i]["I"]["75歳以上比率"]);
+                }
+                var color100Ar = funcColor100(valueAr);
+                var color100 = color100Ar[0];
+                var min = color100Ar[2];
+                var d3Color = d3.interpolateLab("white", "purple");
+                for (i = 0; i < features.length; i++) {
+                    var value = features[i]["I"]["75歳以上比率"];
+                    var c100 = (value-min)/color100/100;
+                    var color0 = new RGBColor(d3Color(c100));
+                    var rgb = new RGBColor(d3Color(c100)).toRGB();
+                    var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.9)";
+                    var targetFillColor = d3Color(c100);
+                    //var fillColor = d3Color(features[i]["I"]["75歳以上比率"]);
+                    features[i]["I"]["_fillColor"] = rgba;
+                    features[i]["I"]["_polygonHeight"] = c100*c100*100000;
+                }
+            }
         }).fail(function(){
             alert("失敗!");
         });
@@ -177,6 +197,7 @@ function funcDataLayerSort(mapName){
     });
 }
 //----------------------------------------------------------------------------------------------------------------------
+
 var dataLayerArr =
     [
         {
@@ -194,5 +215,13 @@ var dataLayerArr =
             "detail":"ディティール",
             "icon":"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
             "opacity":"0.5"
+        },
+        {
+            "id":"senkyoku",
+            "title":"小選挙区75歳以上比率",
+            "origin":"<a href='http://www.csis.u-tokyo.ac.jp/~nishizawa/senkyoku/' target='_blank'>衆議院議員選挙の小選挙区に関するデータを提供するページ</a>",
+            "detail":"",
+            "icon":"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+            "opacity":"1"
         }
     ];

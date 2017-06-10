@@ -100,7 +100,7 @@ $(function(){
         if (map==="map1") {
             popup1.show(coord, content);
             $("#map1 .popup-th").css({
-                "width":(maxKeyLength + 2) + "em"
+                "width":(maxKeyLength * 2) + "em"
             })
         } else {
             popup2.show(coord, content);
