@@ -88,7 +88,8 @@ $(function(){
             if(key!="geometry"){
                 if(String(key.indexOf("_"))==-1 && key != "id"){
                     table += "<tr>";
-                    table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + featureProp[key] + "</td>";
+                    var prop = featureProp[key].replace("<img src='","<img src='./php/proxy-jpeg.php?url=");
+                    table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
                     table += "</tr>";
                     if(maxKeyLength<key.length) maxKeyLength = key.length
                 }

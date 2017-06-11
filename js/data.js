@@ -115,8 +115,21 @@ $(function(){
                 var prop = feature.getProperties();
                 var geoType = feature.getGeometry().getType();
                 var fillColor = prop["_fillColor"];
-                if(resolution>1222) {
+
+                if(resolution>2445) {//ズーム６
+                    var pointRadius = 0;
+                }else if(resolution>1222) {//ズーム７
+                    var pointRadius = 1;
+                }else if(resolution>611){
+                    var pointRadius = 2;
+                }else if(resolution>305) {
                     var pointRadius = 4;
+                }else if(resolution>152) {
+                    var pointRadius = 6;
+                }else if(resolution>76) {
+                    var pointRadius = 8;
+                }else if(resolution>38) {
+                    var pointRadius = 10;
                 }else{
                     var pointRadius = 12;
                 }
@@ -268,6 +281,15 @@ var dataLayerArr =
             "detail":"試行中",
             "icon":"<i class='fa fa-car fa-fw' style='color:black;'></i>",
             "opacity":"0.8",
+            "zoom":""
+        },
+        {
+            "id":"mitinoeki",
+            "title":"道の駅(九州)",
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-car fa-fw' style='color:green;'></i>",
+            "opacity":"1",
             "zoom":""
         }
     ];

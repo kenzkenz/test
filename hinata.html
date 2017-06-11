@@ -84,7 +84,7 @@
         <script src="js/log.js"></script>
     </head>
     <body>
-        <!-- モーダル・ダイアログ-------------------------------------------------------------------------------------->
+        <!-- モーダル・ダイアログ-->
         <div class="modal fade" id="modal-div" tabindex="-1">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
@@ -103,7 +103,7 @@
                 </div>
             </div>
         </div>
-        <!-- モーダル・ダイアログ ここまで----------------------------------------------------------------------------->
+        <!-- モーダル・ダイアログ ここまで-->
         <i id="loading-fa" class="fa fa-spinner fa-spin fa-3x fa-fw"></i>
         <div id="map1" class="maps">
             <!--<div id="myContextOverlay-div">右クリック実験中！！実験中！！実験中</div>-->
@@ -141,6 +141,33 @@
             </div>
         </div>
         <div id="map2" class="maps"></div>
+        <!--ie11対策 Polyfill-->
+        <script>
+            if (typeof Object.assign != 'function') {
+            (function () {
+            Object.assign = function (target) {
+            'use strict';
+            if (target === undefined || target === null) {
+            throw new TypeError('Cannot convert undefined or null to object');
+            }
+
+            var output = Object(target);
+            for (var index = 1; index < arguments.length; index++) {
+            var source = arguments[index];
+            if (source !== undefined && source !== null) {
+            for (var nextKey in source) {
+            if (Object.prototype.hasOwnProperty.call(source, nextKey)) {
+            output[nextKey] = source[nextKey];
+            }
+            }
+            }
+            }
+            return output;
+            };
+            })();
+            }
+        </script>
+
         <script>
             $("#map2").append($("#map1>*").clone());
             $("#map2>*").css("display","none");
