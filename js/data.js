@@ -122,9 +122,9 @@ $(function(){
                 var fillColor = prop["_fillColor"];
 
                 if(resolution>2445) {//ズーム６
-                    var pointRadius = 0;
+                    var pointRadius = 2;
                 }else if(resolution>1222) {//ズーム７
-                    var pointRadius = 1;
+                    var pointRadius = 2;
                 }else if(resolution>611){
                     var pointRadius = 2;
                 }else if(resolution>305) {
@@ -284,16 +284,16 @@ var dataLayerArr =
             "title":"高速道路",
             "origin":"",
             "detail":"試行中",
-            "icon":"<i class='fa fa-car fa-fw' style='color:black;'></i>",
+            "icon":"<i class='fa fa-car fa-fw' style='color:red;'></i>",
             "opacity":"0.8",
             "zoom":""
         },
         {
             "id":"mitinoeki",
-            "title":"道の駅(九州)",
+            "title":"道の駅",
             "origin":"",
             "detail":"試行中",
-            "icon":"<i class='fa fa-car fa-fw' style='color:green;'></i>",
+            "icon":"<i class='fa fa-car fa-fw' style='color:midnightblue;'></i>",
             "opacity":"1",
             "zoom":""
         }
