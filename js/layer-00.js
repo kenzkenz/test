@@ -143,7 +143,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
             type:"GET",
             url:"php/log.php",
             data:{
-                idandclass:idandclass,
+                idandclass:"背景名:" + idandclass,
                 ua:ua,
                 myurl:myurl
             }

@@ -12,7 +12,7 @@ $(function(){
             title: "データレイヤー 作成中",
             content: content,
             top: "55px",
-            left: "10px",
+            left: "10px"
             //hide:true,
             //plus:true
         });
@@ -20,13 +20,13 @@ $(function(){
     });
     //------------------------------------------------------------------------------------------------------------------
     function funcDataTableCreate(mapObj,mapName) {
-        var htmlChar = "作成中。現在地取得ボタンは右下に移動!";
+        var htmlChar = "作成中!検証中！試行中！";
             htmlChar += "<div class='data-tbl-div'><table class='data-tbl table table-bordered table-condensed'>";
         for(var i = 0; i < dataLayerArr.length; i++){
             var obj = dataLayerArr[i];
             var layerId = mapName + "-" + obj["id"];
-            htmlChar += "<tr data-opacity='" + obj["opacity"] + "'>";
-            htmlChar += "<td><label><input type='checkbox' name='data-check' value='" + layerId + "'>" + obj["icon"] + obj["title"] +  "</label></td>";
+            htmlChar += "<tr data-opacity='" + obj["opacity"] + "' data-zoom='" + obj["zoom"] + "'>";
+            htmlChar += "<td><label><input type='checkbox' name='data-check' value='" + layerId + "'><span class='wf-icon'>" + obj["icon"] + "</span>" + obj["title"] +  "</label></td>";
             //htmlChar += "<td class='data-td-slider'><div class='data-slider'></div></td>";
             htmlChar += "<td class='data-td-slider'></td>";
             htmlChar += "<td class='data-td-sort' title='ドラッグします。'><i class='fa fa-bars fa-lg'></i></td>";
@@ -47,15 +47,16 @@ $(function(){
             checkboxClass:"icheckbox_flat-blue",
             radioClass:"iradio_flat-blue"
         });
-        //チェックボックスを押した時★★★★★-------------------------------------------------------------------------
+        //チェックボックスを押した時★★★★★-------------------------------------------------------------------------------
         $("#" + mapName + " input:checkbox[name='data-check']").on("ifChanged",function(event){
             var mapObj = funcMaps($(this));
             var mapName = mapObj["name"];
             var dataLayerId = $(this).val();
             var tgtTr = $(this).parents("tr");
             var opacity = tgtTr.data("opacity");
+            var zoom = tgtTr.data("zoom");
             if($(this).prop("checked")) {
-                dataLayerCreate(dataLayerId, mapName, tgtTr,opacity);
+                dataLayerCreate(dataLayerId, mapName, tgtTr,opacity,zoom);
             }else {
                 eval(mapName).removeLayer(dataLayer[dataLayerId]);
                 tgtTr.find(".data-slider").remove();
@@ -87,7 +88,6 @@ $(function(){
             title:"インフォメーション",
             content:content,
             top:"100px",
-
             left:"220px",
             rmDialog:true
         });
@@ -95,7 +95,7 @@ $(function(){
     });
     //------------------------------------------------------------------------------------------------------------------
     //データレイヤー　クリエイト　ファンクション
-    function dataLayerCreate(dataLayerId,mapName,tgtTr,opacity){
+    function dataLayerCreate(dataLayerId,mapName,tgtTr,opacity,zoom){
         $.ajax({
             type:"get",
             url:"php/geojson-create.php",
@@ -110,15 +110,29 @@ $(function(){
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
+            //スタイルファンクション---------------------
             var styleFunction = function(feature, resolution) {
                 var prop = feature.getProperties();
                 var geoType = feature.getGeometry().getType();
                 var fillColor = prop["_fillColor"];
+                if(resolution>1222) {
+                    var pointRadius = 4;
+                }else{
+                    var pointRadius = 12;
+                }
                 switch (geoType){
+                    case "LineString":
+                        var style = new ol.style.Style({
+                            stroke: new ol.style.Stroke({
+                                color:fillColor,
+                                width:6
+                            })
+                        });
+                        break;
                     case "Point":
                         var style = new ol.style.Style({
                             image: new ol.style.Circle({
-                                radius: 12,
+                                radius:pointRadius,
                                 fill: new ol.style.Fill({color:fillColor}),
                                 stroke: new ol.style.Stroke({color: "white", width: 1})
                             })
@@ -140,6 +154,7 @@ $(function(){
                 }
                 return style;
             };
+            //--------------------------------------
             dataLayer[dataLayerId] = new ol.layer.Vector({
                 name:"dataLayer",
                 source:vectorSource,
@@ -149,7 +164,9 @@ $(function(){
             eval(mapName).addLayer(dataLayer[dataLayerId]);
             dataLayer[dataLayerId].setOpacity(opacity);
             dataLayer[dataLayerId].setZIndex(9999);
-            //スライダー---------------------------
+            console.log(zoom)
+            if(zoom) eval(mapName).getView().setZoom(zoom);
+            //スライダー-----------------------------------------------------------------
             tgtTr.find(".data-td-slider").append("<div class='data-slider'></div>");
             tgtTr.find(".data-slider").slider({
                 min:0,max:1,value:1,step:0.01,
@@ -160,7 +177,23 @@ $(function(){
             tgtTr.find(".ui-slider-handle").css({
                 "left":opacity*100 + "%"
             });
-            //----------------------------------------------------------------------------
+            //ログ-----------------------------------------------------------------------
+            var ua = navigator.userAgent;
+            var myurl = location.href;
+            $.ajax({
+                type:"GET",
+                url:"php/log.php",
+                data:{
+                    idandclass:"データ名:" + dataLayerId,
+                    ua:ua,
+                    myurl:myurl
+                }
+            }).done(function(){
+            }).fail(function(){
+                console.log("ログ失敗!");
+            });
+            //---------------------------------------------------------------------------
+            //特有の処理
             if(dataLayerId.split("-")[1]==="senkyoku"){
                 var features = dataLayer[dataLayerId].getSource().getFeatures();
                 var valueAr = [];
@@ -203,25 +236,38 @@ var dataLayerArr =
         {
             "id":"zinzya",
             "title":"宮崎県神社",
-            "origin":"オリジン",
-            "detail":"ディティール",
-            "icon":"<i class='fa fa-picture-o fa-fw' style='color:gray;'></i>",
-            "opacity":"0.5"
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-tree fa-fw' style='color:gray;'></i>",
+            "opacity":"0.5",
+            "zoom":""
+
         },
         {
             "id":"youtotiiki",
             "title":"宮崎県用途地域",
-            "origin":"オリジン",
-            "detail":"ディティール",
-            "icon":"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
-            "opacity":"0.5"
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-map fa-fw' style='color:orangered;'></i>",
+            "opacity":"0.5",
+            "zoom":""
         },
         {
             "id":"senkyoku",
             "title":"小選挙区75歳以上比率",
             "origin":"<a href='http://www.csis.u-tokyo.ac.jp/~nishizawa/senkyoku/' target='_blank'>衆議院議員選挙の小選挙区に関するデータを提供するページ</a>",
             "detail":"",
-            "icon":"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
-            "opacity":"1"
+            "icon":"<i class='fa fa-area-chart fa-fw' style='color:purple;'></i>",
+            "opacity":"1",
+            "zoom":"6"
+        },
+        {
+            "id":"kousokudouro",
+            "title":"高速道路",
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-car fa-fw' style='color:black;'></i>",
+            "opacity":"0.8",
+            "zoom":""
         }
     ];

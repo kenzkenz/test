@@ -147,6 +147,17 @@ label:hover{
 .data-slider{
     width:100%;
 }
+/*データインフォメーションのテーブル----------------------------------------------*/
+.data-info-tbl{
+    width:200px;
+}
+.data-info-tbl tr td:nth-child(1){
+    width:60px;
+    text-align:center;
+}
+
+
+
 /*背景テーブル-----------------------------------------------------------------*/
 .haikei-tbl-div{
     overflow-x:auto;
@@ -166,7 +177,7 @@ label:hover{
 .haikei-slider{
     width:50px;
 }
-/*インフォメーションのテーブル--------------------------------------------------*/
+/*背景インフォメーションのテーブル-----------------------------------------------*/
 .info-tbl{
     width:200px;
 }
@@ -239,6 +250,9 @@ label:hover{
 }
 .primary:hover{
     color:tomato;
+}
+.wf-icon{
+    margin:0 3px;
 }
 /*セレクトボックス select2を使用-------------------------------------------------*/
 .select2-container .select2-choice {
