@@ -2,21 +2,26 @@ var dataLayer = [];
 $(function(){
     $(".data-btn").click(function(){
         var mapObj = funcMaps($(this));
-        var mapName = mapObj["name"];
-        var id = "data-dialog-" + mapObj["name"];
-        var content = "";
-        mydialog({
-            id: id,
-            class: "data-dialog",
-            map:mapName,
-            title: "データレイヤー 作成中",
-            content: content,
-            top: "55px",
-            left: "10px"
-            //hide:true,
-            //plus:true
-        });
-        funcDataTableCreate(mapObj,mapName);
+        if ($("#mydialog-data-dialog-" + mapObj["name"]).length==0) {
+            var mapObj = funcMaps($(this));
+            var mapName = mapObj["name"];
+            var id = "data-dialog-" + mapObj["name"];
+            var content = "";
+            mydialog({
+                id: id,
+                class: "data-dialog",
+                map: mapName,
+                title: "データレイヤー 作成中",
+                content: content,
+                top: "55px",
+                left: "10px"
+                //hide:true,
+                //plus:true
+            });
+            funcDataTableCreate(mapObj, mapName);
+        }else{
+            $("#mydialog-data-dialog-" + mapObj["name"]).toggle("drop");
+        }
     });
     //------------------------------------------------------------------------------------------------------------------
     function funcDataTableCreate(mapObj,mapName) {
