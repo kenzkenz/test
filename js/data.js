@@ -296,5 +296,14 @@ var dataLayerArr =
             "icon":"<i class='fa fa-car fa-fw' style='color:midnightblue;'></i>",
             "opacity":"1",
             "zoom":""
+        },
+        {
+            "id":"koureisyasisetu",
+            "title":"高齢者福祉施設",
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-user fa-fw' style='color:black;'></i>",
+            "opacity":"1",
+            "zoom":""
         }
     ];

@@ -36,6 +36,7 @@ $(function(){
         var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
+        msg += "★現在不具合発生中！統計機能が使えません！<br>";
         msg += "1 estatに10万人あたりの列を追加<br>";
         msg += "2 右クリックで人口機能完成 スマホは長押し<br>";
         msg += "3 CSV機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
