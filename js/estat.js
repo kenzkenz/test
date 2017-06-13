@@ -80,8 +80,29 @@ $(function(){
             });
         });
     };
-    //下三つは特にプロミスの必要はない。
-    cityAjax();
+
+    var prefcode = 45;
+    var cityAjax2 = function(){
+        return new Promise(function (resolve,reject){
+            $.ajax({
+                type: "GET",
+                url: "php/citycode.php",
+                dataType: "json",
+                data: {
+                    prefcode:prefcode
+                }
+            }).done(function (json) {
+                //resolve(json);
+                console.log(json);
+            }).fail(function () {
+                console.log("失敗!");
+            });
+        });
+    };
+
+    //下4つは特にプロミスの必要はない。
+    //cityAjax();
+    //cityAjax2();
     cityTableAjax();
     prefTableAjax();
 	//----------------------------------------------------------------------------------------------
@@ -264,7 +285,10 @@ $(function(){
                     console.log("失敗!");
                 });
                 $("#" + mapName + " .estat-table-select").html(citySelectOption);
+
+
                 //国交省のapiを使用　http://www.land.mlit.go.jp/webland/api.html#todofukenlist
+                /*
                 var tgtUrl = "http://www.land.mlit.go.jp/webland/api/CitySearch?";
                 var area = $(this).val().substr(0, 2);
                 var cityAjax = function () {
@@ -284,6 +308,29 @@ $(function(){
                         });
                     });
                 };
+                */
+
+                var prefcode = $(this).val().substr(0, 2);
+                console.log(prefcode);
+                var cityAjax = function(){
+                    return new Promise(function (resolve,reject){
+                        $.ajax({
+                            type: "GET",
+                            url: "php/citycode.php",
+                            dataType: "json",
+                            data: {
+                                prefcode:prefcode
+                            }
+                        }).done(function (json) {
+                            resolve(json);
+                            console.log(json);
+                        }).fail(function () {
+                            console.log("失敗!");
+                        });
+                    });
+                };
+
+
                 var zinkouAjax = function () {
                     return new Promise(function (resolve, reject) {
                         var statsdataId = "C00200502" + area;
@@ -306,6 +353,7 @@ $(function(){
                 //------------------------------------------------------------------
                 Promise.all([cityAjax(), zinkouAjax()]).then(function (results) {
                     //---------------------------------
+                    /*
                     var cityAr = results[0]["json"]["data"];
                     var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
                         tblHtml += "<thead><tr class='info'>";
@@ -327,9 +375,35 @@ $(function(){
                         tblHtml += "<td class='estat-division-td'>" + "" + "</td>";
                         tblHtml += "</tr>";
                     }
+                    */
+                    var cityAr = results[0];
+                    var tblHtml = "<table class='estat-tbl table table-bordered table-hover tablesorter'>";
+                    tblHtml += "<thead><tr class='info'>";
+                    tblHtml += "<th></th>";
+                    tblHtml += "<th>コード</th>";
+                    tblHtml += "<th>自治体名</th>";
+                    tblHtml += "<th class='estat-zinkou-th'>人口</th>";
+                    tblHtml += "<th class='estat-unit-th' data-tgt='.estat-value-td'></th>";
+                    tblHtml += "<th class='estat-division-th' data-tgt='.estat-division-td'>@10万人</th>";
+                    tblHtml += "</tr></thead><tbody>";
+                    for (var i = 0; i < cityAr.length; i++) {
+                        var citycode = cityAr[i]["citycode"].substr(0,5);
+                        tblHtml += "<tr class='tr-" + citycode + "'>";
+                        tblHtml += "<td class='estat-lank-td'></td>";
+                        tblHtml += "<td class='estat-city-code'>" + citycode + "</td>";
+                        tblHtml += "<td class='estat-city-td'>" + cityAr[i]["cityname"] + "</td>";
+                        tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
+                        tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
+                        //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
+                        tblHtml += "<td class='estat-division-td'>" + "" + "</td>";
+                        tblHtml += "</tr>";
+                    }
+
+
                     tblHtml += "</tbody></table>";
                     $("#" + mapName + " .estat-tbl-div").html(tblHtml);
                     var zinkouAr = JSON.parse(results[1])["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
+                    console.log(zinkouAr);
                     zinkouTdSet(zinkouAr, mapName);
                     funcHaikeiTblDivHeight();//common.jsにある関数
                     //---------------------------------

@@ -289,6 +289,15 @@ var dataLayerArr =
             "zoom":""
         },
         {
+            "id":"kousokudourohigasi9",
+            "title":"高速道路(東九州)",
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-car fa-fw' style='color:red;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
             "id":"mitinoeki",
             "title":"道の駅",
             "origin":"",
