@@ -28,6 +28,8 @@ $(function(){
             })
         }
     }
+
+
     //--------------------------------------------------------------------------
     //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
@@ -37,6 +39,7 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         //msg += "★現在不具合発生中！統計機能が使えません！<br>";
+        msg += "！！現在も継続的に作成中です！！<br>";
         msg += "1 背景に九州１Kメッシュ人口を追加<br>";
         msg += "2 estatに10万人あたりの列を追加<br>";
         msg += "3 右クリックで人口機能完成 スマホは長押し<br>";
