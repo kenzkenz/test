@@ -396,12 +396,15 @@ $(function(){
     //-----------------------------------------------------------------------------
     var coordDiff = [];
     function imgTargetPointLayerCreate(coord) {
-        map1.removeLayer(imgTargetPointLayer1);
 
+
+        if(!geoimg) return;
+
+
+        map1.removeLayer(imgTargetPointLayer1);
        // if(coordDiff.length>0){
          //   coord = [coord[0] + coordDiff[0],coord[1] + coordDiff[1]];
        // }
-        
         var imgPointSsource = new ol.source.Vector({
             features: [
                 new ol.Feature({

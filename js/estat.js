@@ -130,8 +130,10 @@ $(function(){
 			return;
 		}
         var content = "";
-		    content += "　出典:<a href='http://www.e-stat.go.jp/api/sample2/tokeidb/getStatsList?statsCode=00200502&openYears=2017&searchKind=3' target='_blank'>社会・人口統計体系（都道府県・市区町村のすがた）</a><br>";
-			content += "<select class='estat-pref-select'></select>";
+		    content += "<small>";
+		    content += "出典:<a href='http://www.e-stat.go.jp/api/sample2/tokeidb/getStatsList?statsCode=00200502&openYears=2017&searchKind=3' target='_blank'>社会・人口統計体系（都道府県・市区町村のすがた）</a><br>";
+			content += "</small>";
+		    content += "<select class='estat-pref-select'></select>";
 			content += "<select class='estat-table-select'></select>";
 			content += "<div class='estat-year-div'></div>";
 			content += "<div class='estat-tbl-div minmax-div'></div>";

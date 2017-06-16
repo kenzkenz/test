@@ -57,6 +57,9 @@ $(function(){
             case "dataLayer":
                 funcDataLayerPopup(feature,map,evt);
                 break;
+            case "resasLayer":
+                funcResasLayerPopup(feature,map,evt);
+                break;
             default:
         }
         /*
@@ -72,6 +75,66 @@ $(function(){
             popup2.show(coord,content);
         }
         */
+    }
+    //-----------------------------------------------
+    function funcResasLayerPopup(feature,mapName,evt) {
+        //console.log(feature);
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        //console.log(featureProp);
+        var cityCode = featureProp["コード"];
+        var kizyunThTxt = $("#" + mapName).find(".resas-kizyun-th").text();
+        var kizyunTdTxt = Number($("#" + mapName + " .tr-" + cityCode).find(".resas-kizyun-td").text()).toLocaleString();
+        var zinkouThTxt = $("#" + mapName).find(".resas-zinkou-th").text();
+        var zinkouTdTxt = Number($("#" + mapName + " .tr-" + cityCode).find(".resas-zinkou-td").text()).toLocaleString();
+        var zougenrituTdTxt = $("#" + mapName + " .tr-" + cityCode).find(".resas-zougenritu-td").text();
+        var content = "";
+            content += "<input type='hidden' class='city-code' value='" + featureProp["コード"] + "'>";
+            content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
+            content += "<div style='text-align:center;'><b>" + featureProp["自治体名"] + "</b></div><hr class='my-hr'>";
+            content += "増減率：<span style='font-size:24px;'>" + zougenrituTdTxt + "</span><br>";
+            content += kizyunThTxt + "：" + kizyunTdTxt + "人<br>";
+            content += zinkouThTxt + "：" + zinkouTdTxt + "人<br>";
+            content += "<hr class='my-hr'>";
+            content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド</button>";
+            content += "<button type='button' class='d-btn btn btn-xs btn-primary btn-block' data-action='d-btn'>作成中</button>";
+
+
+        if(mapName==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    popup1.getElement().addEventListener("click", function(event) {
+        var mapName = "map1";
+        aaa(event,mapName);
+    }, false);
+    popup2.getElement().addEventListener("click", function(event) {
+        var mapName = "map2";
+        aaa(event,mapName);
+    }, false);
+    function aaa(event,mapName){
+        var contentElement = $(event["target"]).parents(".ol-popup-content");
+        console.log($(event["target"]).parents(".ol-popup-content").text());
+        var action = event["target"].getAttribute("data-action");
+        //var cityCode = event["target"].getAttribute("data-citycode");
+        //var cityName = event["target"].getAttribute("data-cityname");
+        var cityCode = contentElement.find(".city-code").val();
+        var cityName = contentElement.find(".city-name").val();
+        if(action){
+            switch (action) {
+                case "pyramid-btn":
+                    funcResasPyramid(mapName,cityCode,cityName);
+                    break;
+            }
+        }
     }
     //-----------------------------------------------
     function funcDataLayerPopup(feature,map,evt) {

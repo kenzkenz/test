@@ -28,8 +28,6 @@ $(function(){
             })
         }
     }
-
-
     //--------------------------------------------------------------------------
     //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
@@ -40,24 +38,18 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         //msg += "★現在不具合発生中！統計機能が使えません！<br>";
         msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 背景に九州１Kメッシュ人口を追加<br>";
-        msg += "2 estatに10万人あたりの列を追加<br>";
-        msg += "3 右クリックで人口機能完成 スマホは長押し<br>";
-        msg += "4 CSV機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
-        msg += "5 GPX機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
-        msg += "6 パノラマ写真表示機能実験中。写真8枚追加。<br>";
-        //msg += "3 鹿児島市航空写真を追加しました。<br>";
-        msg += "7 綾ユネスコエコパークを追加しました。<br>";
-        msg += "8 宮崎県(九州)赤色立体地図を追加しました。<br>";
-        msg += "9 画面左下に標高表示機能を追加しました。<br>";
-        msg += "10 都城市、延岡市戦後米軍地図を追加しました。<br>";
-        //msg += "10 resas人口体系連携機能を作成中です。<br>";
-        //msg += "10 室蘭市戦後米軍地図を追加しました。<br>";
-        //msg += "10 背景追加機能を追加しました。<br>";
-        //msg += "10 PNG保存機能を追加しました。<br>";
-        //msg += "11 estatにグラフ機能を追加しました。<br>";
+        msg += "1 RESAS機能に人口ピラミッドを追加。市町村をクリック<br>";
+        msg += "2 背景に九州１Kメッシュ人口を追加<br>";
+        msg += "3 estatに10万人あたりの列を追加<br>";
+        msg += "4 右クリックで人口機能完成 スマホは長押し<br>";
+        msg += "5 CSV機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
+        msg += "6 GPX機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
+        msg += "7 パノラマ写真表示機能実験中。写真8枚追加。<br>";
+        msg += "8 綾ユネスコエコパークを追加しました。<br>";
+        msg += "9 宮崎県(九州)赤色立体地図を追加しました。<br>";
+        msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/06/13</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/06/16</div>";
         $.notify({//options
             message: msg
         }, {//settings

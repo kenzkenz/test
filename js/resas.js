@@ -27,25 +27,27 @@ $(function(){
             return;
         }
         var content = "";
-        content += "　出典:<a href='https://opendata.resas-portal.go.jp/docs/api/v1/population/composition/perYear.html' target='_blank'>RESAS-API 人口構成</a><br>";
-        content += "<select class='resas-pref-select'></select>";
-        //content += "<select class='resas-table-select'></select>";
-        content += "<select class='resas-zinkou-select'>";
-        content += "<option value='0'>総人口</option>";
-        content += "<option value='1'>年少人口</option>";
-        content += "<option value='2'>生産年齢人口</option>";
-        content += "<option value='3'>老年人口</option>";
-        //content += "<option value='4'>年少人口割合</option>";
-        //content += "<option value='5'>生産年齢人口割合</option>";
-        //content += "<option value='6'>老年人口割合</option>";
-        content += "</select>";
-        content += "<div class='resas-year-div'></div>";
-        content += "<div class='resas-tbl-div minmax-div'></div>";
+            content += "<small>";
+            content += "出典:<a href='https://opendata.resas-portal.go.jp/docs/api/v1/population/composition/perYear.html' target='_blank'>RESAS-API 人口構成</a><br>";
+            content += "</small>";
+            content += "<select class='resas-pref-select'></select>";
+            //content += "<select class='resas-table-select'></select>";
+            content += "<select class='resas-zinkou-select'>";
+            content += "<option value='0'>総人口</option>";
+            content += "<option value='1'>年少人口</option>";
+            content += "<option value='2'>生産年齢人口</option>";
+            content += "<option value='3'>老年人口</option>";
+            //content += "<option value='4'>年少人口割合</option>";
+            //content += "<option value='5'>生産年齢人口割合</option>";
+            //content += "<option value='6'>老年人口割合</option>";
+            content += "</select>";
+            content += "<div class='resas-year-div'></div>";
+            content += "<div class='resas-tbl-div minmax-div'></div>";
         mydialog({
             id:"resas-dialog-" + mapName,
             class:"resas-dialog",
             map:mapName,
-            title:"RESAS 作成中 現在完成度５０％程度",
+            title:"RESAS 作成中 現在完成度５９％程度",
             content:content,
             top:"55px",
             left:"20px",
@@ -60,10 +62,12 @@ $(function(){
         }
         $("#" + mapName + " .resas-pref-select").html(option);
         $("#" + mapName + " .resas-pref-select").select2({
-            width:"100px"
+            width:"115px",
+            minimumResultsForSearch:Infinity
         });
         $("#" + mapName + " .resas-zinkou-select").select2({
-            width:"180px"
+            width:"115px",
+            minimumResultsForSearch:Infinity
         });
         //----------------------------------------------------------------------
         //都道府県を選択したとき
@@ -181,7 +185,7 @@ $(function(){
                     var lastYear = resasDataAr[i]["zinkou"]["data"][zinkoSelectedVal]["data"][lastYearNum]["year"];
                     tblHtml += "<tr class='tr-" + resasDataAr[i]["cityCode"] + "'>";
                     tblHtml += "<td class='resas-lank-td'></td>";
-                    tblHtml += "<td>" + resasDataAr[i]["cityCode"] + "</td>";
+                    tblHtml += "<td class='resas-citycode-td'>" + resasDataAr[i]["cityCode"] + "</td>";
                     tblHtml += "<td class='resas-city-td'>" + resasDataAr[i]["cityName"] + "</td>";
                     if(resasDataAr[i]["zinkou"]["data"][zinkoSelectedVal]["data"][boundaryYearNum]) {
                         var kizyunZinkou = resasDataAr[i]["zinkou"]["data"][zinkoSelectedVal]["data"][boundaryYearNum]["value"];
