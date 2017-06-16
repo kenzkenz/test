@@ -163,68 +163,7 @@ $(function(){
 			width:"250px"
 		});
         $("#" + mapName + " .estat-table-select").html(citySelectOption);
-        //$(".select2-results__options").css({"height":"500xp"});
-        //------------------------------------------------------------------------------------------
-        /*
-        var cityTableAjax = function(){
-            return new Promise(function(resolve,reject){
-				//estatの表情報を取得してセレクトボックスを作る。市町村用
-				var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
-				$.ajax({
-					type:"get",
-					url:"php/proxy-estat.php",
-					dataType:"json",
-					data:{
-						tgtUrl:tgtUrl,
-						statsDataId:"C0020050245201",
-						cntGetFlg:"Y"
-					}
-				}).done(function(json){
-					var metainfoAr = json["json"]["GET_META_INFO"]["METADATA_INF"]["CLASS_INF"]["CLASS_OBJ"][1]["CLASS"];
-					var option = "<option value='99'>統計表を選択</option>";
-					for (i=0; i<metainfoAr.length; i++){
-						option += "<option value='" + metainfoAr[i]["@code"] + "'>" + (i+1) + "-"  + metainfoAr[i]["@name"] + "</option>";
-					}
-					citySelectOption = option;
-                    $("#" + mapName + " .estat-table-select").html(option);
-					//$.unblockUI();
-					resolve();
-				}).fail(function(){
-					console.log("セレクトボックス作成失敗!");
-				});
-            });
-        };
-        var prefTableAjax = function(){
-            return new Promise(function(resolve,reject){
-                //estatの表情報を取得してセレクトボックスを作る。全国用（都道府県）
-                var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
-                $.ajax({
-                    type:"get",
-                    url:"php/proxy-estat.php",
-                    dataType:"json",
-                    data:{
-                        tgtUrl:tgtUrl,
-                        statsDataId:"C0020050245000",
-                        cntGetFlg:"Y"
-                    }
-                }).done(function(json){
-                    var metainfoAr = json["json"]["GET_META_INFO"]["METADATA_INF"]["CLASS_INF"]["CLASS_OBJ"][1]["CLASS"];
-                    var option = "<option value='99'>統計表を選択</option>";
-                    for (i=0; i<metainfoAr.length; i++){
-                        option += "<option value='" + metainfoAr[i]["@code"] + "'>" + (i+1) + "-"  + metainfoAr[i]["@name"] + "</option>";
-                    }
-                    prefSelectOption = option;
-                    resolve();
-                }).fail(function(){
-                    console.log("セレクトボックス作成失敗!");
-                });
-            });
-        };
-        Promise.all([cityTableAjax(),prefTableAjax()]).then(function(results){
-            $.unblockUI();
-        });
-        */
-		//ここまでセレクトボックス作成
+
 		//-----------------------------------------------------------------------------------------
 		//都道府県セレクトボックスを選択したとき
 		$("#" + mapName + " .estat-pref-select").on("change",function(){
@@ -325,14 +264,14 @@ $(function(){
                             }
                         }).done(function (json) {
                             resolve(json);
-                            console.log(json);
+                            //console.log(json);
                         }).fail(function () {
                             console.log("失敗!");
                         });
                     });
                 };
 
-
+                var area = $(this).val().substr(0, 2);
                 var zinkouAjax = function () {
                     return new Promise(function (resolve, reject) {
                         var statsdataId = "C00200502" + area;
@@ -394,7 +333,7 @@ $(function(){
                         tblHtml += "<td class='estat-lank-td'></td>";
                         tblHtml += "<td class='estat-city-code'>" + citycode + "</td>";
                         tblHtml += "<td class='estat-city-td'>" + cityAr[i]["cityname"] + "</td>";
-                        tblHtml += "<td class='estat-zinkou-td'>" + "" + "</td>";
+                        tblHtml += "<td class='estat-zinkou-td'>" + "aaa" + "</td>";
                         tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
                         //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
                         tblHtml += "<td class='estat-division-td'>" + "" + "</td>";
@@ -405,7 +344,7 @@ $(function(){
                     tblHtml += "</tbody></table>";
                     $("#" + mapName + " .estat-tbl-div").html(tblHtml);
                     var zinkouAr = JSON.parse(results[1])["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
-                    console.log(zinkouAr);
+                    //console.log(zinkouAr);
                     zinkouTdSet(zinkouAr, mapName);
                     funcHaikeiTblDivHeight();//common.jsにある関数
                     //---------------------------------

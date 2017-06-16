@@ -87,14 +87,15 @@ $(function(){
             var coord = evt.coordinate;
         }
         //console.log(featureProp);
-        var cityCode = featureProp["コード"];
+        var cityCode = ("0" + featureProp["コード"]).slice(-5);
+        //console.log(cityCode);
         var kizyunThTxt = $("#" + mapName).find(".resas-kizyun-th").text();
         var kizyunTdTxt = Number($("#" + mapName + " .tr-" + cityCode).find(".resas-kizyun-td").text()).toLocaleString();
         var zinkouThTxt = $("#" + mapName).find(".resas-zinkou-th").text();
         var zinkouTdTxt = Number($("#" + mapName + " .tr-" + cityCode).find(".resas-zinkou-td").text()).toLocaleString();
         var zougenrituTdTxt = $("#" + mapName + " .tr-" + cityCode).find(".resas-zougenritu-td").text();
         var content = "";
-            content += "<input type='hidden' class='city-code' value='" + featureProp["コード"] + "'>";
+            content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
             content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
             content += "<div style='text-align:center;'><b>" + featureProp["自治体名"] + "</b></div><hr class='my-hr'>";
             content += "増減率：<span style='font-size:24px;'>" + zougenrituTdTxt + "</span><br>";
@@ -122,11 +123,10 @@ $(function(){
     }, false);
     function aaa(event,mapName){
         var contentElement = $(event["target"]).parents(".ol-popup-content");
-        console.log($(event["target"]).parents(".ol-popup-content").text());
+        //console.log($(event["target"]).parents(".ol-popup-content").text());
         var action = event["target"].getAttribute("data-action");
-        //var cityCode = event["target"].getAttribute("data-citycode");
-        //var cityName = event["target"].getAttribute("data-cityname");
         var cityCode = contentElement.find(".city-code").val();
+        console.log(cityCode);
         var cityName = contentElement.find(".city-name").val();
         if(action){
             switch (action) {
@@ -373,21 +373,34 @@ $(function(){
     function funcEstatPopup(feature,map,evt){
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
-        if(geoType=="Point"){
+        if(geoType==="Point"){
             var coord = feature.getGeometry().getCoordinates();
         }else{
             var coord = evt.coordinate;
         }
         console.log(featureProp);
-        console.log($(".estat-year-div").text().split("　")[1]);
-        var content = $(".estat-year-div").text().split("　")[1] + "<br>";//表名
+        //console.log($(".estat-year-div").text().split("　")[1]);
+        console.log(featureProp["コード"].length);
+        if(featureProp["コード"].length>2) {
+            var cityCode = ("0" + featureProp["コード"]).slice(-5);
+        }else{
+            var cityCode = featureProp["コード"];
+        }
+        console.log(cityCode);
+        var content = "";
+            content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
+            content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
+            content += $(".estat-year-div").text().split("　")[1] + "<br>";//表名
             content += featureProp["自治体名"] + "　" + featureProp["value"];
-            var lank = $("#" + map + " .tr-" + featureProp["コード"]).find(".estat-lank-td").text();
-            console.log(lank);
-
+            var lank = $("#" + map + " .tr-" + cityCode).find(".estat-lank-td").text();
+            //console.log(lank);
             //featureProp["コード"]
             content += "<br>順位" + lank;
-        if(map=="map1") {
+            content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
+
+            content = content.replace(/undefined/gi,"");
+
+        if(map==="map1") {
             popup1.show(coord,content);
         }else{
             popup2.show(coord,content);

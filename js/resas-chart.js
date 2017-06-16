@@ -52,7 +52,7 @@ function funcResasPyramid(mapName,cityCode,cityName){
         id:"resas-chart-pyramid-dialog-" + mapName + "-" + cityCode,
         class:"resas-chart-pyramid-dialog",
         map:mapName,
-        title:"人口ピラミッド",
+        title:"人口ピラミッド(RESAS)",
         content:content,
         top:"55px",
         right:"20px",
@@ -62,6 +62,7 @@ function funcResasPyramid(mapName,cityCode,cityName){
         //minMax:true,
         rmDialog:true
     });
+    console.log(cityCode);
     var mysqlRead = function(){
         return new Promise(function(resolve,reject){
             var hyou = "pyramid";
@@ -72,6 +73,7 @@ function funcResasPyramid(mapName,cityCode,cityName){
                 data:{
                     prefcode:"",
                     citycode:cityCode,
+                    //citycode:"1",
                     hyou:hyou
                 }
             }).done(function(json){
@@ -82,15 +84,13 @@ function funcResasPyramid(mapName,cityCode,cityName){
         });
     };
     mysqlRead().then(function(json) {
-        //console.log(json["jsontext"]);
+        console.log(json["jsontext"]);
         var target = 6;
         //var cityName = "実験市";
         pyramidGraphFunc(JSON.parse(json["jsontext"]),target,cityCode,cityName,mapName);
         pyramidData.push({"cityCode":cityCode,"pyramidGets":JSON.parse(json["jsontext"])});
-
     })
 }
-
 //------------------------------------------------------------------------------
 //人口ピラミッド
 function pyramidGraphFunc(pyramidGets,target,cityCode,cityName,mapName,btnFlg){
@@ -112,8 +112,11 @@ function pyramidGraphFunc(pyramidGets,target,cityCode,cityName,mapName,btnFlg){
         "name":"男",
         "data":manGraphAr0,
         "color":"rgba(51,122,183,1.0)",
-        "pointWidth":18
+        "pointWidth":18,
+        "pointPadding": 0,
+        //borderWidth: 0
     };
+
     womanGraphSeries = {
         "name":"女",
         "data":womanGraphAr0,

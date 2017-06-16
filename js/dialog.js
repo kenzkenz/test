@@ -7,7 +7,10 @@ $(function(){
 	//ダイアログを閉じる
 	$("body").on("click",".mydialog .dialog-hidden",function(){
 		if($(this).data("remove")==true){
-			$(this).parents(".dialog-base").remove();
+			var element = $(this).parents(".dialog-base");
+            element.hide(500,function(){
+            	element.remove();
+			})
 		}else{
 			var mapWidth = $(this).parents(".maps").width();
 			var dialogLeft = Number($(this).parents(".dialog-base").css("left").replace("px",""));
