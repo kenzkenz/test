@@ -47,7 +47,7 @@ $(function(){
             id:"resas-dialog-" + mapName,
             class:"resas-dialog",
             map:mapName,
-            title:"RESAS 作成中 現在完成度５９％程度",
+            title:"RESAS 作成中 現在完成度６０％程度",
             content:content,
             top:"55px",
             left:"20px",
@@ -56,7 +56,7 @@ $(function(){
             //hide:true,
             minMax:true
         });
-        var option = "<option value=''>都道府県</option><option value='pref'>全国</option>";
+        var option = "<option value=''>都道府県</option><option value='全国'>全国</option>";
         for(var i = 0; i <prefAr.length; i++){
             option += "<option value='" + prefAr[i]["id"] + "'>" + prefAr[i]["id"].substr(0,2) + "-" + prefAr[i]["name"] +  "</option>";
         }
@@ -95,45 +95,56 @@ $(function(){
     //----------------------------------------------------------------------------
     function resasCreate(mapName,pref,firstTime) {
         var prefName = $("#" + mapName + " .resas-pref-select option:selected").text().split("-")[1];
+        console.log(pref);
         //-----------------------------------------------------
         var layerAjax = function(){
             return new Promise(function(resolve,reject){
-                if(firstTime) {
-                    $.ajax({
-                        type: "GET",
-                        url: "php/pref.php",
-                        dataType: "json",
-                        data: {
-                            layerid: "gyouseikai",
-                            prefname: prefName
-                        }
-                    }).done(function (json) {
-                        resolve(json["geojson"]);
-                    }).fail(function (json) {
-                        console.log("失敗!");
+                if(pref!=="全国") {
+                    if (firstTime) {
+                        $.ajax({
+                            type: "GET",
+                            url: "php/pref.php",
+                            dataType: "json",
+                            data: {
+                                layerid: "gyouseikai",
+                                prefname: prefName
+                            }
+                        }).done(function (json) {
+                            resolve(json["geojson"]);
+                        }).fail(function (json) {
+                            console.log("失敗!");
+                        });
+                    } else {
+                        resolve();
+                    }
+                }else{//全国のとき
+                    $.getJSON("geojson/pref.geojson",function(date){
+                        resolve(date)
                     });
-                }else {
-                    resolve();
                 }
             });
         };
         //-----------------------------------------------------
         var resasAjax = function(){
             return new Promise(function(resolve,reject){
-                var prefcode = pref;
+                if(pref!=="全国") {
+                    var prefcode = pref;
+                }else{
+                    var prefcode = 0;
+                }
                 var hyou = "zinkoukousei";
                 $.ajax({
-                    type:"GET",
-                    url:"./php/resas-select.php",
-                    dataType:"json",
-                    data:{
-                        prefcode:prefcode,
-                        citycode:"",
-                        hyou:hyou
+                    type: "GET",
+                    url: "./php/resas-select.php",
+                    dataType: "json",
+                    data: {
+                        prefcode: prefcode,
+                        citycode: "",
+                        hyou: hyou
                     }
-                }).done(function(json){
+                }).done(function (json) {
                     resolve(json["jsontext"]);
-                }).fail(function(json){
+                }).fail(function () {
                     console.log("失敗!");
                 });
             });
@@ -143,6 +154,7 @@ $(function(){
             //-------------------------------------------------------
             if(results[1]) {
                 var geojsonObject = results[1];
+                console.log(geojsonObject);
                 var vectorSource = new ol.source.Vector({
                     features: (new ol.format.GeoJSON()).readFeatures(geojsonObject, {featureProjection: 'EPSG:3857'})
                 });
@@ -154,7 +166,7 @@ $(function(){
             //var resasDataAr = JSON.parse(jsontext);
             var resasDataAr = JSON.parse(results[0]);
             var valueAr = [];
-            console.log(resasDataAr);
+            //console.log(resasDataAr);
             var cityCode = resasDataAr[0]["cityCode"];
             var cityName = resasDataAr[0]["cityName"];
             var boundaryYear = resasDataAr[0]["zinkou"]["boundaryYear"];

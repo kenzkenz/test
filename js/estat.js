@@ -167,7 +167,12 @@ $(function(){
 		//-----------------------------------------------------------------------------------------
 		//都道府県セレクトボックスを選択したとき
 		$("#" + mapName + " .estat-pref-select").on("change",function(){
-            $.blockUI({message:null});
+		    if(mapName==="map1") {
+                popup1.hide();
+            }else{
+		        popup2.hide();
+            }
+            //$.blockUI({message:null});
             if($(this).val()=="pref"){//全国を選択したとき
 				alert("準備に数秒ほどかかります。");
                 var vectorSource = new ol.source.Vector({
@@ -227,7 +232,6 @@ $(function(){
                 });
                 $("#" + mapName + " .estat-table-select").html(citySelectOption);
 
-
                 //国交省のapiを使用　http://www.land.mlit.go.jp/webland/api.html#todofukenlist
                 /*
                 var tgtUrl = "http://www.land.mlit.go.jp/webland/api/CitySearch?";
@@ -252,7 +256,6 @@ $(function(){
                 */
 
                 var prefcode = $(this).val().substr(0, 2);
-                console.log(prefcode);
                 var cityAjax = function(){
                     return new Promise(function (resolve,reject){
                         $.ajax({
@@ -339,8 +342,6 @@ $(function(){
                         tblHtml += "<td class='estat-division-td'>" + "" + "</td>";
                         tblHtml += "</tr>";
                     }
-
-
                     tblHtml += "</tbody></table>";
                     $("#" + mapName + " .estat-tbl-div").html(tblHtml);
                     var zinkouAr = JSON.parse(results[1])["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
@@ -355,6 +356,11 @@ $(function(){
 		//----------------------------------------------------------------------
 		//表を選択したとき
 		$("#" + mapName + " .estat-table-select").on("change",function(){
+            if(mapName==="map1") {
+                popup1.hide();
+            }else{
+                popup2.hide();
+            }
 			var selectVal = $("#" + mapName + " .estat-pref-select").val();
 			if(selectVal!="pref") {
                 var sid = $("#" + mapName + " .estat-pref-select").val().substr(0, 2);//例45

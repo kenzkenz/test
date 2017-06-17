@@ -1,7 +1,9 @@
+var popup1;
+var popup2;
 $(function(){
-    var popup1 = new ol.Overlay.Popup();
+    popup1 = new ol.Overlay.Popup();
     map1.addOverlay(popup1);
-    var popup2 = new ol.Overlay.Popup();
+    popup2 = new ol.Overlay.Popup();
     map2.addOverlay(popup2);
     //-----------------------------------------------
     map1.on("singleclick", function(evt) {
@@ -62,23 +64,9 @@ $(function(){
                 break;
             default:
         }
-        /*
-        var geoType = feature.getGeometry().getType();
-        if(geoType=="Point"){
-            var coord = feature.getGeometry().getCoordinates();
-        }else{
-            var coord = evt.coordinate;
-        };
-        if(map=="map1") {
-            popup1.show(coord,content);
-        }else{
-            popup2.show(coord,content);
-        }
-        */
     }
     //-----------------------------------------------
-    function funcResasLayerPopup(feature,mapName,evt) {
-        //console.log(feature);
+    function funcEstatPopup(feature,map,evt){
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
         if(geoType==="Point"){
@@ -86,9 +74,41 @@ $(function(){
         }else{
             var coord = evt.coordinate;
         }
-        //console.log(featureProp);
-        var cityCode = ("0" + featureProp["コード"]).slice(-5);
-        //console.log(cityCode);
+        if(featureProp["コード"].length>2) {
+            var cityCode = ("0" + featureProp["コード"]).slice(-5);
+        }else{
+            var cityCode = featureProp["コード"];
+        }
+        console.log(cityCode);
+        var content = "";
+            content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
+            content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
+            content += "<div style='text-align:center;'><b>" + featureProp["自治体名"] + "</b></div><hr class='my-hr'>";
+            content += $(".estat-year-div").text().split("　")[1] + "<br>";//表名
+            var lank = $("#" + map + " .tr-" + cityCode).find(".estat-lank-td").text();
+            content += "順位" + lank + "：　<span style='font-size:20px;'>" + featureProp["value"] + "</span>";
+            content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
+            content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcResasLayerPopup(feature,mapName,evt) {
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        if(featureProp["コード"].length>2) {
+            var cityCode = ("0" + featureProp["コード"]).slice(-5);
+        }else{
+            var cityCode = featureProp["コード"];
+        }
         var kizyunThTxt = $("#" + mapName).find(".resas-kizyun-th").text();
         var kizyunTdTxt = Number($("#" + mapName + " .tr-" + cityCode).find(".resas-kizyun-td").text()).toLocaleString();
         var zinkouThTxt = $("#" + mapName).find(".resas-zinkou-th").text();
@@ -104,8 +124,6 @@ $(function(){
             content += "<hr class='my-hr'>";
             content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド</button>";
             content += "<button type='button' class='d-btn btn btn-xs btn-primary btn-block' data-action='d-btn'>作成中</button>";
-
-
         if(mapName==="map1") {
             popup1.show(coord,content);
         }else{
@@ -123,7 +141,6 @@ $(function(){
     }, false);
     function aaa(event,mapName){
         var contentElement = $(event["target"]).parents(".ol-popup-content");
-        //console.log($(event["target"]).parents(".ol-popup-content").text());
         var action = event["target"].getAttribute("data-action");
         var cityCode = contentElement.find(".city-code").val();
         console.log(cityCode);
@@ -364,43 +381,6 @@ $(function(){
             if(value) content += "<span class='weather-span'>" + keys[0] + value[keys[0]] + "</span>";
 
         if(map=="map1") {
-            popup1.show(coord,content);
-        }else{
-            popup2.show(coord,content);
-        }
-    }
-    //-----------------------------------------------
-    function funcEstatPopup(feature,map,evt){
-        var featureProp = feature.getProperties();
-        var geoType = feature.getGeometry().getType();
-        if(geoType==="Point"){
-            var coord = feature.getGeometry().getCoordinates();
-        }else{
-            var coord = evt.coordinate;
-        }
-        console.log(featureProp);
-        //console.log($(".estat-year-div").text().split("　")[1]);
-        console.log(featureProp["コード"].length);
-        if(featureProp["コード"].length>2) {
-            var cityCode = ("0" + featureProp["コード"]).slice(-5);
-        }else{
-            var cityCode = featureProp["コード"];
-        }
-        console.log(cityCode);
-        var content = "";
-            content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
-            content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
-            content += $(".estat-year-div").text().split("　")[1] + "<br>";//表名
-            content += featureProp["自治体名"] + "　" + featureProp["value"];
-            var lank = $("#" + map + " .tr-" + cityCode).find(".estat-lank-td").text();
-            //console.log(lank);
-            //featureProp["コード"]
-            content += "<br>順位" + lank;
-            content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
-
-            content = content.replace(/undefined/gi,"");
-
-        if(map==="map1") {
             popup1.show(coord,content);
         }else{
             popup2.show(coord,content);
