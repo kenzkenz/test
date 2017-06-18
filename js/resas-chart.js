@@ -257,7 +257,8 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
         rounenGraphDataAr.push(rate);
         var time = seisanAr[i]["year"] + "年";
         timeAr.push(time);
-    };
+    }
+    console.log(timeAr)
     var nensyouGraphSeries = {
         "name":"年少人口",
         "data":nensyouGraphDataAr,
@@ -273,7 +274,6 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
         "data":rounenGraphDataAr,
         "color":"#df4242"
     };
-
     suiiGraph[cityName] = Highcharts.chart({
         chart:{
             renderTo:"resas-chart-suii-div-" + mapName + "-" +  cityCode,
@@ -285,7 +285,16 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
             enabled:false
         },
         xAxis: {
-            categories:timeAr
+            categories:timeAr,
+            tickWidth: 0,
+            gridLineWidth: 1,
+            /*
+            labels: {
+                align: 'left',
+                x: 3,
+                y: -3
+            }
+            */
         },
         yAxis:{
             title: {
@@ -302,10 +311,14 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
             text:cityName + "　人口推移"
         },
         tooltip: {
+            /*
             formatter: function(){
                 return this.series.name +'　'+ this.point.category +'<br/>'+
                     '割合: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0) + "%";
-            }
+            },
+            */
+            shared: true,
+            crosshairs: true
         },
         series: [nensyouGraphSeries,seisanGraphSeries,rounenGraphSeries]
     });
