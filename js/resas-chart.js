@@ -1,5 +1,6 @@
 var pyramidData = [];
 var pyramidGraph = [];
+var suiiGraph = [];
 $(function() {
     $("body").on("click",".resas-pyramid-btn",function() {
         //console.log($(this).text());
@@ -32,6 +33,7 @@ $(function() {
     })
 });
 //----------------------------------------------------------------------------------------------------------------------
+//人口ピラミッドその１
 function funcResasPyramid(mapName,cityCode,cityName){
     var yearLeftAr = ["'80","'85","'90","'95","'00","'05","'10","'15","'20","'25","'30","'35","'40","連続"];
     var pyramidButtons = "<div class='resas-pyramid-btn-group-div'><div class='btn-group'>";
@@ -39,15 +41,12 @@ function funcResasPyramid(mapName,cityCode,cityName){
         pyramidButtons += "<button type='button' class='resas-pyramid-btn btn btn-primary btn-xs' data-citycode='" + cityCode + "' data-cityname='" + cityName + "' data-i='" + i + "'>";
         pyramidButtons += yearLeftAr[i];
         pyramidButtons += "</button>";
-       // if(yearLeftAr[i] == yearLeft) target = i;
     }
     pyramidButtons += "</div></div>";
-   // console.log(pyramidButtons);
     var content = "";
     content += "<div id='resas-chart-pyramid-div-" + mapName + "-" + cityCode + "' class='resas-chart-pyramid-div'>";
     content += "</div>";
     content += pyramidButtons;
-    //content += "<button type='button' class='resas-pyramid-renzoku-btn btn btn-primary btn-block'>連続</button>";
     mydialog({
         id:"resas-chart-pyramid-dialog-" + mapName + "-" + cityCode,
         class:"resas-chart-pyramid-dialog",
@@ -62,7 +61,6 @@ function funcResasPyramid(mapName,cityCode,cityName){
         //minMax:true,
         rmDialog:true
     });
-    console.log(cityCode);
     var mysqlRead = function(){
         return new Promise(function(resolve,reject){
             var hyou = "pyramid";
@@ -84,15 +82,14 @@ function funcResasPyramid(mapName,cityCode,cityName){
         });
     };
     mysqlRead().then(function(json) {
-        console.log(json["jsontext"]);
+        //console.log(json["jsontext"]);
         var target = 6;
-        //var cityName = "実験市";
         pyramidGraphFunc(JSON.parse(json["jsontext"]),target,cityCode,cityName,mapName);
         pyramidData.push({"cityCode":cityCode,"pyramidGets":JSON.parse(json["jsontext"])});
     })
 }
 //------------------------------------------------------------------------------
-//人口ピラミッド
+//人口ピラミッドその２
 function pyramidGraphFunc(pyramidGets,target,cityCode,cityName,mapName,btnFlg){
     var yearLeft = pyramidGets[target]["result"]["yearLeft"]["year"];
     //console.log(yearLeft);
@@ -208,160 +205,108 @@ function pyramidGraphFunc(pyramidGets,target,cityCode,cityName,mapName,btnFlg){
             series: [manGraphSeries,womanGraphSeries]
         });
     }else{
-        //console.log(cityName);
-        //console.log(manGraphSeries["data"]);
         pyramidGraph[cityName].series[0].setData(manGraphSeries["data"]);
         pyramidGraph[cityName].series[1].setData(womanGraphSeries["data"]);
         pyramidGraph[cityName].setTitle({text:cityName + "　" + yearLeft + "年"});
-    };
-    //$("#pyramidGraphDiv_" + mapElementID + cityCode).next("div").find(".pyramidBtn").removeClass("pyramidBtnClicked");
-    //$("#pyramidGraphDiv_" + mapElementID + cityCode).next("div").find(".pyramidBtn").eq(target).addClass("pyramidBtnClicked");
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-$(function() {
-    var dialogId = 0;
-    //-----------------------------------------------------------------------------
-    //グラフ
-
-
-    
-    /*
-    $("body").on("click", ".estat-chart-icon", function () {
-        var mapObj = funcMaps($(this));
-        var mapName = mapObj["name"];
-        dialogId++;
-        var content = "";
-        content += "<div id='estat-chart-div-" + dialogId + "' class='estat-chart-div'>";
-        content += "</div>";
-        mydialog({
-            id:"estat-chart-dialog-" + mapName + "-" + dialogId,
-            class:"estat-chart-dialog",
-            map:mapName,
-            title:"e-stat グラフ",
-            content:content,
-            top:"55px",
-            right:"20px",
-            //width:"400px",
-            rmDialog:false,
-            //hide:true,
-            //minMax:true,
-            rmDialog:true
-        });
-        var windowWidth = $(window).width();
-        var windowHeight = $(window).height();
-        if(windowWidth<700){
-            $(".estat-chart-div").css({
-                "width":windowWidth-50 + "px",
-                "height":windowHeight-150 + "px"
-            });
-        }
-        estatChartCreate(mapName)
-    });
-    */
-    //----------------------------------------------------------------------------
-    function estatChartCreate(mapName,target){
-        console.log(target);
-        if(mapName=="map1"){
-            var estatDataAr = estatDataArmap1;
-        }else{
-            var estatDataAr = estatDataArmap2;
-        }
-        console.log(estatDataAr);
-        console.log(estatDataAr[0]["VALUE"]);
-        var chartAr0 = [];
-        var chartAr1 = [];
-        var timeAr = [];
-        var areaAr = [];
-        var subtitle = "";
-        if(estatDataAr[0]["VALUE"].length>0){
-            var unit = estatDataAr[0]["VALUE"][0]["@unit"];
-        }else{
-            var unit = estatDataAr[0]["VALUE"]["@unit"];
-        }
-        for (i=0; i<estatDataAr[0]["VALUE"].length;i++){
-            var time = Number(estatDataAr[0]["VALUE"][i]["@time"]) + "年";
-            timeAr.push(time);
-        }
-        for (i=0; i<estatDataAr.length; i++){
-            if(estatDataAr[i]["VALUE"][0]) {
-                var cityName = estatDataAr[i]["VALUE"][0]["cityname"];
-                for (j = 0; j < estatDataAr[i]["VALUE"].length; j++) {
-                    //if(target==".zinkouwariTd" || target==".mensekiwariTd" || target==".ziyuuwariTd"){
-                    //    var value = Number(cityDataAr[i]["VALUE"][j]["$"])/Number(filterValue[0][target]);
-                    //    graphAr0.push(value);
-
-                    //}else{
-                    var value = Number(estatDataAr[i]["VALUE"][j]["$"]);
-                    chartAr0.push(value);
-                    //};
-                }
-                chartAr1.push({
-                    "name": cityName,
-                    "type": "line",
-                    "data": chartAr0
-                });
-                chartAr0 = [];
-            }
-        }
-
-        estatHichart = Highcharts.chart({
-            chart:{
-                renderTo:"estat-chart-div-" + dialogId,
-                //type:"line",
-                animation:false,
-                //aliginTicks:false
-            },
-            title: {
-                text:$("#" + mapName + " .estat-pref-select option:selected").text(),
-                x: -20 //center
-            },
-            subtitle: {
-                text:$("#" + mapName + " .estat-table-select option:selected").text()
-            },
-            credits:{
-                enabled:false
-            },
-            xAxis: {
-                categories:timeAr,
-            },
-            yAxis:{
-                title: {
-                    text: "単位:"+unit
-                }
-            },
-            tooltip: {
-                valueSuffix:unit
-            },
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle',
-                borderWidth: 0
-            },
-            series:chartAr1,
-            exporting:{
-                enabled:true
-            }
-        });
     }
-});
+}
+//---------------------------------------------------------------------------------------------------------------
+//人口推移その１
+function funcResasZinkousuii(mapName,cityCode,cityName){
+    var content = "";
+    content += "<div id='resas-chart-suii-div-" + mapName + "-" + cityCode + "' class='resas-chart-suii-div'>";
+    content += "</div>";
+    mydialog({
+        id:"resas-chart-suii-dialog-" + mapName + "-" + cityCode,
+        class:"resas-chart-suii-dialog",
+        map:mapName,
+        title:"人口推移(RESAS)",
+        content:content,
+        top:"55px",
+        right:"20px",
+        //width:"400px",
+        rmDialog:false,
+        //hide:true,
+        //minMax:true,
+        rmDialog:true
+    });
+
+    console.log(resasZinkouAr[mapName]);
+
+    suiiFunc(resasZinkouAr[mapName],mapName,cityCode,cityName);
+}
+//---------------------------------------------------------------------------------------------------------------
+//人口推移その２
+function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
+    var resasZinkou = resasZinkouAr.filter(function(item,index){
+        if(item.cityCode == cityCode) return true;
+    });
+    var nensyouAr = resasZinkou[0]["zinkou"]["data"][1]["data"];
+    var seisanAr = resasZinkou[0]["zinkou"]["data"][2]["data"];
+    var rounenAr = resasZinkou[0]["zinkou"]["data"][3]["data"];
+    var nensyouGraphDataAr = [];
+    var seisanGraphDataAr = [];
+    var rounenGraphDataAr = [];
+    var timeAr = [];
+    for (i=0; i<nensyouAr.length; i++){
+        var rate = nensyouAr[i]["rate"];
+        nensyouGraphDataAr.push(rate);
+        var rate = seisanAr[i]["rate"];
+        seisanGraphDataAr.push(rate);
+        var rate = rounenAr[i]["rate"];
+        rounenGraphDataAr.push(rate);
+        var time = seisanAr[i]["year"] + "年";
+        timeAr.push(time);
+    };
+    var nensyouGraphSeries = {
+        "name":"年少人口",
+        "data":nensyouGraphDataAr,
+        "color":"green"
+    };
+    var seisanGraphSeries = {
+        "name":"生産年齢人口",
+        "data":seisanGraphDataAr,
+        "color":"skyblue"
+    };
+    var rounenGraphSeries = {
+        "name":"老年人口",
+        "data":rounenGraphDataAr,
+        "color":"#df4242"
+    };
+
+    suiiGraph[cityName] = Highcharts.chart({
+        chart:{
+            renderTo:"resas-chart-suii-div-" + mapName + "-" +  cityCode,
+            type:"line",
+            animation:true
+            //aliginTicks:false
+        },
+        credits:{
+            enabled:false
+        },
+        xAxis: {
+            categories:timeAr
+        },
+        yAxis:{
+            title: {
+                text:null// "単位:人"
+            },
+            labels:{
+                formatter: function() {
+                    return Highcharts.numberFormat(Math.abs(this.value), 0) + "%";
+                    //return (Math.abs(this.value) / 1000000) + 'M';
+                }
+            }
+        },
+        title: {
+            text:cityName + "　人口推移"
+        },
+        tooltip: {
+            formatter: function(){
+                return this.series.name +'　'+ this.point.category +'<br/>'+
+                    '割合: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0) + "%";
+            }
+        },
+        series: [nensyouGraphSeries,seisanGraphSeries,rounenGraphSeries]
+    });
+}

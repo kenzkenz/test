@@ -123,7 +123,7 @@ $(function(){
             content += zinkouThTxt + "：" + zinkouTdTxt + "人<br>";
             content += "<hr class='my-hr'>";
             content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド</button>";
-            content += "<button type='button' class='d-btn btn btn-xs btn-primary btn-block' data-action='d-btn'>作成中</button>";
+            content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移</button>";
         if(mapName==="map1") {
             popup1.show(coord,content);
         }else{
@@ -149,6 +149,9 @@ $(function(){
             switch (action) {
                 case "pyramid-btn":
                     funcResasPyramid(mapName,cityCode,cityName);
+                    break;
+                case "zinkousuii-btn":
+                    funcResasZinkousuii(mapName,cityCode,cityName);
                     break;
             }
         }

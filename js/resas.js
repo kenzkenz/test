@@ -2,6 +2,7 @@ var resasKey = "ZKE7BccwVM8e2onUYC7iX2tnuuZwZJfuOTf3rL93";
 var resasUrl = "https://opendata.resas-portal.go.jp/api/v1/"
 var resasLayermap1 = null;
 var resasLayermap2 = null;
+var resasZinkouAr = [];
 $(function(){
 	$(".resas-a").click(function(){
         $.notify({//options
@@ -143,6 +144,7 @@ $(function(){
                         hyou: hyou
                     }
                 }).done(function (json) {
+                    resasZinkouAr[mapName] = JSON.parse(json["jsontext"]);
                     resolve(json["jsontext"]);
                 }).fail(function () {
                     console.log("失敗!");

@@ -938,7 +938,6 @@ var mesh1000z1 = new ol.layer.Tile({
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:red;'></i>",
     source: new ol.source.XYZ({
-        //attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
         url:"https://mtile.pref.miyazaki.lg.jp/tile/9syuuzinkoured2/{z}/{x}/{y}.png",
         //minZoom :1,
         maxZoom:13
@@ -950,9 +949,17 @@ var mesh1000z2 = new ol.layer.Tile({
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:red;'></i>",
     source: new ol.source.XYZ({
-        //attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
         url:"https://mtile.pref.miyazaki.lg.jp/tile/9syuuzinkoured2/{z}/{x}/{y}.png",
         //minZoom :1,
         maxZoom:13
+    })
+});
+//宮崎犬
+var inu = new ol.layer.Tile({
+    extent:transformE([131.423495,31.9105397,131.42432348,31.91107022]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyazakiken/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:21
     })
 });
