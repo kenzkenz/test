@@ -230,9 +230,7 @@ function funcResasZinkousuii(mapName,cityCode,cityName){
         //minMax:true,
         rmDialog:true
     });
-
-    console.log(resasZinkouAr[mapName]);
-
+    //console.log(resasZinkouAr[mapName]);
     suiiFunc(resasZinkouAr[mapName],mapName,cityCode,cityName);
 }
 //---------------------------------------------------------------------------------------------------------------
@@ -241,12 +239,17 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
     var resasZinkou = resasZinkouAr.filter(function(item,index){
         if(item.cityCode == cityCode) return true;
     });
+    //console.log(resasZinkou[0]["zinkou"]["data"]);
     var nensyouAr = resasZinkou[0]["zinkou"]["data"][1]["data"];
     var seisanAr = resasZinkou[0]["zinkou"]["data"][2]["data"];
     var rounenAr = resasZinkou[0]["zinkou"]["data"][3]["data"];
+    var souzinkouAr = resasZinkou[0]["zinkou"]["data"][0]["data"];
+
     var nensyouGraphDataAr = [];
     var seisanGraphDataAr = [];
     var rounenGraphDataAr = [];
+    var souzinkouGraphDataAr = [];
+
     var timeAr = [];
     for (i=0; i<nensyouAr.length; i++){
         var rate = nensyouAr[i]["rate"];
@@ -255,25 +258,38 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
         seisanGraphDataAr.push(rate);
         var rate = rounenAr[i]["rate"];
         rounenGraphDataAr.push(rate);
-        var time = seisanAr[i]["year"] + "年";
+        var souzinkouValue = souzinkouAr[i]["value"];
+        souzinkouGraphDataAr.push(souzinkouValue);
+        var time = "'" + String(seisanAr[i]["year"]).slice(-2) + "年";
         timeAr.push(time);
     }
-    console.log(timeAr)
+    //console.log(timeAr);
     var nensyouGraphSeries = {
-        "name":"年少人口",
+        "yAxis":0,
+        "name":"年少人口(%)",
         "data":nensyouGraphDataAr,
         "color":"green"
     };
     var seisanGraphSeries = {
-        "name":"生産年齢人口",
+        "yAxis":0,
+        "name":"生産年齢人口(%)",
         "data":seisanGraphDataAr,
         "color":"skyblue"
     };
     var rounenGraphSeries = {
-        "name":"老年人口",
+        "yAxis":0,
+        "name":"老年人口(%)",
         "data":rounenGraphDataAr,
         "color":"#df4242"
     };
+    var souzinkouGraphSeries = {
+        "yAxis":1,
+        "type":"column",
+        "name":"総人口(人)",
+        "data":souzinkouGraphDataAr,
+        "color":"lightgrey"
+    };
+
     suiiGraph[cityName] = Highcharts.chart({
         chart:{
             renderTo:"resas-chart-suii-div-" + mapName + "-" +  cityCode,
@@ -296,14 +312,33 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
             }
             */
         },
-        yAxis:{
-            title: {
-                text:null// "単位:人"
+        yAxis:[
+            {//左
+                title: {
+                    text:null
+                },
+                labels:{
+                    formatter: function() {
+                        return Highcharts.numberFormat(Math.abs(this.value), 0) + "%";
+                    }
+                }
             },
-            labels:{
-                formatter: function() {
-                    return Highcharts.numberFormat(Math.abs(this.value), 0) + "%";
-                    //return (Math.abs(this.value) / 1000000) + 'M';
+            {//右
+                title: {
+                    text:null
+                },
+                labels:{
+                    //formatter: function() {
+                    //    return Highcharts.numberFormat(Math.abs(this.value), 0) + "%";
+                   // }
+                },
+                opposite:true
+            }
+        ],
+        plotOptions:{
+            line:{
+                dataLabels:{
+                    enabled:true
                 }
             }
         },
@@ -320,6 +355,11 @@ function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
             shared: true,
             crosshairs: true
         },
-        series: [nensyouGraphSeries,seisanGraphSeries,rounenGraphSeries]
+        series: [
+            souzinkouGraphSeries,
+            nensyouGraphSeries,
+            seisanGraphSeries,
+            rounenGraphSeries
+        ]
     });
 }

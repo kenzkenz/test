@@ -167,6 +167,32 @@ $(function(){
 		//-----------------------------------------------------------------------------------------
 		//都道府県セレクトボックスを選択したとき
 		$("#" + mapName + " .estat-pref-select").on("change",function(){
+            //------------------------------------------------------------------------------------
+            //RESAS人口を取得する。これがないと人口推移が表示できない。
+            if($(this).val()=="pref"){//全国を選択したとき
+                var prefcode = 0;
+                //var prefcode = pref;
+            }else{
+                var prefcode = $(this).val().substr(0,2);
+            }
+            var hyou = "zinkoukousei";
+            $.ajax({
+                type: "GET",
+                url: "./php/resas-select.php",
+                dataType: "json",
+                data: {
+                    prefcode: prefcode,
+                    citycode: "",
+                    hyou: hyou
+                }
+            }).done(function (json) {
+                resasZinkouAr[mapName] = JSON.parse(json["jsontext"]);
+                console.log(resasZinkouAr[mapName]);
+            }).fail(function () {
+                console.log("失敗!");
+            });
+		    //----------------------------------------------------------------------------------
+
 		    if(mapName==="map1") {
                 popup1.hide();
             }else{
@@ -335,7 +361,14 @@ $(function(){
                         tblHtml += "<tr class='tr-" + citycode + "'>";
                         tblHtml += "<td class='estat-lank-td'></td>";
                         tblHtml += "<td class='estat-city-code'>" + citycode + "</td>";
+
                         tblHtml += "<td class='estat-city-td'>" + cityAr[i]["cityname"] + "</td>";
+
+
+                        //tblHtml += "<td class='estat-city-td'><div class='dropdown'><a href='#' data-toggle='dropdown'>" + cityAr[i]["cityname"] + "</a><ul class='dropdown-menu' role='menu'><li role='presentation'><a href='#'>test</a></li></ul></div></td>";
+
+
+
                         tblHtml += "<td class='estat-zinkou-td'>" + "aaa" + "</td>";
                         tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
                         //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
@@ -349,7 +382,7 @@ $(function(){
                     zinkouTdSet(zinkouAr, mapName);
                     funcHaikeiTblDivHeight();//common.jsにある関数
                     //---------------------------------
-                    $.unblockUI();
+                    //$.unblockUI();
                 });
             }
 		});
@@ -549,7 +582,7 @@ $(function(){
             //------------------------------------------------------------------------------------
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
-                if(features[i].getProperties()["自治体名"]==$(this).find(".estat-city-td").text()){
+                if(features[i].getProperties()["自治体名"]===$(this).find(".estat-city-td").text()){
                     var prevFillColor = features[i]["I"]["_targetFillColor"];
                     features[i]["I"]["_prevFillColor"] = prevFillColor;
                     features[i]["I"]["_targetFillColor"] = targetFillColor;

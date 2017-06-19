@@ -79,16 +79,19 @@ $(function(){
         }else{
             var cityCode = featureProp["コード"];
         }
-        console.log(cityCode);
+        //console.log(cityCode);
         var content = "";
             content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
             content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
             content += "<div style='text-align:center;'><b>" + featureProp["自治体名"] + "</b></div><hr class='my-hr'>";
-            content += $(".estat-year-div").text().split("　")[1] + "<br>";//表名
+            var hyouText = $(".estat-year-div").text();
+            if(hyouText) content += $(".estat-year-div").text().split("　")[1] + "<br>";//表名
             var lank = $("#" + map + " .tr-" + cityCode).find(".estat-lank-td").text();
-            content += "順位" + lank + "：　<span style='font-size:20px;'>" + featureProp["value"] + "</span>";
+            if(hyouText) content += "順位" + lank + "：　<span style='font-size:20px;'>" + featureProp["value"] + "</span>";
+            content += "<hr class='my-hr'>";
             content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
-            content = content.replace(/undefined/gi,"");
+            content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移(RESAS)</button>";
+            //content = content.replace(/undefined/gi,"");
         if(map==="map1") {
             popup1.show(coord,content);
         }else{

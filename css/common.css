@@ -318,6 +318,10 @@ label:hover{
     padding-left:30px;
     margin-top:-20px;
 }
+.resas-chart-suii-div{
+    /*height:495px;*/
+    width:700px;
+}
 /*estatのグラフ関係-------------------------------------------------------------*/
 .estat-chart-div{
     height:600px;
