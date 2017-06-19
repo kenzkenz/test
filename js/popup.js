@@ -1,6 +1,8 @@
 var popup1;
 var popup2;
 $(function(){
+
+
     popup1 = new ol.Overlay.Popup();
     map1.addOverlay(popup1);
     popup2 = new ol.Overlay.Popup();
@@ -421,6 +423,23 @@ $(function(){
     }
     //-----------------------------------------------
     //ホバー
+
+    var content = "test";
+    $("#map1").append('<div id="hoverMsg1-div" class="hoverMsg-div">' + content + '</div>');
+    $("#map2").append('<div id="hoverMsg2-div" class="hoverMsg-div">' + content + '</div>');
+
+    var hoverMsg1 = new ol.Overlay({
+        element:$("#hoverMsg1-div")[0],
+        autoPan:true
+    });
+    map1.addOverlay(hoverMsg1);
+    var hoverMsg2 = new ol.Overlay({
+        element:$("#hoverMsg2-div")[0],
+        autoPan:true
+    });
+    map2.addOverlay(hoverMsg2);
+
+
     function funcPointerMove(evt,map){
         var pixel = eval(map).getPixelFromCoordinate(evt.coordinate);
         var feature = eval(map).forEachFeatureAtPixel(pixel,function(feature,layer){
@@ -432,6 +451,20 @@ $(function(){
         });
         if(feature){
             $(".ol-viewport").css({cursor:"pointer"});
+
+
+            var hoverText = feature["I"]["店舗名"];
+            var coord = feature.getGeometry().getCoordinates();
+            console.log(coord);
+
+
+            if(map=="map1") {
+                $("#hoverMsg1-div").html(hoverText);
+            }else{
+                $("#hoverMsg2-div").html(hoverText);
+            }
+
+            hoverMsg1.setPosition(coord);
         }else{
             $(".ol-viewport").css({cursor:""});
         }
