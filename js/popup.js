@@ -188,7 +188,8 @@ $(function(){
             popup1.show(coord, content);
             $("#map1 .popup-th").css({
                 "width":(maxKeyLength * 2) + "em"
-            })
+            });
+            console.log((maxKeyLength * 2) + "em")
         } else {
             popup2.show(coord, content);
         }

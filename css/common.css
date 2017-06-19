@@ -437,6 +437,7 @@ label:hover{
 /*ポップアップ関係---------------------------------------------------------*/
 .popup-tbl{
     width:200px;
+    table-layout:fixed;
 }
 .popup-th{
     /*width:50px;*/
@@ -446,7 +447,8 @@ label:hover{
 }
 .popup-td{
     width:150px;
+    word-break:break-all;
 }
 .popup-tbl img{
-    /*width:80px;*/
+    width:140px;
 }

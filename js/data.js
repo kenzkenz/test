@@ -314,5 +314,14 @@ var dataLayerArr =
             "icon":"<i class='fa fa-user fa-fw' style='color:black;'></i>",
             "opacity":"1",
             "zoom":""
+        },
+        {
+            "id":"osusumesi",
+            "title":"宮崎オススめし",
+            "origin":"",
+            "detail":"試行中",
+            "icon":"<i class='fa fa-cutlery fa-fw' style='color:orange;'></i>",
+            "opacity":"1",
+            "zoom":""
         }
     ];

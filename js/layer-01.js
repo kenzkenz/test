@@ -1,3 +1,12 @@
+//宮崎犬
+var inu = new ol.layer.Tile({
+    extent:transformE([131.423495,31.9105397,131.42432348,31.91107022]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyazakiken/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:21
+    })
+});
 //国土地理院淡色地図のレイヤー
 var pale1 = new ol.layer.Tile({
     title:"国土地理院_淡色地図",
@@ -952,14 +961,5 @@ var mesh1000z2 = new ol.layer.Tile({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/9syuuzinkoured2/{z}/{x}/{y}.png",
         //minZoom :1,
         maxZoom:13
-    })
-});
-//宮崎犬
-var inu = new ol.layer.Tile({
-    extent:transformE([131.423495,31.9105397,131.42432348,31.91107022]),
-    source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyazakiken/{z}/{x}/{-y}.png",
-        //minZoom :1,
-        maxZoom:21
     })
 });
