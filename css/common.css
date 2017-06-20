@@ -465,3 +465,7 @@ label:hover{
                 1px -1px 2px white,
                 -1px -1px 2px white;
 }
+.hoverMsg-div img{
+    width:100px;
+    border-radius:10px;
+}

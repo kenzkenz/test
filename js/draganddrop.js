@@ -101,7 +101,7 @@ $(function(){
             })
         })
     };
-    /*
+    /*星
     var style =
         [	new ol.style.Style(
             {	image: new ol.style.RegularShape(

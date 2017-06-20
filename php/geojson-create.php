@@ -21,13 +21,15 @@ $lineCoordinates = [];
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 	$propertiesArr = array('id'=>$row["id"]);
 	$propertiesArr = $propertiesArr + array('_fillColor'=>$row["fillcolor"]);
-	$propertiesArr = $propertiesArr + array('_strokeColor'=>$row["strokecolor"]);
+    $propertiesArr = $propertiesArr + array('_fillOpacity'=>"0.5");
+	//$propertiesArr = $propertiesArr + array('_strokeColor'=>$row["strokecolor"]);
 	$propertiesArr = $propertiesArr + array('_icon'=>$row["icon"]);
-	$propertiesArr = $propertiesArr + array('_fillOpacity'=>"0.5");
 	$propertiesArr = $propertiesArr + array('_polygonHeight'=>"");
-	$propertiesArr = $propertiesArr + array('_picurl'=>$row["picurl"]);
+	//$propertiesArr = $propertiesArr + array('_picurl'=>$row["picurl"]);
 	$propertiesArr = $propertiesArr + array('_popup'=>$row["popup"]);
 	//$propertiesArr = $propertiesArr + array($name_head=>$row["name"]);
+    $propertiesArr = $propertiesArr + array('_hover'=>$row["hover"]);
+
 	foreach ($properties as $i => $p) {
 		if($row_head[$p]!="") $propertiesArr = $propertiesArr + array($row_head[$p]=>$row[$p]);
 	};

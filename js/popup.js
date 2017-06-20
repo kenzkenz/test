@@ -1,8 +1,6 @@
 var popup1;
 var popup2;
 $(function(){
-
-
     popup1 = new ol.Overlay.Popup();
     map1.addOverlay(popup1);
     popup2 = new ol.Overlay.Popup();
@@ -81,7 +79,6 @@ $(function(){
         }else{
             var cityCode = featureProp["コード"];
         }
-        //console.log(cityCode);
         var content = "";
             content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
             content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
@@ -93,7 +90,6 @@ $(function(){
             content += "<hr class='my-hr'>";
             content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
             content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移(RESAS)</button>";
-            //content = content.replace(/undefined/gi,"");
         if(map==="map1") {
             popup1.show(coord,content);
         }else{
@@ -165,7 +161,7 @@ $(function(){
     function funcDataLayerPopup(feature,map,evt) {
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
-        if (geoType == "Point") {
+        if (geoType === "Point") {
             var coord = feature.getGeometry().getCoordinates();
         } else {
             var coord = evt.coordinate;
@@ -422,11 +418,9 @@ $(function(){
         imgPreloader.src=url;
     }
     //-----------------------------------------------
-    //ホバー
-
-    var content = "test";
-    $("#map1").append('<div id="hoverMsg1-div" class="hoverMsg-div">' + content + '</div>');
-    $("#map2").append('<div id="hoverMsg2-div" class="hoverMsg-div">' + content + '</div>');
+    //ホバー関係をここに集めている。;
+    $("#map1").append('<div id="hoverMsg1-div" class="hoverMsg-div"></div>');
+    $("#map2").append('<div id="hoverMsg2-div" class="hoverMsg-div"></div>');
 
     var hoverMsg1 = new ol.Overlay({
         element:$("#hoverMsg1-div")[0],
@@ -438,8 +432,7 @@ $(function(){
         autoPan:true
     });
     map2.addOverlay(hoverMsg2);
-
-
+    //-------------------------
     function funcPointerMove(evt,map){
         var pixel = eval(map).getPixelFromCoordinate(evt.coordinate);
         var feature = eval(map).forEachFeatureAtPixel(pixel,function(feature,layer){
@@ -451,22 +444,28 @@ $(function(){
         });
         if(feature){
             $(".ol-viewport").css({cursor:"pointer"});
-
-
-            var hoverText = feature["I"]["店舗名"];
+            var hoverText = feature["I"]["_hover"];
             var coord = feature.getGeometry().getCoordinates();
-            console.log(coord);
-
-
-            if(map=="map1") {
-                $("#hoverMsg1-div").html(hoverText);
-            }else{
-                $("#hoverMsg2-div").html(hoverText);
+            if(hoverText) {
+                var pic = feature["I"]["写真"];
+                if(pic) hoverText = pic.replace("<img src='","<img src='./php/proxy-jpeg.php?url=") + "<br>" + hoverText;
+                if (map === "map1") {
+                    $("#hoverMsg1-div").html(hoverText);
+                    hoverMsg1.setPosition(coord);
+                } else {
+                    $("#hoverMsg2-div").html(hoverText);
+                    hoverMsg2.setPosition(coord);
+                }
             }
-
-            hoverMsg1.setPosition(coord);
         }else{
             $(".ol-viewport").css({cursor:""});
         }
     }
+    //-------------------------
+    map1.on("singleclick", function(evt) {
+        hoverMsg1.setPosition(null);
+    });
+    map2.on("singleclick", function(evt) {
+        hoverMsg2.setPosition(null);
+    });
 });
