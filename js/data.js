@@ -71,11 +71,13 @@ $(function(){
         })
     }
     //------------------------------------------------------------------------------------------------------------------
+    //インフォメーションダイアログ生成
     $("body").on("click",".data-td-info",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-        var targetId = $(this).parents("tr").find("input:checkbox[name='data-check']").val().split("-")[1];
-        console.log(targetId);
+        var targetLayer = $(this).parents("tr").find("input:checkbox[name='data-check']").val();
+        var targetId = targetLayer.split("-")[1];
+        console.log(targetLayer);
         var dataLayerFilter = dataLayerArr.filter(function (item,index) {
            if(item.id===targetId) return true;
         });
@@ -86,6 +88,7 @@ $(function(){
             content += "<tr><td>出典</td><td>" + obj["origin"] + "</td></tr>";
             content += "<tr><td>説明</td><td>" + obj["detail"] + "</td></tr>";
             content += "</table>";
+            content += "<a type='button' class='geojson-btn btn btn-xs btn-primary btn-block' data-targetlayer='" + targetLayer  + "'>geojson取得</a>";
         mydialog({
             id:"data-info-dialog",
             class:"data-info-dialog",
@@ -97,6 +100,25 @@ $(function(){
             rmDialog:true
         });
         return false;
+    });
+    //------------------------------------------------------------------------------------------------------------------
+    //geojson取得
+    $("body").on("click",".geojson-btn",function(){
+        var targetLayer = $(this).data("targetlayer");
+        var layer = dataLayer[targetLayer];
+        if(layer) {
+            var geojsonChar = new ol.format.GeoJSON().writeFeatures(layer.getSource().getFeatures(), {
+                featureProjection: "EPSG:3857"
+            });
+            var type = "text/plain";
+            var blob = new Blob([geojsonChar], {type: type});
+            $(this).attr({
+                "href": window.URL.createObjectURL(blob),
+                "download": targetLayer.split("-")[1] + ".geojson"
+            });
+        }else{
+            alert("まず最初に該当レイヤーを表示してください。")
+        }
     });
     //------------------------------------------------------------------------------------------------------------------
     //データレイヤー　クリエイト　ファンクション

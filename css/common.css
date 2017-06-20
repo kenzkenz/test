@@ -152,14 +152,12 @@ label:hover{
 /*データインフォメーションのテーブル----------------------------------------------*/
 .data-info-tbl{
     width:200px;
+    margin-bottom:5px;
 }
 .data-info-tbl tr td:nth-child(1){
     width:60px;
     text-align:center;
 }
-
-
-
 /*背景テーブル-----------------------------------------------------------------*/
 .haikei-tbl-div{
     overflow-x:auto;

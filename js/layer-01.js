@@ -567,7 +567,7 @@ var obikoyizu1 = new ol.layer.Tile({
     coord:[131.3502,31.6289],
     zoom:16,
     icon:"<i class='fa fa-file-image-o fa-fw' style='color:dimgrey;'></i>",
-    extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
+    extent:transformE([131.33600171544876,31.61837899707213,131.377,31.63995077971333]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png",
         crossOrigin:"anonymous",
@@ -581,7 +581,7 @@ var obikoyizu2 = new ol.layer.Tile({
     coord:[131.3502,31.6289],
     zoom:16,
     icon:"<i class='fa fa-file-image-o fa-fw' style='color:dimgrey;'></i>",
-    extent:transformE([131.33600171544876,31.61837899707213,131.37244226230908,31.63995077971333]),
+    extent:transformE([131.33600171544876,31.61837899707213,131.377,31.63995077971333]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png",
         crossOrigin:"anonymous",
