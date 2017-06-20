@@ -418,7 +418,7 @@ $(function(){
         imgPreloader.src=url;
     }
     //-----------------------------------------------
-    //ホバー関係をここに集めている。;
+    //ホバー関係をここに集めている。
     $("#map1").append('<div id="hoverMsg1-div" class="hoverMsg-div"></div>');
     $("#map2").append('<div id="hoverMsg2-div" class="hoverMsg-div"></div>');
 
@@ -468,4 +468,11 @@ $(function(){
     map2.on("singleclick", function(evt) {
         hoverMsg2.setPosition(null);
     });
+    //-------------------------
+    hoverMsg1.getElement().addEventListener("click", function(event) {
+        hoverMsg1.setPosition(null);
+    }, false);
+    hoverMsg2.getElement().addEventListener("click", function(event) {
+        hoverMsg2.setPosition(null);
+    }, false);
 });

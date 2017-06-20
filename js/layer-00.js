@@ -23,7 +23,7 @@ $(function(){
                     ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2,
                     mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2
+                    mesh1000z2,sekiz2
                     ];
 });
 //------------------------------------------------------------------------------

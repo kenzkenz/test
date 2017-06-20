@@ -963,3 +963,17 @@ var mesh1000z2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
+
+
+var sekiz2 = new ol.layer.Tile({
+    title:"赤色立体地図（実験）",
+    origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図<br><br>赤色立体地図©アジア航測株式会社</a>",
+    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span><br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。商用利用禁止です！" ,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/sekisyokuzenkoku/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:16
+    })
+});

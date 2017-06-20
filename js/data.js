@@ -340,8 +340,8 @@ var dataLayerArr =
         {
             "id":"osusumesi",
             "title":"宮崎オススめし",
-            "origin":"",
-            "detail":"試行中",
+            "origin":"<a href='https://www.kanko-miyazaki.jp/gourmet/osusumeshi/' target='_blank'>宮崎オススめし</a>",
+            "detail":"",
             "icon":"<i class='fa fa-cutlery fa-fw' style='color:orange;'></i>",
             "opacity":"1",
             "zoom":""

@@ -23,6 +23,7 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 	$propertiesArr = $propertiesArr + array('_fillColor'=>$row["fillcolor"]);
     $propertiesArr = $propertiesArr + array('_fillOpacity'=>"0.5");
 	//$propertiesArr = $propertiesArr + array('_strokeColor'=>$row["strokecolor"]);
+    $propertiesArr = $propertiesArr + array('_color'=>"gray");
 	$propertiesArr = $propertiesArr + array('_icon'=>$row["icon"]);
 	$propertiesArr = $propertiesArr + array('_polygonHeight'=>"");
 	//$propertiesArr = $propertiesArr + array('_picurl'=>$row["picurl"]);
