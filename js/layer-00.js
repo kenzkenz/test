@@ -10,7 +10,7 @@ $(function(){
                     aya1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
-                    ryuuiki1,ecoris1,seki1,tisitu1,nihonCs1,csArr1,
+                    ryuuiki1,ecoris1,sekiz1,seki1,tisitu1,nihonCs1,csArr1,
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
                     mesh1000z1
@@ -20,11 +20,16 @@ $(function(){
                     aya2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
-                    ryuuiki2,ecoris2,seki2,tisitu2,nihonCs2,csArr2,
+                    ryuuiki2,ecoris2,sekiz2,seki2,tisitu2,nihonCs2,csArr2,
                     mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,sekiz2
+                    mesh1000z2
                     ];
+
+    $("body").on("click",".secret",function() {
+        //alert("22");
+        $(".secret-tr").toggle();
+    });
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
@@ -51,14 +56,21 @@ function funcHaikeiTableCreate(mapElement,mapName){
         }else{
             var icon = "";
         }
-        htmlChar += "<tr>";
+        if(prop["secret"]) {
+            htmlChar += "<tr class='secret-tr' style='display:none;'>";
+        }else{
+            htmlChar += "<tr>";
+        }
+
         htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + "> " + icon +  prop["title"] + "</label></td>";
         htmlChar += "<td class='td-slider'><div class='haikei-slider'></div></td>";
         htmlChar += "<td class='td-sort' title='ドラッグします。'><i class='fa fa-bars fa-lg'></i></td>";
         htmlChar += "<td class='td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
         htmlChar += "</tr>";
     }
-    htmlChar += "</table></div>";
+    htmlChar += "</table>";
+    htmlChar += "<div style='text-align:right;'><span class='secret'>情報政策課</span></div>";
+    htmlChar += "</div>";
     mapElement.find(".haikei-dialog .dialog-content").html(htmlChar);
     funcHaikeiTblDivHeight();//common.jsにある関数
     mapElement.find(".haikei-slider").eq(0).slider({
@@ -67,6 +79,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
             layers[0].setOpacity(ui.value);
         }
     });
+
     mapElement.find(".haikei-tbl tbody").sortable({
         handle:".td-sort",
         update:function(event,ui){
