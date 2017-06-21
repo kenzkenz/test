@@ -38,7 +38,7 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         //msg += "★現在不具合発生中！統計機能が使えません！<br>";
         msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 全国赤色立体地図を追加しました。現在ズーム率13<br>";
+        msg += "1 全国赤色立体地図を追加しました。<br>";
         msg += "2 RESAS機能に人口推移を追加。市町村をクリック<br>";
         msg += "3 RESAS機能に人口ピラミッドを追加。市町村をクリック<br>";
         msg += "4 背景に九州１Kメッシュ人口を追加<br>";
