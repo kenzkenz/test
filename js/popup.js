@@ -62,8 +62,15 @@ $(function(){
             case "resasLayer":
                 funcResasLayerPopup(feature,map,evt);
                 break;
+            case "gpxLayer":
+                funcDataLayerPopup(feature,map,evt);
+                break;
             default:
         }
+    }
+    //-----------------------------------------------
+    function funcGpxLayerPopup(feature,map,evt){
+        alert("作成中！")
     }
     //-----------------------------------------------
     function funcEstatPopup(feature,map,evt){
@@ -185,9 +192,8 @@ $(function(){
         if (map==="map1") {
             popup1.show(coord, content);
             $("#map1 .popup-th").css({
-                "width":(maxKeyLength * 2) + "em"
+                "width":(maxKeyLength + 2) + "em"
             });
-            console.log((maxKeyLength * 2) + "em")
         } else {
             popup2.show(coord, content);
         }
@@ -444,16 +450,26 @@ $(function(){
         });
         if(feature){
             $(".ol-viewport").css({cursor:"pointer"});
-            var hoverText = feature["I"]["_hover"];
+            var prop =  feature.getProperties();
+            var hoverText = prop["_hover"];
             var coord = feature.getGeometry().getCoordinates();
             if(hoverText) {
-                var pic = feature["I"]["写真"];
+                var pic = null;
+                for(var key in prop){
+                    if(key!=="geometry") {
+                        var match = prop[key].match(/<img.src(.*?)>/);
+                        if(match){
+                            pic = match[0];
+                            break;
+                        }
+                    }
+                }
                 if(pic) hoverText = pic.replace("<img src='","<img src='./php/proxy-jpeg.php?url=") + "<br>" + hoverText;
                 if (map === "map1") {
-                    $("#hoverMsg1-div").html(hoverText);
+                    $("#hoverMsg1-div").html(hoverText).css({"color":prop["_fillColor"]});
                     hoverMsg1.setPosition(coord);
                 } else {
-                    $("#hoverMsg2-div").html(hoverText);
+                    $("#hoverMsg2-div").html(hoverText).css({"color":prop["_fillColor"]});
                     hoverMsg2.setPosition(coord);
                 }
             }

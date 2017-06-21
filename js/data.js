@@ -1,4 +1,62 @@
 var dataLayer = [];
+//スタイルファンクション---------------------
+var commonstyleFunction = function(feature, resolution) {
+    var prop = feature.getProperties();
+    var geoType = feature.getGeometry().getType();
+    var fillColor = prop["_fillColor"];
+
+    if(resolution>2445) {//ズーム６
+        var pointRadius = 2;
+    }else if(resolution>1222) {//ズーム７
+        var pointRadius = 2;
+    }else if(resolution>611){
+        var pointRadius = 2;
+    }else if(resolution>305) {
+        var pointRadius = 4;
+    }else if(resolution>152) {
+        var pointRadius = 6;
+    }else if(resolution>76) {
+        var pointRadius = 8;
+    }else if(resolution>38) {
+        var pointRadius = 10;
+    }else{
+        var pointRadius = 12;
+    }
+    switch (geoType){
+        case "LineString":
+            var style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color:fillColor,
+                    width:6
+                })
+            });
+            break;
+        case "Point":
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius:pointRadius,
+                    fill: new ol.style.Fill({color:fillColor}),
+                    stroke: new ol.style.Stroke({color: "white", width: 1})
+                })
+            });
+            break;
+        case "Polygon":
+        case "MultiPolygon":
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color:fillColor
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "gray",
+                    width: 1
+                })
+            });
+            break;
+        default:
+    }
+    return style;
+};
+//----------------------------------------------------------------------------------------------------------------------
 $(function(){
     $(".data-btn").click(function(){
         var mapObj = funcMaps($(this));
@@ -137,6 +195,7 @@ $(function(){
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
+            /*
             //スタイルファンクション---------------------
             var styleFunction = function(feature, resolution) {
                 var prop = feature.getProperties();
@@ -194,11 +253,12 @@ $(function(){
                 }
                 return style;
             };
+            */
             //--------------------------------------
             dataLayer[dataLayerId] = new ol.layer.Vector({
                 name:"dataLayer",
                 source:vectorSource,
-                style:styleFunction
+                style:commonstyleFunction
             });
             dataLayer[dataLayerId].set("altitudeMode","clampToGround");
             eval(mapName).addLayer(dataLayer[dataLayerId]);

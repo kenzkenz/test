@@ -436,16 +436,20 @@ label:hover{
 .popup-tbl{
     width:200px;
     table-layout:fixed;
+    margin-bottom:5px;
 }
 .popup-th{
     /*width:50px;*/
     color:white;
     background:rgba(51,122,183,1.0);
     font-weight:normal;
+    text-align:center;
+    padding:2px!important;
 }
 .popup-td{
     width:150px;
     word-break:break-all;
+    padding:2px!important;
 }
 .popup-tbl img{
     width:140px;

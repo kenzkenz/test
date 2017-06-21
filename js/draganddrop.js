@@ -44,7 +44,7 @@ $(function(){
     map2.addControl(profil2);
     //----------------------------------------------------------------
     //$("body").append("<div id='moveinfo-div'></div>");
-
+    /*
     var defaultStyle = {
         'Point': new ol.style.Style({
             image: new ol.style.Circle({
@@ -101,6 +101,10 @@ $(function(){
             })
         })
     };
+    */
+
+
+
     /*星
     var style =
         [	new ol.style.Style(
@@ -120,14 +124,16 @@ $(function(){
             })
         ];
     */
+    /*
     var styleFunction = function(feature, resolution) {
-        var featureStyleFunction = feature.getStyleFunction();
-        if (featureStyleFunction) {
-            return featureStyleFunction.call(feature, resolution);
-        } else {
+        //var featureStyleFunction = feature.getStyleFunction();
+        //if (featureStyleFunction) {
+        //    return featureStyleFunction.call(feature, resolution);
+        //} else {
             return defaultStyle[feature.getGeometry().getType()];
-        }
+        //}
     };
+    */
     //ドラッグアンドドロップでレイヤーを作る
     dragAndDropInteraction1.on('addfeatures', function(event) {
         mapName = "map1";
@@ -160,8 +166,10 @@ $(function(){
             //format: new ol.format.GPX()
         });
         gpxLayer1 = new ol.layer.Vector({
+            name:"gpxLayer",
             source: vectorSource,
-            style: styleFunction
+            //style: styleFunction
+            style:commonstyleFunction
             //style:style
         });
         map1.addLayer(gpxLayer1);
@@ -228,6 +236,7 @@ $(function(){
             //format: new ol.format.GPX()
         });
         gpxLayer2 = new ol.layer.Vector({
+            name:"gpxLayer",
             source: vectorSource,
             style: styleFunction
             //style:style
