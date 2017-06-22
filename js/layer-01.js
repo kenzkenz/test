@@ -767,6 +767,7 @@ var aya2 = new ol.layer.Tile({
     })
 });
 //宮崎県赤色立体地図
+/*
 var seki1 = new ol.layer.Tile({
     title:"宮崎県(九州)赤色立体地図",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図</a><br><br>赤色立体地図©アジア航測株式会社",
@@ -791,11 +792,15 @@ var seki2 = new ol.layer.Tile({
         maxZoom:16
     })
 });
+*/
 var sekiz1 = new ol.layer.Tile({
     //secret:true,
     title:"<span class='label label-default label-danger'>New</span>全国赤色立体地図",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図<br><br>赤色立体地図©アジア航測株式会社</a>",
-    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span><br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。商用利用禁止です！外部システムから地図タイルURLのアクセスはできません。" ,
+    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span>" +
+            "<br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。" +
+            "商用利用禁止です。外部システムから地図タイルURLのアクセスは禁止です。" +
+            "" ,
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
@@ -808,7 +813,10 @@ var sekiz2 = new ol.layer.Tile({
     //secret:true,
     title:"<span class='label label-default label-danger'>New</span>全国赤色立体地図",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図<br><br>赤色立体地図©アジア航測株式会社</a>",
-    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span><br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。商用利用禁止です！外部システムから地図タイルURLのアクセスはできません。" ,
+    detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span>" +
+            "<br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。" +
+            "商用利用禁止です。外部システムから地図タイルURLのアクセスは禁止です。" +
+            "" ,
     icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
@@ -989,5 +997,29 @@ var mesh1000z2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
-
+//九州高速道路
+var kousoku9syu1 = new ol.layer.Tile({
+    title:"九州高速道路",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-car fa-fw' style='color:red;'></i>",
+    extent:transformE([129.578874,31.011182,132.034319,34.055661]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/9syuukousoku/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var kousoku9syu2 = new ol.layer.Tile({
+    title:"九州高速道路",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-car fa-fw' style='color:red;'></i>",
+    extent:transformE([129.578874,31.011182,132.034319,34.055661]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/9syuukousoku/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
 

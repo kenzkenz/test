@@ -4,7 +4,6 @@ var commonstyleFunction = function(feature, resolution) {
     var prop = feature.getProperties();
     var geoType = feature.getGeometry().getType();
     var fillColor = prop["_fillColor"];
-
     if(resolution>2445) {//ズーム６
         var pointRadius = 2;
     }else if(resolution>1222) {//ズーム７
@@ -24,9 +23,11 @@ var commonstyleFunction = function(feature, resolution) {
     }
     switch (geoType){
         case "LineString":
+            var lineDash = eval(prop["_lineDash"]);
             var style = new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color:fillColor,
+                    lineDash:lineDash,
                     width:6
                 })
             });
@@ -334,7 +335,7 @@ function funcDataLayerSort(mapName){
 var dataLayerArr =
     [
         {
-            "id":"zinzya",
+            "id":"miyazakizinzya",
             "title":"宮崎県神社",
             "origin":"",
             "detail":"試行中",
@@ -371,7 +372,7 @@ var dataLayerArr =
             "zoom":""
         },
         {
-            "id":"kousokudourohigasi9",
+            "id":"kousokudouro9syuu",
             "title":"高速道路(東九州)",
             "origin":"",
             "detail":"試行中",

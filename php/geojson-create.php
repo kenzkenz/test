@@ -19,9 +19,16 @@ $prevAccount = "";
 $i=0;
 $lineCoordinates = [];
 while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
+    $geotype= $row["geotype"];
+
 	$propertiesArr = array('id'=>$row["id"]);
 	$propertiesArr = $propertiesArr + array('_fillColor'=>$row["fillcolor"]);
     $propertiesArr = $propertiesArr + array('_fillOpacity'=>"0.5");
+
+    if($geotype=="LineString"){
+        $propertiesArr = $propertiesArr + array('_lineDash'=>$row["linedash"]);
+    }
+
 	//$propertiesArr = $propertiesArr + array('_strokeColor'=>$row["strokecolor"]);
     $propertiesArr = $propertiesArr + array('_color'=>"gray");
 	$propertiesArr = $propertiesArr + array('_icon'=>$row["icon"]);
@@ -34,7 +41,7 @@ while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
 	foreach ($properties as $i => $p) {
 		if($row_head[$p]!="") $propertiesArr = $propertiesArr + array($row_head[$p]=>$row[$p]);
 	};
-	$geotype= $row["geotype"];
+
 	$json[] = array(
 		"type" => "Feature",
 		"geometry" => json_decode($row["geomjson"]),
