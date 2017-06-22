@@ -500,7 +500,7 @@ $(function(){
         evt.preventDefault();
         myContextOverlay1.setPosition(coord1);
         var val = $("#map1 .kmtext").spinner().spinner("value");
-        bbb(val,"map1");
+        //bbb(val,"map1");
 
         getElev(coord1,"map1",function(h){
             console.log(h);
@@ -514,7 +514,7 @@ $(function(){
         evt.preventDefault();
         myContextOverlay2.setPosition(coord2);
         var val = $("#map2 .kmtext").spinner().spinner("value");
-        bbb(val,"map2");
+        //bbb(val,"map2");
 
         getElev(coord1,"map2",function(h){
             console.log(h);

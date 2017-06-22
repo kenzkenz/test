@@ -173,12 +173,22 @@ $(function(){
         html: '<i class="fa fa-download"></i>',
         title: "Save",
         handleClick: function(e) {
-            //var json= new ol.format.GeoJSON().writeFeatures(editLayer.getSource().getFeatures());
-            var geojson = new ol.format.GeoJSON().writeFeatures(editLayer.getSource().getFeatures(), {
+            var geojsonChar = new ol.format.GeoJSON().writeFeatures(editLayer.getSource().getFeatures(), {
                 featureProjection: "EPSG:3857"
             });
-            //info(json);
-            console.log(geojson);
+            console.log(geojsonChar);
+
+            var type = "text/plain";
+            var blob = new Blob([geojsonChar], {type: type});
+
+            $(".geojson-save-a").remove();
+            $("body").append("<a class='geojson-save-a'></a>");
+
+            $(".geojson-save-a").attr({
+                "href": window.URL.createObjectURL(blob),
+                "download":"edit.geojson"
+            });
+            $(".geojson-save-a")[0].click();//[0]が肝
         }
     });
     mainbar1.addControl (save);
