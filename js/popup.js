@@ -30,7 +30,12 @@ $(function(){
         if(!layerObj) return;
         var layer = layerObj["layer"];
         var feature = layerObj["feature"];
-        var layerName = layerObj["layer"].getProperties()["name"];
+        if(layerObj["layer"]) {
+            var layerName = layerObj["layer"].getProperties()["name"];
+        }else{
+            //console.log("レイヤーなし!！");
+            return;
+        }
         console.log(layerName);
         switch (layerName){//ここで処理を分岐
             case "wikiCommonsLayer":

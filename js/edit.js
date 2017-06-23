@@ -1,15 +1,16 @@
 var editLayer = new ol.layer.Vector({
-    source: new ol.source.Vector()
+    name:"editLayer",
+    source: new ol.source.Vector(),
+    style:commonstyleFunction
 });
 $(function(){
     // Main control bar
     var mainbar1 = new ol.control.Bar();
     map1.addControl(mainbar1);
-
     // Edit control bar
     var editbar1 = new ol.control.Bar({
         toggleOne: true,	// one control active at the same time
-        group:false			// group controls together
+        group:false		// group controls together
     });
     mainbar1.addControl(editbar1);
 
@@ -21,13 +22,15 @@ $(function(){
             html: '<i class="fa fa-times"></i>',
             title: "Delete",
             handleClick: function() {
-                var features = selectCtrl.getInteraction().getFeatures();
+                //var features = selectCtrl.getInteraction().getFeatures();
+                var features = editFeatureSelect.getFeatures();
                 if (!features.getLength()) info("Select an object first...");
                 else info(features.getLength()+" object(s) deleted.");
                 for (var i=0, f; f=features.item(i); i++) {
                     editLayer.getSource().removeFeature(f);
                 }
-                selectCtrl.getInteraction().getFeatures().clear();
+                //selectCtrl.getInteraction().getFeatures().clear();
+                editFeatureSelect.getFeatures().clear();
             }
     }));
     /*
@@ -56,33 +59,98 @@ $(function(){
             return layer.get("selectable") == true;
         }
     });
+    editFeatureSelect.on('select', function(e) {
+        console.log(e["selected"].length);
+        if(e["selected"].length) {
+            var fillColor = e["selected"][0]["I"]["_fillColor"];
+            var content = "";
+            content += "作成中！作成中！作成中！<br>";
+            content += '<input type="text" class="form-control" id="color-input" value="' + fillColor + '">';
+            mydialog({
+                id: "edit-dialog",
+                class: "edit-dialog",
+                map: "map1",
+                title: "プロパティ",
+                content: content,
+                top: "100px",
+                left: "220px",
+                rmDialog: true
+            });
+            $("#color-input").spectrum({
+                preferredFormat: "rgb",
+                showAlpha: true,
+                //flat: true,
+                showInput: true,
+                allowEmpty: true,
+                change: function (color) {
+                    //console.log(color.toRgbString());
+                    var features = editFeatureSelect.getFeatures();
+                    //console.log(features["a"][0]["I"]["_fillColor"])
+                    features["a"][0]["I"]["_fillColor"] = color.toRgbString();
+                    editLayer.getSource().changed();
+                }
+            });
+        }else{
+            $(".edit-dialog").remove();
+        }
+    });
+
+
+
+        //map1.addInteraction(editFeatureSelect);
     var modify = new ol.interaction.Modify({
         features:editFeatureSelect.getFeatures()
     });
     map1.addInteraction(modify);
+    var snap = new ol.interaction.Snap({
+       source:editLayer.getSource()
+    });
+    map1.addInteraction(snap);
     //------------------------------------------------------------------------------------------------------------------
-
+    //選択
     var selectCtrl = new ol.control.Toggle({
         html: '<i class="fa fa-hand-pointer-o"></i>',
         title: "選択",
-        interaction: editFeatureSelect,
+        //interaction: editFeatureSelect,
         bar: sbar,
-        active:false
+        active:false,
+        onToggle: function(active) {
+            if(active) {
+                modify.setActive(true);
+                map1.addInteraction(editFeatureSelect);
+                console.log(editFeatureSelect.getFeatures())
+
+
+            }else{
+                modify.setActive(false);
+                map1.removeInteraction(editFeatureSelect);
+            }
+        }
     });
     editbar1.addControl (selectCtrl);
 
     // Add editing tools
-    var pedit = new ol.control.Toggle({//ポイント
+    var pointEdit = new ol.control.Toggle({//ポイント
             html: '<i class="fa fa-map-marker" ></i>',
-            title: 'ポイント',
+            title:"ポイント",
             interaction: new ol.interaction.Draw({
-                type: 'Point',
+                type: "Point",
                 source:editLayer.getSource()
             })
     });
-    editbar1.addControl (pedit);
+    editbar1.addControl (pointEdit);
+    //----------------------------------------------
+    var pointDraw = pointEdit.getInteraction();
+    pointDraw.on('drawend', function(e) {
+        var prop = e["feature"]["I"];
+        prop["_fillColor"] = "rgba(255,0,0,1.0)";
+        if(editLayer.get("name")==="editLayer-import"){
+            editLayer.getSource().addFeature(e["feature"]);
+        }
+    });
+    //----------------------------------------------
 
-    var ledit = new ol.control.Toggle({
+    var lineEdit = new ol.control.Toggle({
             html: '<i class="fa fa-share-alt" ></i>',
             title: '線',
             interaction: new ol.interaction.Draw({
@@ -96,14 +164,17 @@ $(function(){
                         html: 'undo',
                         title: "Delete last point",
                         handleClick: function() {
-                            try { ledit.getInteraction().removeLastPoint(); } catch(e){};
+                            try {
+                                lineEdit.getInteraction().removeLastPoint();
+                            }catch(e){
+                            }
                         }
                     }),
                     new ol.control.TextButton({
                         html: 'Finish',
                         title: "finish",
                         handleClick: function() {// Prevent null objects on finishDrawing
-                            var drawi = ledit.getInteraction();
+                            var drawi = lineEdit.getInteraction();
                             var lkey = drawi.on('drawend', function(e) {
                                 ol.Observable.unByKey(lkey);
                                 //drawi.unByKey(lkey);
@@ -123,31 +194,50 @@ $(function(){
                 ]
             })
     });
-    editbar1.addControl (ledit);
+    editbar1.addControl (lineEdit);
+    //----------------------------------------------
+    var lineDraw = lineEdit.getInteraction();
+    lineDraw.on('drawend', function(e) {
+        var prop = e["feature"]["I"];
+        prop["_fillColor"] = "rgba(255,0,0,0.9)";
+        if(editLayer.get("name")==="editLayer-import"){
+            editLayer.getSource().addFeature(e["feature"]);
+        }
+    });
+    //----------------------------------------------
 
-    var fedit = new ol.control.Toggle({
+    var polygonEdit = new ol.control.Toggle({
         html: '<i class="fa fa-bookmark-o fa-rotate-270" ></i>',
-        title: 'ポリゴン',
+        title: "ポリゴン",
         interaction: new ol.interaction.Draw({
-            type: 'Polygon',
+            type: "Polygon",
             source: editLayer.getSource()
         }),
+        onToggle: function(active) {
+            console.log(active);
+            console.log(editLayer.getSource().getFeatures())
+        },
         // Options bar ssociated with the control
         bar: new ol.control.Bar({
             controls:[
                 new ol.control.TextButton({
-                    html: 'undo',//'<i class="fa fa-mail-reply"></i>',
+                    html: "undo",//'<i class="fa fa-mail-reply"></i>',
                     title: "undo last point",
                     handleClick: function() {
-                        try { fedit.getInteraction().removeLastPoint(); } catch(e){}
+                        try {
+                            polygonEdit.getInteraction().removeLastPoint();
+                        }catch(e){
+                        }
                     }
                 }),
                 new ol.control.TextButton({
-                    html: 'finish',
+                    html: "finish",
                     title: "finish",
                     handleClick: function() {// Prevent null objects on finishDrawing
-                        var drawi = fedit.getInteraction();
+                        console.log("ポリゴンhandleClick");
+                        var drawi = polygonEdit.getInteraction();
                         var lkey = drawi.on('drawend', function(e) {
+                            console.log("ポリゴンdrawend");
                             ol.Observable.unByKey(lkey);
                             //drawi.unByKey(lkey);
                             var c = e.feature.getGeometry().getCoordinates();
@@ -166,7 +256,21 @@ $(function(){
             ]
         })
     });
-    editbar1.addControl ( fedit );
+    editbar1.addControl (polygonEdit);
+    //----------------------------------------------
+    var polygonDraw = polygonEdit.getInteraction();
+    polygonDraw.on('drawend', function(e) {
+        var prop = e["feature"]["I"];
+        prop["_fillColor"] = "rgba(0,50,50,0.1)";
+        if(editLayer.get("name")==="editLayer-import"){
+            editLayer.getSource().addFeature(e["feature"]);
+        }
+        //editFeatureSelect.setActive(false);
+        //editFeatureSelect.getFeatures().clear();
+    });
+    //----------------------------------------------
+
+    //var drawi = polygonEdit.getInteraction();
 
     // Add a simple push button to save features
     var save = new ol.control.Button({
@@ -177,7 +281,6 @@ $(function(){
                 featureProjection: "EPSG:3857"
             });
             console.log(geojsonChar);
-
             var type = "text/plain";
             var blob = new Blob([geojsonChar], {type: type});
 

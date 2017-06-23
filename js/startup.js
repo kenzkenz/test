@@ -80,6 +80,11 @@ $(function(){
         center:center,
         zoom:zoom
     });
+    inu.setZIndex(9999999);
+    editLayer.set("altitudeMode","clampToGround");
+    editLayer.setZIndex(9999999);//edit.js参照
+    editLayer.set("selectable",true);
+
     //id map1に起動時に表示されるレイヤーをセット
     map1 = new ol.Map({
         target:"map1",
@@ -97,9 +102,12 @@ $(function(){
             new ol.interaction.DragRotateAndZoom()
         ])
     });
-    inu.setZIndex(9999999);
-    editLayer.setZIndex(9999999);
-    editLayer.set("selectable",true);
+
+
+
+
+
+
     //--------------------------------------------------------------------------
     //デフォルトで設定されているインタラクション（PinchRotate）を使用不可に
     var interactions1 = map1.getInteractions().getArray();

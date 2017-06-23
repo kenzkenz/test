@@ -1,4 +1,4 @@
-var gpxLayer1 = null;
+//var editLayer = null;
 var profil1 = null;
 var gpxLayer2 = null;
 var profil2 = null;
@@ -44,7 +44,7 @@ $(function(){
     map2.addControl(profil2);
     //----------------------------------------------------------------
     //$("body").append("<div id='moveinfo-div'></div>");
-    /*
+
     var defaultStyle = {
         'Point': new ol.style.Style({
             image: new ol.style.Circle({
@@ -101,7 +101,7 @@ $(function(){
             })
         })
     };
-    */
+
 
 
 
@@ -124,8 +124,8 @@ $(function(){
             })
         ];
     */
-    /*
-    var styleFunction = function(feature, resolution) {
+
+    var gpxStyleFunction = function(feature, resolution) {
         //var featureStyleFunction = feature.getStyleFunction();
         //if (featureStyleFunction) {
         //    return featureStyleFunction.call(feature, resolution);
@@ -133,17 +133,16 @@ $(function(){
             return defaultStyle[feature.getGeometry().getType()];
         //}
     };
-    */
+
     //ドラッグアンドドロップでレイヤーを作る
     dragAndDropInteraction1.on('addfeatures', function(event) {
         mapName = "map1";
-        map1.removeLayer(gpxLayer1);
-        //console.log(event);
-        console.log(event.file);
-        console.log(event["file"]["name"]);
-        if(event.features==null) {
-            var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length-1];
-            switch (fileExtension){
+        map1.removeLayer(editLayer);
+        var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length - 1]
+        console.log(fileExtension);
+        if (event.features == null) {
+            var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length - 1];
+            switch (fileExtension) {
                 case "csv":
                     csvRead(event.file);
                     break;
@@ -165,52 +164,63 @@ $(function(){
             features: event.features,
             //format: new ol.format.GPX()
         });
-        gpxLayer1 = new ol.layer.Vector({
-            name:"gpxLayer",
+        if (fileExtension !== "gpx") {
+            var style = commonstyleFunction;
+        }else{
+            var style = gpxStyleFunction;
+        }
+        editLayer = new ol.layer.Vector({
+            name:"editLayer-import",
             source: vectorSource,
             //style: styleFunction
-            style:commonstyleFunction
+            style:style
             //style:style
         });
-        map1.addLayer(gpxLayer1);
+        editLayer.set("altitudeMode","clampToGround");
+        map1.addLayer(editLayer);
         map1.getView().fit(vectorSource.getExtent());
-        gpxLayer1.setZIndex(9999);
+        editLayer.setZIndex(9999);
+        editLayer.set("selectable",true);
 
-        var faturesAr = vectorSource.getFeatures();
-        for (var i=0; i < faturesAr.length; i++) {
-            if(faturesAr[i].getGeometry().getType()!="Point") {
-                profil1.setGeometry(faturesAr[i]);
-                break;
+        if(fileExtension==="gpx") {
+            var faturesAr = vectorSource.getFeatures();
+            for (var i = 0; i < faturesAr.length; i++) {
+                if (faturesAr[i].getGeometry().getType() != "Point") {
+                    profil1.setGeometry(faturesAr[i]);
+                    break;
+                }
             }
-        }
-        //profil1.setGeometry(vectorSource.getFeatures()[0]);
-        profil1.show();
-        var pt = new ol.Feature(new ol.geom.Point([0,0]));
-        pt.setStyle([]);
-        vectorSource.addFeature(pt);
+            //profil1.setGeometry(vectorSource.getFeatures()[0]);
+            profil1.show();
+            var pt = new ol.Feature(new ol.geom.Point([0, 0]));
+            pt.setStyle([]);
+            vectorSource.addFeature(pt);
 
-        function drawPoint(e){
-            if (!pt) return;
-            if (e.type=="over"){
-                // Show point at coord
-                pt.setGeometry(new ol.geom.Point(e.coord));
-                pt.setStyle(null);
-            }else{
-                // hide point
-                pt.setStyle([]);
+            function drawPoint(e) {
+                if (!pt) return;
+                if (e.type == "over") {
+                    // Show point at coord
+                    pt.setGeometry(new ol.geom.Point(e.coord));
+                    pt.setStyle(null);
+                } else {
+                    // hide point
+                    pt.setStyle([]);
+                }
             }
+
+            profil1.on(["over", "out"], function (e) {
+                if (e.type == "over") profil1.popup(e.coord[2] + " m");
+                drawPoint(e);
+            });
         }
-        profil1.on(["over","out"], function(e){
-            if (e.type=="over") profil1.popup(e.coord[2]+" m");
-            drawPoint(e);
-        });
+
     });
     //-----------------------------------------------------------------------------------------------------------
     dragAndDropInteraction2.on('addfeatures', function(event) {
         mapName = "map2";
         map2.removeLayer(gpxLayer2);
-        console.log(event);
-        console.log(event.file);
+        var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length - 1]
+        console.log(fileExtension);
         if(event.features==null) {
             var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length-1];
             switch (fileExtension){
@@ -235,10 +245,11 @@ $(function(){
             features: event.features,
             //format: new ol.format.GPX()
         });
+        var style = gpxStyleFunction;
         gpxLayer2 = new ol.layer.Vector({
             name:"gpxLayer",
             source: vectorSource,
-            style: styleFunction
+            style: style
             //style:style
         });
         map2.addLayer(gpxLayer2);
