@@ -471,3 +471,11 @@ label:hover{
     width:100px;
     border-radius:10px;
 }
+/*エディット関係------------------------------------------------------------*/
+.edit-btn{
+    margin-top:5px;
+}
+.sp-container{
+    background-color:white!important;
+    border:1px solid rgba(51,122,183,1.0)!important;
+}

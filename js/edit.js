@@ -64,8 +64,9 @@ $(function(){
         if(e["selected"].length) {
             var fillColor = e["selected"][0]["I"]["_fillColor"];
             var content = "";
-            content += "作成中！作成中！作成中！<br>";
-            content += '<input type="text" class="form-control" id="color-input" value="' + fillColor + '">';
+            //content += "作成中！作成中！作成中！<br>";
+            content += '色を選択：<input type="text" class="form-control" id="color-input" value="' + fillColor + '">';
+            content += "<button type='button' class='edit-btn btn btn-primary btn-block btn-xs'>反映</button>";
             mydialog({
                 id: "edit-dialog",
                 class: "edit-dialog",
@@ -81,7 +82,7 @@ $(function(){
                 showAlpha: true,
                 //flat: true,
                 showInput: true,
-                allowEmpty: true,
+                //allowEmpty: true,
                 change: function (color) {
                     //console.log(color.toRgbString());
                     var features = editFeatureSelect.getFeatures();
@@ -94,10 +95,6 @@ $(function(){
             $(".edit-dialog").remove();
         }
     });
-
-
-
-        //map1.addInteraction(editFeatureSelect);
     var modify = new ol.interaction.Modify({
         features:editFeatureSelect.getFeatures()
     });
@@ -106,6 +103,10 @@ $(function(){
        source:editLayer.getSource()
     });
     map1.addInteraction(snap);
+    var translate = new ol.interaction.Translate({
+        features:editFeatureSelect.getFeatures()
+    });
+    map1.addInteraction(translate);
     //------------------------------------------------------------------------------------------------------------------
     //選択
     var selectCtrl = new ol.control.Toggle({
@@ -118,9 +119,8 @@ $(function(){
             if(active) {
                 modify.setActive(true);
                 map1.addInteraction(editFeatureSelect);
+                editFeatureSelect.setActive(true);
                 console.log(editFeatureSelect.getFeatures())
-
-
             }else{
                 modify.setActive(false);
                 map1.removeInteraction(editFeatureSelect);
@@ -261,12 +261,12 @@ $(function(){
     var polygonDraw = polygonEdit.getInteraction();
     polygonDraw.on('drawend', function(e) {
         var prop = e["feature"]["I"];
-        prop["_fillColor"] = "rgba(0,50,50,0.1)";
+        prop["_fillColor"] = "rgba(51,122,183,0.7)";
         if(editLayer.get("name")==="editLayer-import"){
             editLayer.getSource().addFeature(e["feature"]);
         }
-        //editFeatureSelect.setActive(false);
-        //editFeatureSelect.getFeatures().clear();
+        editFeatureSelect.setActive(false);
+        editFeatureSelect.getFeatures().clear();
     });
     //----------------------------------------------
 
@@ -283,7 +283,6 @@ $(function(){
             console.log(geojsonChar);
             var type = "text/plain";
             var blob = new Blob([geojsonChar], {type: type});
-
             $(".geojson-save-a").remove();
             $("body").append("<a class='geojson-save-a'></a>");
 
@@ -300,5 +299,10 @@ $(function(){
     function info(i) {
         $("#info").html(i||"");
     }
+    //----------------------------------------------
+    $("body").on("click",".edit-btn",function(){
+        editFeatureSelect.getFeatures().clear();
+        $(this).parents(".dialog-base").remove();
+    })
 
 });
