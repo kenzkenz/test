@@ -2,6 +2,10 @@ var estatLayermap1 = null;
 var estatLayermap2 = null;
 var estatDataArmap1 = null;
 var estatDataArmap2 = null;
+
+var estatJson1 = null;
+var estatJson2 = null;
+
 $(function(){
 	var citySelectOption = null;
 	var prefSelectOption = null;
@@ -245,6 +249,11 @@ $(function(){
                         prefname:prefName
                     }
                 }).done(function(json){
+                    if(mapName==="map1") {
+                        estatJson1 = json.geojson;
+                    }else {
+                        estatJson2 = json.geojson;
+                    }
                     var geojsonObject = json.geojson;
                     var vectorSource = new ol.source.Vector({
                         features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
@@ -367,8 +376,6 @@ $(function(){
 
                         //tblHtml += "<td class='estat-city-td'><div class='dropdown'><a href='#' data-toggle='dropdown'>" + cityAr[i]["cityname"] + "</a><ul class='dropdown-menu' role='menu'><li role='presentation'><a href='#'>test</a></li></ul></div></td>";
 
-
-
                         tblHtml += "<td class='estat-zinkou-td'>" + "aaa" + "</td>";
                         tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
                         //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
@@ -376,6 +383,8 @@ $(function(){
                         tblHtml += "</tr>";
                     }
                     tblHtml += "</tbody></table>";
+                    tblHtml += "<a type='button' class='higasi-btn btn btn-primary btn-block btn-xs'>json</a>";
+
                     $("#" + mapName + " .estat-tbl-div").html(tblHtml);
                     var zinkouAr = JSON.parse(results[1])["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
                     //console.log(zinkouAr);
@@ -413,6 +422,11 @@ $(function(){
                             cdcat01:cdcat01
                         }
 						}).done(function(json){
+                        if(mapName==="map1") {
+                            estatJson1 = JSON.parse(json["jsontext"]);
+                        }else{
+                            estatJson2 = JSON.parse(json["jsontext"]);
+                        }
                         	resolve(json["jsontext"])
 						}).fail(function(json){
 							console.log("失敗!");
@@ -449,6 +463,26 @@ $(function(){
             })
 		});
 	});
+
+    //-----------------------------------------------------------------------------
+    //
+    $("body").on("click",".higasi-btn",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        if(mapName==="map1") {
+            console.log(JSON.stringify(estatJson1));
+            var jsonChar = JSON.stringify(estatJson1);
+        }else{
+            console.log(JSON.stringify(estatJson2));
+            var jsonChar = JSON.stringify(estatJson2);
+        }
+        var type = "text/plain";
+        var blob = new Blob([jsonChar], {type: type});
+        $(".higasi-btn").attr({
+            "href": window.URL.createObjectURL(blob),
+            "download":"estat.json"
+        });
+    });
 	//-----------------------------------------------------------------------------
     //ダイアログを消した時
     $("body").on("click",".estat-dialog .dialog-hidden",function(){
