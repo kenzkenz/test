@@ -2,10 +2,8 @@ var estatLayermap1 = null;
 var estatLayermap2 = null;
 var estatDataArmap1 = null;
 var estatDataArmap2 = null;
-
 var estatJson1 = null;
 var estatJson2 = null;
-
 $(function(){
 	var citySelectOption = null;
 	var prefSelectOption = null;
@@ -370,12 +368,8 @@ $(function(){
                         tblHtml += "<tr class='tr-" + citycode + "'>";
                         tblHtml += "<td class='estat-lank-td'></td>";
                         tblHtml += "<td class='estat-city-code'>" + citycode + "</td>";
-
                         tblHtml += "<td class='estat-city-td'>" + cityAr[i]["cityname"] + "</td>";
-
-
                         //tblHtml += "<td class='estat-city-td'><div class='dropdown'><a href='#' data-toggle='dropdown'>" + cityAr[i]["cityname"] + "</a><ul class='dropdown-menu' role='menu'><li role='presentation'><a href='#'>test</a></li></ul></div></td>";
-
                         tblHtml += "<td class='estat-zinkou-td'>" + "aaa" + "</td>";
                         tblHtml += "<td class='estat-value-td'>" + "" + "</td>";
                         //tblHtml += "<td class='estat-unit-td'>" + "" + "</td>";
@@ -383,7 +377,7 @@ $(function(){
                         tblHtml += "</tr>";
                     }
                     tblHtml += "</tbody></table>";
-                    tblHtml += "<a type='button' class='higasi-btn btn btn-primary btn-block btn-xs'>json</a>";
+                    tblHtml += "<a type='button' class='higasi-btn btn btn-primary btn-block btn-xs'>json取得</a>";
 
                     $("#" + mapName + " .estat-tbl-div").html(tblHtml);
                     var zinkouAr = JSON.parse(results[1])["GET_STATS_DATAS"]["STATISTICAL_DATA_LIST"]["DATA_INF_LIST"]["DATA_INF"];
@@ -465,7 +459,7 @@ $(function(){
 	});
 
     //-----------------------------------------------------------------------------
-    //
+    //json取得
     $("body").on("click",".higasi-btn",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
@@ -579,8 +573,6 @@ $(function(){
                 $(this).find(".estat-lank-td").text(i + 1);
             })
         });
-
-
 		//----------------
         tdColor(mapName,valueAr,".estat-value-td");
         $("#" + mapName + " .estat-tbl").trigger("update");

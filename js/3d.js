@@ -65,7 +65,7 @@ $(function(){
             //----------------------------------------------------------------
             var ol3d = eval(mapObj["ol3d"]);
             //ol3d.setEnabled(true);
-            mapObj["element"].find(".cesium-btn-div").show(500);;
+            mapObj["element"].find(".cesium-btn-div").show(500);
             var tiltI = 0;
             ol3d.getCamera().setTilt(0);
             ol3d.setEnabled(true);
@@ -86,6 +86,23 @@ $(function(){
                 console.log(features);
                 czmlCreate(features,$(this));
             }
+
+
+
+            if(mapName==="map1") {
+                var mobakuu = mobakuu1;
+            }else{
+                //var resasLayer = resasLayermap2;
+            }
+            if(mobakuu){
+                var features = mobakuu.getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+            }
+
+
+
+
             if(mapName==="map1") {
                 var csvLayer = csvLayer1;
             }else{
@@ -286,78 +303,3 @@ function czmlCreate(features,element){
         }
     ));
 }
-
-/*
-//------------------------------------------------------------------------------
-function czmlCreate(features,element){
-    var mapObj = funcMaps(element);
-    var ol3d = eval(mapObj["ol3d"]);
-    ol3d.getDataSources().removeAll();
-    var czml = [{
-        "id":"document",
-        "version":"1.0"
-    }];
-    var czmlId = 1;
-    for (i=0; i<features.length; i++){
-        var coordArr2 =[];
-        if(features[i].getGeometry().getType()!="MultiPolygon"){
-            var coordArr = features[i].getGeometry().getCoordinates()[0];
-            funcCoordPush();
-        }else{
-            var coordArr = features[i].getGeometry().getCoordinates()[0][0];
-            funcCoordPush();
-        }
-        function funcCoordPush(){
-            for (k=0; k<coordArr.length; k++){
-                var coord = ol.proj.transform(coordArr[k],"EPSG:3857","EPSG:4326");
-                coordArr2.push(Number(coord[0]));
-                coordArr2.push(Number(coord[1]));
-                coordArr2.push(0);
-            }
-        }
-        var fillColor = features[i].getProperties()["_fillColor"];
-        var fillColorRgb =fillColor.replace("a","").substr(0,fillColor.lastIndexOf(",")-1)+")";
-        var color0 = new RGBColor(fillColorRgb);
-        if(features[i].getProperties()["_fillOpacity"]){
-            var rgba = [Number(color0.r),Number(color0.g),Number(color0.b),150];
-        }else{
-            var rgba = [Number(color0.r),Number(color0.g),Number(color0.b),150];
-        }
-        var polygonHeight = features[i].getProperties()["_polygonHeight"];
-        //var polygonHeight = 40
-        var description = features[i].getProperties()["hover"];
-        var d3Polygon =	[
-            {
-                "id":czmlId++,"description":description,
-                "polygon":{
-                    "extrudedHeight":polygonHeight,
-                    "outline":{"boolean":true},
-                    "outlineColor":{"rgba":[0,0,0,255]},
-                    "material":{
-                        "solidColor":{
-                            "color":{
-                                "rgba":rgba
-                            }
-                        }
-                    },
-                    "positions":{
-                        "cartographicDegrees":coordArr2
-                    }
-                }
-            }
-        ]
-        //czml =d3Polygon;
-        czml.push(d3Polygon[0])
-    }
-    console.log(JSON.stringify(czml))
-    //console.log(czml)
-    //console.log(czml[1]["polygon"])
-    ol3d.getDataSources().add(Cesium.CzmlDataSource.load(
-        czml,{
-            //camera: scene.camera,
-            //canvas: scene.canvas
-        }
-    ));
-}
-
-*/

@@ -70,7 +70,31 @@ $(function(){
             case "gpxLayer":
                 funcDataLayerPopup(feature,map,evt);
                 break;
+            case "mobakuu":
+                funcMobakuuPopup(feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcMobakuuPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+
+        var content = "";
+            content += "自治体名：" + featureProp["自治体名"] + "<br>";
+            content += "人数：" + featureProp["人数"].toLocaleString() + "人";
+
+
+        if(map=="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------

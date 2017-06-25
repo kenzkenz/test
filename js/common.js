@@ -108,7 +108,7 @@ function funcHaikeiTblDivHeight(){
 function transformE(extent) {
 	return ol.proj.transformExtent(extent,'EPSG:4326','EPSG:3857');
 }
-//-----------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 // 文字列から，Unicodeコードポイントの配列を作る
 function str_to_unicode_array( str ){
     var arr = [];
@@ -116,12 +116,32 @@ function str_to_unicode_array( str ){
         arr.push( str.charCodeAt( i ) );
     }
     return arr;
-};
+}
 function str2Array(str) {
     var array = [],i,il=str.length;
     for(i=0;i<il;i++) array.push(str.charCodeAt(i));
     return array;
-};
+}
+//-------------------------------------------------------------------------------
+// 配列内に存在するかを調べる関数
+function IsExists(array, value){
+    for (var i =0, len = array.length; i < len; i++){
+        if (value == array[i]){
+            // 存在したらtrueを返す
+            return true;
+        };
+    };
+    // 存在しない場合falseを返す
+    return false;
+}
+// 重複を排除しながらpushする関数
+function PushArray(array, value){
+    // 存在しない場合、配列にpushする
+    if(! IsExists(array, value)){
+        array.push(value);
+    };
+    return true;
+}
 //------------------------------------------------------------------------------
 //2015年10月1日　国勢調査人口
 var prefAr =

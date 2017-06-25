@@ -3,6 +3,8 @@ var resasUrl = "https://opendata.resas-portal.go.jp/api/v1/"
 var resasLayermap1 = null;
 var resasLayermap2 = null;
 var resasZinkouAr = [];
+var resasJson1 = null;
+var resasJson2 = null;
 $(function(){
 	$(".resas-a").click(function(){
         $.notify({//options
@@ -90,8 +92,27 @@ $(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         var pref = $("#" + mapName + " .resas-pref-select").val().substr(0,2);
-        console.log(pref)
+        console.log(pref);
         resasCreate(mapName,pref,false);
+    });
+    //-----------------------------------------------------------------------------
+    //json取得
+    $("body").on("click",".resas-json-btn",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        if(mapName==="map1") {
+            console.log(JSON.stringify(resasJson1));
+            var jsonChar = JSON.stringify(resasJson1);
+        }else{
+            console.log(JSON.stringify(resasJson2));
+            var jsonChar = JSON.stringify(resasJson2);
+        }
+        var type = "text/plain";
+        var blob = new Blob([jsonChar], {type: type});
+        $(".resas-json-btn").attr({
+            "href": window.URL.createObjectURL(blob),
+            "download":"resas.json"
+        });
     });
     //----------------------------------------------------------------------------
     function resasCreate(mapName,pref,firstTime) {
@@ -111,6 +132,13 @@ $(function(){
                                 prefname: prefName
                             }
                         }).done(function (json) {
+                            /*
+                            if(mapName==="map1") {
+                                resasJson1 = json.geojson;
+                            }else {
+                                resasJson2 = json.geojson;
+                            }
+                            */
                             resolve(json["geojson"]);
                         }).fail(function (json) {
                             console.log("失敗!");
@@ -145,12 +173,18 @@ $(function(){
                     }
                 }).done(function (json) {
                     resasZinkouAr[mapName] = JSON.parse(json["jsontext"]);
+                    if(mapName==="map1") {
+                        resasJson1 = JSON.parse(json["jsontext"]);
+                    }else{
+                        resasJson2 = JSON.parse(json["jsontext"]);
+                    }
                     resolve(json["jsontext"]);
                 }).fail(function () {
                     console.log("失敗!");
                 });
             });
         };
+        //------------------------------------------------------------------
         //resasAjax().then(function(jsontext){
         Promise.all([resasAjax(),layerAjax()]).then(function (results) {
             //-------------------------------------------------------
@@ -225,6 +259,7 @@ $(function(){
                 }
             }
             tblHtml += "</tbody></table>";
+            tblHtml += "<a type='button' class='resas-json-btn btn btn-primary btn-block btn-xs'>json取得</a>"
             $("#" + mapName + " .resas-tbl-div").html(tblHtml);
             $("#" + mapName + " .resas-tbl-div .resas-kizyun-th").text(boundaryYear2 + zinkoSelectedText);
             $("#" + mapName + " .resas-tbl-div .resas-zinkou-th").text(lastYear + zinkoSelectedText);
@@ -310,8 +345,6 @@ $(function(){
         eval(mapName).addLayer(eval("resasLayer" + mapName));
         eval("resasLayer" + mapName).setZIndex(9999);
     }
-
-
 	//------------------------------------------------------------------------------------------------------------------
 	function resasTableCreate(mapName,val){
 

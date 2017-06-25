@@ -54,6 +54,7 @@ $(function(){
     */
 
     //------------------------------------------------------------------------------------------------------------------
+    //インタラクション類
     var editFeatureSelect = new ol.interaction.Select({
         layers:function(layer){
             return layer.get("selectable") == true;
@@ -64,7 +65,6 @@ $(function(){
         if(e["selected"].length) {
             var fillColor = e["selected"][0]["I"]["_fillColor"];
             var content = "";
-            //content += "作成中！作成中！作成中！<br>";
             content += '色を選択：<input type="text" class="form-control" id="color-input" value="' + fillColor + '">';
             content += "<button type='button' class='edit-btn btn btn-primary btn-block btn-xs'>反映</button>";
             mydialog({
@@ -99,6 +99,11 @@ $(function(){
         features:editFeatureSelect.getFeatures()
     });
     map1.addInteraction(modify);
+
+    modify.on('modifyend', function(e) {
+        console.log(e)
+    });
+
     var snap = new ol.interaction.Snap({
        source:editLayer.getSource()
     });
@@ -120,7 +125,7 @@ $(function(){
                 modify.setActive(true);
                 map1.addInteraction(editFeatureSelect);
                 editFeatureSelect.setActive(true);
-                console.log(editFeatureSelect.getFeatures())
+                console.log(editFeatureSelect.getFeatures());
             }else{
                 modify.setActive(false);
                 map1.removeInteraction(editFeatureSelect);

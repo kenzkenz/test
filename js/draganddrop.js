@@ -7,10 +7,15 @@ var csvLayer2 = null;
 var imgCenterPointLayer1 = null;
 var imgTargetPointLayer1 = null;
 var imgTargetPointLayer2 = null;
+var mobakuu1 = null;
+var mobakuu2 = null;
+
 $(function(){
     var cityObjAr = [];
     var inChar = "";
     var valueAr =[];
+    var cityCodeAr = [];
+    var areaAr = [];
     var mapName = null;
     var csvarr = [];
     var iro = null;
@@ -56,6 +61,7 @@ $(function(){
                     color: 'white',
                     width: 1
                 })
+
             })
         }),
         'LineString': new ol.style.Style({
@@ -85,12 +91,14 @@ $(function(){
                 })
             })
         }),
+
         'MultiLineString': new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: 'red',
                 width: 3
             })
         }),
+
         'MultiPolygon': new ol.style.Style({
             fill: new ol.style.Fill({
                 color: 'rgba(0,0,255,0.5)'
@@ -101,9 +109,6 @@ $(function(){
             })
         })
     };
-
-
-
 
     /*星
     var style =
@@ -125,13 +130,20 @@ $(function(){
         ];
     */
 
-    var gpxStyleFunction = function(feature, resolution) {
+    gpxStyleFunction = function(feature, resolution) {
+        console.log(mapName)
+        console.log(feature);
+
+        var geoType = feature.getGeometry().getType();
+        console.log(geoType )
+
         //var featureStyleFunction = feature.getStyleFunction();
         //if (featureStyleFunction) {
         //    return featureStyleFunction.call(feature, resolution);
         //} else {
-            return defaultStyle[feature.getGeometry().getType()];
+            return defaultStyle[geoType];
         //}
+
     };
 
     //ドラッグアンドドロップでレイヤーを作る
@@ -167,6 +179,9 @@ $(function(){
         if (fileExtension !== "gpx") {
             var style = commonstyleFunction;
         }else{
+
+            console.log(999999);
+
             var style = gpxStyleFunction;
         }
         editLayer = new ol.layer.Vector({
@@ -417,9 +432,7 @@ $(function(){
     var coordDiff = [];
     function imgTargetPointLayerCreate(coord) {
 
-
         if(!geoimg) return;
-
 
         map1.removeLayer(imgTargetPointLayer1);
        // if(coordDiff.length>0){
@@ -456,7 +469,6 @@ $(function(){
     }
     //-----------------------------------------------------------------------------
     function geoimgChange(){
-
         if(coordDiff.length>0) {
             var centerLon = Number($(".centerLon").val()) - coordDiff[0];
             var centerLat = Number($(".centerLat").val()) - coordDiff[1];
@@ -465,7 +477,6 @@ $(function(){
             var centerLon = $(".centerLon").val();
             var centerLat = $(".centerLat").val();
         }
-
         var scaleX = $(".scaleXY").val();
         var scaleY = $(".scaleXY").val();
         var opacity = $(".imgopa").val();
@@ -519,8 +530,6 @@ $(function(){
         if(coordDiff.length>0){
             imgTargetPointLayerCreate(coord);
         }
-
-        
         map2.removeLayer(imgTargetPointLayer2);
         var imgPointSsource = new ol.source.Vector({
             features: [
@@ -557,11 +566,9 @@ $(function(){
 
         //imgCenterPointLayerCreate();
     });
-
-
-
     //-------------------------------------------------------------------------------------
     function csvRead(file) {
+        console.log(file);
         csvarr = [];
         var file_reader = new FileReader();
         file_reader.readAsBinaryString(file);//ここ超重要。文字コード変換のために必要
@@ -578,7 +585,6 @@ $(function(){
             rangemin = 9999999999;
             $(rows).each(function () {
                 var split = this.replace("\r", "").split(/,|\t/);//\rが余計についてしまうので取った上でsplit
-                //console.log(split[0]);
                 if(split[0]) {//先頭列に何も書いていないときは抜ける。
                     csvarr.push(split);
                 }else{
@@ -592,6 +598,7 @@ $(function(){
             inChar = "";
             valueAr = [];
             //console.log(csvarr);
+            var csvType = "";
             for (var i=0; i < csvarr.length; i++) {
                 if(i===0) {
                     for (var j = 0; j < csvarr[0].length; j++) {
@@ -606,20 +613,63 @@ $(function(){
                             layerTypeFlg = "area";
                         }
                         */
+                        //-------------------------------------------
                         if (csvarr[0][j] === "市町村コード") cityCode = j;
                         if (csvarr[0][j] === "数値") suuti = j;
                         if (csvarr[0][j] === "色") iro = j;
+                        if (csvarr[0][j] === "色"){
+                            csvType = "city"
+                        }
+
+                        //-------------------------------------------
+                        //ハッカソン用
+
+                        if (csvarr[0][j] === "date") mkDate = j;
+                        if (csvarr[0][j] === "day_of_week") mkDayOfWeek = j;
+                        if (csvarr[0][j] === "time") mkTime = j;
+                        if (csvarr[0][j] === "area") mkArea = j;
+
+                        if (csvarr[0][j] === "residence") cityCode = j;
+                        if (csvarr[0][j] === "population") mkPopulation = j;
+
+                        if (csvarr[0][j] === "population"){
+                            csvType = "mobakuu"
+                        }
+
                     }
                 }else{
                     //-----------------------------------------------
-                    var obj = {
-                                "citycode":csvarr[i][cityCode],
-                                "prop":{
-                                    "citycode":csvarr[i][cityCode],
-                                    "suuti":csvarr[i][suuti],
-                                    "iro":csvarr[i][iro]
+                    switch (csvType) {
+                        case "city":
+                            var obj = {
+                                "citycode": csvarr[i][cityCode],
+                                "prop": {
+                                    "citycode": csvarr[i][cityCode],
+                                    "suuti": csvarr[i][suuti],
+                                    "iro": csvarr[i][iro]
                                 }
-                    };
+                            };
+                            break;
+                        case "mobakuu":
+                            var obj = {
+                                "citycode": csvarr[i][cityCode],
+                                "area": csvarr[i][mkArea],
+                                "prop": {
+                                    "area": csvarr[i][mkArea],
+                                    "citycode": csvarr[i][cityCode],
+                                    "suuti": csvarr[i][suuti],
+                                    "iro": csvarr[i][iro],
+                                    "date": csvarr[i][mkDate],
+                                    "day_of_week": csvarr[i][mkDayOfWeek],
+                                    "time": csvarr[i][mkTime],
+                                    "population": csvarr[i][mkPopulation]
+                                }
+                            };
+                            break;
+                    }
+                    PushArray(cityCodeAr, csvarr[i][cityCode]);
+                    PushArray(areaAr,csvarr[i][mkArea]);
+
                     cityObjAr.push(obj);
                     //-----------------------------------------------
                     if(csvarr[i][cityCode]){
@@ -628,10 +678,229 @@ $(function(){
                     }
                 }
             }
-            $("#modal-div").modal();
-            console.log(inChar);
+            switch (csvType) {
+                case "city":
+                    $("#modal-div").modal();
+                    break;
+                case "mobakuu":
+                    //console.log(areaAr);
+                    //console.log(cityCodeAr);
+                    $("#modal-mobakuu-div").remove();
+                    var content = "";
+                        content += '<div class="modal fade" id="modal-mobakuu-div" tabindex="-1" data-backdrop="false">';
+                        content += '<div class="modal-dialog">';
+                        content += '<div class="modal-content">';
+                        content += '<div class="modal-header">';
+                        content += '<button type="button" class="close" data-dismiss="modal"><span>×</span></button>';
+                        content += '<h4 class="modal-title">モバイル空間統計</h4>';
+                        content += '</div>';
+                        content += '<div class="modal-body">';
+                        content += '地区を選択してください。';
+                        content += '</div>';
+                        content += '<div class="modal-footer">';
+                        content += '<button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>';
+                        //content += '<button type="button" class="btn btn-primary" id="suuti-btn">数値</button>';
+                        //content += '<button type="button" class="btn btn-primary" id="iro-btn">色</button>';
+                        for (var i=0; i < areaAr.length; i++) {
+                            content += '<button type="button" class="btn btn-primary mobakuu-btn">' + areaAr[i] + '</button>';
+                        }
+                        content += '</div>';
+                        content += '</div>';
+                        content += '</div>';
+                        content += '</div>';
+                    $("body").append(content);
+                    $("#modal-mobakuu-div").modal();
+
+                    var mabakuuBtn = '<button type="button" class="mobakuu-o-btn btn btn-primary">モバ空</button>'
+
+                    $("#map1 .top-left-div").append(mabakuuBtn);
+
+
+                    break;
+            }
+
+            //console.log(inChar);
+            //console.log(cityObjAr)
         };
     }
+    //----------------------------------------------------------------------------
+    $("body").on("click",".mobakuu-o-btn",function() {
+
+        $("#modal-mobakuu-div").modal();
+
+    });
+    //----------------------------------------------------------------------------
+    $("body").on("click",".mobakuu-btn",function() {
+
+
+        //map1.removelayer(mobakuu1);
+
+
+        map1.removeLayer(mobakuu1);
+
+        var area = $(this).text();
+        //console.log(area);
+        //console.log(cityObjAr);
+
+        var mobakuu = cityObjAr.filter(function(item,index){
+            if(item.area == area) return true;
+        });
+        //console.log(mobakuu.length);
+        //console.log(mobakuu);
+        //console.log(mobakuu[0]["prop"]["population"]);
+        var cityCodeAr = [];
+        for (var i=0; i < mobakuu.length; i++) {
+            PushArray(cityCodeAr,mobakuu[i]["citycode"])
+        }
+        var mobakuuInchar = "";
+        var cityPopuObj = [];
+        for (var i=0; i < cityCodeAr.length; i++) {
+            var cityCode = cityCodeAr[i];
+            mobakuuInchar += "," + cityCode;
+
+            //console.log(cityCode);
+
+            var populations = 0;
+
+
+            for (var j=0; j < mobakuu.length; j++) {
+                if(cityCode==mobakuu[j]["citycode"]){
+                    //console.log(mobakuu[j]["citycode"]);
+                    //console.log(mobakuu[j]["prop"]["population"]);
+                    populations += Number(mobakuu[j]["prop"]["population"]);
+                }
+            }
+            //console.log(cityCode,populations);
+            var obj = {
+                "citycode":cityCode,
+                "population":populations
+            };
+            cityPopuObj.push(obj);
+        }
+        mobakuuInchar = mobakuuInchar.substr(1);
+        //console.log(cityCodeAr);
+        //console.log(mobakuuInchar);
+        //console.log(cityPopuObj);
+
+        var citycode = mobakuuInchar;
+        $.ajax({
+            type:"GET",
+            url:"php/city.php",
+            dataType:"json",
+            data:{
+                layerid:"gyouseikai",
+                citycode:citycode
+            }
+        }).done(function(json){
+            //console.log(json["geojson"]);
+            var geojsonObject = json["geojson"];
+            var vectorSource = new ol.source.Vector({
+                features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
+            });
+            //console.log(vectorSource);
+
+            if(mapName==="map1") {
+                mobakuu1 = new ol.layer.Vector({
+                    name:"mobakuu",
+                    zinkouset:"on",
+                    source: vectorSource,
+                    style: commonstyleFunction
+                });
+                mobakuu1.set("altitudeMode","clampToGround");
+                map1.addLayer(mobakuu1);
+                //map1.getView().fit(vectorSource.getExtent());
+                mobakuu1.setZIndex(9999);
+
+
+                console.log(mobakuu1.getSource().getFeatures());
+
+
+                var populationAr = [];
+                for (i=0; i<cityPopuObj.length; i++) {
+                    if(cityPopuObj[i]["population"]) {
+                        populationAr.push(cityPopuObj[i]["population"]);
+                    }
+                }
+                //console.log(populationAr);
+
+
+                populationAr.sort(function(a,b){
+                    if(a<b) return -1;
+                    if(a>b) return 1;
+                    return 0;
+                });
+
+                //console.log(populationAr);
+                populationAr.pop();
+                //populationAr.pop();
+                //populationAr.shift();
+                //populationAr.shift();
+                //populationAr.shift();
+
+                console.log(populationAr);
+
+
+                var color100Ar = funcColor100(populationAr);
+                var color100 = color100Ar[0];
+                var min = color100Ar[2];
+                var d3Color = d3.interpolateLab("yellow", "red");
+                var features = mobakuu1.getSource().getFeatures();
+                for (i=0; i<cityPopuObj.length; i++) {
+                    var citycode = cityPopuObj[i]["citycode"];
+                    var population = Number(cityPopuObj[i]["population"]);
+                    //console.log(citycode,population);
+                    for (j=0; j<features.length; j++){
+                        if(citycode==features[j]["I"]["コード"]){
+                            var value = population;
+                            var c100 = (value-min)/color100/100;
+                            //c100 = c100 * c100;
+                            var color0 = new RGBColor(d3Color(c100));
+                            var rgb = new RGBColor(d3Color(c100)).toRGB();
+                            var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
+                            var targetFillColor = d3Color(c100);
+                            //console.log(999999999999999)
+                            features[j]["I"]["_fillColor"] = rgba;
+                            features[j]["I"]["人数"] = value;
+
+                            value = (value*2) + 500;
+
+                            if(value <20000) {
+                                value = value;
+                            }else{
+                                value = 20000;
+                            }
+
+                            features[j]["I"]["_polygonHeight"] = value;
+                        }
+                    }
+                }
+                console.log(features)
+
+
+
+                /*
+                var features = mobakuu1.getSource().getFeatures();
+                for (i=0; i<features.length; i++){
+                    //console.log(features[i])
+                    features[i]["I"]["_fillColor"] = "rgba(255,0,0,0.5)";
+
+                }
+                */
+
+            }else {
+
+            }
+
+
+
+
+
+
+        }).fail(function(){
+            alert("失敗しました。ファイルを確認してください。");
+        });
+
+    });
     //----------------------------------------------------------------------------
     $("body").on("click","#suuti-btn",function() {
         csvLayerCreate("suuti");
