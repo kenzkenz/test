@@ -665,11 +665,10 @@ $(function(){
                                     "population": csvarr[i][mkPopulation]
                                 }
                             };
+                            PushArray(cityCodeAr, csvarr[i][cityCode]);
+                            PushArray(areaAr,csvarr[i][mkArea]);
                             break;
                     }
-                    PushArray(cityCodeAr, csvarr[i][cityCode]);
-                    PushArray(areaAr,csvarr[i][mkArea]);
-
                     cityObjAr.push(obj);
                     //-----------------------------------------------
                     if(csvarr[i][cityCode]){

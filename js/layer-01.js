@@ -1022,4 +1022,29 @@ var kousoku9syu2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
+//祖母エコパーク
+var sobo1 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>祖母・傾・大崩ユネスコエコパーク",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var sobo2 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>祖母・傾・大崩ユネスコエコパーク",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
 
