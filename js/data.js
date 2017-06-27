@@ -364,7 +364,7 @@ var dataLayerArr =
         },
         {
             "id":"kousokudouro",
-            "title":"高速道路",
+            "title":"高速道路(全国)",
             "origin":"",
             "detail":"試行中",
             "icon":"<i class='fa fa-car fa-fw' style='color:red;'></i>",
@@ -382,7 +382,7 @@ var dataLayerArr =
         },
         {
             "id":"mitinoeki",
-            "title":"道の駅",
+            "title":"道の駅（全国）",
             "origin":"",
             "detail":"試行中",
             "icon":"<i class='fa fa-car fa-fw' style='color:midnightblue;'></i>",
@@ -391,7 +391,7 @@ var dataLayerArr =
         },
         {
             "id":"koureisyasisetu",
-            "title":"高齢者福祉施設",
+            "title":"高齢者福祉施設(宮崎県)",
             "origin":"",
             "detail":"試行中",
             "icon":"<i class='fa fa-user fa-fw' style='color:black;'></i>",
@@ -405,6 +405,24 @@ var dataLayerArr =
             "detail":"",
             "icon":"<i class='fa fa-cutlery fa-fw' style='color:orange;'></i>",
             "opacity":"1",
+            "zoom":""
+        },
+        {
+            "id":"tetudou",
+            "title":"鉄道｛全国｝",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-train fa-fw' style='color:black;'></i>",
+            "opacity":"1",
+            "zoom":""
+        },
+        {
+            "id":"suidou",
+            "title":"給水区域(宮崎県)",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-user fa-fw' style='color:blue;'></i>",
+            "opacity":"0.4",
             "zoom":""
         }
     ];
