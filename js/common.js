@@ -1,3 +1,4 @@
+//---------------------------------------------------------------------------------
 var ajaxStartFlg = true;
 $(document).ajaxStart(function (){
     if(ajaxStartFlg) $("#loading-fa").show(500);
@@ -5,6 +6,7 @@ $(document).ajaxStart(function (){
 $(document).ajaxStop(function (){
     $("#loading-fa").hide(500);
 });
+//---------------------------------------------------------------------------------
 //↓産業技術総合研究所の西岡さんから頂きました。自分流に体裁をちょっと変えました。
 // ********************************************************************************
 // getElev, タイル座標とズームレベルを指定して標高値を取得する関数
@@ -13,7 +15,7 @@ $(document).ajaxStop(function (){
 //	成功時には標高(単位m)，無効値の場合は'e'を返す
 // ********************************************************************************
 //function getElev(rx,ry,z,then){
-var prevImgSrc = "";
+//var prevImgSrc = "";
 function getElev(coordinate,mapName,then){
     var elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/';
     var z = Math.floor(eval(mapName).getView().getZoom());
@@ -32,7 +34,7 @@ function getElev(coordinate,mapName,then){
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
         var h = "e";
-        var data = null;
+        //var data = null;
         canvas.width = 1;
         canvas.height = 1;
         context.drawImage(img,i,j,1,1,0,0,1,1);

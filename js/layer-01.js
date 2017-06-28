@@ -4,6 +4,7 @@ var inu = new ol.layer.Tile({
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyazakiken/{z}/{x}/{-y}.png",
         //minZoom :1,
+        crossOrigin:"anonymous",
         maxZoom:21
     })
 });
@@ -982,6 +983,7 @@ var mesh1000z1 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:red;'></i>",
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/9syuuzinkoured2/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         //minZoom :1,
         maxZoom:13
     })
@@ -993,6 +995,7 @@ var mesh1000z2 = new ol.layer.Tile({
     icon:"<i class='fa fa-map-o fa-fw' style='color:red;'></i>",
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/9syuuzinkoured2/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
         //minZoom :1,
         maxZoom:13
     })
@@ -1006,6 +1009,7 @@ var kousoku9syu1 = new ol.layer.Tile({
     extent:transformE([129.578874,31.011182,132.034319,34.055661]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/9syuukousoku/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
         //minZoom :1,
         maxZoom:13
     })
@@ -1018,33 +1022,42 @@ var kousoku9syu2 = new ol.layer.Tile({
     extent:transformE([129.578874,31.011182,132.034319,34.055661]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/9syuukousoku/{z}/{x}/{-y}.png",
-        //minZoom :1,
-        maxZoom:13
-    })
-});
-//祖母エコパーク
-var sobo1 = new ol.layer.Tile({
-    title:"<span class='label label-default label-danger'>New</span>祖母・傾・大崩ユネスコエコパーク",
-    origin:"",
-    detail:"",
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    extent:transformE([130.940796,32.48553,132.110,33.16926]),
-    source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
-        //minZoom :1,
-        maxZoom:13
-    })
-});
-var sobo2 = new ol.layer.Tile({
-    title:"<span class='label label-default label-danger'>New</span>祖母・傾・大崩ユネスコエコパーク",
-    origin:"",
-    detail:"",
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    extent:transformE([130.940796,32.48553,132.110,33.16926]),
-    source: new ol.source.XYZ({
-        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
         //minZoom :1,
         maxZoom:13
     })
 });
 
+//祖母エコパーク
+var sobo1 = new ol.layer.Tile({
+    name:"sobo",
+    title:"<span class='label label-default label-danger'>New</span>祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸ",
+    origin:"<a href='http://sobokatamuki-br-council.org/' target='_blank'>祖母･傾･大崩ユネスコエコパーク</a>",
+    detail:"",
+    coord:[131.5110089111254, 32.83581733593961],
+    zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var sobo2 = new ol.layer.Tile({
+    name:"sobo",
+    title:"<span class='label label-default label-danger'>New</span>祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸ",
+    origin:"<a href='http://sobokatamuki-br-council.org/' target='_blank'>祖母･傾･大崩ユネスコエコパーク</a>",
+    detail:"",
+    coord:[131.5110089111254, 32.83581733593961],
+    zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});

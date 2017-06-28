@@ -95,6 +95,28 @@ function funcHaikeiTableCreate(mapElement,mapName){
     mapElement.find("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
         //背景レイヤーの追加、削除
         var layer = layers[Number($(this).val())];
+        if(layer.get("name")==="sobo"){
+            if($(this).prop("checked")) {
+                var msg = "";
+                msg += "<img src='icon/sobo01.jpg' style='width:100%'>";
+                msg += "<div style='text-align:center;position:absolute;bottom:1px;left:50%;width:100px;margin-left:-50px;'><a href='http://sobokatamuki-br-council.org/' target='_blank'>詳細はこちら</a></div>";
+                $.notify({//options
+                    message: msg
+                }, {//settings
+                    type: "danger",
+                    z_index: 999999,
+                    placement: {
+                        from: "top",
+                        align: "center"
+                    },
+                    animate: {
+                        enter: "animated fadeInDown",
+                        exit: "animated fadeOutUp"
+                    },
+                    timer:0
+                });
+            }
+        }
         var trErement = $(this).parents("tr");
         if($(this).prop("checked")){
             if(!Array.isArray(layer)){

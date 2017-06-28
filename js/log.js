@@ -17,11 +17,9 @@ $(function(){
 	});
 	//対象要素クリック時
 	//$("body").on("click","a,input,span,button,select,.td,label",function(){
-
 	$("body").on("click","*:not(.maps)",function(){
 		var idName = $(this).attr("id");
 		var className = $(this).attr("class");
-		//console.log(idName + "///" + className)
 		var ua = navigator.userAgent;
 		var idandclass = idName + "/" + className;
 		var myurl = location.href;
