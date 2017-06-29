@@ -99,7 +99,10 @@ function funcHaikeiTblDivHeight(){
 			var height = $(window).height()-150;
 		}
 	}
-    $(".data-tbl-div").css("max-height",height + "px");
+    $(".data-tbl-div").css({
+        "max-height":height + "px",
+        //"width":($(".data-tbl-div table").width() + 20) + "px"
+    });
 	$(".haikei-tbl-div").css("max-height",height + "px");
     $(".estat-tbl-div").css("max-height",height-65 + "px");
     $(".resas-tbl-div").css("max-height",height-50 + "px");

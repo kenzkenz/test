@@ -129,7 +129,7 @@ label:hover{
 }
 /*データテーブル----------------------------------------------------------------*/
 .data-tbl-div{
-    overflow-x:auto;
+    overflow-y:scroll;
 }
 .data-td-sort{
     cursor:move;
@@ -160,7 +160,7 @@ label:hover{
 }
 /*背景テーブル-----------------------------------------------------------------*/
 .haikei-tbl-div{
-    overflow-x:auto;
+    overflow-y:scroll;
 }
 .td-sort{
     cursor:move;

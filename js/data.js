@@ -1,4 +1,6 @@
 var dataLayer = [];
+var d3CategoryColor = d3.scale.category20();
+var d3CategoryColorI = 0;
 //スタイルファンクション---------------------
 var commonstyleFunction = function(feature, resolution) {
     var prop = feature.getProperties();
@@ -43,6 +45,12 @@ var commonstyleFunction = function(feature, resolution) {
             break;
         case "Polygon":
         case "MultiPolygon":
+            if(fillColor==""){
+                fillColor = d3CategoryColor(d3CategoryColorI);
+                d3CategoryColorI++;
+                //console.log(d3CategoryColorI)
+                feature["I"]["_fillColor"] = fillColor;
+            }
             var style = new ol.style.Style({
                 fill: new ol.style.Fill({
                     color:fillColor
@@ -59,6 +67,8 @@ var commonstyleFunction = function(feature, resolution) {
 };
 //----------------------------------------------------------------------------------------------------------------------
 $(function(){
+
+
     $(".data-btn").click(function(){
         var mapObj = funcMaps($(this));
         if ($("#mydialog-data-dialog-" + mapObj["name"]).length==0) {
@@ -99,7 +109,7 @@ $(function(){
         }
         htmlChar += "</table></div>";
         $("#" + mapName + " .data-dialog .dialog-content").html(htmlChar);
-        funcHaikeiTblDivHeight();//common.jsにある関数
+
         $("#" + mapName + " .data-tbl tbody").sortable({
             handle:".data-td-sort",
             update:function(event,ui){
@@ -111,6 +121,9 @@ $(function(){
             checkboxClass:"icheckbox_flat-blue",
             radioClass:"iradio_flat-blue"
         });
+
+        funcHaikeiTblDivHeight();//common.jsにある関数
+
         //チェックボックスを押した時★★★★★-------------------------------------------------------------------------------
         $("#" + mapName + " input:checkbox[name='data-check']").on("ifChanged",function(event){
             var mapObj = funcMaps($(this));
@@ -136,12 +149,12 @@ $(function(){
         var mapName = mapObj["name"];
         var targetLayer = $(this).parents("tr").find("input:checkbox[name='data-check']").val();
         var targetId = targetLayer.split("-")[1];
-        console.log(targetLayer);
+        //console.log(targetLayer);
         var dataLayerFilter = dataLayerArr.filter(function (item,index) {
            if(item.id===targetId) return true;
         });
         var obj = dataLayerFilter[0];
-        console.log(obj);
+        //console.log(obj);
         var content = "<table class='data-info-tbl table table-bordered table-condensed'>";
             content += "<tr><td>データ名</td><td>" + obj["title"] + "</td></tr>";
             content += "<tr><td>出典</td><td>" + obj["origin"] + "</td></tr>";
@@ -190,71 +203,13 @@ $(function(){
                 dataLayerId:dataLayerId.split("-")[1]
             }
         }).done(function(json){
+            console.log(json);
             //console.log(json.geojson);
             //console.log(JSON.stringify(json.geojson));
             var geojsonObject = json.geojson;
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
-            /*
-            //スタイルファンクション---------------------
-            var styleFunction = function(feature, resolution) {
-                var prop = feature.getProperties();
-                var geoType = feature.getGeometry().getType();
-                var fillColor = prop["_fillColor"];
-
-                if(resolution>2445) {//ズーム６
-                    var pointRadius = 2;
-                }else if(resolution>1222) {//ズーム７
-                    var pointRadius = 2;
-                }else if(resolution>611){
-                    var pointRadius = 2;
-                }else if(resolution>305) {
-                    var pointRadius = 4;
-                }else if(resolution>152) {
-                    var pointRadius = 6;
-                }else if(resolution>76) {
-                    var pointRadius = 8;
-                }else if(resolution>38) {
-                    var pointRadius = 10;
-                }else{
-                    var pointRadius = 12;
-                }
-                switch (geoType){
-                    case "LineString":
-                        var style = new ol.style.Style({
-                            stroke: new ol.style.Stroke({
-                                color:fillColor,
-                                width:6
-                            })
-                        });
-                        break;
-                    case "Point":
-                        var style = new ol.style.Style({
-                            image: new ol.style.Circle({
-                                radius:pointRadius,
-                                fill: new ol.style.Fill({color:fillColor}),
-                                stroke: new ol.style.Stroke({color: "white", width: 1})
-                            })
-                        });
-                        break;
-                    case "Polygon":
-                    case "MultiPolygon":
-                        var style = new ol.style.Style({
-                            fill: new ol.style.Fill({
-                                color:fillColor
-                            }),
-                            stroke: new ol.style.Stroke({
-                                color: "gray",
-                                width: 1
-                            })
-                        });
-                        break;
-                    default:
-                }
-                return style;
-            };
-            */
             //--------------------------------------
             dataLayer[dataLayerId] = new ol.layer.Vector({
                 name:"dataLayer",
@@ -331,13 +286,14 @@ function funcDataLayerSort(mapName){
     });
 }
 //----------------------------------------------------------------------------------------------------------------------
+
 var dataLayerArr =
     [
         {
             "id":"miyazakizinzya",
-            "title":"宮崎県神社",
-            "origin":"",
-            "detail":"試行中",
+            "title":"神社(宮崎県)",
+            "origin":"<a href='http://m-shinsei.jp/'>宮巡 ～神主さんが作る宮崎県の神社紹介サイト～（運営：宮崎県神道青年会）</a>",
+            "detail":"",
             "icon":"<i class='fa fa-tree fa-fw' style='color:gray;'></i>",
             "opacity":"0.5",
             "zoom":""
@@ -345,9 +301,9 @@ var dataLayerArr =
         },
         {
             "id":"youtotiiki",
-            "title":"宮崎県用途地域",
-            "origin":"",
-            "detail":"試行中",
+            "title":"用途地域(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
+            "detail":"A29-11_45_GML　平成23年度",
             "icon":"<i class='fa fa-map fa-fw' style='color:orangered;'></i>",
             "opacity":"0.5",
             "zoom":""
@@ -364,8 +320,8 @@ var dataLayerArr =
         {
             "id":"kousokudouro",
             "title":"高速道路(全国)",
-            "origin":"",
-            "detail":"試行中",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N06-v1_2.html' target='_blank'>国土数値情報　高速道路時系列データ</a>",
+            "detail":"データ基準年:平成27年度",
             "icon":"<i class='fa fa-car fa-fw' style='color:red;'></i>",
             "opacity":"0.8",
             "zoom":""
@@ -381,7 +337,7 @@ var dataLayerArr =
         },
         {
             "id":"mitinoeki",
-            "title":"道の駅（全国）",
+            "title":"道の駅(全国)",
             "origin":"",
             "detail":"試行中",
             "icon":"<i class='fa fa-car fa-fw' style='color:midnightblue;'></i>",
@@ -408,9 +364,9 @@ var dataLayerArr =
         },
         {
             "id":"tetudou",
-            "title":"鉄道｛全国｝",
-            "origin":"",
-            "detail":"",
+            "title":"鉄道(全国)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N02-v2_3.html' target='_blank'>国土数値情報　鉄道データ</a>",
+            "detail":"平成27（2015）年12月31日時点",
             "icon":"<i class='fa fa-train fa-fw' style='color:black;'></i>",
             "opacity":"1",
             "zoom":""
@@ -422,6 +378,69 @@ var dataLayerArr =
             "detail":"",
             "icon":"<i class='fa fa-user fa-fw' style='color:blue;'></i>",
             "opacity":"0.4",
+            "zoom":""
+        },
+        {
+            "id":"keisatu",
+            "title":"警察署、交番等(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-P18.html' target='_blank'>国土数値情報　警察署データ</a>",
+            "detail":"P18-12_45_GML　平成24年度",
+            "icon":"<i class='fa fa-user fa-fw' style='color:black;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
+            "id":"syougakuh28",
+            "title":"小学校通学区域(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='_blank'>国土数値情報　小学校区データ</a>",
+            "detail":"A27-16_45_GML　平成28年度",
+            "icon":"<i class='fa fa-user fa-fw' style='color:orange;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
+            "id":"syougakuh28point",
+            "title":"小学校(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='_blank'>国土数値情報　小学校区データ</a>",
+            "detail":"A27-16_45_GML　平成28年度",
+            "icon":"<i class='fa fa-user fa-fw' style='color:orange;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
+            "id":"tyuugakuh28",
+            "title":"中学校通学区域(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='_blank'>国土数値情報　中学校区データ</a>",
+            "detail":"A32-16_45_GML　平成28年度",
+            "icon":"<i class='fa fa-user fa-fw' style='color:orange;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
+            "id":"tyuugakuh28point",
+            "title":"中学校(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A32-v2_0.html' target='_blank'>国土数値情報　中学校区データ</a>",
+            "detail":"A32-16_45_GML　平成28年度",
+            "icon":"<i class='fa fa-user fa-fw' style='color:orange;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
+            "id":"kinkyuuyusoudouro",
+            "title":"緊急輸送道路(宮崎県)",
+            "origin":"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-N10-v1_1.html' target='_blank'>国土数値情報　緊急輸送道路データ</a>",
+            "detail":"N10-15_45_GML　平成27年度",
+            "icon":"<i class='fa fa-car fa-fw' style='color:gray;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        },
+        {
+            "id":"siteihinanzyo",
+            "title":"指定緊急避難場所(宮崎県)",
+            "origin":"<a href='https://www.geospatial.jp/ckan/dataset/hinanbasho/resource/cb08a373-8aac-4455-ba20-7efd3cdd1971?view_id=c54c4e06-f9e2-41a4-8421-6dddf5d6977b' target='_blank'>G空間情報センター　指定緊急避難場所データ</a><br>出典：<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>",
+            "detail":"",
+            "icon":"<i class='fa fa-user fa-fw' style='color:navy;'></i>",
+            "opacity":"0.9",
             "zoom":""
         }
     ];
