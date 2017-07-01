@@ -133,10 +133,20 @@ $(function(){
             var opacity = tgtTr.data("opacity");
             var zoom = tgtTr.data("zoom");
             if($(this).prop("checked")) {
-                dataLayerCreate(dataLayerId, mapName, tgtTr,opacity,zoom);
+                if(dataLayerId.split("-")[1]=="kyuusyuuCity"){
+                    kyuusyuuCity()
+                }else{
+                     dataLayerCreate(dataLayerId, mapName, tgtTr,opacity,zoom);
+                }
             }else {
-                eval(mapName).removeLayer(dataLayer[dataLayerId]);
-                tgtTr.find(".data-slider").remove();
+                if(dataLayerId.split("-")[1]=="kyuusyuuCity"){
+                    console.log(dataLayerId)
+                    eval(mapName).removeLayer(dataLayer["map1-kyuusyuuCity"]);
+                    tgtTr.find(".data-slider").remove();
+                }else{
+                    eval(mapName).removeLayer(dataLayer[dataLayerId]);
+                    tgtTr.find(".data-slider").remove();
+                }
             }
             tgtTr.prependTo($(this).parents(".data-tbl"));
             $(this).parents(".data-tbl-div").animate({scrollTop:0});
@@ -274,7 +284,6 @@ $(function(){
                 }
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown){
-
             console.log(XMLHttpRequest.responseText);
             alert("失敗!");
         });
@@ -285,6 +294,7 @@ $(function(){
 function funcDataLayerSort(mapName){
     $("#" + mapName + " .data-tbl tbody tr").each(function(e){
         var layerId = $(this).find("input:checkbox[name='data-check']").val();
+        console.log(layerId)
         dataLayer[layerId].setZIndex(-e + 9999);
     });
 }
@@ -455,6 +465,7 @@ var dataLayerArr =
             "opacity":"0.9",
             "zoom":""
         }
+        /*
         ,
         {
             "id":"tunamisinsui",
@@ -466,5 +477,16 @@ var dataLayerArr =
             "opacity":"0.9",
             "zoom":""
         }
-
+        */
+        ,
+        {
+            "id":"kyuusyuuCity",
+            // "title":"津波浸水想定(宮崎県)",
+            "title":"九州10万人以上都市",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-user fa-fw' style='color:navy;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        }
     ];

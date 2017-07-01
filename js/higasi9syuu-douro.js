@@ -116,88 +116,87 @@ var higasi9syuuCityObjAr =
         }
     ];
 var higasi9Source1 = null;
-$(function(){
-    var dataLayerId = "yakuba";
-    var mapName = "map1";
-    higasi9Source1 = new ol.source.Vector({});
+//$(function(){
 
-    dataLayer[dataLayerId] = new ol.layer.Vector({
-        name: "higasi9Layer",
-        source: higasi9Source1,
-        style:commonstyleFunction
-    });
-
-    dataLayer[dataLayerId].set("altitudeMode","clampToGround");
-    eval(mapName).addLayer(dataLayer[dataLayerId]);
-    //dataLayer[dataLayerId].setOpacity(opacity);
-    dataLayer[dataLayerId].setZIndex(9999);
-    var inChar = "";
-    for (i=0; i<higasi9syuuCityObjAr.length; i++) {
-        inChar += "," + higasi9syuuCityObjAr[i]["citycode"];
-    }
-    inChar = inChar.substr(1);
-
-    $.ajax({
-        type:"POST",
-        url:"php/geojson-create.php",
-        dataType:"json",
-        data:{
-            dataLayerId:dataLayerId,
-            select:inChar
-        }
-    }).done(function(json){
-        var features = json["geojson"]["features"];
-        for (i=0; i<features.length; i++) {
-            var fCityCode = features[i]["properties"]["市区町村コード"];
-            var cityObjF = higasi9syuuCityObjAr.filter(function (item,index) {
-                if(item.citycode==fCityCode) return true;
-            });
-            var cityObj = cityObjF[0];
-            console.log(cityObj["color"]);
-            var zinkou = cityObj["zinkou"];
-            var circleCenter = ol.proj.transform(features[i]["geometry"]["coordinates"],"EPSG:4326","EPSG:3857");
-            var circleCenterX = circleCenter[0];
-            var circleCenterY = circleCenter[1];
-            var km = (Number(zinkou)+300000)/70000;
-            var circleRadius = km * 1179;
-            var pointsToFind = 18;
-            var coord = createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind);
-            var geometry = new ol.geom.Polygon([coord]);
-            if(cityObj["color"]){
-                var fillColor = cityObj["color"];
-            }else {
-                var fillColor = "rgba(0,100,255,0.5)";
-            }
-            var newFeature = new ol.Feature({
-                geometry:geometry,
-                //name: "newFeature",
-                _polygonHeight:(Number(zinkou))/20,
-                _fillColor:fillColor,
-                自治体名:cityObj["cityname"],
-                人口:Number(cityObj["zinkou"]).toLocaleString() + "人"
-            });
-            higasi9Source1.addFeature(newFeature);
-        }
-        /*
-        var geojsonObject = json.geojson;
-        var vectorSource = new ol.source.Vector({
-            features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
-        });
-        //--------------------------------------
+    function kyuusyuuCity() {
+        var dataLayerId = "map1-kyuusyuuCity";
+        var mapName = "map1";
+        higasi9Source1 = new ol.source.Vector({});
         dataLayer[dataLayerId] = new ol.layer.Vector({
-            name:"dataLayer",
-            source:vectorSource,
-            //style:commonstyleFunction
+            name: "higasi9Layer",
+            source: higasi9Source1,
+            style: commonstyleFunction
         });
-        dataLayer[dataLayerId].set("altitudeMode","clampToGround");
+        dataLayer[dataLayerId].set("altitudeMode", "clampToGround");
         eval(mapName).addLayer(dataLayer[dataLayerId]);
         //dataLayer[dataLayerId].setOpacity(opacity);
         dataLayer[dataLayerId].setZIndex(9999);
-        */
-    }).fail(function(XMLHttpRequest, textStatus, errorThrown){
-        console.log(XMLHttpRequest.responseText);
-        alert("失敗!");
-    });
+        var inChar = "";
+        for (i = 0; i < higasi9syuuCityObjAr.length; i++) {
+            inChar += "," + higasi9syuuCityObjAr[i]["citycode"];
+        }
+        inChar = inChar.substr(1);
 
-
-});
+        $.ajax({
+            type: "POST",
+            url: "php/geojson-create.php",
+            dataType: "json",
+            data: {
+                dataLayerId: "yakuba",
+                select: inChar
+            }
+        }).done(function (json) {
+            var features = json["geojson"]["features"];
+            for (i = 0; i < features.length; i++) {
+                var fCityCode = features[i]["properties"]["市区町村コード"];
+                var cityObjF = higasi9syuuCityObjAr.filter(function (item, index) {
+                    if (item.citycode == fCityCode) return true;
+                });
+                var cityObj = cityObjF[0];
+                console.log(cityObj["color"]);
+                var zinkou = cityObj["zinkou"];
+                var circleCenter = ol.proj.transform(features[i]["geometry"]["coordinates"], "EPSG:4326", "EPSG:3857");
+                var circleCenterX = circleCenter[0];
+                var circleCenterY = circleCenter[1];
+                var km = (Number(zinkou) + 300000) / 70000;
+                var circleRadius = km * 1179;
+                var pointsToFind = 18;
+                var coord = createCirclePointCoords(circleCenterX, circleCenterY, circleRadius, pointsToFind);
+                var geometry = new ol.geom.Polygon([coord]);
+                if (cityObj["color"]) {
+                    var fillColor = cityObj["color"];
+                } else {
+                    var fillColor = "rgba(0,100,255,0.5)";
+                }
+                var newFeature = new ol.Feature({
+                    geometry: geometry,
+                    //name: "newFeature",
+                    _polygonHeight: (Number(zinkou)) / 20,
+                    _fillColor: fillColor,
+                    自治体名: cityObj["cityname"],
+                    人口: Number(cityObj["zinkou"]).toLocaleString() + "人"
+                });
+                higasi9Source1.addFeature(newFeature);
+            }
+            /*
+             var geojsonObject = json.geojson;
+             var vectorSource = new ol.source.Vector({
+             features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
+             });
+             //--------------------------------------
+             dataLayer[dataLayerId] = new ol.layer.Vector({
+             name:"dataLayer",
+             source:vectorSource,
+             //style:commonstyleFunction
+             });
+             dataLayer[dataLayerId].set("altitudeMode","clampToGround");
+             eval(mapName).addLayer(dataLayer[dataLayerId]);
+             //dataLayer[dataLayerId].setOpacity(opacity);
+             dataLayer[dataLayerId].setZIndex(9999);
+             */
+        }).fail(function (XMLHttpRequest, textStatus, errorThrown) {
+            console.log(XMLHttpRequest.responseText);
+            alert("失敗!");
+        });
+    }
+//});
