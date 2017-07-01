@@ -101,6 +101,16 @@ $(function(){
             }
 
 
+            if(dataLayer["yakuba"]){
+                var features = dataLayer["yakuba"].getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+
+            }
+
+
+
+
 
 
             if(mapName==="map1") {

@@ -64,6 +64,9 @@ $(function(){
             case "dataLayer":
                 funcDataLayerPopup(feature,map,evt);
                 break;
+            case "higasi9Layer":
+                funcDataLayerPopup(feature,map,evt);
+                break;
             case "resasLayer":
                 funcResasLayerPopup(feature,map,evt);
                 break;

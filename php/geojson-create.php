@@ -1,20 +1,34 @@
 <?php
 require_once "pwd.php";
-$dataLayerId = $_GET["dataLayerId"];
+$dataLayerId = $_POST["dataLayerId"];
+
+$select = $_POST["select"];
+
 //データ先頭のSQL文作成------------------------------------------------------------------------------------------
-$mysql = "SELECT * FROM tblgeo WHERE layerid LIKE ? ORDER BY id LIMIT 1";
+$mysql = "SELECT * FROM tblgeo WHERE layerid LIKE ? AND geotype LIKE 'head' ORDER BY id LIMIT 1";
 //---------------------------------------------------------------------------------------------------------------
 $stmt = $pdo->prepare($mysql);
 $stmt->execute(array($dataLayerId));
 $row_head=$stmt->fetch(PDO::FETCH_ASSOC);
 $name_head =$row_head["name"];
-$properties = ["name","location","genre1","genre2","genre3","detail1","detail2","detail3","detail4","detail5","detail6","detail7","detail8","detail9","detail10","tablehtml"];//プロパティを作る列
+//$properties = ["name","location","genre1","genre2","genre3","detail1","detail2","detail3","detail4","detail5","detail6","detail7","detail8","detail9","detail10","tablehtml"];//プロパティを作る列
+$properties = ["name","location","genre1","genre2","genre3","detail1","detail2","detail3","detail4","detail5","detail6","detail7","detail8","detail9","detail10"];//プロパティを作る列
 $target = [];
+$targetchar = "";
 foreach ($properties as $i => $p) {
-    if($row_head[$p]!="") array_push($target,$p);
+    if($row_head[$p]!=""){
+        array_push($target,$p);
+        $targetchar = $targetchar.",".$p;
+    }
 };
 //データ中身のSQL文作成------------------------------------------------------------------------------------------
-$mysql = "SELECT *,ST_AsGeoJSON(geom) as geomjson, X(geom) as lon, Y(geom) as lat FROM tblgeo WHERE geotype <> 'head' AND layerid LIKE ?";
+//$mysql = "SELECT *,ST_AsGeoJSON(geom) as geomjson, X(geom) as lon, Y(geom) as lat FROM tblgeo WHERE geotype <> 'head' AND layerid LIKE ?";
+//$mysql = "SELECT *,ST_AsGeoJSON(geom) as geomjson FROM tblgeo WHERE geotype <> 'head' AND layerid LIKE ?";
+if(!$select) {
+    $mysql = "SELECT id,geotype,fillcolor,linedash,popup,hover,ST_AsGeoJSON(geom) as geomjson" . $targetchar . " FROM tblgeo WHERE geotype <> 'head' AND layerid LIKE ?";
+}else{
+    $mysql = "SELECT id,geotype,fillcolor,linedash,popup,hover,ST_AsGeoJSON(geom) as geomjson" . $targetchar . " FROM tblgeo WHERE geotype <> 'head' AND layerid LIKE ? AND name in(".$select.")";
+}
 //---------------------------------------------------------------------------------------------------------------
 $stmt = $pdo->prepare($mysql);
 $stmt->execute(array($dataLayerId));
@@ -58,8 +72,9 @@ $geojson = array("type"=>"FeatureCollection","features"=>$json);
 //echo json_encode($geojson);
 $json = array(
 	"geojson"=> $geojson,
+    "target" => $target,
+    "targetchar" => $targetchar
 	//"line" => count($lineCoordinates),
-	//"target" => $target
 	//"mysql"=>$mysql,
 );
 //JSON形式で出力する

@@ -172,6 +172,10 @@ $(function(){
             }
             return;
         }
+        console.log(event.features)
+
+
+
         var vectorSource = new ol.source.Vector({
             features: event.features,
             //format: new ol.format.GPX()
@@ -714,7 +718,6 @@ $(function(){
 
                     $("#map1 .top-left-div").append(mabakuuBtn);
 
-
                     break;
             }
 
@@ -822,7 +825,6 @@ $(function(){
                 }
                 //console.log(populationAr);
 
-
                 populationAr.sort(function(a,b){
                     if(a<b) return -1;
                     if(a>b) return 1;
@@ -837,7 +839,6 @@ $(function(){
                 //populationAr.shift();
 
                 console.log(populationAr);
-
 
                 var color100Ar = funcColor100(populationAr);
                 var color100 = color100Ar[0];

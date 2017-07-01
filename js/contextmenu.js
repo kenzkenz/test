@@ -541,25 +541,7 @@ $(function(){
     });
     map2.addInteraction(touchi2);
 });
-//-----------------------------------------------------------------------------------------
-//円の座標を作る。
-function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind){
-    var angleToAdd = 360/pointsToFind;
-    var coords = [];
-    var angle = 45;
-    var firstCoord;
-    for (var i=0;i<pointsToFind;i++){
-        angle = angle+angleToAdd;
-        //console.log(angle);
-        var coordX = circleCenterX + circleRadius * Math.cos(angle*Math.PI/180);
-        var coordY = circleCenterY + circleRadius * Math.sin(angle*Math.PI/180);
-        coords.push([coordX,coordY]);
-        //最初のポイントを足すことによって多角形をきれいにとじる。
-        if(i==0) firstCoord = [coordX,coordY];
-        if(i==pointsToFind-1) coords.push(firstCoord);
-    }
-    return coords;
-}
+
 //--------------------------------------------------------------------------------------------------
 //座標からメッシュコードを作る。
 function coord2meshcode(coordinate){

@@ -196,11 +196,12 @@ $(function(){
     //データレイヤー　クリエイト　ファンクション
     function dataLayerCreate(dataLayerId,mapName,tgtTr,opacity,zoom){
         $.ajax({
-            type:"get",
+            type:"POST",
             url:"php/geojson-create.php",
             dataType:"json",
             data:{
-                dataLayerId:dataLayerId.split("-")[1]
+                dataLayerId:dataLayerId.split("-")[1],
+                select:""
             }
         }).done(function(json){
             console.log(json);
@@ -272,7 +273,9 @@ $(function(){
                     features[i]["I"]["_polygonHeight"] = c100*c100*100000;
                 }
             }
-        }).fail(function(){
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown){
+
+            console.log(XMLHttpRequest.responseText);
             alert("失敗!");
         });
     }
@@ -327,10 +330,10 @@ var dataLayerArr =
             "zoom":""
         },
         {
-            "id":"kousokudouro9syuu",
+            "id":"higasi9syuu",
             "title":"高速道路(東九州)",
             "origin":"",
-            "detail":"試行中",
+            "detail":"",
             "icon":"<i class='fa fa-car fa-fw' style='color:red;'></i>",
             "opacity":"0.9",
             "zoom":""
@@ -442,5 +445,26 @@ var dataLayerArr =
             "icon":"<i class='fa fa-user fa-fw' style='color:navy;'></i>",
             "opacity":"0.9",
             "zoom":""
+        },
+        {
+            "id":"yakuba",
+            "title":"役場（全国）",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-user fa-fw' style='color:navy;'></i>",
+            "opacity":"0.9",
+            "zoom":""
         }
+        ,
+        {
+            "id":"tunamisinsui",
+           // "title":"津波浸水想定(宮崎県)",
+            "title":"実験中!押しちゃダメ！",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-user fa-fw' style='color:navy;'></i>",
+            "opacity":"0.9",
+            "zoom":""
+        }
+
     ];

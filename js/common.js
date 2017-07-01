@@ -147,6 +147,25 @@ function PushArray(array, value){
     };
     return true;
 }
+//-----------------------------------------------------------------------------------------
+//円の座標を作る。
+function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind){
+    var angleToAdd = 360/pointsToFind;
+    var coords = [];
+    var angle = 45;
+    var firstCoord;
+    for (var i=0;i<pointsToFind;i++){
+        angle = angle+angleToAdd;
+        //console.log(angle);
+        var coordX = circleCenterX + circleRadius * Math.cos(angle*Math.PI/180);
+        var coordY = circleCenterY + circleRadius * Math.sin(angle*Math.PI/180);
+        coords.push([coordX,coordY]);
+        //最初のポイントを足すことによって多角形をきれいにとじる。
+        if(i==0) firstCoord = [coordX,coordY];
+        if(i==pointsToFind-1) coords.push(firstCoord);
+    }
+    return coords;
+}
 //------------------------------------------------------------------------------
 //2015年10月1日　国勢調査人口
 var prefAr =
