@@ -101,8 +101,8 @@ $(function(){
             }
 
 
-            if(dataLayer["yakuba"]){
-                var features = dataLayer["yakuba"].getSource().getFeatures();
+            if(dataLayer["map1-kyuusyuuCity"]){
+                var features = dataLayer["map1-kyuusyuuCity"].getSource().getFeatures();
                 console.log(features);
                 czmlCreate(features,$(this));
 

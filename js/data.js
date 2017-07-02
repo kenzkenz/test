@@ -496,4 +496,15 @@ var dataLayerArr =
             "opacity":"0.5",
             "zoom":""
         }
+        ,
+        {
+            "id":"kokuteikouen",
+            "title":"東九州の国定・国立公園",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-user fa-fw' style='color:green;'></i>",
+            "opacity":"0.5",
+            "zoom":""
+        }
     ];
+
