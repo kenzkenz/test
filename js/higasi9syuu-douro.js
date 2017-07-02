@@ -4,7 +4,7 @@ var higasi9syuuCityObjAr =
             "citycode": "40100",
             "cityname": "北九州市",
             "zinkou":"961286",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "40130",
@@ -70,55 +70,54 @@ var higasi9syuuCityObjAr =
             "citycode": "44201",
             "cityname": "大分市",
             "zinkou":"478146",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "44202",
             "cityname": "別府市",
             "zinkou":"122138",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "45201",
             "cityname": "宮崎市",
             "zinkou":"401138",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "45202",
             "cityname": "都城市",
             "zinkou":"165029",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "45203",
             "cityname": "延岡市",
             "zinkou":"125159",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "46201",
             "cityname": "鹿児島市",
             "zinkou":"599814",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "46203",
             "cityname": "鹿屋市",
             "zinkou":"103608",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         },
         {
             "citycode": "46218",
             "cityname": "霧島市",
             "zinkou":"125857",
-            "color":"rgba(255,0,0,0.4)"
+            "color":"rgba(255,0,0,0.9)"
         }
     ];
 var higasi9Source1 = null;
 //$(function(){
-
-    function kyuusyuuCity() {
+    function kyuusyuuCity(tgtTr,opacity) {
         var dataLayerId = "map1-kyuusyuuCity";
         var mapName = "map1";
         higasi9Source1 = new ol.source.Vector({});
@@ -129,7 +128,7 @@ var higasi9Source1 = null;
         });
         dataLayer[dataLayerId].set("altitudeMode", "clampToGround");
         eval(mapName).addLayer(dataLayer[dataLayerId]);
-        //dataLayer[dataLayerId].setOpacity(opacity);
+        dataLayer[dataLayerId].setOpacity(opacity);
         dataLayer[dataLayerId].setZIndex(9999);
         var inChar = "";
         for (i = 0; i < higasi9syuuCityObjAr.length; i++) {
@@ -166,18 +165,45 @@ var higasi9Source1 = null;
                 if (cityObj["color"]) {
                     var fillColor = cityObj["color"];
                 } else {
-                    var fillColor = "rgba(0,100,255,0.5)";
+                    var fillColor = "rgba(0,100,255,0.9)";
                 }
                 var newFeature = new ol.Feature({
                     geometry: geometry,
                     //name: "newFeature",
                     _polygonHeight: (Number(zinkou)) / 20,
                     _fillColor: fillColor,
+                    コード: cityObj["citycode"],
                     自治体名: cityObj["cityname"],
                     人口: Number(cityObj["zinkou"]).toLocaleString() + "人"
                 });
                 higasi9Source1.addFeature(newFeature);
             }
+            //スライダー-----------------------------------------------------------------
+            tgtTr.find(".data-td-slider").append("<div class='data-slider'></div>");
+            tgtTr.find(".data-slider").slider({
+                min:0,max:1,value:1,step:0.01,
+                slide: function(event, ui){
+                    dataLayer[dataLayerId].setOpacity(ui.value);
+                }
+            });
+            tgtTr.find(".ui-slider-handle").css({
+                "left":opacity*100 + "%"
+            });
+            //ログ-----------------------------------------------------------------------
+            var ua = navigator.userAgent;
+            var myurl = location.href;
+            $.ajax({
+                type:"GET",
+                url:"php/log.php",
+                data:{
+                    idandclass:"データ名:" + dataLayerId,
+                    ua:ua,
+                    myurl:myurl
+                }
+            }).done(function(){
+            }).fail(function(){
+                console.log("ログ失敗!");
+            });
             /*
              var geojsonObject = json.geojson;
              var vectorSource = new ol.source.Vector({

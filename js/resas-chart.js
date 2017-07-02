@@ -230,20 +230,54 @@ function funcResasZinkousuii(mapName,cityCode,cityName){
         //minMax:true,
         rmDialog:true
     });
-    //console.log(resasZinkouAr[mapName]);
-    suiiFunc(resasZinkouAr[mapName],mapName,cityCode,cityName);
+    console.log(resasZinkouAr[mapName]);
+
+    if(resasZinkouAr[mapName]) {
+        suiiFunc(resasZinkouAr[mapName], mapName, cityCode, cityName);
+    }else{
+        var resasUrl2 = "population/composition/perYear";
+        var prefCode = cityCode.substring(0, 2);
+        console.log(prefCode);
+        var cityCode = cityCode;
+        console.log(cityCode);
+
+        $.ajax({
+            type:"GET",
+            url: resasUrl + resasUrl2,
+            headers: {"X-API-KEY":resasKey},
+            dataType:"json",
+            data:{
+                prefCode:prefCode,
+                cityCode:cityCode
+            }
+        }).done(function(json){
+            console.log(json)
+            suiiFunc(json, mapName, cityCode, cityName);
+        }).fail(function(json){
+            console.log('error!!!');
+        });
+
+
+    }
 }
 //---------------------------------------------------------------------------------------------------------------
 //人口推移その２
 function suiiFunc(resasZinkouAr,mapName,cityCode,cityName){
-    var resasZinkou = resasZinkouAr.filter(function(item,index){
-        if(item.cityCode == cityCode) return true;
-    });
+    if(resasZinkouAr.length>0) {
+        var resasZinkou = resasZinkouAr.filter(function (item, index) {
+            if (item.cityCode == cityCode) return true;
+        });
+        var zinkou = resasZinkou[0]["zinkou"];
+    }else{
+        var resasZinkou = resasZinkouAr
+        var zinkou = resasZinkou["result"];
+    }
+
     //console.log(resasZinkou[0]["zinkou"]["data"]);
-    var nensyouAr = resasZinkou[0]["zinkou"]["data"][1]["data"];
-    var seisanAr = resasZinkou[0]["zinkou"]["data"][2]["data"];
-    var rounenAr = resasZinkou[0]["zinkou"]["data"][3]["data"];
-    var souzinkouAr = resasZinkou[0]["zinkou"]["data"][0]["data"];
+    var nensyouAr = zinkou["data"][1]["data"];
+    var seisanAr = zinkou["data"][2]["data"];
+    var rounenAr = zinkou["data"][3]["data"];
+    var souzinkouAr = zinkou["data"][0]["data"];
 
     var nensyouGraphDataAr = [];
     var seisanGraphDataAr = [];

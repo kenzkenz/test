@@ -65,7 +65,7 @@ $(function(){
                 funcDataLayerPopup(feature,map,evt);
                 break;
             case "higasi9Layer":
-                funcDataLayerPopup(feature,map,evt);
+                funcHigasi9LayerPopup(feature,map,evt);
                 break;
             case "resasLayer":
                 funcResasLayerPopup(feature,map,evt);
@@ -77,6 +77,38 @@ $(function(){
                 funcMobakuuPopup(feature,map,evt);
                 break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcHigasi9LayerPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp)
+        if(featureProp["コード"].length>2) {
+            var cityCode = ("0" + featureProp["コード"]).slice(-5);
+        }else{
+            var cityCode = featureProp["コード"];
+        }
+
+        var content = "";
+        content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
+        content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
+        content += "<div style='text-align:center;'><b>" + featureProp["自治体名"] + "</b></div><hr class='my-hr'>";
+
+        content += "人口：" + featureProp["人口"];
+
+        content += "<hr class='my-hr'>";
+        content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
+        content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移(RESAS)</button>";
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------

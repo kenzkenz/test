@@ -67,8 +67,6 @@ var commonstyleFunction = function(feature, resolution) {
 };
 //----------------------------------------------------------------------------------------------------------------------
 $(function(){
-
-
     $(".data-btn").click(function(){
         var mapObj = funcMaps($(this));
         if ($("#mydialog-data-dialog-" + mapObj["name"]).length==0) {
@@ -134,7 +132,7 @@ $(function(){
             var zoom = tgtTr.data("zoom");
             if($(this).prop("checked")) {
                 if(dataLayerId.split("-")[1]=="kyuusyuuCity"){
-                    kyuusyuuCity()
+                    kyuusyuuCity(tgtTr,opacity)
                 }else{
                      dataLayerCreate(dataLayerId, mapName, tgtTr,opacity,zoom);
                 }
@@ -231,7 +229,6 @@ $(function(){
             eval(mapName).addLayer(dataLayer[dataLayerId]);
             dataLayer[dataLayerId].setOpacity(opacity);
             dataLayer[dataLayerId].setZIndex(9999);
-            console.log(zoom)
             if(zoom) eval(mapName).getView().setZoom(zoom);
             //スライダー-----------------------------------------------------------------
             tgtTr.find(".data-td-slider").append("<div class='data-slider'></div>");
@@ -481,12 +478,11 @@ var dataLayerArr =
         ,
         {
             "id":"kyuusyuuCity",
-            // "title":"津波浸水想定(宮崎県)",
             "title":"九州10万人以上都市",
             "origin":"",
             "detail":"",
-            "icon":"<i class='fa fa-user fa-fw' style='color:navy;'></i>",
-            "opacity":"0.9",
+            "icon":"<i class='fa fa-user fa-fw' style='color:red;'></i>",
+            "opacity":"0.5",
             "zoom":""
         }
     ];
