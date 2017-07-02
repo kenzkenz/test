@@ -6,6 +6,7 @@ var commonstyleFunction = function(feature, resolution) {
     var prop = feature.getProperties();
     var geoType = feature.getGeometry().getType();
     var fillColor = prop["_fillColor"];
+    var zindex = prop["_zindex"];
     if(resolution>2445) {//ズーム６
         var pointRadius = 2;
     }else if(resolution>1222) {//ズーム７
@@ -51,6 +52,9 @@ var commonstyleFunction = function(feature, resolution) {
                 //console.log(d3CategoryColorI)
                 feature["I"]["_fillColor"] = fillColor;
             }
+            if(!zindex) {
+                zindex = 0;
+            }
             var style = new ol.style.Style({
                 fill: new ol.style.Fill({
                     color:fillColor
@@ -58,7 +62,8 @@ var commonstyleFunction = function(feature, resolution) {
                 stroke: new ol.style.Stroke({
                     color: "gray",
                     width: 1
-                })
+                }),
+                zIndex:zindex
             });
             break;
         default:

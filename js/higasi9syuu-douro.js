@@ -9,7 +9,8 @@ var higasi9syuuCityObjAr =
         {
             "citycode": "40130",
             "cityname": "福岡市",
-            "zinkou":"1538681"
+            "zinkou":"1538681",
+            "zindex":"-1"
         },
         {
             "citycode": "40202",
@@ -167,11 +168,13 @@ var higasi9Source1 = null;
                 } else {
                     var fillColor = "rgba(0,100,255,0.9)";
                 }
+                var zindex = cityObj["zindex"];
                 var newFeature = new ol.Feature({
                     geometry: geometry,
                     //name: "newFeature",
                     _polygonHeight: (Number(zinkou)) / 20,
                     _fillColor: fillColor,
+                    _zindex:zindex,
                     コード: cityObj["citycode"],
                     自治体名: cityObj["cityname"],
                     人口: Number(cityObj["zinkou"]).toLocaleString() + "人"
