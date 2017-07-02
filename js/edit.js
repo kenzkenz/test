@@ -108,10 +108,12 @@ $(function(){
        source:editLayer.getSource()
     });
     map1.addInteraction(snap);
+    /*
     var translate = new ol.interaction.Translate({
         features:editFeatureSelect.getFeatures()
     });
     map1.addInteraction(translate);
+    */
     //------------------------------------------------------------------------------------------------------------------
     //選択
     var selectCtrl = new ol.control.Toggle({
@@ -277,6 +279,35 @@ $(function(){
 
     //var drawi = polygonEdit.getInteraction();
 
+    //------------------------------------------------------------------------------------------------------------------
+    var rotate = new ol.control.Toggle({
+        html: '<i class="fa fa-repeat"></i>',
+        title: "Rotate",
+        onToggle: function(active) {
+            if(active) {
+                map1.addInteraction(interactionTransform);
+                setHandleStyle();
+
+            }else{
+                map1.removeInteraction(interactionTransform);
+            }
+        }
+    });
+    mainbar1.addControl (rotate);
+    //-----------------------------------------------------------------------------------------------------------------
+    var circle = new ol.control.Toggle({
+        html: '<i class="fa fa-circle-o"></i>',
+        title: "Circle",
+        onToggle: function(active) {
+            if(active) {
+                map1.addInteraction(interactionDrawRegular);
+            }else{
+                map1.removeInteraction(interactionDrawRegular);
+            }
+        }
+    });
+    mainbar1.addControl (circle);
+    //-----------------------------------------------------------------------------------------------------------------
     // Add a simple push button to save features
     var save = new ol.control.Button({
         html: '<i class="fa fa-download"></i>',
@@ -309,5 +340,77 @@ $(function(){
         editFeatureSelect.getFeatures().clear();
         $(this).parents(".dialog-base").remove();
     })
+    //--------------------------------------------------------------------
+    var interactionTransform = new ol.interaction.Transform ({
+        /*
+        translateFeature: $("#translateFeature").prop('checked'),
+        scale: $("#scale").prop('checked'),
+        rotate: $("#rotate").prop('checked'),
+        keepAspectRatio: $("#keepAspectRatio").prop('checked') ? ol.events.condition.always : undefined,
+        translate: $("#translate").prop('checked'),
+        stretch: $("#stretch").prop('checked'),
+        */
+    });
+    function setHandleStyle() {
+        if (!interactionTransform instanceof ol.interaction.Transform) return;
+        var circle = new ol.style.RegularShape({
+            fill: new ol.style.Fill({color:[255,255,255,0.01]}),
+            stroke: new ol.style.Stroke({width:1, color:[0,0,0,0.01]}),
+            radius: 8,
+            points: 10
+        });
+        interactionTransform.setStyle ('rotate',
+            new ol.style.Style(
+                {	text: new ol.style.Text (
+                    {	text:'\uf0e2',
+                        font:"16px Fontawesome",
+                        textAlign: "left",
+                        fill:new ol.style.Fill({color:'red'})
+                    }),
+                    image: circle
+                }));
+        // Center of rotation
+        interactionTransform.setStyle ('rotate0',
+            new ol.style.Style(
+                {	text: new ol.style.Text (
+                    {	text:'\uf0e2',
+                        font:"20px Fontawesome",
+                        fill: new ol.style.Fill({ color:[255,255,255,0.8] }),
+                        stroke: new ol.style.Stroke({ width:2, color:'red' })
+                    }),
+                }));
+        // Style the move handle
+        interactionTransform.setStyle('translate',
+            new ol.style.Style(
+                {	text: new ol.style.Text (
+                    {	text:'\uf047',
+                        font:"20px Fontawesome",
+                        fill: new ol.style.Fill({ color:[255,255,255,0.8] }),
+                        stroke: new ol.style.Stroke({ width:2, color:'red' })
+                    })
+                }));
+
+        interactionTransform.set('translate', interactionTransform.get('translate'));
+    }
+
+    //map1.addInteraction(interaction);
+    //--------------------------------------------------------------------
+    var interactionDrawRegular = new ol.interaction.DrawRegular ({
+        source: editLayer.getSource(),
+        //sides:$("#sides").val()
+        sides:24
+        //canRotate: $("#rotation").prop('checked')
+    });
+    interactionDrawRegular.on('drawend', function(e) {
+        var prop = e["feature"]["I"];
+        prop["_fillColor"] = "rgba(51,122,183,0.7)";
+        if(editLayer.get("name")==="editLayer-import"){
+            editLayer.getSource().addFeature(e["feature"]);
+        }
+        editFeatureSelect.setActive(false);
+        editFeatureSelect.getFeatures().clear();
+    });
+
+
 
 });

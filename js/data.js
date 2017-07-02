@@ -225,8 +225,14 @@ $(function(){
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
             //--------------------------------------
+            console.log(dataLayerId);
+            if(dataLayerId.split("-")[1]!=="yakuba") {
+                var layerName = "dataLayer";
+            }else{
+                var layerName = "yakubaLayer";
+            }
             dataLayer[dataLayerId] = new ol.layer.Vector({
-                name:"dataLayer",
+                name:layerName,
                 source:vectorSource,
                 style:commonstyleFunction
             });

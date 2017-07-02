@@ -73,10 +73,53 @@ $(function(){
             case "gpxLayer":
                 funcDataLayerPopup(feature,map,evt);
                 break;
+            case "yakubaLayer":
+                funcyakubaLayerPopup(feature,map,evt);
+                break;
             case "mobakuu":
                 funcMobakuuPopup(feature,map,evt);
                 break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcyakubaLayerPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var cityCode = ("0" + featureProp["市区町村コード"]).slice(-5);
+        console.log(cityCode.substr(2,3));
+        if(cityCode.substr(2,3)==="000") {
+            cityCode = cityCode.substr(0,2)
+        }
+        console.log(cityCode);
+
+        /*
+        if(featureProp["コード"].length>2) {
+            var cityCode = ("0" + featureProp["コード"]).slice(-5);
+        }else{
+            var cityCode = featureProp["コード"];
+        }
+        */
+        var content = "";
+        content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
+        content += "<input type='hidden' class='city-name' value='" + featureProp["自治体名"] + "'>";
+        content += "<div style='text-align:center;'><b>" + featureProp["自治体名"] + "</b></div><hr class='my-hr'>";
+        content += "読み：" + featureProp["読み"] + "<br>";
+        content += "都道府県：" + featureProp["都道府県"] + "<br>";
+        content += "所在地：" + featureProp["所在地"];
+        content += "<hr class='my-hr'>";
+        content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
+        content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移(RESAS)</button>";
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------

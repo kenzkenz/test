@@ -239,6 +239,9 @@ function funcResasZinkousuii(mapName,cityCode,cityName){
         var prefCode = cityCode.substring(0, 2);
         console.log(prefCode);
         var cityCode = cityCode;
+        if(cityCode.length<3){
+            cityCode = "-";
+        }
         console.log(cityCode);
 
         $.ajax({
@@ -251,7 +254,10 @@ function funcResasZinkousuii(mapName,cityCode,cityName){
                 cityCode:cityCode
             }
         }).done(function(json){
-            console.log(json)
+            console.log(json);
+            if(cityCode == "-"){
+                cityCode = prefCode
+            }
             suiiFunc(json, mapName, cityCode, cityName);
         }).fail(function(json){
             console.log('error!!!');

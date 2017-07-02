@@ -150,6 +150,7 @@ function PushArray(array, value){
 //-----------------------------------------------------------------------------------------
 //円の座標を作る。
 function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,pointsToFind){
+    //pointsToFind = 24
     var angleToAdd = 360/pointsToFind;
     var coords = [];
     var angle = 45;
@@ -157,8 +158,8 @@ function createCirclePointCoords(circleCenterX,circleCenterY,circleRadius,points
     for (var i=0;i<pointsToFind;i++){
         angle = angle+angleToAdd;
         //console.log(angle);
-        var coordX = circleCenterX + circleRadius * Math.cos(angle*Math.PI/180);
-        var coordY = circleCenterY + circleRadius * Math.sin(angle*Math.PI/180);
+        var coordX = circleCenterX + ((circleRadius + 0) * Math.cos(angle*Math.PI/180));
+        var coordY = circleCenterY + (circleRadius * Math.sin(angle*Math.PI/180));
         coords.push([coordX,coordY]);
         //最初のポイントを足すことによって多角形をきれいにとじる。
         if(i==0) firstCoord = [coordX,coordY];
