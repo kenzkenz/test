@@ -83,7 +83,7 @@ $(function(){
                 id: id,
                 class: "data-dialog",
                 map: mapName,
-                title: "データレイヤー 作成中",
+                title: "データレイヤー",
                 content: content,
                 top: "55px",
                 left: "10px"
@@ -97,7 +97,7 @@ $(function(){
     });
     //------------------------------------------------------------------------------------------------------------------
     function funcDataTableCreate(mapObj,mapName) {
-        var htmlChar = "作成中!検証中！試行中！";
+        var htmlChar = "";
             htmlChar += "<div class='data-tbl-div'><table class='data-tbl table table-bordered table-condensed'>";
         for(var i = 0; i < dataLayerArr.length; i++){
             var obj = dataLayerArr[i];
@@ -502,7 +502,7 @@ var dataLayerArr =
             "title":"東九州の国定・国立公園",
             "origin":"",
             "detail":"",
-            "icon":"<i class='fa fa-user fa-fw' style='color:green;'></i>",
+            "icon":"<i class='fa fa-map fa-fw' style='color:green;'></i>",
             "opacity":"0.5",
             "zoom":""
         }
