@@ -188,6 +188,7 @@ var ort1 = new ol.layer.Tile({
     origin:"宮崎県県土整備部砂防課",
     detail:"砂防課が平成25年度に撮影した航空写真をオルソ補正したもの",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    message:"2013年",
     extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
@@ -201,6 +202,7 @@ var ort2 = new ol.layer.Tile({
     origin:"宮崎県県土整備部砂防課",
     detail:"砂防課が平成25年度に撮影した航空写真をオルソ補正したもの",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    message:"2013年",
     extent:transformE([130.66371,31.34280,131.88045,32.87815]),
     source: new ol.source.XYZ({
         url:'https://mtile.pref.miyazaki.lg.jp/tile/ort/{z}/{x}/{-y}.png',
@@ -242,6 +244,7 @@ var gazo11 = new ol.layer.Tile({
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"国土画像情報（第一期1974～1978年撮影）",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    message:"74～78年",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
@@ -255,6 +258,7 @@ var gazo12 = new ol.layer.Tile({
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    message:"74～78年",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
@@ -530,6 +534,7 @@ var ecoris2 = new ol.layer.Tile({
 		maxZoom:15
 	})
 });
+
 //------------------------------------------------------------------------------
 //飫肥城
 var obi1 = new ol.layer.Tile({
@@ -568,6 +573,7 @@ var obikoyizu1 = new ol.layer.Tile({
     coord:[131.3502,31.6289],
     zoom:16,
     icon:"<i class='fa fa-file-image-o fa-fw' style='color:dimgrey;'></i>",
+    message:"1654年",
     extent:transformE([131.33600171544876,31.61837899707213,131.377,31.63995077971333]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png",
@@ -582,6 +588,7 @@ var obikoyizu2 = new ol.layer.Tile({
     coord:[131.3502,31.6289],
     zoom:16,
     icon:"<i class='fa fa-file-image-o fa-fw' style='color:dimgrey;'></i>",
+    message:"1654年",
     extent:transformE([131.33600171544876,31.61837899707213,131.377,31.63995077971333]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/obikotizu/{z}/{x}/{-y}.png",
@@ -1061,3 +1068,70 @@ var sobo2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
+
+//宮崎県古地図
+var kotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>宮崎県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"",
+    message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyazakikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var kotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>宮崎県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"",
+    message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyazakikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+
+//MSビーイング
+var bingroad = new ol.layer.Tile({
+    secret:true,
+    name:"bingroad",
+    title:"MS-bing実験中",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.BingMaps({
+        key:"Aq19sLpEft2flnbhBLVikhnuROsQb4VKtrbooDXFk0zlWS_sVxHWVN2sZ4B3y89Z",
+        culture:'ja-jp',
+        imagerySet:['Road'],
+        maxZoom:19
+    })
+});
+var bingroad2 = new ol.layer.Tile({
+    secret:true,
+    name:"bingroad",
+    title:"MS-bing実験中",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.BingMaps({
+        key:"Aq19sLpEft2flnbhBLVikhnuROsQb4VKtrbooDXFk0zlWS_sVxHWVN2sZ4B3y89Z",
+        culture:'ja-jp',
+        imagerySet:['Road'],
+        maxZoom:19
+    })
+});
+

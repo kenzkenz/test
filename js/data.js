@@ -506,5 +506,15 @@ var dataLayerArr =
             "opacity":"0.5",
             "zoom":""
         }
+        ,
+        {
+            "id":"leisure",
+            "title":"東九州を中心としたレジャー",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+            "opacity":"0.7",
+            "zoom":""
+        }
     ];
 

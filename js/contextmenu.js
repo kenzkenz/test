@@ -522,26 +522,28 @@ $(function(){
         });
     }
     //---------------------------------------------------------
-    var touchi1 = new ol.interaction.LongTouch({
-        handleLongTouchEvent: function(e) {
-            coord1 = e.coordinate;
-            myContextOverlay1.setPosition(coord1);
-            var val = $("#map1 .kmtext").spinner().spinner("value");
-            bbb(val,"map1");
-        }
-    });
-    map1.addInteraction(touchi1);
-    var touchi2 = new ol.interaction.LongTouch({
-        handleLongTouchEvent: function(e) {
-            coord2 = e.coordinate;
-            myContextOverlay2.setPosition(coord2);
-            var val = $("#map2 .kmtext").spinner().spinner("value");
-            bbb(val,"map2");
-        }
-    });
-    map2.addInteraction(touchi2);
+    //ロングタッチ
+    if($(window).width()<1200) {
+        var touchi1 = new ol.interaction.LongTouch({
+            handleLongTouchEvent: function (e) {
+                coord1 = e.coordinate;
+                myContextOverlay1.setPosition(coord1);
+                var val = $("#map1 .kmtext").spinner().spinner("value");
+                bbb(val, "map1");
+            }
+        });
+        map1.addInteraction(touchi1);
+        var touchi2 = new ol.interaction.LongTouch({
+            handleLongTouchEvent: function (e) {
+                coord2 = e.coordinate;
+                myContextOverlay2.setPosition(coord2);
+                var val = $("#map2 .kmtext").spinner().spinner("value");
+                bbb(val, "map2");
+            }
+        });
+        map2.addInteraction(touchi2);
+    }
 });
-
 //--------------------------------------------------------------------------------------------------
 //座標からメッシュコードを作る。
 function coord2meshcode(coordinate){

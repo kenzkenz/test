@@ -7,25 +7,24 @@ $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
-                    aya1,sobo1,obikoyizu1,//obi1,
+                    aya1,sobo1,kotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1
+                    mesh1000z1,kousoku9syu1,bingroad
                     ];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
-                    aya2,sobo2,obikoyizu2,//obi2,
+                    aya2,sobo2,kotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,kousoku9syu2
+                    mesh1000z2,kousoku9syu2,bingroad2
                     ];
-
     $("body").on("click",".secret",function() {
         //alert("22");
         $(".secret-tr").toggle();
@@ -121,6 +120,28 @@ function funcHaikeiTableCreate(mapElement,mapName){
         }catch(e){}
         var trErement = $(this).parents("tr");
         if($(this).prop("checked")){
+            if(!Array.isArray(layer)) {
+                var bigMsg = layer.getProperties()["message"];
+            }else{
+                var bigMsg = layer[0].getProperties()["message"];
+            }
+            if(bigMsg) {
+                var html = "";
+                html += "<div class='big-msg-div'>" + bigMsg + "</div>";
+                $("#" + mapName).append(html);
+                $("#" + mapName + " .big-msg-div").animate({
+                    fontSize: "15em"
+                }, {
+                    "duration": 2000,
+                    "complete": function () {
+                        $("#" + mapName + " .big-msg-div").remove();
+                        //$("#" + mapName + " .big-msg-div").slideUp(500,function(){
+                        //    $("#" + mapName + " .big-msg-div").remove();
+                        //});
+                    }
+                });
+            }
+
             if(!Array.isArray(layer)){
                 eval(mapName).addLayer(layer);
                 //座標を移動する。

@@ -479,3 +479,16 @@ label:hover{
     background-color:white!important;
     border:1px solid rgba(51,122,183,1.0)!important;
 }
+/*bigメッセージ-------------------------------------------------------------*/
+.big-msg-div{
+    position: absolute;
+    top:40%;
+    width:100%;
+    text-align:center;
+    z-index:999999999;
+    white-space:nowrap;
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    pointer-events:none;
+}
