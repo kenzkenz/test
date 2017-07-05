@@ -4,6 +4,10 @@ var editLayer = new ol.layer.Vector({
     style:commonstyleFunction
 });
 $(function(){
+
+
+
+
     // Main control bar
     var mainbar1 = new ol.control.Bar();
     map1.addControl(mainbar1);
@@ -13,6 +17,11 @@ $(function(){
         group:false		// group controls together
     });
     mainbar1.addControl(editbar1);
+
+    if($(window).width()<1000){
+        console.log(111)
+        $(".ol-control .ol-bar").css({"display":"none"})
+    }
 
     // Add selection tool:
     //  1- a toggle control with a select interaction
@@ -293,7 +302,7 @@ $(function(){
             }
         }
     });
-    mainbar1.addControl (rotate);
+    editbar1.addControl (rotate);
     //-----------------------------------------------------------------------------------------------------------------
     var circle = new ol.control.Toggle({
         html: '<i class="fa fa-circle-o"></i>',
@@ -306,7 +315,7 @@ $(function(){
             }
         }
     });
-    mainbar1.addControl (circle);
+    editbar1.addControl (circle);
     //-----------------------------------------------------------------------------------------------------------------
     // Add a simple push button to save features
     var save = new ol.control.Button({
@@ -329,7 +338,7 @@ $(function(){
             $(".geojson-save-a")[0].click();//[0]が肝
         }
     });
-    mainbar1.addControl (save);
+    editbar1.addControl (save);
 
     // Show info
     function info(i) {

@@ -961,6 +961,7 @@ var mransei1 = new ol.layer.Tile({
     coord:[139.7515142,35.68605197],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    message:"1858年",
     //extent:transformE([139.70417,34.892768,140.893444,36.113549]),
     source: new ol.source.XYZ({
         url:'./php/proxy-png.php?url=http://mapwarper.net/maps/tile/16142/{z}/{x}/{y}.png',
@@ -975,6 +976,7 @@ var mransei2 = new ol.layer.Tile({
     coord:[139.7515142,35.68605197],
     zoom:14,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    message:"1858年",
     //extent:transformE([139.70417,34.892768,140.893444,36.113549]),
     source: new ol.source.XYZ({
         url:'./php/proxy-png.php?url=http://mapwarper.net/maps/tile/16142/{z}/{x}/{y}.png',
@@ -1104,6 +1106,42 @@ var kotizu2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
+//高知県古地図
+var koutikotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>高知県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/koutikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var koutikotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>高知県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/koutikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+
 
 //MSビーイング
 var bingroad = new ol.layer.Tile({
