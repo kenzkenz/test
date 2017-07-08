@@ -7,7 +7,7 @@ $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
-                    aya1,sobo1,kotizu1,sagakotizu1,kumamotokotizu1,koutikotizu1,obikoyizu1,//obi1,
+                    aya1,sobo1,kotizu1,hukuokakotizu1,sagakotizu1,ooitakotizu1,kumamotokotizu1,koutikotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
@@ -17,7 +17,7 @@ $(function(){
                     ];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
-                    aya2,sobo2,kotizu2,sagakotizu2,kumamotokotizu2,koutikotizu2,obikoyizu2,//obi2,
+                    aya2,sobo2,kotizu2,hukuokakotizu2,sagakotizu2,ooitakotizu2,kumamotokotizu2,koutikotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
@@ -29,6 +29,7 @@ $(function(){
         //alert("22");
         $(".secret-tr").toggle();
     });
+
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
