@@ -13,7 +13,7 @@ $(function(){
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1,bingroad
+                    mesh1000z1,kousoku9syu1,bingroad1,ooamehita1,ooamehita3,ooamehukuoka11,ooamehukuoka21,ooamehukuoka31
                     ];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
@@ -23,12 +23,13 @@ $(function(){
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,kousoku9syu2,bingroad2
+                    mesh1000z2,kousoku9syu2,bingroad2,ooamehita2,ooamehita4,ooamehukuoka12,ooamehukuoka22,ooamehukuoka32
                     ];
     $("body").on("click",".secret",function() {
         //alert("22");
         $(".secret-tr").toggle();
     });
+
 
 });
 //------------------------------------------------------------------------------

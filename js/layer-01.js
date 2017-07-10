@@ -1352,9 +1352,7 @@ var kagosimakotizu2 = new ol.layer.Tile({
     })
 });
 
-
-//MSビーイング
-var bingroad = new ol.layer.Tile({
+var bingroad1 = new ol.layer.Tile({
     secret:true,
     name:"bingroad",
     title:"MS-bing実験中",
@@ -1368,6 +1366,7 @@ var bingroad = new ol.layer.Tile({
         maxZoom:19
     })
 });
+
 var bingroad2 = new ol.layer.Tile({
     secret:true,
     name:"bingroad",
@@ -1383,3 +1382,168 @@ var bingroad2 = new ol.layer.Tile({
     })
 });
 
+//大雨被害（日田市）
+var ooamehita1 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（日田市1）",
+    origin:"",
+    detail:"",
+    coord:[130.9400738912126, 33.39190849746305],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooamehita2 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（日田市）",
+    origin:"",
+    detail:"",
+    coord:[130.9400738912126, 33.39190849746305],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+//大雨被害（日田市2）
+var ooamehita3 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（大分県日田市2）",
+    origin:"",
+    detail:"",
+    coord:[130.900921, 33.4084018825],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol2/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooamehita4 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（大分県日田市2）",
+    origin:"",
+    detail:"",
+    coord:[130.900921, 33.4084018825],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol2/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+//大雨被害（福岡県1）
+var ooamehukuoka11 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県1）",
+    origin:"",
+    detail:"",
+    coord:[130.7796609,33.4051371],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol3/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooamehukuoka12 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県1）",
+    origin:"",
+    detail:"",
+    coord:[130.7796609,33.4051371],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol3/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+//大雨被害（福岡県2）
+var ooamehukuoka21 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県2）",
+    origin:"",
+    detail:"",
+    coord:[130.78452940,33.384991423],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol4/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooamehukuoka22 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県2）",
+    origin:"",
+    detail:"",
+    coord:[130.78452940,33.384991423],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol4/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+//大雨被害（福岡県3）
+var ooamehukuoka31 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県3）",
+    origin:"",
+    detail:"",
+    coord:[130.7595400,33.435926799],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol1/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooamehukuoka32 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県3）",
+    origin:"",
+    detail:"",
+    coord:[130.7595400,33.435926799],
+    zoom:16,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol1/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});

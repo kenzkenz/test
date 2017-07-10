@@ -654,7 +654,7 @@ $(function(){
     ];
 
     for (var i=0; i < cropObjAr.length; i++) {
-        console.log(cropObjAr[i]);
+        //console.log(cropObjAr[i]);
         var coords = cropObjAr[i]["dep"].geometry.coordinates;
         for (var j=0; j < coords[0].length; j++) {
             coords[0][j] = ol.proj.fromLonLat(coords[0][j])
