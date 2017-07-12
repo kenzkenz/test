@@ -5,7 +5,9 @@ var plusLayer2 = [];
 var plI = 0;
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
+    useLayersArr1 = [pale1,
+                    t0707dol1,t0708dol11,t0710dol1,
+                    blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
                     aya1,sobo1,miyagikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
@@ -13,9 +15,11 @@ $(function(){
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1,bingroad1,ooamehita1,ooamehita3,ooamehukuokasugawa1,ooamehukuoka31,ooame07101
+                    mesh1000z1,kousoku9syu1,bingroad1
                     ];
-    useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
+    useLayersArr2 = [pale2,
+                    t0707dol2,t0708dol12,t0710dol2,
+                    blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
                     aya2,sobo2,miyagikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
@@ -23,7 +27,7 @@ $(function(){
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,kousoku9syu2,bingroad2,ooamehita2,ooamehita4,ooamehukuokasugawa2,ooamehukuoka32,ooame07102
+                    mesh1000z2,kousoku9syu2,bingroad2
                     ];
     $("body").on("click",".secret",function() {
         //alert("22");

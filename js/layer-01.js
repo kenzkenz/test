@@ -1421,15 +1421,15 @@ var bingroad2 = new ol.layer.Tile({
 });
 //九州北部大雨７月７日作成
 //大雨被害（日田市）
-var ooamehita1 =  new ol.layer.Tile({
+var t0707dol1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（大分県日田市1 7/7撮影）",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7撮影)",
     origin:"国土地理院",
-    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
     zoom:12,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1437,15 +1437,15 @@ var ooamehita1 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
-var ooamehita2 =  new ol.layer.Tile({
+var t0707dol2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（大分県日田市1 7/7撮影）",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7撮影)",
     origin:"国土地理院",
-    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
     zoom:12,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1453,6 +1453,7 @@ var ooamehita2 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
+/*
 //大雨被害（日田市2）
 var ooamehita3 =  new ol.layer.Tile({
     //secret:true,
@@ -1519,20 +1520,20 @@ var ooamehukuokasugawa2 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
-
+*/
 
 
 
 //大雨被害（福岡県1）
-var ooamehukuoka31 =  new ol.layer.Tile({
+var t0708dol11 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（福岡県朝倉市の複数地域7/8撮影）",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8撮影)",
     origin:"国土地理院",
-    detail:"ヘリ撮影画像から作成（7/8撮影）<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月8日撮影））<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.814417,33.39267],
     zoom:12,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol1/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1540,15 +1541,15 @@ var ooamehukuoka31 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
-var ooamehukuoka32 =  new ol.layer.Tile({
+var t0708dol12 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（福岡県朝倉市の複数地域7/8撮影）",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8撮影)",
     origin:"国土地理院",
-    detail:"ヘリ撮影画像から作成（7/8撮影）<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月8日撮影））<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.814417,33.39267],
     zoom:12,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol1/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1558,15 +1559,15 @@ var ooamehukuoka32 =  new ol.layer.Tile({
 });
 
 //大雨被害（大分県日田市7/10撮影）
-var ooame07101 =  new ol.layer.Tile({
+var t0710dol1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（大分県日田市7/10撮影）",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10撮影)",
     origin:"国土地理院",
-    detail:"ヘリ撮影画像から作成（7/10撮影）<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月10日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9422618,33.3786231],
     zoom:12,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0710dol/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1574,15 +1575,15 @@ var ooame07101 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
-var ooame07102 =  new ol.layer.Tile({
+var t0710dol2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（大分県日田市7/10撮影）",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10撮影)",
     origin:"国土地理院",
-    detail:"ヘリ撮影画像から作成（7/10撮影）<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月10日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9422618,33.3786231],
     zoom:12,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0710dol/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
