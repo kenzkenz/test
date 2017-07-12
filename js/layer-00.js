@@ -7,23 +7,23 @@ $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
-                    aya1,sobo1,kotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,ooitakotizu1,kumamotokotizu1,kagosimakotizu1,koutikotizu1,obikoyizu1,//obi1,
+                    aya1,sobo1,miyagikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1,bingroad1,ooamehita1,ooamehita3,ooamehukuoka11,ooamehukuoka21,ooamehukuoka31
+                    mesh1000z1,kousoku9syu1,bingroad1,ooamehita1,ooamehita3,ooamehukuokasugawa1,ooamehukuoka31,ooame07101
                     ];
     useLayersArr2 = [pale2,blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
-                    aya2,sobo2,kotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,ooitakotizu2,kumamotokotizu2,kagosimakotizu2,koutikotizu2,obikoyizu2,//obi2,
+                    aya2,sobo2,miyagikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,kousoku9syu2,bingroad2,ooamehita2,ooamehita4,ooamehukuoka12,ooamehukuoka22,ooamehukuoka32
+                    mesh1000z2,kousoku9syu2,bingroad2,ooamehita2,ooamehita4,ooamehukuokasugawa2,ooamehukuoka32,ooame07102
                     ];
     $("body").on("click",".secret",function() {
         //alert("22");
@@ -305,7 +305,7 @@ $(function(){
         }else{//配列のとき
             var prop = layer[0].getProperties();
         }
-        var content = "<table class='info-tbl table table-bordered table-condensed'>";
+        var content = "<table class='info-tbl table table-bordered table-condensed' data-layername='" + prop["name"] + "'>";
         content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
         content += "<tr><td>出典</td><td>" + prop["origin"] + "</td></tr>";
         content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
@@ -424,5 +424,19 @@ $(function(){
                 plusLayer.setOpacity(ui.value);
             }
         });
+    });
+    //------------------------------------------------------------
+    //レイヤー追加ボタンを押した時
+    $("body").on("click",".crop-btn",function() {
+        alert("実験中！");
+        //var mapObj = funcMaps($(this));
+        //var mapName = mapObj["name"];
+        var layer = $(this).parents("table").data("layername");
+        console.log(layer);
+        console.log(eval(layer).getFilters());
+        eval(layer).removeFilter(eval(layer).getFilters()[0]);
+        eval(layer).removeFilter(eval(layer).getFilters()[0]);
+        console.log(eval(layer).getFilters());
+
     });
 });

@@ -38,13 +38,14 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         //msg += "★現在不具合発生中！統計機能が使えません！<br>";
         //msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 九州7県の古地図(大正14年)を追加しました。<br>";
-        msg += "2 データを複数追加しました。<br>";
-        msg += "3 <span style='color:red;'>全国赤色立体地図を追加しました。</span><br>";
-        msg += "4 RESAS機能に人口推移を追加。市町村をクリック<br>";
-        msg += "5 RESAS機能に人口ピラミッドを追加。市町村をクリック<br>";
-        msg += "6 背景に九州１Kメッシュ人口を追加<br>";
-        msg += "7 estatに10万人あたりの列を追加<br>";
+        msg += "1 宮城県・高知県の古地図(大正14年)を追加しました。<br>";
+        msg += "2 九州7県の古地図(大正14年)を追加しました。<br>";
+        msg += "3 データを複数追加しました。<br>";
+        msg += "4 <span style='color:red;'>全国赤色立体地図を追加しました。</span><br>";
+        msg += "5 RESAS機能に人口推移を追加。市町村をクリック<br>";
+        msg += "6 RESAS機能に人口ピラミッドを追加。市町村をクリック<br>";
+        //msg += "6 背景に九州１Kメッシュ人口を追加<br>";
+       // msg += "7 estatに10万人あたりの列を追加<br>";
         //msg += "10 右クリックで人口機能完成 スマホは長押し<br>";
         //msg += "10 CSV機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
        // msg += "11 GPX機能追加。<a href='dl.html' target='_blank'>サンプル</a><br>";
@@ -53,7 +54,7 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/07/09</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/07/12</div>";
         $.notify({//options
             message: msg
         }, {//settings

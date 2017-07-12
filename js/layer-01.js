@@ -803,13 +803,13 @@ var seki2 = new ol.layer.Tile({
 */
 var sekiz1 = new ol.layer.Tile({
     //secret:true,
-    title:"<span class='label label-default label-danger'>New</span>全国赤色立体地図",
+    title:"全国赤色立体地図",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図<br><br>赤色立体地図©アジア航測株式会社</a>",
     detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span>" +
             "<br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。" +
             "商用利用禁止です。外部システムから地図タイルURLのアクセスは禁止です。" +
             "" ,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
+    icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
         url:"https://mtile.pref.miyazaki.lg.jp/tile/sekisyokuzenkoku/{z}/{x}/{-y}.png",
@@ -819,13 +819,13 @@ var sekiz1 = new ol.layer.Tile({
 });
 var sekiz2 = new ol.layer.Tile({
     //secret:true,
-    title:"<span class='label label-default label-danger'>New</span>全国赤色立体地図",
+    title:"全国赤色立体地図",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図<br><br>赤色立体地図©アジア航測株式会社</a>",
     detail:"アジア航測株式会社が作成した立体地図です。<span style='color:red;'>アジア航測株式会社の許可を得て掲載しています。</span>" +
             "<br>赤色立体地図は、数値標高モデル（DEM:Digital Elevation Model)を、１枚の地図で３次元的に見せる、今までにない地形表現技法で作成された地図です。" +
             "商用利用禁止です。外部システムから地図タイルURLのアクセスは禁止です。" +
             "" ,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:brown;'></i>",
+    icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/red45' target='_blank'>赤色立体地図©アジア航測株式会社</a>"})],
         url:"https://mtile.pref.miyazaki.lg.jp/tile/sekisyokuzenkoku/{z}/{x}/{-y}.png",
@@ -833,6 +833,7 @@ var sekiz2 = new ol.layer.Tile({
         maxZoom:15
     })
 });
+
 //鹿児島市オルソ
 var kago1 = new ol.layer.Tile({
     title:"鹿児島市航空写真",
@@ -1040,12 +1041,12 @@ var kousoku9syu2 = new ol.layer.Tile({
 //祖母エコパーク
 var sobo1 = new ol.layer.Tile({
     name:"sobo",
-    title:"<span class='label label-default label-danger'>New</span>祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸ",
+    title:"祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸ",
     origin:"<a href='http://sobokatamuki-br-council.org/' target='_blank'>祖母･傾･大崩ユネスコエコパーク</a>",
     detail:"",
     coord:[131.5110089111254, 32.83581733593961],
     zoom:10,
-    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     extent:transformE([130.940796,32.48553,132.110,33.16926]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
@@ -1056,12 +1057,12 @@ var sobo1 = new ol.layer.Tile({
 });
 var sobo2 = new ol.layer.Tile({
     name:"sobo",
-    title:"<span class='label label-default label-danger'>New</span>祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸ",
+    title:"祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸ",
     origin:"<a href='http://sobokatamuki-br-council.org/' target='_blank'>祖母･傾･大崩ユネスコエコパーク</a>",
     detail:"",
     coord:[131.5110089111254, 32.83581733593961],
     zoom:10,
-    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     extent:transformE([130.940796,32.48553,132.110,33.16926]),
     source: new ol.source.XYZ({
         url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/sobo/{z}/{x}/{-y}.png",
@@ -1074,10 +1075,10 @@ var sobo2 = new ol.layer.Tile({
 //宮崎県古地図
 var kotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>宮崎県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>45宮崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
-    message:"1925年",
+    detail:"<a href='oldmap/miyazakiKen.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
     //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1091,10 +1092,10 @@ var kotizu1 = new ol.layer.Tile({
 });
 var kotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>宮崎県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>45宮崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
-    message:"1925年",
+    detail:"<a href='oldmap/miyazakiKen.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
     //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1108,10 +1109,11 @@ var kotizu2 = new ol.layer.Tile({
 });
 //高知県古地図
 var koutikotizu1 = new ol.layer.Tile({
-    name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>高知県古地図(大正14年)",
+    name:"koutikotizu1",
+    title:"<span class='label label-default label-danger'>New</span>39高知県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
+    detail:"<a type='button' class='btn btn-xs btn-primary btn-block' href='oldmap/koutiken.jpg' target='_blank'>jpg取得</a>" +
+            "<a type='button' class='crop-btn btn btn-xs btn-primary btn-block'>実験中</a>",
     //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
@@ -1125,10 +1127,10 @@ var koutikotizu1 = new ol.layer.Tile({
     })
 });
 var koutikotizu2 = new ol.layer.Tile({
-    name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>高知県古地図(大正14年)",
+    name:"koutikotizu2",
+    title:"<span class='label label-default label-danger'>New</span>39高知県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
+    detail:"<a href='oldmap/koutiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
@@ -1144,9 +1146,9 @@ var koutikotizu2 = new ol.layer.Tile({
 //熊本県古地図
 var kumamotokotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>熊本県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>43熊本県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
+    detail:"<a href='oldmap/kumamotoken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
@@ -1161,9 +1163,9 @@ var kumamotokotizu1 = new ol.layer.Tile({
 });
 var kumamotokotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>熊本県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>43熊本県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
+    detail:"<a href='oldmap/kumamotoken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
@@ -1179,9 +1181,9 @@ var kumamotokotizu2 = new ol.layer.Tile({
 //佐賀県古地図
 var sagakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>佐賀県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>41佐賀県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
+    detail:"<a href='oldmap/sagaken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
@@ -1196,9 +1198,9 @@ var sagakotizu1 = new ol.layer.Tile({
 });
 var sagakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>佐賀県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>41佐賀県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
-    detail:"",
+    detail:"<a href='oldmap/sagaken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
     //coord:[131.5110089111254, 32.83581733593961],
     //zoom:10,
@@ -1214,7 +1216,7 @@ var sagakotizu2 = new ol.layer.Tile({
 //福岡県古地図
 var hukuokakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>福岡県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>40福岡県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1231,7 +1233,7 @@ var hukuokakotizu1 = new ol.layer.Tile({
 });
 var hukuokakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>福岡県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>40福岡県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1249,7 +1251,7 @@ var hukuokakotizu2 = new ol.layer.Tile({
 //大分県古地図
 var ooitakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>大分県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>44大分県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1266,7 +1268,7 @@ var ooitakotizu1 = new ol.layer.Tile({
 });
 var ooitakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>大分県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>44大分県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1284,7 +1286,7 @@ var ooitakotizu2 = new ol.layer.Tile({
 //長崎県古地図
 var nagasakikotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>長崎県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>42長崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1301,7 +1303,7 @@ var nagasakikotizu1 = new ol.layer.Tile({
 });
 var nagasakikotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>長崎県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>42長崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1319,7 +1321,7 @@ var nagasakikotizu2 = new ol.layer.Tile({
 //鹿児島県古地図
 var kagosimakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>鹿児島県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>46鹿児島県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1336,7 +1338,7 @@ var kagosimakotizu1 = new ol.layer.Tile({
 });
 var kagosimakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>鹿児島県古地図(大正14年)",
+    title:"<span class='label label-default label-danger'>New</span>46鹿児島県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1351,6 +1353,42 @@ var kagosimakotizu2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
+//宮城県古地図
+var miyagikotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>04宮城県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/miyagiken.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyagikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var miyagikotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>04宮城県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/miyagiken.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/miyagikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+
 
 var bingroad1 = new ol.layer.Tile({
     secret:true,
@@ -1381,16 +1419,16 @@ var bingroad2 = new ol.layer.Tile({
         maxZoom:19
     })
 });
-
+//九州北部大雨７月７日作成
 //大雨被害（日田市）
 var ooamehita1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（日田市1）",
-    origin:"",
-    detail:"",
+    title:"大雨被害（大分県日田市1 7/7撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
-    zoom:16,
+    zoom:12,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol/{z}/{x}/{y}.png",
@@ -1402,11 +1440,11 @@ var ooamehita1 =  new ol.layer.Tile({
 var ooamehita2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（日田市）",
-    origin:"",
-    detail:"",
+    title:"大雨被害（大分県日田市1 7/7撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
-    zoom:16,
+    zoom:12,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol/{z}/{x}/{y}.png",
@@ -1419,11 +1457,11 @@ var ooamehita2 =  new ol.layer.Tile({
 var ooamehita3 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（大分県日田市2）",
-    origin:"",
-    detail:"",
+    title:"大雨被害（大分県日田市2 7/7撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.900921, 33.4084018825],
-    zoom:16,
+    zoom:12,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol2/{z}/{x}/{y}.png",
@@ -1435,11 +1473,11 @@ var ooamehita3 =  new ol.layer.Tile({
 var ooamehita4 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（大分県日田市2）",
-    origin:"",
-    detail:"",
+    title:"大雨被害（大分県日田市2 7/7撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.900921, 33.4084018825],
-    zoom:16,
+    zoom:12,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol2/{z}/{x}/{y}.png",
@@ -1448,81 +1486,52 @@ var ooamehita4 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
+//大雨被害（福岡県朝倉市須川）
+var ooamehukuokasugawa1 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県朝倉市須川7/7撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.732841,33.393469],
+    zoom:12,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol4/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooamehukuokasugawa2 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（福岡県朝倉市須川7/7撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/7撮影）<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.732841,33.393469],
+    zoom:12,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0707dol4/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+
+
+
+
 //大雨被害（福岡県1）
-var ooamehukuoka11 =  new ol.layer.Tile({
-    //secret:true,
-    name:"ooame",
-    title:"大雨被害（福岡県1）",
-    origin:"",
-    detail:"",
-    coord:[130.7796609,33.4051371],
-    zoom:16,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    source: new ol.source.XYZ({
-        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol3/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous",
-        //minZoom :1,
-        //maxZoom:13
-    })
-});
-var ooamehukuoka12 =  new ol.layer.Tile({
-    //secret:true,
-    name:"ooame",
-    title:"大雨被害（福岡県1）",
-    origin:"",
-    detail:"",
-    coord:[130.7796609,33.4051371],
-    zoom:16,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    source: new ol.source.XYZ({
-        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol3/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous",
-        //minZoom :1,
-        //maxZoom:13
-    })
-});
-//大雨被害（福岡県2）
-var ooamehukuoka21 =  new ol.layer.Tile({
-    //secret:true,
-    name:"ooame",
-    title:"大雨被害（福岡県2）",
-    origin:"",
-    detail:"",
-    coord:[130.78452940,33.384991423],
-    zoom:16,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    source: new ol.source.XYZ({
-        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol4/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous",
-        //minZoom :1,
-        //maxZoom:13
-    })
-});
-var ooamehukuoka22 =  new ol.layer.Tile({
-    //secret:true,
-    name:"ooame",
-    title:"大雨被害（福岡県2）",
-    origin:"",
-    detail:"",
-    coord:[130.78452940,33.384991423],
-    zoom:16,
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
-    source: new ol.source.XYZ({
-        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol4/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous",
-        //minZoom :1,
-        //maxZoom:13
-    })
-});
-//大雨被害（福岡県3）
 var ooamehukuoka31 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（福岡県3）",
-    origin:"",
-    detail:"",
-    coord:[130.7595400,33.435926799],
-    zoom:16,
+    title:"大雨被害（福岡県朝倉市の複数地域7/8撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/8撮影）<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.814417,33.39267],
+    zoom:12,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol1/{z}/{x}/{y}.png",
@@ -1534,14 +1543,48 @@ var ooamehukuoka31 =  new ol.layer.Tile({
 var ooamehukuoka32 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"大雨被害（福岡県3）",
-    origin:"",
-    detail:"",
-    coord:[130.7595400,33.435926799],
-    zoom:16,
+    title:"大雨被害（福岡県朝倉市の複数地域7/8撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/8撮影）<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.814417,33.39267],
+    zoom:12,
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0708dol1/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+
+//大雨被害（大分県日田市7/10撮影）
+var ooame07101 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（大分県日田市7/10撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/10撮影）<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.9422618,33.3786231],
+    zoom:12,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0710dol/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var ooame07102 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"大雨被害（大分県日田市7/10撮影）",
+    origin:"国土地理院",
+    detail:"ヘリ撮影画像から作成（7/10撮影）<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.9422618,33.3786231],
+    zoom:12,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0710dol/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
         //minZoom :1,
         //maxZoom:13
