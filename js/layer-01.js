@@ -1393,7 +1393,7 @@ var miyagikotizu2 = new ol.layer.Tile({
 var bingroad1 = new ol.layer.Tile({
     secret:true,
     name:"bingroad",
-    title:"MS-bing実験中",
+    title:"★MS-bing実験中",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1408,7 +1408,7 @@ var bingroad1 = new ol.layer.Tile({
 var bingroad2 = new ol.layer.Tile({
     secret:true,
     name:"bingroad",
-    title:"MS-bing実験中",
+    title:"★MS-bing実験中",
     origin:"",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1589,5 +1589,63 @@ var t0710dol2 =  new ol.layer.Tile({
         crossOrigin:"anonymous",
         //minZoom :1,
         //maxZoom:13
+    })
+});
+//土石流危険渓流
+var kikenkeiryuuAll1 = new ol.layer.Tile({
+    secret:true,
+    title:"★土石流危険渓流",
+    origin:"",
+    detail:"土石流の発生の危険性があり、人家等に被害を与えるおそれがある渓流",
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.705,31.36,131.921,32.892]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom :1,
+        maxZoom:16
+    })
+});
+var kikenkeiryuuAll2 = new ol.layer.Tile({
+    secret:true,
+    title:"★土石流危険渓流",
+    origin:"",
+    detail:"土石流の発生の危険性があり、人家等に被害を与えるおそれがある渓流",
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.705,31.36,131.921,32.892]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/dosekiryukikenkeiryu/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom :1,
+        maxZoom:16
+    })
+});
+//急傾斜地崩壊危険箇所
+var kyuukeisyakikenkasyoAll1 = new ol.layer.Tile({
+    secret:true,
+    title:"★急傾斜地崩壊危険箇所",
+    origin:"",
+    detail:"傾斜度30°かつ高さ5m以上の急傾斜地で人家等に被害を与えるおそれのある箇所",
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.705,31.36,131.921,32.892]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom :1,
+        maxZoom:16
+    })
+});
+var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
+    secret:true,
+    title:"★急傾斜地崩壊危険箇所",
+    origin:"",
+    detail:"傾斜度30°かつ高さ5m以上の急傾斜地で人家等に被害を与えるおそれのある箇所",
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.705,31.36,131.921,32.892]),
+    source: new ol.source.XYZ({
+        url:"./php/proxy-png.php?url=http://disaportal.gsi.go.jp/hazardmap_data/raster/kyukeisyachihoukai/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom :1,
+        maxZoom:16
     })
 });
