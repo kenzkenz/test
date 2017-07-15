@@ -1389,6 +1389,77 @@ var miyagikotizu2 = new ol.layer.Tile({
     })
 });
 
+//山口県古地図
+var yamagutikotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>35山口県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/yamagutiken.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/yamagutikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var yamagutikotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>35山口県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/yamagutiken.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/yamagutikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+//東京都古地図
+var toukyoukotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>13東京都古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/toukyoutokotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var toukyoukotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>13東京都古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/toukyoutokotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+
 
 var bingroad1 = new ol.layer.Tile({
     secret:true,
@@ -1424,7 +1495,7 @@ var bingroad2 = new ol.layer.Tile({
 var t0707dol1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7撮影)",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
@@ -1440,7 +1511,7 @@ var t0707dol1 =  new ol.layer.Tile({
 var t0707dol2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7撮影)",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
@@ -1453,6 +1524,41 @@ var t0707dol2 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
+
+//九州北部大雨７月７日作成UAV(ドローン)
+var t0707dol31 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市山田奈良ヶ谷付近7/7ﾄﾞﾛｰﾝ撮影)",
+    origin:"国土地理院",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（UAV撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に国土地理院ランドバードが撮影したUAV画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.76838501142805, 33.384325449185894],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://cyberjapandata.gsi.go.jp/xyz/20170705typhoon3_0707dol3/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var t0707dol32 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市山田奈良ヶ谷付近7/7ﾄﾞﾛｰﾝ撮影)",
+    origin:"国土地理院",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（UAV撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に国土地理院ランドバードが撮影したUAV画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.76838501142805, 33.384325449185894],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://cyberjapandata.gsi.go.jp/xyz/20170705typhoon3_0707dol3/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+
 /*
 //大雨被害（日田市2）
 var ooamehita3 =  new ol.layer.Tile({
@@ -1528,7 +1634,7 @@ var ooamehukuokasugawa2 =  new ol.layer.Tile({
 var t0708dol11 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8撮影)",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月8日撮影））<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.814417,33.39267],
@@ -1544,7 +1650,7 @@ var t0708dol11 =  new ol.layer.Tile({
 var t0708dol12 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8撮影)",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月8日撮影））<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.814417,33.39267],
@@ -1562,7 +1668,7 @@ var t0708dol12 =  new ol.layer.Tile({
 var t0710dol1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10撮影)",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月10日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9422618,33.3786231],
@@ -1578,7 +1684,7 @@ var t0710dol1 =  new ol.layer.Tile({
 var t0710dol2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10撮影)",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月10日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9422618,33.3786231],
@@ -1649,3 +1755,110 @@ var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
         maxZoom:16
     })
 });
+
+//スタイルファンクション---------------------
+function testStyle1(feature, resolution) {
+    console.log(feature)
+    var prop = feature.getProperties();
+    var geoType = feature.getGeometry().getType();
+    var fillColor = prop["_fillColor"];
+    var zindex = prop["_zindex"];
+    if(resolution>2445) {//ズーム６
+        var pointRadius = 2;
+    }else if(resolution>1222) {//ズーム７
+        var pointRadius = 2;
+    }else if(resolution>611){
+        var pointRadius = 2;
+    }else if(resolution>305) {
+        var pointRadius = 4;
+    }else if(resolution>152) {
+        var pointRadius = 6;
+    }else if(resolution>76) {
+        var pointRadius = 8;
+    }else if(resolution>38) {
+        var pointRadius = 10;
+    }else{
+        var pointRadius = 12;
+    }
+    switch (geoType){
+        case "LineString":
+            var lineDash = eval(prop["_lineDash"]);
+            var style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color:fillColor,
+                    lineDash:lineDash,
+                    width:6
+                })
+            });
+            break;
+        case "Point":
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius:pointRadius,
+                    fill: new ol.style.Fill({color:fillColor}),
+                    stroke: new ol.style.Stroke({color: "white", width: 1})
+                })
+            });
+            break;
+        case "Polygon":
+        case "MultiPolygon":
+            if(fillColor==""){
+                fillColor = d3CategoryColor(d3CategoryColorI);
+                d3CategoryColorI++;
+                //console.log(d3CategoryColorI)
+                feature["I"]["_fillColor"] = fillColor;
+            }
+            if(!zindex) {
+                zindex = 0;
+            }
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color:fillColor
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "gray",
+                    width: 1
+                }),
+                zIndex:zindex
+            });
+            break;
+        default:
+    }
+    return style;
+};
+
+
+var testtile = new ol.layer.VectorTile({
+    title:"test",
+    name:"chome",
+    source: new ol.source.VectorTile({
+        //cacheSize:1000,
+        format: new ol.format.MVT(),
+        tileGrid: ol.tilegrid.createXYZ({maxZoom:20}),
+        //tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:16,
+            //maxZoom:16
+        //}),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+    }),
+    style:function(feature, resolution) {
+        //console.log(feature)
+        var prop = feature.getProperties();
+        //console.log(prop);
+        var val = Math.floor(prop["JINKO"]/(prop["AREA"]/100000));
+        //console.log(val);
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color:"rgb(" + val + ",0,0)"
+            }),
+            stroke: new ol.style.Stroke({
+                color: "gray",
+                width: 1
+            }),
+            //zIndex:zindex
+        })
+        return style;
+    }
+});
+

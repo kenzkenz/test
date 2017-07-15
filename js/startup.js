@@ -38,11 +38,12 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         //msg += "★現在不具合発生中！統計機能が使えません！<br>";
         //msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 背景に福岡県、大分県の大雨被害を追加しました。<br>";
-        msg += "2 背景に宮城県・高知県の古地図を追加しました。<br>";
-        msg += "3 背景に九州7県の古地図を追加しました。<br>";
-        msg += "4 データを複数追加しました。<br>";
-        msg += "5 <span style='color:red;'>全国赤色立体地図を追加しました。</span><br>";
+        msg += "1 背景に東京都、山口県の古地図を追加しました。<br>";
+        msg += "2 背景に福岡県、大分県の大雨被害を追加しました。<br>";
+        msg += "3 背景に宮城県・高知県の古地図を追加しました。<br>";
+        msg += "4 背景に九州7県の古地図を追加しました。<br>";
+        msg += "5 データを複数追加しました。<br>";
+        //msg += "5 <span style='color:red;'>全国赤色立体地図を追加しました。</span><br>";
         //msg += "5 RESAS機能に人口推移を追加。市町村をクリック<br>";
         //msg += "6 RESAS機能に人口ピラミッドを追加。市町村をクリック<br>";
         //msg += "6 背景に九州１Kメッシュ人口を追加<br>";
@@ -215,6 +216,18 @@ $(function(){
         }
     });
 
+    $("body").on("click",".osm-btn",function() {
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        //alert("作成中")
+        var zoom = Math.floor(eval(mapName).getView().getZoom());
+        var coord = ol.proj.transform(eval(mapName).getView().getCenter(),"EPSG:3857","EPSG:4326");
+        console.log(zoom);
+        console.log(coord[1],coord[0]);
+        var url = "http://www.openstreetmap.org/edit#map=" + zoom + "/" + coord[1] + "/" + coord[0];
+        //var url = "http://www.openstreetmap.org/edit#map=" + zoom + "/31.887292341936988/131.47626831928417";
+        window.open(url,'_blank')
+    });
     //--------------------------------------------------------------------------
     //現在地取得
     function getHere(mapName) {

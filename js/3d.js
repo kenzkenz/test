@@ -77,7 +77,7 @@ $(function(){
                     clearTimeout(st);
                 }
             }
-            cTilt();
+           // cTilt();
             $(this).text("2D");
 
             var estatLayer = eval("estatLayer" + mapName);
