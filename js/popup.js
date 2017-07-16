@@ -94,16 +94,24 @@ $(function(){
         }else{
             var coord = evt.coordinate;
         }
-console.log(featureProp)
+        console.log(featureProp)
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
+            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
+            table += "<tr><th class='popup-th'>人口</th><td class='popup-td'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
+            table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
+        /*
         for(key in featureProp){
                 table += "<tr>";
                 var prop = featureProp[key];
                 table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
                 table += "</tr>";
         }
+        */
         table += "</table>";
+
         content += table;
         if(map==="map1") {
             popup1.show(coord,content);

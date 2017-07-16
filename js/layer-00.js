@@ -7,7 +7,8 @@ var plI = 0;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,
-                    t0707dol1,t0707dol31,t0708dol11,t0710dol1,
+                    syoutiiki1,
+                    t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
                     blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
@@ -18,10 +19,11 @@ $(function(){
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1,bingroad1,testtile
+                    mesh1000z1,kousoku9syu1,bingroad1
                     ];
     useLayersArr2 = [pale2,
-                    t0707dol2,t0707dol32,t0708dol12,t0710dol2,
+                    syoutiiki2,
+                    t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
                     blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
@@ -39,7 +41,6 @@ $(function(){
         alert("");
         $(".secret-tr").toggle();
     });
-    
 });
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
