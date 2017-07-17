@@ -330,6 +330,15 @@ $(function(){
             right:"20px",
             rmDialog:true
         });
+        //------------------------------------------------------
+        $("#" + mapName + " .syoutiikitext").spinner({
+            max:5000, min:100, step:100,
+            spin:function(event,ui){
+                kyoudo = ui.value;
+                layer.getSource().changed();
+            }
+        });
+        //-------------------------------------------------------
         return false;
     });
     //------------------------------------------------------------
