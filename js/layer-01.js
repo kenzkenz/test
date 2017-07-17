@@ -1733,9 +1733,39 @@ var t0713dol12 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
-
-
-
+//大雨被害（東峰地区7/13撮影）
+var t0713dol21 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(東峰地区7/13空中写真)",
+    origin:"国土地理院",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（東峰地区）（2017年7月13日撮影））<br>この正射画像は7月13日に撮影した空中写真を用いています。写真から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.870227,33.4412187],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0713dol2/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var t0713dol22 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(東峰地区7/13空中写真)",
+    origin:"国土地理院",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（東峰地区）（2017年7月13日撮影））<br>この正射画像は7月13日に撮影した空中写真を用いています。写真から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.870227,33.4412187],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0713dol2/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
 
 
 

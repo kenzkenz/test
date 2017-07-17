@@ -15,7 +15,10 @@ $(document).ajaxStop(function (){
 //	成功時には標高(単位m)，無効値の場合は'e'を返す
 // ********************************************************************************
 //function getElev(rx,ry,z,then){
-//var prevImgSrc = "";
+var erevImg = new Image();
+erevImg.crossOrigin = 'anonymouse'
+var prevImgSrc = "";
+//var elevImgSrc = null;
 function getElev(coordinate,mapName,then){
     var elevServer = 'https://gsj-seamless.jp/labs/elev2/elev/';
     var z = Math.floor(eval(mapName).getView().getZoom());
@@ -28,23 +31,46 @@ function getElev(coordinate,mapName,then){
     var y = Math.floor(ry);// タイルY座標
     var i = (rx - x) * 256;// タイル内i座標
     var j = (ry - y) * 256;// タイル内j座標
-    var img = new Image();
-    img.crossOrigin = 'anonymouse';
-    img.onload = function(){
+
+    erevImg.onload = canvasRead();
+
+    function canvasRead(){
         var canvas = document.createElement('canvas');
         var context = canvas.getContext('2d');
         var h = "e";
         //var data = null;
         canvas.width = 1;
         canvas.height = 1;
-        context.drawImage(img,i,j,1,1,0,0,1,1);
+        context.drawImage(erevImg,i,j,1,1,0,0,1,1);
         data = context.getImageData(0,0,1,1).data;
         if(data[3] === 255){
             h = (data[0] * 256 * 256 + data[1] * 256 + data[2]) / 100;
         }
         then(h);
-    };
-    img.src = elevServer + z + '/' + y + '/' + x + '.png?res=cm';
+    }
+
+
+    var elevImgSrc = elevServer + z + '/' + y + '/' + x + '.png?res=cm'
+    if(prevImgSrc != elevImgSrc) {
+        erevImg.src = elevImgSrc;
+    }else{
+        canvasRead();
+        /*
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        var h = "e";
+        //var data = null;
+        canvas.width = 1;
+        canvas.height = 1;
+        context.drawImage(erevImg,i,j,1,1,0,0,1,1);
+        data = context.getImageData(0,0,1,1).data;
+        if(data[3] === 255){
+            h = (data[0] * 256 * 256 + data[1] * 256 + data[2]) / 100;
+        }
+        then(h)
+        */
+    }
+    prevImgSrc = elevImgSrc;
 }
 //-----------------------------------------------------------------------------
 //バックグラウンドで色を判断する。
