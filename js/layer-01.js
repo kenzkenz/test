@@ -1460,6 +1460,42 @@ var toukyoukotizu2 = new ol.layer.Tile({
     })
 });
 
+//島根県古地図
+var simanekotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>32島根県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/simanekenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var simanekotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>32島根県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/simanekenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+
 
 var bingroad1 = new ol.layer.Tile({
     secret:true,
@@ -1768,6 +1804,120 @@ var t0713dol22 =  new ol.layer.Tile({
 });
 
 
+//大雨被害（アジア航測）
+var ooameasia1 =  new ol.layer.Tile({
+    secret:true,
+    name:"ooame",
+    title:"★大雨被害",
+    origin:"",
+    detail:"",
+    coord:[130.80993,33.37331],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.7430,33.33812,130.8691,33.41900]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/ooame2/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var ooameasia2 =  new ol.layer.Tile({
+    secret:true,
+    name:"ooame",
+    title:"★大雨被害",
+    origin:"",
+    detail:"",
+    coord:[130.80993,33.37331],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.7430,33.33812,130.8691,33.41900]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/ooame2/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+
+
+var ooameasia07181 =  new ol.layer.Tile({
+    secret:true,
+    name:"ooame",
+    title:"★大雨被害0718",
+    origin:"",
+    detail:"",
+    coord:[130.80993,33.37331],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.7430,33.33812,130.8691,33.41900]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/ooame0719/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var ooameasia07182 =  new ol.layer.Tile({
+    secret:true,
+    name:"ooame",
+    title:"★大雨被害0718",
+    origin:"",
+    detail:"",
+    coord:[130.80993,33.37331],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    extent:transformE([130.7430,33.33812,130.8691,33.41900]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/ooame0719/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+
+
+var ooameasia07201 =  new ol.layer.Tile({
+    secret:true,
+    name:"ooame",
+    title:"★大雨被害0720",
+    origin:"",
+    detail:"",
+    coord:[130.80993,33.37331],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.7430,33.33812,130.8691,33.41900]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/ooame0720/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+
+var ooameasia07202 =  new ol.layer.Tile({
+    secret:true,
+    name:"ooame",
+    title:"★大雨被害0720",
+    origin:"",
+    detail:"",
+    coord:[130.80993,33.37331],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.7430,33.33812,130.8691,33.41900]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/ooame0720/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1830,12 +1980,21 @@ var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
     })
 });
 
-var vtColor = d3.interpolateLab("white", "indigo");
+var vtMaxColor = "indigo";
+var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
     title:"<span class='label label-default label-danger'>New</span>小地域人口等",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
-    detail:"<div style='margin:10px 0;'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'></div>",
+    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+            "　色："+
+            "<select class='syoutiiki-color-select'>" +
+                "<option value='indigo' selected>紫</option>" +
+                "<option value='red'>赤</option>" +
+                "<option value='green'>緑</option>" +
+                "<option value='blue'>青</option>" +
+                "<option value='black'>黒</option>" +
+            "</select></div>",
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
@@ -1855,7 +2014,15 @@ var syoutiiki2 = new ol.layer.VectorTile({
     title:"<span class='label label-default label-danger'>New</span>小地域人口等",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
-    detail:"<div style='margin:10px 0;'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'></div>",
+    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+            "　色："+
+            "<select class='syoutiiki-color-select'>" +
+                "<option value='indigo' selected>紫</option>" +
+                "<option value='red'>赤</option>" +
+                "<option value='green'>緑</option>" +
+                "<option value='blue'>青</option>" +
+                "<option value='black'>黒</option>" +
+            "</select></div>",
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
@@ -1889,3 +2056,35 @@ function syoutiikiStyleFunction(feature, resolution) {
     });
     return style;
 }
+
+/*
+var vectorSource = new ol.source.Vector({
+    url:"geojson/aosima.geojson",
+    format: new ol.format.GeoJSON()
+});
+*/
+//祖母ゾーニングのレイヤー
+var soboZ1 = new ol.layer.Vector({
+    title:"祖母ゾーニング",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source:new ol.source.Vector({
+        url:"geojson/sobo.geojson",
+        format: new ol.format.GeoJSON()
+    }),
+    style:commonstyleFunction
+    /*
+    source:new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom:2,
+        maxZoom:18
+    })
+    */
+});
+
+
+
+

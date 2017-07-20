@@ -179,7 +179,7 @@ label:hover{
 }
 /*背景インフォメーションのテーブル-----------------------------------------------*/
 .info-tbl{
-    width:200px;
+    width:300px;
 }
 .info-tbl tr td:nth-child(1){
     width:50px;

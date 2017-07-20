@@ -4,35 +4,39 @@ var plusLayer1 = [];
 var plusLayer2 = [];
 var plI = 0;
 
+
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,
+                    soboZ1,
                     syoutiiki1,
+                    ooameasia1,ooameasia07181,ooameasia07201,
                     t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
                     blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
                     aya1,sobo1,
-                    miyagikotizu1,toukyoukotizu1,yamagutikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
+                    miyagikotizu1,toukyoukotizu1,simanekotizu1,yamagutikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,
                     kago1,sengokago1,
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
-                    mrtiba1,mransei1,
+                    //mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
                     mesh1000z1,kousoku9syu1,bingroad1
                     ];
     useLayersArr2 = [pale2,
                     syoutiiki2,
+                    ooameasia2,ooameasia07182,ooameasia07202,
                     t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
                     blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,
                     aya2,sobo2,
-                    miyagikotizu2,toukyoukotizu2,yamagutikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
+                    miyagikotizu2,toukyoukotizu2,simanekotizu2,yamagutikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,
                     kago2,sengokago2,
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
-                    mrtiba2,mransei2,
+                    //mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
                     mesh1000z2,kousoku9syu2,bingroad2
                     ];
@@ -334,10 +338,24 @@ $(function(){
         $("#" + mapName + " .syoutiikitext").spinner({
             max:5000, min:100, step:100,
             spin:function(event,ui){
-                kyoudo = ui.value;
-                layer.getSource().changed();
+                syoutiikiColorChange(ui.value,mapName);
             }
         });
+        $("#" + mapName).on("change",".syoutiiki-color-select",function(){
+            var mapObj = funcMaps($(this));
+            var mapName = mapObj["name"];
+            console.log(mapName);
+            console.log($("#" + mapName + " .syoutiikitext").val());
+            kyoudo = $("#" + mapName + " .syoutiikitext").val();
+            syoutiikiColorChange(kyoudo,mapName);
+        });
+        function syoutiikiColorChange(kyoudo0,mapName){
+            kyoudo = kyoudo0;
+            vtMaxColor = $("#" + mapName + " .syoutiiki-color-select").val();
+            console.log(vtMaxColor);
+            vtColor = d3.interpolateLab("white",vtMaxColor);
+            layer.getSource().changed();
+        }
         //-------------------------------------------------------
         return false;
     });

@@ -1,75 +1,7 @@
 var dataLayer = [];
 var d3CategoryColor = d3.scale.category20();
 var d3CategoryColorI = 0;
-//スタイルファンクション---------------------
-var commonstyleFunction = function(feature, resolution) {
-    var prop = feature.getProperties();
-    var geoType = feature.getGeometry().getType();
-    var fillColor = prop["_fillColor"];
-    var zindex = prop["_zindex"];
-    if(resolution>2445) {//ズーム６
-        var pointRadius = 2;
-    }else if(resolution>1222) {//ズーム７
-        var pointRadius = 2;
-    }else if(resolution>611){
-        var pointRadius = 2;
-    }else if(resolution>305) {
-        var pointRadius = 4;
-    }else if(resolution>152) {
-        var pointRadius = 6;
-    }else if(resolution>76) {
-        var pointRadius = 8;
-    }else if(resolution>38) {
-        var pointRadius = 10;
-    }else{
-        var pointRadius = 12;
-    }
-    switch (geoType){
-        case "LineString":
-            var lineDash = eval(prop["_lineDash"]);
-            var style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                    color:fillColor,
-                    lineDash:lineDash,
-                    width:6
-                })
-            });
-            break;
-        case "Point":
-            var style = new ol.style.Style({
-                image: new ol.style.Circle({
-                    radius:pointRadius,
-                    fill: new ol.style.Fill({color:fillColor}),
-                    stroke: new ol.style.Stroke({color: "white", width: 1})
-                })
-            });
-            break;
-        case "Polygon":
-        case "MultiPolygon":
-            if(fillColor==""){
-                fillColor = d3CategoryColor(d3CategoryColorI);
-                d3CategoryColorI++;
-                //console.log(d3CategoryColorI)
-                feature["I"]["_fillColor"] = fillColor;
-            }
-            if(!zindex) {
-                zindex = 0;
-            }
-            var style = new ol.style.Style({
-                fill: new ol.style.Fill({
-                    color:fillColor
-                }),
-                stroke: new ol.style.Stroke({
-                    color: "gray",
-                    width: 1
-                }),
-                zIndex:zindex
-            });
-            break;
-        default:
-    }
-    return style;
-};
+
 //----------------------------------------------------------------------------------------------------------------------
 $(function(){
     $(".data-btn").click(function(){

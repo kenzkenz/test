@@ -131,11 +131,10 @@ $(function(){
     */
 
     gpxStyleFunction = function(feature, resolution) {
-        console.log(mapName)
+        console.log(mapName);
         console.log(feature);
-
         var geoType = feature.getGeometry().getType();
-        console.log(geoType )
+        console.log(geoType );
 
         //var featureStyleFunction = feature.getStyleFunction();
         //if (featureStyleFunction) {
@@ -181,6 +180,7 @@ $(function(){
             //format: new ol.format.GPX()
         });
         if (fileExtension !== "gpx") {
+            console.log(888888888);
             var style = commonstyleFunction;
         }else{
 
@@ -622,25 +622,29 @@ $(function(){
                         if (csvarr[0][j] === "数値") suuti = j;
                         if (csvarr[0][j] === "色") iro = j;
                         if (csvarr[0][j] === "色"){
-                            csvType = "city"
+                            csvType = "city";
                         }
-
+                        //-------------------------------------------
+                        //ポイントのcsv用
+                        if (csvarr[0][j] == "経度") csvlon = j;
+                        if (csvarr[0][j] == "緯度") csvlat = j;
+                        if (csvarr[0][j] === "経度"){
+                            csvType = "point";
+                        }
                         //-------------------------------------------
                         //ハッカソン用
-
                         if (csvarr[0][j] === "date") mkDate = j;
                         if (csvarr[0][j] === "day_of_week") mkDayOfWeek = j;
                         if (csvarr[0][j] === "time") mkTime = j;
                         if (csvarr[0][j] === "area") mkArea = j;
-
                         if (csvarr[0][j] === "residence") cityCode = j;
                         if (csvarr[0][j] === "population") mkPopulation = j;
-
                         if (csvarr[0][j] === "population"){
-                            csvType = "mobakuu"
+                            csvType = "mobakuu";
                         }
-
                     }
+                   // console.log(csvType);
+
                 }else{
                     //-----------------------------------------------
                     switch (csvType) {
@@ -654,6 +658,38 @@ $(function(){
                                 }
                             };
                             break;
+                        case "point":
+                            /*
+                            var obj = {
+                                "citycode": csvarr[i][cityCode],
+                                "prop": {
+                                    "citycode": csvarr[i][cityCode],
+                                    "suuti": csvarr[i][suuti],
+                                    "iro": csvarr[i][iro]
+                                }
+                            };
+                            */
+                            var lonlat = [Number(csvarr[i][csvlon]),Number(csvarr[i][csvlat])];
+                            console.log(lonlat);
+                            lonlat = ol.proj.transform(lonlat,"EPSG:4326","EPSG:3857");
+                            //var coord = ol.proj.fromLonLat(lonlat);
+                            var geometry = new ol.geom.Point(lonlat);
+                            var newFeature = new ol.Feature({
+                                geometry: geometry,
+                                _fillColor:"red",
+                                //name: "newFeature",
+                                /*
+                                _polygonHeight: (Number(zinkou)) / 20,
+                                _fillColor: fillColor,
+                                _zindex:zindex,
+                                コード: cityObj["citycode"],
+                                自治体名: cityObj["cityname"],
+                                人口: Number(cityObj["zinkou"]).toLocaleString() + "人"
+                                */
+                            });
+                            editLayer.getSource().addFeature(newFeature);
+                            break;
+
                         case "mobakuu":
                             var obj = {
                                 "citycode": csvarr[i][cityCode],
@@ -685,6 +721,15 @@ $(function(){
                 case "city":
                     $("#modal-div").modal();
                     break;
+
+                case "point":
+                    editLayer.set("altitudeMode","clampToGround");
+                    map1.addLayer(editLayer);
+                    map1.getView().fit(editLayer.getSource().getExtent());
+                    editLayer.setZIndex(9999);
+                    console.log(editLayer.getSource().getFeatures().length);
+                    break;
+
                 case "mobakuu":
                     //console.log(areaAr);
                     //console.log(cityCodeAr);
