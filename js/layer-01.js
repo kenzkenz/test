@@ -360,6 +360,38 @@ var murous2 = new ol.layer.Tile({
     })
 });
 
+var murosenzen1 = new ol.layer.Tile({
+    title:"室蘭市戦前地図",
+    origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
+    detail:"" ,
+    coord:[140.973774,42.315226],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/murorankotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        maxZoom:18
+    })
+});
+var murosenzen2 = new ol.layer.Tile({
+    title:"室蘭市戦前地図",
+    origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
+    detail:"" ,
+    coord:[140.973774,42.315226],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/murorankotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        maxZoom:18
+    })
+});
+
+
 
 
 //ハザードマップ関係------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -1459,7 +1491,6 @@ var toukyoukotizu2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
-
 //島根県古地図
 var simanekotizu1 = new ol.layer.Tile({
     name:"kotizu",
@@ -1495,6 +1526,51 @@ var simanekotizu2 = new ol.layer.Tile({
         maxZoom:13
     })
 });
+//福井県古地図
+var hukuikotizu1 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>18福井県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/hukuiken.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/hukuikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+var hukuikotizu2 = new ol.layer.Tile({
+    name:"kotizu",
+    title:"<span class='label label-default label-danger'>New</span>18福井県古地図(大正14年)",
+    origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
+    detail:"<a href='oldmap/hukuiken.jpg' target='_blank'>jpg</a>",
+    //message:"1925年",
+    //coord:[131.5110089111254, 32.83581733593961],
+    //zoom:10,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.940796,32.48553,132.110,33.16926]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/hukuikenkotizu/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:13
+    })
+});
+
+
+
+
+
+
+
+
+
+
 
 
 var bingroad1 = new ol.layer.Tile({
@@ -1531,7 +1607,7 @@ var bingroad2 = new ol.layer.Tile({
 var t0707dol1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7ﾍﾘ撮影)",
+    title:"大雨被害<span style='font-size:8px;'>(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7ﾍﾘ撮影)</span>",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
@@ -1547,7 +1623,7 @@ var t0707dol1 =  new ol.layer.Tile({
 var t0707dol2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7ﾍﾘ撮影)",
+    title:"大雨被害<span style='font-size:8px;'>(朝倉市桂川、日田市鶴河内鶴城・小野付近7/7ﾍﾘ撮影)</span>",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に九州地方整備局ヘリ（はるかぜ号）で撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9400738912126, 33.39190849746305],
@@ -1560,12 +1636,11 @@ var t0707dol2 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
-
 //九州北部大雨７月７日作成UAV(ドローン)
 var t0707dol31 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市山田奈良ヶ谷付近7/7ﾄﾞﾛｰﾝ撮影)",
+    title:"大雨被害(朝倉市山田奈良ヶ谷付近7/7ﾄﾞﾛｰﾝ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（UAV撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に国土地理院ランドバードが撮影したUAV画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.76838501142805, 33.384325449185894],
@@ -1581,7 +1656,7 @@ var t0707dol31 =  new ol.layer.Tile({
 var t0707dol32 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市山田奈良ヶ谷付近7/7ﾄﾞﾛｰﾝ撮影)",
+    title:"大雨被害(朝倉市山田奈良ヶ谷付近7/7ﾄﾞﾛｰﾝ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（UAV撮影画像から作成（2017年7月7日撮影））<br>この正射画像は7月7日に国土地理院ランドバードが撮影したUAV画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.76838501142805, 33.384325449185894],
@@ -1670,7 +1745,7 @@ var ooamehukuokasugawa2 =  new ol.layer.Tile({
 var t0708dol11 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8ﾍﾘ撮影)",
+    title:"大雨被害(朝倉市、日田市の複数地域7/8ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月8日撮影））<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.814417,33.39267],
@@ -1686,7 +1761,7 @@ var t0708dol11 =  new ol.layer.Tile({
 var t0708dol12 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉市、日田市の複数地域7/8ﾍﾘ撮影)",
+    title:"大雨被害(朝倉市、日田市の複数地域7/8ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月8日撮影））<br>この正射画像は7月8日に地方整備局ヘリ（はるかぜ号、愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.814417,33.39267],
@@ -1704,7 +1779,7 @@ var t0708dol12 =  new ol.layer.Tile({
 var t0710dol1 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10ﾍﾘ撮影)",
+    title:"大雨被害(日田市小野川周辺7/10ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月10日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9422618,33.3786231],
@@ -1720,7 +1795,7 @@ var t0710dol1 =  new ol.layer.Tile({
 var t0710dol2 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(日田市小野川周辺7/10ﾍﾘ撮影)",
+    title:"大雨被害(日田市小野川周辺7/10ﾍﾘ撮影)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（ヘリ撮影画像から作成（2017年7月10日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.9422618,33.3786231],
@@ -1740,7 +1815,7 @@ var t0710dol2 =  new ol.layer.Tile({
 var t0713dol11 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉地区7/13空中写真)",
+    title:"大雨被害(朝倉地区7/13空中写真)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（朝倉地区）（2017年7月13日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.696381,33.389445],
@@ -1756,7 +1831,7 @@ var t0713dol11 =  new ol.layer.Tile({
 var t0713dol12 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(朝倉地区7/13空中写真)",
+    title:"大雨被害(朝倉地区7/13空中写真)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（朝倉地区）（2017年7月13日撮影））<br>この正射画像は7月10日に地方整備局ヘリ（愛らんど号）が撮影した画像を用いています。画像から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.696381,33.389445],
@@ -1773,7 +1848,7 @@ var t0713dol12 =  new ol.layer.Tile({
 var t0713dol21 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(東峰地区7/13空中写真)",
+    title:"大雨被害(東峰地区7/13空中写真)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（東峰地区）（2017年7月13日撮影））<br>この正射画像は7月13日に撮影した空中写真を用いています。写真から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.870227,33.4412187],
@@ -1789,7 +1864,7 @@ var t0713dol21 =  new ol.layer.Tile({
 var t0713dol22 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(東峰地区7/13空中写真)",
+    title:"大雨被害(東峰地区7/13空中写真)",
     origin:"国土地理院",
     detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（東峰地区）（2017年7月13日撮影））<br>この正射画像は7月13日に撮影した空中写真を用いています。写真から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
     coord:[130.870227,33.4412187],
@@ -1822,7 +1897,7 @@ var ooameasia1 =  new ol.layer.Tile({
     })
 });
 var ooameasia2 =  new ol.layer.Tile({
-    secret:true,
+    //secret:true,
     name:"ooame",
     title:"★大雨被害",
     origin:"",
@@ -1839,12 +1914,14 @@ var ooameasia2 =  new ol.layer.Tile({
 });
 
 
+
+
 var ooameasia07181 =  new ol.layer.Tile({
-    secret:true,
+    //secret:true,
     name:"ooame",
-    title:"★大雨被害0718",
-    origin:"",
-    detail:"",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/8撮影)",
+    origin:"<a href='https://www.geospatial.jp/ckan/dataset/aas-disaster-20170708' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月8日撮影）</a>",
+    detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
     zoom:12,
     //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1856,11 +1933,11 @@ var ooameasia07181 =  new ol.layer.Tile({
     })
 });
 var ooameasia07182 =  new ol.layer.Tile({
-    secret:true,
+    //secret:true,
     name:"ooame",
-    title:"★大雨被害0718",
-    origin:"",
-    detail:"",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/8撮影)",
+    origin:"<a href='https://www.geospatial.jp/ckan/dataset/aas-disaster-20170708' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月8日撮影）</a>",
+    detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
     zoom:12,
     //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1874,11 +1951,11 @@ var ooameasia07182 =  new ol.layer.Tile({
 
 
 var ooameasia07201 =  new ol.layer.Tile({
-    secret:true,
+    //secret:true,
     name:"ooame",
-    title:"★大雨被害0720",
-    origin:"",
-    detail:"",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/9撮影)",
+    origin:"<a href='https://www.geospatial.jp/gp_front/content/1b7345a0-41a1-414d-94e8-378b69d5c4c1' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月9日撮影）</a>",
+    detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
     zoom:12,
     //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -1891,11 +1968,11 @@ var ooameasia07201 =  new ol.layer.Tile({
 });
 
 var ooameasia07202 =  new ol.layer.Tile({
-    secret:true,
+    //secret:true,
     name:"ooame",
-    title:"★大雨被害0720",
-    origin:"",
-    detail:"",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/9撮影)",
+    origin:"<a href='https://www.geospatial.jp/gp_front/content/1b7345a0-41a1-414d-94e8-378b69d5c4c1' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月9日撮影）</a>",
+    detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
     zoom:12,
     //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -2049,7 +2126,7 @@ function syoutiikiStyleFunction(feature, resolution) {
             color:vtColor(val)
         }),
         stroke: new ol.style.Stroke({
-            color: "gray",
+            color: "grey",
             width: 1
         }),
         //zIndex:zindex
@@ -2057,34 +2134,112 @@ function syoutiikiStyleFunction(feature, resolution) {
     return style;
 }
 
-/*
-var vectorSource = new ol.source.Vector({
-    url:"geojson/aosima.geojson",
-    format: new ol.format.GeoJSON()
-});
-*/
 //祖母ゾーニングのレイヤー
 var soboZ1 = new ol.layer.Vector({
-    title:"祖母ゾーニング",
+    title:"祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸｿﾞｰﾆﾝｸﾞ",
     origin:"",
-    detail:"",
+    detail:"赤：核心地域<br>黄：緩衝地域<br>青：移行地域",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
     source:new ol.source.Vector({
         url:"geojson/sobo.geojson",
         format: new ol.format.GeoJSON()
     }),
     style:commonstyleFunction
-    /*
-    source:new ol.source.XYZ({
-        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
-        url:"./php/proxy-png.php?url=https://cyberjapandata.gsi.go.jp/xyz/pale/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous",
-        minZoom:2,
-        maxZoom:18
-    })
-    */
+});
+var soboZ2 = new ol.layer.Vector({
+    title:"祖母･傾･大崩ﾕﾈｽｺｴｺﾊﾟｰｸｿﾞｰﾆﾝｸﾞ",
+    origin:"",
+    detail:"赤：核心地域<br>黄：緩衝地域<br>青：移行地域",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source:new ol.source.Vector({
+        url:"geojson/sobo.geojson",
+        format: new ol.format.GeoJSON()
+    }),
+    style:commonstyleFunction
 });
 
 
 
 
+
+var douro1 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>道路中心線",
+    name:"douro",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:8,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: douroStyleFunction
+});
+var douro2 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>道路中心線",
+    name:"douro",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:8,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: douroStyleFunction
+});
+function douroStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var syurui = prop["rdCtg"];
+    var haba = prop["rnkWidth"];
+    var strokeColor = null;
+    var strokeWidth = null;
+    var lineDash = [];
+    switch (syurui) {
+        case "高速自動車国道等":
+            strokeColor = "red";
+            strokeWidth = 4;
+            strokeColor = "red";
+            lineDash = [1];
+            break;
+        case "国道":
+            strokeColor = "green";
+            strokeWidth = 4;
+            lineDash = [1];
+            break;
+        case "都道府県道":
+            strokeColor = "black";
+            strokeWidth = 2;
+            break;
+
+        default:
+            if(haba!="3m未満") {
+                strokeColor = "blue";
+                strokeWidth = 1;
+                lineDash = [1];
+            }else{
+                strokeColor = "red";
+                strokeWidth = 1;
+                lineDash = [1,2];
+            }
+    }
+    var style = new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color:strokeColor,
+            width: strokeWidth,
+            lineDash:lineDash
+        }),
+        //zIndex:zindex
+    });
+    return style;
+}

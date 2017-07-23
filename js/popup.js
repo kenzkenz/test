@@ -82,7 +82,41 @@ $(function(){
             case "chome":
                 funcChomePopup(feature,map,evt);
                 break;
+            case "douro":
+                funcDouroPopup(feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcDouroPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp)
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'>種類</th><td class='popup-td'>" + featureProp["rdCtg"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>幅</th><td class='popup-td'>" + featureProp["rnkWidth"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
