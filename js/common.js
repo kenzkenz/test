@@ -276,7 +276,7 @@ var commonstyleFunction = function(feature, resolution) {
             var lineDash = eval(prop["_lineDash"]);
             var style = new ol.style.Style({
                 stroke: new ol.style.Stroke({
-                    color:fillColor,
+                    color:fillColor ? fillColor : "red",
                     lineDash:lineDash,
                     width:6
                 })
@@ -286,7 +286,9 @@ var commonstyleFunction = function(feature, resolution) {
             var style = new ol.style.Style({
                 image: new ol.style.Circle({
                     radius:pointRadius,
-                    fill: new ol.style.Fill({color:fillColor}),
+                    fill: new ol.style.Fill({
+                        color:fillColor ? fillColor : "orange"
+                    }),
                     stroke: new ol.style.Stroke({color: "white", width: 1})
                 })
             });

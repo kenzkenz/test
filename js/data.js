@@ -1,7 +1,7 @@
 var dataLayer = [];
 var d3CategoryColor = d3.scale.category20();
 var d3CategoryColorI = 0;
-
+var overpassLayer = null;
 //----------------------------------------------------------------------------------------------------------------------
 $(function(){
     $(".data-btn").click(function(){
@@ -42,7 +42,7 @@ $(function(){
             htmlChar += "<td class='data-td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
             htmlChar += "</tr>";
         }
-        htmlChar += "</table><span id='zikken'>実験</span></div>";
+        htmlChar += "</table>実験：<span class='zikken'>バス</span>：<span class='zikken'>AED</span>：<span class='zikken'>消火栓</span></div>";
         $("#" + mapName + " .data-dialog .dialog-content").html(htmlChar);
 
         $("#" + mapName + " .data-tbl tbody").sortable({
@@ -88,22 +88,72 @@ $(function(){
         })
     }
     //------------------------------------------------------------------------------------------------------------------
-    $("body").on("click","#zikken",function(){
-       alert()
+    //実験
+    $("body").on("click",".zikken",function(){
 
+        map1.removeLayer(overpassLayer);
+
+        var extent = map1.getView().calculateExtent(map1.getSize());
+        console.log(extent);
+        extent = ol.proj.transformExtent(extent,'EPSG:3857','EPSG:4326');
+        console.log(extent);
+        extent = extent[1] + "," + extent[0] + "," + extent[3] + "," + extent[2];
+        console.log(extent);
+
+        var text = $(this).text();
+        console.log(text)
+
+        switch (text) {
+            case "バス":
+                var url = 'https://overpass-api.de/api/interpreter?data=[out:json];relation["route"="bus"](' + extent + ');>;out;';
+                break;
+            case "AED":
+                var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["emergency"="defibrillator"](' + extent + ');out;';
+                break;
+            case "消火栓":
+                var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["emergency"="fire_hydrant"](' + extent + ');out;';
+                break;
+        }
+
+       // var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["religion"="shinto"](20,122,45,153);out;';
+        //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["highway"="bus_stop"](' + extent + ');out;';
+
+
+        //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];relation["route"="bicycle"](' + extent + ');>;out;';
+        //
+
+        //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];route["route"="bus"](' + extent + ');out;';
+        //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];way(' + extent + ');out;';
+        //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];relation["religion"="shinto"](' + extent + ');out;';
+        //var url = 'https://overpass-api.de/api/interpreter?data=[out:json][timeout:2500];relation["religion"="shinto"];>;out;';
 
         $.ajax({
             type:"GET",
-            url:'http://overpass-api.de/api/interpreter?data=[out:json];node["religion"="shinto"];out;',
+            url:url,
             dataType:"json",
             data:{
                 //tgtUrl:tgtUrl,
             }
         }).done(function(json){
-            var elem = json["elements"]
+            console.log(json);
+            //console.log(JSON.stringify(json));
+            var geojsonObject = osmtogeojson(json);
+            console.log(geojsonObject);
+            var vectorSource = new ol.source.Vector({
+                features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
+            });
+            overpassLayer = new ol.layer.Vector({
+                source:vectorSource,
+                style:commonstyleFunction
+            });
+            map1.addLayer(overpassLayer)
+
+            /*
+            console.log(json);
+            var elem = json["elements"];
             console.log(elem);
 
-            var overpassLayer = new ol.layer.Vector({
+            overpassLayer = new ol.layer.Vector({
                 source:new ol.source.Vector({}),
                 style:commonstyleFunction
             });
@@ -111,7 +161,7 @@ $(function(){
             for(var i = 0; i < elem.length; i++) {
                 //console.log(elem[i])
                 var lonlat = [elem[i]["lon"],elem[i]["lat"]];
-                console.log(lonlat);
+                //console.log(lonlat);
                 lonlat = ol.proj.transform(lonlat,"EPSG:4326","EPSG:3857");
                 //var coord = ol.proj.fromLonLat(lonlat);
                 var geometry = new ol.geom.Point(lonlat);
@@ -123,6 +173,8 @@ $(function(){
                 overpassLayer.getSource().addFeature(newFeature);
             }
             map1.addLayer(overpassLayer)
+            */
+
         }).fail(function(json){
             alert("失敗!");
         });
