@@ -150,7 +150,22 @@
                 <button type="button" class="pano-btn btn btn-primary"><i class='fa fa-camera-retro fa-lg'></i></button>
             </div>
             <div class="top-div">
-                <button type="button" class="osm-btn btn btn-primary">OSM</button>
+
+                <div class="dropdown-div">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">OSM<span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" class="osm-btn">エディット画面へ</a></li>
+                        <hr class="my-hr">
+                        <div style="padding:0 5px 0 20px;font-size: 8px;">画面内のOSMを抽出します。</div>
+                        <li><a href="#" class="osmread osmread-buss">バス</a></li>
+                        <li><a href="#" class="osmread osmread-aed">AED</a></li>
+                        <li><a href="#" class="osmread osmread-syoukasen">消火栓</a></li>
+                        <li><a href="#" class="osmread osmread-hazard">ハザード</a></li>
+                    </ul>
+                </div>
+
+
+                <!--<button type="button" class="osm-btn btn btn-primary">OSM</button>-->
                 <button type="button" class="dualscreen-btn btn btn-primary">2画面</button>
                 <!--<input type="checkbox" data-toggle="toggle" data-on="3D-on" data-off="3D-off" class="d3d2-toggle">-->
                 <button type="button" class="d3d2-btn btn btn-primary">3D</button>

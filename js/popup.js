@@ -85,7 +85,87 @@ $(function(){
             case "douro":
                 funcDouroPopup(feature,map,evt);
                 break;
+            case "overpassLayer":
+                funcOverpassLayerPopup(feature,map,evt);
+                break;
+            case "tunamimvt":
+                funcTunamimvtPopup(feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcTunamimvtPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp)
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'>浸水</th><td class='popup-td'>" + featureProp["A40_003"]  + "</td></tr>";
+        //table += "<tr><th class='popup-th'>幅</th><td class='popup-td'>" + featureProp["rnkWidth"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcOverpassLayerPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp)
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        /*
+        table += "<tr><th class='popup-th'>種類</th><td class='popup-td'>" + featureProp["rdCtg"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>幅</th><td class='popup-td'>" + featureProp["rnkWidth"] + "</td></tr>";
+        */
+
+         for(key in featureProp){
+             var prop = featureProp[key];
+             if(key!=="geometry" && key!=="meta") {
+                 table += "<tr>";
+                 if (key == "tags") {
+                     var props = "";
+                     for (key2 in prop) {
+                         var prop2 = key2 + " = " + prop[key2] + "<br>";
+                         props += prop2
+                     }
+                     prop = props;
+                 }
+                 table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+                 table += "</tr>";
+             }
+         }
+
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------

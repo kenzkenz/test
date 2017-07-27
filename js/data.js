@@ -1,7 +1,8 @@
 var dataLayer = [];
 var d3CategoryColor = d3.scale.category20();
 var d3CategoryColorI = 0;
-var overpassLayer = null;
+var overpassLayer1 = null;
+var overpassLayer2 = null;
 //----------------------------------------------------------------------------------------------------------------------
 $(function(){
     $(".data-btn").click(function(){
@@ -42,7 +43,7 @@ $(function(){
             htmlChar += "<td class='data-td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
             htmlChar += "</tr>";
         }
-        htmlChar += "</table>実験：<span class='zikken'>バス</span>：<span class='zikken'>AED</span>：<span class='zikken'>消火栓</span></div>";
+        htmlChar += "</table>実験：<span class='zikken'>バス</span>：<span class='zikken'>AED</span>：<span class='zikken'>消火栓</span>：<span class='zikken'>xxx</span></div>";
         $("#" + mapName + " .data-dialog .dialog-content").html(htmlChar);
 
         $("#" + mapName + " .data-tbl tbody").sortable({
@@ -89,9 +90,18 @@ $(function(){
     }
     //------------------------------------------------------------------------------------------------------------------
     //実験
-    $("body").on("click",".zikken",function(){
-
-        map1.removeLayer(overpassLayer);
+    $("body").on("click",".osmread",function(){
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        console.log(mapName)
+        if(mapName==="map1") {
+            //var layer = overpassLayer1;
+            map1.removeLayer(overpassLayer1);
+        }else{
+            //var layer = overpassLayer2;
+            map2.removeLayer(overpassLayer2)
+        }
+        //eval(mapName).removeLayer(layer);
 
         var extent = map1.getView().calculateExtent(map1.getSize());
         console.log(extent);
@@ -113,15 +123,24 @@ $(function(){
             case "消火栓":
                 var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["emergency"="fire_hydrant"](' + extent + ');out;';
                 break;
+            case "ハザード":
+                var url = 'https://overpass-api.de/api/interpreter?data=[out:json];';
+                url += '(';
+                url += 'way["hazard_type"~"."](' + extent + ');';
+                url += 'way["hazard_type"~"."](' + extent + ');>;';
+                url += ');out body;';
+                /*
+                var url = 'https://overpass-api.de/api/interpreter?data=[out:json];';
+                    url += '(';
+                    url += 'way["hazard_type"="landslide"](' + extent + ');';
+                    url += 'way["hazard_type"="landslide"](' + extent + ');>;';
+                    url += ');out body;';
+                */
+                break;
         }
-
        // var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["religion"="shinto"](20,122,45,153);out;';
         //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];node["highway"="bus_stop"](' + extent + ');out;';
-
-
         //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];relation["route"="bicycle"](' + extent + ');>;out;';
-        //
-
         //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];route["route"="bus"](' + extent + ');out;';
         //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];way(' + extent + ');out;';
         //var url = 'https://overpass-api.de/api/interpreter?data=[out:json];relation["religion"="shinto"](' + extent + ');out;';
@@ -135,25 +154,39 @@ $(function(){
                 //tgtUrl:tgtUrl,
             }
         }).done(function(json){
-            console.log(json);
+            //console.log(json);
             //console.log(JSON.stringify(json));
             var geojsonObject = osmtogeojson(json);
-            console.log(geojsonObject);
+            //console.log(geojsonObject);
             var vectorSource = new ol.source.Vector({
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
-            overpassLayer = new ol.layer.Vector({
-                source:vectorSource,
-                style:commonstyleFunction
-            });
-            map1.addLayer(overpassLayer)
-
+            if(mapName==="map1") {
+                overpassLayer1 = new ol.layer.Vector({
+                    name: "overpassLayer",
+                    source: vectorSource,
+                    style: osmStyleFunction
+                });
+                overpassLayer1.set("altitudeMode", "clampToGround");
+                eval(mapName).addLayer(overpassLayer1);
+                overpassLayer1.setZIndex(9999);
+            }else {
+                overpassLayer2 = new ol.layer.Vector({
+                    name: "overpassLayer",
+                    source: vectorSource,
+                    style: osmStyleFunction
+                });
+                overpassLayer2.set("altitudeMode", "clampToGround");
+                eval(mapName).addLayer(overpassLayer2);
+                overpassLayer2.setZIndex(9999);
+            }
+            //eval(mapName).removeLayer(layer);
             /*
             console.log(json);
             var elem = json["elements"];
             console.log(elem);
 
-            overpassLayer = new ol.layer.Vector({
+            overpassLayer1 = new ol.layer.Vector({
                 source:new ol.source.Vector({}),
                 style:commonstyleFunction
             });
@@ -170,15 +203,109 @@ $(function(){
                     _fillColor:"red",
 
                 });
-                overpassLayer.getSource().addFeature(newFeature);
+                overpassLayer1.getSource().addFeature(newFeature);
             }
-            map1.addLayer(overpassLayer)
+            map1.addLayer(overpassLayer1)
             */
 
         }).fail(function(json){
             alert("失敗!");
         });
     });
+    function osmStyleFunction(feature, resolution) {
+        var prop = feature.getProperties();
+        //console.log(prop);
+        //console.log(prop["tags"]);
+        //console.log(prop["tags"]["hazard_type"]);
+        var geoType = feature.getGeometry().getType();
+        var fillColor = prop["_fillColor"];
+        var hazardType = prop["tags"]["hazard_type"];
+        var natural = prop["tags"]["natural"];
+        if (hazardType){
+            switch (hazardType){
+                case "flood":
+                    if(natural) {
+                        fillColor = "rgba(0,0,255,0.6)";//青色
+                    }else{
+                        fillColor = "rgba(0,0,255,0.3)";//青色
+                    }
+                    break;
+                case "landslide"://地滑り
+                    if(natural) {
+                        fillColor = "rgba(165,42,42,0.6)";//チョコレート色
+                    }else{
+                        fillColor = "rgba(165,42,42,0.3)";//チョコレート色
+                    }
+                    break;
+            }
+        }
+
+        var zindex = prop["_zindex"];
+        if(resolution>2445) {//ズーム６
+            var pointRadius = 2;
+        }else if(resolution>1222) {//ズーム７
+            var pointRadius = 2;
+        }else if(resolution>611){
+            var pointRadius = 2;
+        }else if(resolution>305) {
+            var pointRadius = 4;
+        }else if(resolution>152) {
+            var pointRadius = 6;
+        }else if(resolution>76) {
+            var pointRadius = 8;
+        }else if(resolution>38) {
+            var pointRadius = 8;
+        }else{
+            var pointRadius = 8;
+        }
+        switch (geoType){
+            case "LineString":
+                var lineDash = eval(prop["_lineDash"]);
+                var style = new ol.style.Style({
+                    stroke: new ol.style.Stroke({
+                        color:fillColor ? fillColor : "red",
+                        lineDash:lineDash,
+                        width:6
+                    })
+                });
+                break;
+            case "Point":
+                var style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius:pointRadius,
+                        fill: new ol.style.Fill({
+                            color:fillColor ? fillColor : "orange"
+                        }),
+                        stroke: new ol.style.Stroke({color: "white", width: 1})
+                    })
+                });
+                break;
+            case "Polygon":
+            case "MultiPolygon":
+                if(fillColor==""){
+                    fillColor = d3CategoryColor(d3CategoryColorI);
+                    d3CategoryColorI++;
+                    //console.log(d3CategoryColorI)
+                    feature["I"]["_fillColor"] = fillColor;
+                }
+                if(!zindex) {
+                    zindex = 0;
+                }
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:fillColor ? fillColor : "rgba(200,100,100,0.4)"
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: "gray",
+                        width: 1
+                    }),
+                    zIndex:zindex
+                });
+                break;
+            default:
+        }
+        return style;
+    }
     //------------------------------------------------------------------------------------------------------------------
     //インフォメーションダイアログ生成
     $("body").on("click",".data-td-info",function(){

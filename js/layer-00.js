@@ -21,7 +21,8 @@ $(function(){
                     ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     //mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1,bingroad1
+                    mesh1000z1,kousoku9syu1,bingroad1,
+                    tunamimvt1
                     ];
     useLayersArr2 = [pale2,
                     douro2,syoutiiki2,
@@ -37,7 +38,8 @@ $(function(){
                     ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     //mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,kousoku9syu2,bingroad2
+                    mesh1000z2,kousoku9syu2,bingroad2,
+                    tunamimvt2
                     ];
     $("body").on("click",".secret",function() {
         //alert("22");

@@ -2110,6 +2110,10 @@ var syoutiiki2 = new ol.layer.VectorTile({
         }),
         tilePixelRatio:16,
         url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        //url: "https://globalmaps-vt.github.io/gmjp21vt/{z}/{x}/{y}.mvt"
+
+
+        //https://globalmaps-vt.github.io/gmjp20vt/5/28/11.mvt
     }),
     maxResolution:1222.99,
     style: syoutiikiStyleFunction
@@ -2120,10 +2124,16 @@ function syoutiikiStyleFunction(feature, resolution) {
     var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
     val = val/kyoudo;
     if(val>1) val = 1;
+
+    var rgb = d3.rgb(vtColor(val));
+    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val + ")";
+    //console.log(rgba);
+
     var style = new ol.style.Style({
         fill: new ol.style.Fill({
             //color:"rgba(" + val + ",0,0,0.9)"
-            color:vtColor(val)
+            //color:vtColor(val)
+            color:rgba
         }),
         stroke: new ol.style.Stroke({
             color: "grey",
@@ -2239,6 +2249,112 @@ function douroStyleFunction(feature, resolution) {
             width: strokeWidth,
             lineDash:lineDash
         }),
+        //zIndex:zindex
+    });
+    return style;
+}
+
+var test1 = new ol.layer.VectorTile({
+    title:"test",
+    name:"chome",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            //maxZoom:12
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/yakuba/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: commonstyleFunction
+});
+var tunamimvt1 = new ol.layer.VectorTile({
+    title:"津波浸水test(3D不可)",
+    name:"tunamimvt",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            //maxZoom:12
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunami/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    //maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: tunamiStyleFunction
+});
+var tunamimvt2 = new ol.layer.VectorTile({
+    title:"津波浸水test(3D不可)",
+    name:"tunamimvt",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            //maxZoom:12
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunami/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    //maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: tunamiStyleFunction
+});
+function tunamiStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var level = prop["level"];
+    var fillColor = "black";
+    switch (level) {
+        case 1:
+            fillColor = "rgba(0,255,0,0.7)";
+            break;
+        case 2:
+            fillColor = "rgba(255,230,0,0.7)";
+            break;
+        case 3:
+            fillColor = "rgba(255,153,0,0.7)";
+            break;
+        case 4:
+            fillColor = "rgba(239,117,152,0.7)";
+            break;
+        case 5:
+            fillColor = "rgba(255,40,0,0.7)";
+            break;
+        case 6:
+            fillColor = "rgba(180,0,104,0.7)";
+            break;
+        case 7:
+            fillColor = "rgba(128,0,255,0.7)";
+            break;
+    }
+
+    var style = new ol.style.Style({
+        fill: new ol.style.Fill({
+            color:fillColor
+        }),
+        /*
+        stroke: new ol.style.Stroke({
+            color: "grey",
+            width: 1
+        }),
+        */
         //zIndex:zindex
     });
     return style;
