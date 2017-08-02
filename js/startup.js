@@ -15,18 +15,18 @@ $(function(){
     funcResize();
     function funcResize() {
         if ($("body").width() < 475) {
-            $(".osm-btn").hide();
+            $(".osm-dropdown-div").hide();
         }else if($("body").width() < 400) {
             $(".data-btn").text("d");
             $(".dropdown-div").hide();
-            $(".osm-btn").hide();
+            $(".osm-dropdown-div").hide();
             $(".btn").css({
                 "padding":"6px 10px"
             })
         } else {
             $(".data-btn").text("data").show();
             $(".dropdown-div").show();
-            $(".osm-btn").show();
+            $(".osm-dropdown-div").show();
             $(".btn").css({
                 "padding":"6px 12px"
             })

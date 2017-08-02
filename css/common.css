@@ -324,6 +324,14 @@ label:hover{
 .estat-chart-div{
     height:600px;
 }
+.estat-chart-pyramid-div{
+    height:495px;
+    width:470px;
+    /*
+    height:400px;
+    width:400px;
+    */
+}
 /*resas関係--------------------------------------------------------------------*/
 .resas-tbl-div{
     overflow:auto;

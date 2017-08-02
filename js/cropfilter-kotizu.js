@@ -708,6 +708,13 @@ $(function(){
             "layer1":hukuikotizu1,
             "layer2":hukuikotizu2
         }
+        /*,
+        {
+            "dep":tondabayasiDep,
+            "layer1":tondabayasit1,
+            "layer2":tondabayasit2
+        }
+        */
     ];
     for (var i=0; i < cropObjAr.length; i++) {
         //console.log(cropObjAr[i]);

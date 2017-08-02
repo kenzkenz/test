@@ -8,7 +8,7 @@ var plI = 0;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,
-                    douro1,syoutiiki1,
+                    suiro1,douro1,syoutiiki1,
                     ooameasia07201,ooameasia07181,
                     t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
@@ -17,15 +17,20 @@ $(function(){
                     aya1,sobo1,soboZ1,
                     miyagikotizu1,toukyoukotizu1,hukuikotizu1,simanekotizu1,yamagutikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,murosenzen1,
+                    tondabayasik1,tondabayasit1,
                     kago1,sengokago1,
-                    ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
+                    kawadake1,ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     //mrtiba1,mransei1,
                     tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
                     mesh1000z1,kousoku9syu1,bingroad1,
-                    tunamimvt1
+                    tunamimvt1,
+                    namie1,
+                    did1,
+                    test,
+                    anno1
                     ];
     useLayersArr2 = [pale2,
-                    douro2,syoutiiki2,
+                    suiro2,douro2,syoutiiki2,
                     ooameasia07202,ooameasia07182,
                     t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
@@ -34,12 +39,15 @@ $(function(){
                     aya2,sobo2,soboZ2,
                     miyagikotizu2,toukyoukotizu2,hukuikotizu2,simanekotizu2,yamagutikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,murosenzen2,
+                    tondabayasik2,tondabayasit2,
                     kago2,sengokago2,
-                    ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
+                    kawadake2,ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     //mrtiba2,mransei2,
                     tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
                     mesh1000z2,kousoku9syu2,bingroad2,
-                    tunamimvt2
+                    tunamimvt2,
+                    namie2,
+                    did2
                     ];
     $("body").on("click",".secret",function() {
         //alert("22");
@@ -326,6 +334,7 @@ $(function(){
         content += "<tr><td>出典</td><td>" + prop["origin"] + "</td></tr>";
         content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
         content += "</table>";
+        content += prop["detail2"];
         mydialog({
             id:"info-dialog",
             class:"info-dialog",
@@ -336,6 +345,50 @@ $(function(){
             right:"20px",
             rmDialog:true
         });
+        //------------------------------------------------------
+
+        console.log(prop["name"]);
+
+        if(prop["name"]==="keizai-census"){
+            console.log(layer.getSource());
+            var prop = layer.getSource()["a"]["a"]["gd"]["f"][0]["c"];
+            console.log(prop);
+
+            var mapObj = funcMaps($(this));
+            var mapName = mapObj["name"];
+            var option = "";
+            for(key in prop){
+                //console.log(key);
+                if(key.indexOf("ks_T000")!=-1) option += "<option value='" + key +  "'>" + key.replace("ks_","") + "</option>"
+                /*
+                 table += "<tr>";
+                 var prop = featureProp[key];
+                 table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+                 table += "</tr>";
+                 */
+            }
+            $("#" + mapName + " .target-select").html(option)
+        }
+
+        $("#" + mapName).on("change",".target-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            keizaiCensusTarget = val;
+            layer.getSource().changed();
+        });
+        $("#" + mapName + " .kslimittext").spinner({
+            max:5000, min:10, step:10,
+            spin:function(event,ui){
+                ksLimitChange(ui.value,mapName);
+            }
+        });
+        function ksLimitChange(ksLimit0,mapName){
+            ksLimit = ksLimit0;
+            vtMaxColor = $("#" + mapName + " .syoutiiki-color-select").val();
+            console.log(vtMaxColor);
+            vtColor = d3.interpolateLab("white",vtMaxColor);
+            layer.getSource().changed();
+        }
         //------------------------------------------------------
         $("#" + mapName + " .syoutiikitext").spinner({
             max:5000, min:100, step:100,

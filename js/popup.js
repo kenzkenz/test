@@ -91,9 +91,81 @@ $(function(){
             case "tunamimvt":
                 funcTunamimvtPopup(feature,map,evt);
                 break;
+            case "keizai-census":
+                funcKeizaiCensusPopup(feature,map,evt);
+                break;
+            case "suiro":
+                funcSuiroPopup(feature,map,evt);
+                break;
             default:
         }
     }
+    //-----------------------------------------------
+    function funcSuiroPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+            table += "<tr><th class='popup-th'>区分</th><td class='popup-td'>" + featureProp["rivCtg"]  + "</td></tr>";
+            table += "<tr><th class='popup-th'>type</th><td class='popup-td'>" + featureProp["type"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcKeizaiCensusPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp)
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+            table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"]  + "</td></tr>";
+            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["CSS_NAME"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>字</th><td class='popup-td'>" + featureProp["MOJI"]  + "</td></tr>";
+        //table += "<tr><th class='popup-th'>幅</th><td class='popup-td'>" + featureProp["rnkWidth"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+
+
     //-----------------------------------------------
     function funcTunamimvtPopup(feature,map,evt){
         var featureProp = feature.getProperties();
@@ -211,28 +283,77 @@ $(function(){
         console.log(featureProp)
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
+            table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
+
             table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
             table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
             table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
             table += "<tr><th class='popup-th'>人口</th><td class='popup-td'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
             table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
-        /*
-        for(key in featureProp){
-                table += "<tr>";
-                var prop = featureProp[key];
-                table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-                table += "</tr>";
-        }
-        */
         table += "</table>";
-
         content += table;
+        content += "<button type='button' class='syoutiiki-pyramid-btn btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estat)</button>";
+        content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
+        content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
+        content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
         if(map==="map1") {
             popup1.show(coord,content);
         }else{
             popup2.show(coord,content);
         }
     }
+    function funcSyoutiikiPyramid(mapName,prefCode,areaCode,areaName){
+        var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsData?";
+        $.ajax({
+            type:"get",
+            url:"php/proxy-estat-syoutiiki.php",
+            dataType:"json",
+            data:{
+                tgtUrl:tgtUrl,
+                statsDataId:"T000573" + prefCode,
+                //cdArea:"45201121003"
+                cdArea:areaCode
+                //cntGetFlg:"Y"
+            }
+        }).done(function(json){
+            console.log(json);
+            funcEstatPyramid(mapName,areaCode,areaName,json["json"]);
+
+
+
+            //resolve();
+        }).fail(function(){
+            console.log("失敗!");
+        });
+    }
+
+
+    /*
+    var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
+    $.ajax({
+        type:"get",
+        url:"php/proxy-estat.php",
+        dataType:"json",
+        data:{
+            tgtUrl:tgtUrl,
+            statsDataId:"C0020050245201",
+            cntGetFlg:"Y"
+        }
+    }).done(function(json){
+        var metainfoAr = json["json"]["GET_META_INFO"]["METADATA_INF"]["CLASS_INF"]["CLASS_OBJ"][1]["CLASS"];
+        var option = "<option value='99'>統計表を選択</option>";
+        for (i=0; i<metainfoAr.length; i++){
+            option += "<option value='" + metainfoAr[i]["@code"] + "'>" + (i+1) + "-"  + metainfoAr[i]["@name"] + "</option>";
+        }
+        citySelectOption = option;
+        //$("#" + mapName + " .estat-table-select").html(option);
+        //$.unblockUI();
+        //resolve();
+    }).fail(function(){
+        console.log("失敗!");
+    });
+    */
+
     //-----------------------------------------------
     function funcyakubaLayerPopup(feature,map,evt){
         var featureProp = feature.getProperties();
@@ -411,6 +532,10 @@ $(function(){
         var cityCode = contentElement.find(".city-code").val();
         console.log(cityCode);
         var cityName = contentElement.find(".city-name").val();
+        var prefCode = contentElement.find(".pref-code").val();
+        var areaCode = contentElement.find(".area-code").val();
+        var areaName = contentElement.find(".area-name").val();
+
         if(action){
             switch (action) {
                 case "pyramid-btn":
@@ -418,6 +543,9 @@ $(function(){
                     break;
                 case "zinkousuii-btn":
                     funcResasZinkousuii(mapName,cityCode,cityName);
+                    break;
+                case "syoutiiki-pyramid-btn":
+                    funcSyoutiikiPyramid(mapName,prefCode,areaCode,areaName);
                     break;
             }
         }

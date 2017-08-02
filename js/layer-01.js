@@ -512,6 +512,37 @@ var kyuukeisyakikenkasyo2 = new ol.layer.Tile({
 	})
 });
 //-------------------------------------------------------------------------
+//川だけ地形地図
+var kawadake1 = new ol.layer.Tile({
+    title:"川だけ地形地図",
+    origin:"<a href='http://www.gridscapes.net/#AllRiversAllLakesTopography' target='_blank'>川だけ地形地図</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:blue;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://www.gridscapes.net/#AllRiversAllLakesTopography' target='_blank'>川だけ地形地図</a>"})],
+        url:"./php/proxy-png.php?url=http://www.gridscapes.net/AllRivers/1.0.0/t/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:5,
+        maxZoom:14
+    })
+});
+var kawadake2 = new ol.layer.Tile({
+    title:"川だけ地形地図",
+    origin:"<a href='http://www.gridscapes.net/#AllRiversAllLakesTopography' target='_blank'>川だけ地形地図</a>",
+    detail:"",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:blue;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://www.gridscapes.net/#AllRiversAllLakesTopography' target='_blank'>川だけ地形地図</a>"})],
+        url:"./php/proxy-png.php?url=http://www.gridscapes.net/AllRivers/1.0.0/t/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:5,
+        maxZoom:14
+    })
+});
+
+
+
+//-------------------------------------------------------------------------
 //川と流域地図
 var ryuuiki1 = new ol.layer.Tile({
     title:"川と流域地図",
@@ -2060,7 +2091,7 @@ var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
 var vtMaxColor = "indigo";
 var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>小地域人口等",
+    title:"<span class='label label-default label-danger'>New</span>小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
@@ -2088,7 +2119,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
     style: syoutiikiStyleFunction
 });
 var syoutiiki2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>小地域人口等",
+    title:"<span class='label label-default label-danger'>New</span>小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
@@ -2168,12 +2199,8 @@ var soboZ2 = new ol.layer.Vector({
     style:commonstyleFunction
 });
 
-
-
-
-
 var douro1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>道路中心線",
+    title:"<span class='label label-default label-danger'>New</span>道路中心線(MVT)",
     name:"douro",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
@@ -2191,7 +2218,7 @@ var douro1 = new ol.layer.VectorTile({
     style: douroStyleFunction
 });
 var douro2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>道路中心線",
+    title:"<span class='label label-default label-danger'>New</span>道路中心線(MVT)",
     name:"douro",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
@@ -2357,5 +2384,375 @@ function tunamiStyleFunction(feature, resolution) {
         */
         //zIndex:zindex
     });
+    return style;
+}
+
+
+//浪江町ドローン撮影
+var namie1 = new ol.layer.Tile({
+    //secret:true,
+    title:"浪江町ドローン撮影",
+    origin:"<a href='https://github.com/dronebird/oam_fukushima20170602namie' target='_blank'>github</a>",
+    detail:"",
+    //icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    coord:[140.99481, 37.49348],
+    zoom:15,
+    source: new ol.source.XYZ({
+        url:"./php/proxy-png.php?url=https://dronebird.github.io/oam_fukushima20170602namie/xyztiles/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom :1,
+        maxZoom:19
+    })
+});
+
+var namie2 = new ol.layer.Tile({
+    //secret:true,
+    title:"浪江町ドローン撮影",
+    origin:"<a href='https://github.com/dronebird/oam_fukushima20170602namie' target='_blank'>github</a>",
+    detail:"",
+    //icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:dimgrey;'></i>",
+    coord:[140.99481, 37.49348],
+    zoom:15,
+    source: new ol.source.XYZ({
+        url:"./php/proxy-png.php?url=https://dronebird.github.io/oam_fukushima20170602namie/xyztiles/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom :1,
+        maxZoom:19
+    })
+});
+
+
+var suiro1 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>河川中心線(MVT)",
+    name:"suiro",
+    origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:8,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: suiroStyleFunction
+});
+//var projection = ol.proj.get('EPSG:3857');
+//map2.getProjection()
+var suiro2 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>河川中心線(MVT)",
+    name:"suiro",
+    origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //extent:projection.getExtent(),
+            //minZoom:8,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: suiroStyleFunction
+});
+function suiroStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var rivCtg = prop["rivCtg"];
+    var type = prop["type"];
+    var level = prop["level"];
+    var strokeColor = "dodgerblue";
+    var strokeWidth = 1;
+    var lineDash = [];
+    switch (rivCtg) {
+        case "一級河川":
+            strokeColor = "mediumblue";
+            strokeWidth = 2;
+            lineDash = [1];
+            break;
+        case "二級河川":
+            strokeColor = "blue";
+            strokeWidth = 2;
+            lineDash = [1];
+            break;
+        default:
+    }
+
+    switch (type) {
+        case "人工水路（地下）":
+            strokeColor = "red";
+            strokeWidth = 2;
+            lineDash = [2,4];
+            break;
+        case "人工水路（空間）":
+            strokeColor = "red";
+            strokeWidth = 2;
+            lineDash = [1];
+            break;
+        default:
+    }
+
+    if(resolution>611.50) strokeWidth = 1;
+
+    var style = new ol.style.Style({
+        /*
+        fill: new ol.style.Fill({
+            color:fillColor
+        }),
+        */
+        stroke: new ol.style.Stroke({
+            color: strokeColor,
+            width: strokeWidth,
+            lineDash:lineDash
+         }),
+
+        //zIndex:zindex
+    });
+    return style;
+}
+
+var tondabayasik1 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>富田林市航空写真",
+    origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
+    detail:"",
+    coord:[135.60006642031433, 34.50010582072453],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    source:new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>富田林市</a>"})],
+        url:"./php/proxy-png.php?url=https://www.city.tondabayashi.osaka.jp/map/tile/1017/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom:12,
+        maxZoom:19
+    })
+});
+var tondabayasik2 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>富田林市航空写真",
+    origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
+    detail:"",
+    coord:[135.60006642031433, 34.50010582072453],
+    zoom:14,
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    source:new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>富田林市</a>"})],
+        url:"./php/proxy-png.php?url=https://www.city.tondabayashi.osaka.jp/map/tile/1017/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom:12,
+        maxZoom:19
+    })
+});
+var tondabayasit1 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>富田林市地形図",
+    origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
+    detail:"",
+    coord:[135.60006642031433, 34.50010582072453],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source:new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>富田林市</a>"})],
+        url:"./php/proxy-png.php?url=https://www.city.tondabayashi.osaka.jp/map/tile/1050/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom:12,
+        maxZoom:19
+    })
+});
+var tondabayasit2 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>富田林市地形図",
+    origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
+    detail:"",
+    coord:[135.60006642031433, 34.50010582072453],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source:new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>富田林市</a>"})],
+        url:"./php/proxy-png.php?url=https://www.city.tondabayashi.osaka.jp/map/tile/1050/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        minZoom:12,
+        maxZoom:19
+    })
+});
+
+
+//人口集中地区
+var did1 = new ol.layer.Tile({
+    //secret:true,
+    title:"人口集中地区(DID地区)",
+    origin:"",
+    detail:"平成２７年",
+    icon:"<i class='fa fa-user fa-fw' style='color:red;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/did2015/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:18
+    })
+});
+var did2 = new ol.layer.Tile({
+    //secret:true,
+    title:"人口集中地区(DID地区)",
+    origin:"",
+    detail:"平成２７年",
+    icon:"<i class='fa fa-user fa-fw' style='color:red;'></i>",
+    extent:transformE([130.705,31.36,131.921,32.892]),
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/did2015/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        maxZoom:18
+    })
+});
+
+var test = new ol.layer.VectorTile({
+    title:"経済センサスtest",
+    name:"keizai-census",
+    origin:"",
+    detail2:"対象列<select class='target-select'></select>" +
+    "<div style=''>リミット：<input type='text' class='kslimittext' value='500' size='5'>" +
+    "　色："+
+    "<select class='syoutiiki-color-select'>" +
+    "<option value='indigo' selected>紫</option>" +
+    "<option value='red'>赤</option>" +
+    "<option value='green'>緑</option>" +
+    "<option value='blue'>青</option>" +
+    "<option value='black'>黒</option>" +
+    "</select></div>",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:10,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/miyazakiken/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: keizaiCensusStyleFunction
+
+});
+//var keizaiCensusTarget = "A〜S 全産業事業所数";
+//var keizaiCensusTarget = "JUGYOSHA";
+var keizaiCensusTarget = "ks_T000843001";
+
+var ksLimit = 500;
+function keizaiCensusStyleFunction(feature, resolution) {
+
+    var prop = feature.getProperties();
+    //console.log(prop)
+    var val = prop[keizaiCensusTarget];
+    //console.log(val)
+    if(val==="-") val = 0;
+    val = val/ksLimit;
+    if(val>1) val = 1;
+
+    //val = 0.5;
+
+    var rgb = d3.rgb(vtColor(val));
+    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val + ")";
+    //console.log(rgba);
+
+    var style = new ol.style.Style({
+        fill: new ol.style.Fill({
+            //color:"rgba(" + val + ",0,0,0.9)"
+            //color:vtColor(val)
+            color:rgba
+        }),
+        stroke: new ol.style.Stroke({
+            color: "grey",
+            width: 1
+        }),
+        //zIndex:zindex
+    });
+    return style;
+}
+
+var anno1 = new ol.layer.VectorTile({
+    title:"annoTest",
+    name:"anno",
+    origin:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:0,
+            maxZoom:12
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/anno-vt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: annoStyleFunction
+
+});
+//var keizaiCensusTarget = "A〜S 全産業事業所数";
+//var keizaiCensusTarget = "JUGYOSHA";
+//var keizaiCensusTarget = "ks_T000843001";
+
+var ksLimit = 500;
+function annoStyleFunction(feature, resolution) {
+
+    var prop = feature.getProperties();
+    ///console.log(feature)
+    var val = prop[keizaiCensusTarget];
+    //console.log(val)
+    if(val==="-") val = 0;
+    val = val/ksLimit;
+    if(val>1) val = 1;
+
+    //val = 0.5;
+
+    var rgb = d3.rgb(vtColor(val));
+    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val + ")";
+    //console.log(rgba);
+    /*
+    var style = new ol.style.Style({
+        fill: new ol.style.Fill({
+            //color:"rgba(" + val + ",0,0,0.9)"
+            //color:vtColor(val)
+            color:rgba
+        }),
+        stroke: new ol.style.Stroke({
+            color: "grey",
+            width: 1
+        }),
+        //zIndex:zindex
+    });
+    */
+    var text = prop["knj"];
+    var textColor = "red";
+    var style = new ol.style.Style({
+            /*
+        image: new ol.style.Circle({
+            radius:6,
+            fill: new ol.style.Fill({
+                color:"red"
+            }),
+            stroke: new ol.style.Stroke({
+                color: "white",
+                width: 1
+            })
+        }),
+        */
+        text: new ol.style.Text({
+            font: "8px helvetica,sans-serif",
+            text: text,
+            rotation: prop["arrngAgl"],
+            fill: new ol.style.Fill({
+                color:textColor
+            })
+        })
+
+    });
+
     return style;
 }
