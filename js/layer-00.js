@@ -10,7 +10,7 @@ $(function(){
     useLayersArr1 = [pale1,
                     suiro1,douro1,syoutiiki1,
                     ooameasia07201,ooameasia07181,
-                    t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
+                    t0802dol1,t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
                     blank1,relief1,osm1,mierune1,mieruneMono1,toner1,
                     ort1,amArr1,sengomiya1,sengonobe1,sengomiyako1,
@@ -28,12 +28,12 @@ $(function(){
                     did1,
                     test,
                     anno1,
-                    syoutiiki9syuu1
+                    syoutiikitest
                     ];
     useLayersArr2 = [pale2,
                     suiro2,douro2,syoutiiki2,
                     ooameasia07202,ooameasia07182,
-                    t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
+                    t0802dol2,t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
                     blank2,relief2,osm2,mierune2,mieruneMono2,toner2,
                     ort2,amArr2,sengomiya2,sengonobe2,sengomiyako2,

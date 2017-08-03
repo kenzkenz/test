@@ -280,15 +280,21 @@ $(function(){
         }else{
             var coord = evt.coordinate;
         }
-        console.log(featureProp)
+        console.log(feature.getGeometry());
+        //console.log(feature.getAll())
+
+
+
+
+        console.log(featureProp);
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
             table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
 
-            //table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
-            //table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td popup-td-zititai'></td></tr>";
-            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td popup-td-aza'></td></tr>";
+            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+            //table += "<tr><th class='popup-th'>自治体</th><td class='popup-td popup-td-zititai'></td></tr>";
+            //table += "<tr><th class='popup-th'>小地域</th><td class='popup-td popup-td-aza'></td></tr>";
 
             table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
             table += "<tr><th class='popup-th'>人口</th><td class='popup-td'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
@@ -296,7 +302,7 @@ $(function(){
         table += "</table>";
         content += table;
         content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-H27-pyramid-btn'>人口ピラミッド(estatH27)</button>";
-        //content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estatH22)</button>";
+        content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estatH22)</button>";
         content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
         content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
         content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
@@ -304,6 +310,7 @@ $(function(){
 
 
         //------------------------------------------------------------------------------------------------------------
+        /*
         var areaCode = featureProp["KEY_CODE"];
         var citycode = areaCode.substr(0,5);
         var azacode = areaCode.substr(5,6);
@@ -322,6 +329,7 @@ $(function(){
         }).fail(function(){
             console.log("失敗!");
         });
+        */
         //-------------------------------------------------------------------------------------------
 
 

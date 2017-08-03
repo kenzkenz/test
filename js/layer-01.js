@@ -1838,10 +1838,7 @@ var t0710dol2 =  new ol.layer.Tile({
         //minZoom :1,
         //maxZoom:13
     })
-});
-
-
-
+})
 //大雨被害（朝倉地区7/13撮影）
 var t0713dol11 =  new ol.layer.Tile({
     //secret:true,
@@ -1908,6 +1905,42 @@ var t0713dol22 =  new ol.layer.Tile({
         //maxZoom:13
     })
 });
+//大雨被害（東峰地区7/30,31撮影）
+var t0802dol1 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(東峰地区7/30,31撮影)",
+    origin:"国土地理院",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（東峰地区）（2017年7月30,31日撮影））<br>この正射画像は7月30日、31日に撮影した空中写真を用いています。写真から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.87434,33.42259],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0802dol/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+var t0802dol2 =  new ol.layer.Tile({
+    //secret:true,
+    name:"ooame",
+    title:"<span class='label label-default label-danger'>New</span>大雨被害(東峰地区7/30,31撮影)",
+    origin:"国土地理院",
+    detail:"平成29年梅雨前線及び台風3号 正射画像（空中写真（東峰地区）（2017年7月30,31日撮影））<br>この正射画像は7月30日、31日に撮影した空中写真を用いています。写真から自動処理したものなので、構造物等の歪み、不連続等が発生している箇所があります。",
+    coord:[130.87434,33.42259],
+    zoom:12,
+    //icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://maps.gsi.go.jp/xyz/20170705typhoon3_0802dol/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :1,
+        //maxZoom:13
+    })
+});
+
+
+
 
 
 //大雨被害（アジア航測）
@@ -1950,7 +1983,7 @@ var ooameasia2 =  new ol.layer.Tile({
 var ooameasia07181 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/8撮影)",
+    title:"大雨被害(アジア航測7/8撮影)",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/aas-disaster-20170708' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月8日撮影）</a>",
     detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
@@ -1966,7 +1999,7 @@ var ooameasia07181 =  new ol.layer.Tile({
 var ooameasia07182 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/8撮影)",
+    title:"大雨被害(アジア航測7/8撮影)",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/aas-disaster-20170708' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月8日撮影）</a>",
     detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
@@ -1984,7 +2017,7 @@ var ooameasia07182 =  new ol.layer.Tile({
 var ooameasia07201 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/9撮影)",
+    title:"大雨被害(アジア航測7/9撮影)",
     origin:"<a href='https://www.geospatial.jp/gp_front/content/1b7345a0-41a1-414d-94e8-378b69d5c4c1' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月9日撮影）</a>",
     detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
@@ -2001,7 +2034,7 @@ var ooameasia07201 =  new ol.layer.Tile({
 var ooameasia07202 =  new ol.layer.Tile({
     //secret:true,
     name:"ooame",
-    title:"<span class='label label-default label-danger'>New</span>大雨被害(アジア航測7/9撮影)",
+    title:"大雨被害(アジア航測7/9撮影)",
     origin:"<a href='https://www.geospatial.jp/gp_front/content/1b7345a0-41a1-414d-94e8-378b69d5c4c1' target='_blank'>平成29年7月九州北部豪雨災害画像データ（7月9日撮影）</a>",
     detail:"撮影：アジア航測株式会社",
     coord:[130.80993,33.37331],
@@ -2112,7 +2145,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei3/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
     style: syoutiikiStyleFunction
@@ -2140,7 +2173,7 @@ var syoutiiki2 = new ol.layer.VectorTile({
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei3/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
     style: syoutiikiStyleFunction
@@ -2151,11 +2184,8 @@ function syoutiikiStyleFunction(feature, resolution) {
     var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
     val = val/kyoudo;
     if(val>1) val = 1;
-
     var rgb = d3.rgb(vtColor(val));
-    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val + ")";
-    //console.log(rgba);
-
+    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.9 + ")";
     var style = new ol.style.Style({
         fill: new ol.style.Fill({
             //color:"rgba(" + val + ",0,0,0.9)"
@@ -2163,43 +2193,13 @@ function syoutiikiStyleFunction(feature, resolution) {
             color:rgba
         }),
         stroke: new ol.style.Stroke({
-            color: "grey",
+            color: "darkgray",
             width: 1
         }),
         //zIndex:zindex
     });
     return style;
 }
-
-var syoutiiki9syuu1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>小地域人口等九州詳細(MVT)",
-    name:"chome",
-    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
-    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
-    "　色："+
-    "<select class='syoutiiki-color-select'>" +
-    "<option value='indigo' selected>紫</option>" +
-    "<option value='red'>赤</option>" +
-    "<option value='green'>緑</option>" +
-    "<option value='blue'>青</option>" +
-    "<option value='black'>黒</option>" +
-    "</select></div>",
-    source: new ol.source.VectorTile({
-        cacheSize:10000,
-        format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/9syuukokusei/{z}/{x}/{y}.mvt"
-    }),
-    maxResolution:1222.99,
-    style: syoutiikiStyleFunction
-});
-
-
-
 
 //祖母ゾーニングのレイヤー
 var soboZ1 = new ol.layer.Vector({
@@ -2780,5 +2780,59 @@ function annoStyleFunction(feature, resolution) {
 
     });
 
+    return style;
+}var syoutiikitest = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>test(MVT)",
+    name:"chome",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+    "　色："+
+    "<select class='syoutiiki-color-select'>" +
+    "<option value='indigo' selected>紫</option>" +
+    "<option value='red'>赤</option>" +
+    "<option value='green'>緑</option>" +
+    "<option value='blue'>青</option>" +
+    "<option value='black'>黒</option>" +
+    "</select></div>",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei3/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: testFunction
+});
+function testFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
+    val = val/kyoudo;
+    if(val>1) val = 1;
+    var rgb = d3.rgb(vtColor(val));
+    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.5 + ")";
+    var text = prop["MOJI"];
+    var style = new ol.style.Style({
+        fill: new ol.style.Fill({
+            color:rgba
+        }),
+        stroke: new ol.style.Stroke({
+            color: "grey",
+            width: 1
+        }),
+        /*
+        text: new ol.style.Text({
+            font: "8px helvetica,sans-serif",
+            text: text,
+            //rotation: prop["arrngAgl"],
+            fill: new ol.style.Fill({
+                color:"red"
+            })
+        })
+        */
+    });
     return style;
 }

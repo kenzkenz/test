@@ -141,7 +141,7 @@ function funcEstatPyramid(mapName,areaCode,areaName,json){
         id:"estat-chart-pyramid-dialog-" + mapName + "-" + areaCode,
         class:"estat-chart-pyramid-dialog",
         map:mapName,
-        title:"人口ピラミッド(e-stat H22国勢調査)",
+        title:"人口ピラミッド(e-stat H22国勢調査 年齢5歳階級)",
         content:content,
         top:"55px",
         right:"20px",
@@ -362,7 +362,7 @@ function funcEstatH27Pyramid(mapName,areaCode,areaName,json){
         id:"estat-H27-chart-pyramid-dialog-" + mapName + "-" + areaCode,
         class:"estat-chart-pyramid-dialog",
         map:mapName,
-        title:"人口ピラミッド(e-stat H27国勢調査)",
+        title:"人口ピラミッド(e-stat H27国勢調査 年齢5歳階級)",
         content:content,
         top:"55px",
         right:"20px",
@@ -380,10 +380,15 @@ function funcEstatH27Pyramid(mapName,areaCode,areaName,json){
 function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
     console.log(json);
     var azaName = json["cityname"] + json["ooazaname"] + json["azaname"];
-    var heikin = Math.floor(Number(json["heikin"])*100)/100;
+    var heikin = Math.floor(Number(json["heikin"])*10)/10;
     console.log(heikin);
-    var heikinMan = Math.floor(Number(json["heikinman"])*100)/100;
-    var heikinWoman = Math.floor(Number(json["heikinwoman"])*100)/100;
+    var heikinMan = Math.floor(Number(json["heikinman"])*10)/10;
+    var heikinWoman = Math.floor(Number(json["heikinwoman"])*10)/10;
+    var jinkou = json["jinkou"];
+    var jinkouman = json["jinkouman"];
+    var jinkouwoman = json["jinkouwoman"];
+
+
     var manGraphAr0 = [];
     var manGraphSeries = null;
     var womanGraphAr0 = [];
@@ -503,7 +508,7 @@ function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
             //x: -20 //center
         },
         subtitle: {
-            text:"平均年齢:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）"
+            text:"平均:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)"
         },
         credits:{
             enabled:false
