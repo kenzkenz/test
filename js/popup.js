@@ -283,9 +283,6 @@ $(function(){
         console.log(feature.getGeometry());
         //console.log(feature.getAll())
 
-
-
-
         console.log(featureProp);
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
@@ -296,8 +293,8 @@ $(function(){
             //table += "<tr><th class='popup-th'>自治体</th><td class='popup-td popup-td-zititai'></td></tr>";
             //table += "<tr><th class='popup-th'>小地域</th><td class='popup-td popup-td-aza'></td></tr>";
 
+            table += "<tr><th class='popup-th' style='font-weight: bold;'>人口</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
             table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
-            table += "<tr><th class='popup-th'>人口</th><td class='popup-td'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
             table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
         table += "</table>";
         content += table;
@@ -306,8 +303,6 @@ $(function(){
         content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
         content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
         content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
-
-
 
         //------------------------------------------------------------------------------------------------------------
         /*

@@ -356,8 +356,9 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
 //H27人口ピラミッドその１
 function funcEstatH27Pyramid(mapName,areaCode,areaName,json){
     var content = "";
-    content += "<div id='estat-H27-chart-pyramid-div-" + mapName + "-" + areaCode + "' class='estat-chart-pyramid-div'>";
-    content += "</div>";
+        content += "<div id='estat-H27-chart-pyramid-div-" + mapName + "-" + areaCode + "' class='estat-chart-pyramid-div'>";
+        content += "</div>";
+        content += "<input type='hidden' class='pyramid-keycode' value='" + areaCode + "'>";
     mydialog({
         id:"estat-H27-chart-pyramid-dialog-" + mapName + "-" + areaCode,
         class:"estat-chart-pyramid-dialog",
@@ -370,9 +371,9 @@ function funcEstatH27Pyramid(mapName,areaCode,areaName,json){
         rmDialog:false,
         //hide:true,
         //minMax:true,
-        rmDialog:true
+        rmDialog:true,
+        download:true
     });
-
     estatH27PyramidGraphFunc(json,areaCode,areaName,mapName);
 }
 //------------------------------------------------------------------------------
@@ -387,7 +388,6 @@ function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
     var jinkou = json["jinkou"];
     var jinkouman = json["jinkouman"];
     var jinkouwoman = json["jinkouwoman"];
-
 
     var manGraphAr0 = [];
     var manGraphSeries = null;
@@ -563,3 +563,75 @@ function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
         series: [manGraphSeries,womanGraphSeries]
     });
 }
+$(function() {
+    $("body").on("click",".dialog-download",function() {
+        alert("作成中");
+        var mapObj = funcMaps($(this));
+        var mapName = mapObj["name"];
+        console.log(mapName);
+        var areaCode = $("#" + mapName + " .pyramid-keycode").val();
+        console.log(areaCode);
+        var citycode = areaCode.substr(0,5);
+        var azacode = areaCode.substr(5,6);
+        $.ajax({
+            type:"get",
+            url:"php/syoutiiki-select.php",
+            dataType:"json",
+            data:{
+                citycode:citycode,
+                azacode:azacode
+            }
+        }).done(function(json){
+            console.log(json);
+            //funcEstatH27Pyramid(mapName,areaCode,areaName,json);
+
+
+            //----------------------------------------------------------------------------------------------------------
+            /*
+            var mapElement = $(this).parents(".mapBros");
+            var mapElementID = mapElement.attr("id");
+            console.log(mapElementID)
+            var content = "";
+            //content += "コード,市町村,町字,人口,世帯,面積,入力欄\n";
+            var columnLength = mapElement.find(".cityTableDiv thead tr th").length
+            console.log(columnLength);
+            mapElement.find(".cityTableDiv tr").each(function(e){
+                //console.log(e);
+                for (i=0; i<columnLength; i++){
+                    content += $(this).find("td,th").eq(i).text() + ",";
+                };
+                content=content.substr(0,content.length-1) + "\n";
+            });
+            //console.log(mapElement.find(".nenTd").eq(0).text())
+            //var csv_line = "あ,日本語,a,b,c,d,e\r\nSJIS,ならば,文字化け,しない";
+            var csv_line = content;
+            // Unicodeコードポイントの配列に変換する
+            var unicode_array = str_to_unicode_array( csv_line );
+            // SJISコードポイントの配列に変換
+            var sjis_code_array = Encoding.convert(
+                unicode_array, // ※文字列を直接渡すのではない点に注意
+                'SJIS',  // to
+                'UNICODE' // from
+            );
+            // 文字コード配列をTypedArrayに変換する
+            var uint8_array = new Uint8Array( sjis_code_array );
+            // 指定されたデータを保持するBlobを作成する
+            var blob = new Blob([ uint8_array ], { type: 'text/csv' });
+            var prefName = mapElement.find(".estatPrefSelect option:selected").text().split("_ ")[1];
+            var nen = mapElement.find(".nenTd").eq(0).text()
+            if (window.navigator.msSaveBlob) {//ieのとき
+                window.navigator.msSaveBlob(blob, "estatie.csv");
+            }else{
+                $(this)[0].download = "estat" + prefName + nen + ".csv"
+                $(this)[0].href = window.URL.createObjectURL(blob);
+            };
+            */
+            //----------------------------------------------------------------------------------------------------------
+
+
+        }).fail(function(){
+            console.log("失敗!");
+        });
+
+    })
+});

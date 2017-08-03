@@ -2807,7 +2807,11 @@ function annoStyleFunction(feature, resolution) {
     maxResolution:1222.99,
     style: testFunction
 });
+var d3testColor = d3.scale.category20();
 function testFunction(feature, resolution) {
+
+
+
     var prop = feature.getProperties();
     var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
     val = val/kyoudo;
@@ -2815,14 +2819,22 @@ function testFunction(feature, resolution) {
     var rgb = d3.rgb(vtColor(val));
     var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.5 + ")";
     var text = prop["MOJI"];
+
+    var i = Number(String(prop["JINKO"]).slice(-1));
+
+    //console.log(d3CategoryColor(Number(String(prop["JINKO"]).slice(-1))))
+
     var style = new ol.style.Style({
         fill: new ol.style.Fill({
-            color:rgba
+            //color:rgba
+            color:d3testColor(Number(String(prop["JINKO"]).slice(-1)))
         }),
         stroke: new ol.style.Stroke({
             color: "grey",
             width: 1
         }),
+
+
         /*
         text: new ol.style.Text({
             font: "8px helvetica,sans-serif",
