@@ -285,17 +285,46 @@ $(function(){
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
             table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
 
-            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+            //table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
+            //table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td popup-td-zititai'></td></tr>";
+            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td popup-td-aza'></td></tr>";
+
             table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
             table += "<tr><th class='popup-th'>人口</th><td class='popup-td'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
             table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
         table += "</table>";
         content += table;
-        content += "<button type='button' class='syoutiiki-pyramid-btn btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estat)</button>";
+        content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-H27-pyramid-btn'>人口ピラミッド(estatH27)</button>";
+        //content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estatH22)</button>";
         content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
         content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
         content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
+
+
+
+        //------------------------------------------------------------------------------------------------------------
+        var areaCode = featureProp["KEY_CODE"];
+        var citycode = areaCode.substr(0,5);
+        var azacode = areaCode.substr(5,6);
+        $.ajax({
+            type:"get",
+            url:"php/syoutiiki-select.php",
+            dataType:"json",
+            data:{
+                citycode:citycode,
+                azacode:azacode
+            }
+        }).done(function(json){
+            console.log(json);
+            $("#" + map + " .popup-td-zititai").text(json["cityname"]);
+            $("#" + map + " .popup-td-aza").text(json["ooazaname"] + json["azaname"]);
+        }).fail(function(){
+            console.log("失敗!");
+        });
+        //-------------------------------------------------------------------------------------------
+
+
         if(map==="map1") {
             popup1.show(coord,content);
         }else{
@@ -318,14 +347,31 @@ $(function(){
         }).done(function(json){
             console.log(json);
             funcEstatPyramid(mapName,areaCode,areaName,json["json"]);
-
-
-
-            //resolve();
         }).fail(function(){
             console.log("失敗!");
         });
     }
+
+    function funcSyoutiikiH27Pyramid(mapName,prefCode,areaCode,areaName){
+        var citycode = areaCode.substr(0,5);
+        var azacode = areaCode.substr(5,6);
+        $.ajax({
+            type:"get",
+            url:"php/syoutiiki-select.php",
+            dataType:"json",
+            data:{
+                citycode:citycode,
+                azacode:azacode
+            }
+        }).done(function(json){
+            console.log(json);
+            funcEstatH27Pyramid(mapName,areaCode,areaName,json);
+        }).fail(function(){
+            console.log("失敗!");
+        });
+
+    }
+
 
 
     /*
@@ -546,6 +592,9 @@ $(function(){
                     break;
                 case "syoutiiki-pyramid-btn":
                     funcSyoutiikiPyramid(mapName,prefCode,areaCode,areaName);
+                    break;
+                case "syoutiiki-H27-pyramid-btn":
+                    funcSyoutiikiH27Pyramid(mapName,prefCode,areaCode,areaName);
                     break;
             }
         }

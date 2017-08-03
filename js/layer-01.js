@@ -2106,16 +2106,15 @@ var syoutiiki1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
         tileGrid: new ol.tilegrid.createXYZ({
             minZoom:10,
-            maxZoom:12
+            maxZoom:15
         }),
         tilePixelRatio:16,
-        url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
-    //style: createMapboxStreetsV6Style()
     style: syoutiikiStyleFunction
 });
 var syoutiiki2 = new ol.layer.VectorTile({
@@ -2137,14 +2136,11 @@ var syoutiiki2 = new ol.layer.VectorTile({
         //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
         tileGrid: new ol.tilegrid.createXYZ({
             minZoom:10,
-            maxZoom:12
+            maxZoom:15
         }),
         tilePixelRatio:16,
-        url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        //url: "https://globalmaps-vt.github.io/gmjp21vt/{z}/{x}/{y}.mvt"
-
-
-        //https://globalmaps-vt.github.io/gmjp20vt/5/28/11.mvt
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
     style: syoutiikiStyleFunction
@@ -2174,6 +2170,36 @@ function syoutiikiStyleFunction(feature, resolution) {
     });
     return style;
 }
+
+var syoutiiki9syuu1 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>小地域人口等九州詳細(MVT)",
+    name:"chome",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+    "　色："+
+    "<select class='syoutiiki-color-select'>" +
+    "<option value='indigo' selected>紫</option>" +
+    "<option value='red'>赤</option>" +
+    "<option value='green'>緑</option>" +
+    "<option value='blue'>青</option>" +
+    "<option value='black'>黒</option>" +
+    "</select></div>",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/9syuukokusei/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: syoutiikiStyleFunction
+});
+
+
+
 
 //祖母ゾーニングのレイヤー
 var soboZ1 = new ol.layer.Vector({

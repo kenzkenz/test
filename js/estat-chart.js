@@ -282,80 +282,279 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
         '45-49', '50-54', '55-59', '60-64', '65-69',
         '70-74', '75-'
     ];
-    //if(!btnFlg){
-        pyramidGraph[areaCode] = Highcharts.chart({
-            chart:{
-                //renderTo:"pyramidGraphDiv_" + mapName + cityCode,
-                renderTo:"estat-chart-pyramid-div-" + mapName + "-" +  areaCode,
-                type:"bar",
-                animation:true,
-                //aliginTicks:false
-            },
-            title: {
-                //text:mapElement.find(".resasPrefSelect option:selected").text() + "　"  + mapElement.find(".zinkouSelect option:selected").text(),
-                //text:areaName
-                text:azaName
-                //x: -20 //center
-            },
-            subtitle: {
-                //text:subtitle
-            },
-            credits:{
-                enabled:false
-            },
-            //xAxis: {
-            //	categories:timeAr,
-            //},
-            xAxis: [
-                {
-                    categories:categories,
-                    reversed:false,
-                    labels:{
-                        step: 1
-                    }
-                }, {
-                    opposite:true,
-                    reversed:false,
-                    categories:categories,
-                    linkedTo:0,
-                    labels:{
-                        step: 1
-                    }
-                }
-            ],
-            yAxis:{
-                title:{
-                    text: null
-                },
+    pyramidGraph[areaCode] = Highcharts.chart({
+        chart:{
+            //renderTo:"pyramidGraphDiv_" + mapName + cityCode,
+            renderTo:"estat-chart-pyramid-div-" + mapName + "-" +  areaCode,
+            type:"bar",
+            animation:true,
+            //aliginTicks:false
+        },
+        title: {
+            //text:mapElement.find(".resasPrefSelect option:selected").text() + "　"  + mapElement.find(".zinkouSelect option:selected").text(),
+            //text:areaName
+            text:azaName
+            //x: -20 //center
+        },
+        subtitle: {
+            //text:subtitle
+        },
+        credits:{
+            enabled:false
+        },
+        //xAxis: {
+        //	categories:timeAr,
+        //},
+        xAxis: [
+            {
+                categories:categories,
+                reversed:false,
                 labels:{
-                    formatter: function() {
-                        return Highcharts.numberFormat(Math.abs(this.value), 0);
-                        //return (Math.abs(this.value) / 1000000) + 'M';
-                    }
-                },
-                min:-ywidth,
-                max:ywidth
+                    step: 1
+                }
+            }, {
+                opposite:true,
+                reversed:false,
+                categories:categories,
+                linkedTo:0,
+                labels:{
+                    step: 1
+                }
+            }
+        ],
+        yAxis:{
+            title:{
+                text: null
             },
-            plotOptions: {
-                series: {
-                    stacking: 'normal'
+            labels:{
+                formatter: function() {
+                    return Highcharts.numberFormat(Math.abs(this.value), 0);
+                    //return (Math.abs(this.value) / 1000000) + 'M';
                 }
             },
-            tooltip: {
-                formatter: function(){
-                    return this.series.name +'　年齢 '+ this.point.category +'歳<br/>'+
-                        '人口: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0) + "人";
-                }
-            },
-            exporting:{
-                enabled:true
-            },
-            series: [manGraphSeries,womanGraphSeries]
-        });
+            min:-ywidth,
+            max:ywidth
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        tooltip: {
+            formatter: function(){
+                return this.series.name +'　年齢 '+ this.point.category +'歳<br/>'+
+                    '人口: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0) + "人";
+            }
+        },
+        exporting:{
+            enabled:true
+        },
+        series: [manGraphSeries,womanGraphSeries]
+    });
+}
+//----------------------------------------------------------------------------------------------------------------------
+//H27人口ピラミッドその１
+function funcEstatH27Pyramid(mapName,areaCode,areaName,json){
+    var content = "";
+    content += "<div id='estat-H27-chart-pyramid-div-" + mapName + "-" + areaCode + "' class='estat-chart-pyramid-div'>";
+    content += "</div>";
+    mydialog({
+        id:"estat-H27-chart-pyramid-dialog-" + mapName + "-" + areaCode,
+        class:"estat-chart-pyramid-dialog",
+        map:mapName,
+        title:"人口ピラミッド(e-stat H27国勢調査)",
+        content:content,
+        top:"55px",
+        right:"20px",
+        //width:"400px",
+        rmDialog:false,
+        //hide:true,
+        //minMax:true,
+        rmDialog:true
+    });
 
-    //}else{
-    //    pyramidGraph[cityName].series[0].setData(manGraphSeries["data"]);
-    //    pyramidGraph[cityName].series[1].setData(womanGraphSeries["data"]);
-    //    pyramidGraph[cityName].setTitle({text:cityName + "　" + yearLeft + "年"});
-   // }
+    estatH27PyramidGraphFunc(json,areaCode,areaName,mapName);
+}
+//------------------------------------------------------------------------------
+//H27人口ピラミッドその２
+function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
+    console.log(json);
+    var azaName = json["cityname"] + json["ooazaname"] + json["azaname"];
+    var heikin = Math.floor(Number(json["heikin"])*100)/100;
+    console.log(heikin);
+    var heikinMan = Math.floor(Number(json["heikinman"])*100)/100;
+    var heikinWoman = Math.floor(Number(json["heikinwoman"])*100)/100;
+    var manGraphAr0 = [];
+    var manGraphSeries = null;
+    var womanGraphAr0 = [];
+    var womanGraphSeries = null;
+
+    var manCat = [
+        "m01",
+        "m02",
+        "m03",
+        "m04",
+        "m05",
+        "m06",
+        "m07",
+        "m08",
+        "m09",
+        "m10",
+        "m11",
+        "m12",
+        "m13",
+        "m14",
+        "m15",
+        //"m16",
+        //"m17",
+        //"m18",
+        //"m19",
+        //"m20",
+        //"m21"
+        "m28"
+    ];
+    var womanCat =[
+        "w01",
+        "w02",
+        "w03",
+        "w04",
+        "w05",
+        "w06",
+        "w07",
+        "w08",
+        "w09",
+        "w10",
+        "w11",
+        "w12",
+        "w13",
+        "w14",
+        "w15",
+        //"w16",
+        //"w17",
+        //"w18",
+        //"w19",
+        //"w20",
+        //"w21"
+        "w28"
+    ];
+    for (i=0; i<manCat.length; i++) {
+        var key = manCat[i];
+        var value = json[key];
+        if(value==="-") value = 0;
+        value = - Number(value);
+        manGraphAr0.push(value);
+    }
+    for (i=0; i<womanCat.length; i++) {
+        var key = womanCat[i];
+        var value = json[key];
+        if(value==="-") value = 0;
+        value = Number(value);
+        womanGraphAr0.push(value);
+    }
+    manGraphSeries = {
+        "name":"男",
+        "data":manGraphAr0,
+        "color":"rgba(51,122,183,1.0)",
+        "pointWidth":18,
+        "pointPadding": 0,
+        //borderWidth: 0
+    };
+    womanGraphSeries = {
+        "name":"女",
+        "data":womanGraphAr0,
+        "color":"#d9534f",
+        "pointWidth":18
+    };
+    var womanMax = Math.max.apply(null,womanGraphAr0);
+    //console.log(womanMax);
+    var manMax = Math.abs(Math.min.apply(null,manGraphAr0));
+    //console.log(manMax);
+    if(womanMax>manMax){
+        var ywidth = womanMax;
+    }else{
+        var ywidth = manMax;
+    }
+    /*
+    var categories = [
+        '0-4', '5-9', '10-14', '15-19',
+        '20-24', '25-29', '30-34', '35-39', '40-44',
+        '45-49', '50-54', '55-59', '60-64', '65-69',
+        '70-74', '75-89', '80-84', '85-89', '90-94', '95-99', '100-'
+    ];
+    */
+    var categories = [
+        '0-4', '5-9', '10-14', '15-19',
+        '20-24', '25-29', '30-34', '35-39', '40-44',
+        '45-49', '50-54', '55-59', '60-64', '65-69',
+        '70-74', '75-'
+    ];
+    pyramidGraph[areaCode + "H27"] = Highcharts.chart({
+        chart:{
+            //renderTo:"pyramidGraphDiv_" + mapName + cityCode,
+            renderTo:"estat-H27-chart-pyramid-div-" + mapName + "-" +  areaCode,
+            type:"bar",
+            animation:true,
+            //aliginTicks:false
+        },
+        title: {
+            //text:mapElement.find(".resasPrefSelect option:selected").text() + "　"  + mapElement.find(".zinkouSelect option:selected").text(),
+            //text:areaName
+            text:azaName
+            //x: -20 //center
+        },
+        subtitle: {
+            text:"平均年齢:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）"
+        },
+        credits:{
+            enabled:false
+        },
+        //xAxis: {
+        //	categories:timeAr,
+        //},
+        xAxis: [
+            {
+                categories:categories,
+                reversed:false,
+                labels:{
+                    step: 1
+                }
+            }, {
+                opposite:true,
+                reversed:false,
+                categories:categories,
+                linkedTo:0,
+                labels:{
+                    step: 1
+                }
+            }
+        ],
+        yAxis:{
+            title:{
+                text: null
+            },
+            labels:{
+                formatter: function() {
+                    return Highcharts.numberFormat(Math.abs(this.value), 0);
+                    //return (Math.abs(this.value) / 1000000) + 'M';
+                }
+            },
+            min:-ywidth,
+            max:ywidth
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        tooltip: {
+            formatter: function(){
+                return this.series.name +'　年齢 '+ this.point.category +'歳<br/>'+
+                    '人口: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0) + "人";
+            }
+        },
+        exporting:{
+            enabled:true
+        },
+        series: [manGraphSeries,womanGraphSeries]
+    });
 }

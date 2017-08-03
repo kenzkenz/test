@@ -27,7 +27,8 @@ $(function(){
                     namie1,
                     did1,
                     test,
-                    anno1
+                    anno1,
+                    syoutiiki9syuu1
                     ];
     useLayersArr2 = [pale2,
                     suiro2,douro2,syoutiiki2,
