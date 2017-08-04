@@ -565,7 +565,6 @@ function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
 }
 $(function() {
     $("body").on("click",".dialog-download",function() {
-        alert("作成中");
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
         console.log(mapName);
@@ -583,9 +582,6 @@ $(function() {
             }
         }).done(function(json){
             console.log(json);
-            //funcEstatH27Pyramid(mapName,areaCode,areaName,json);
-
-            var aaa = "あ,い,う";
             var content = "";
                 content += "市区町村コード,町丁字コード,地域識別番号,秘匿処理,秘匿先情報,合算地域,";
                 content += "都道府県名,市区町村名,大字・町名,字・丁目名,";
@@ -638,79 +634,84 @@ $(function() {
                 content += json["s29"] + ",";
                 content += json["s30"] + ",";
 
-            content += json["m00"] + ",";
-            content += json["m01"] + ",";
-            content += json["m02"] + ",";
-            content += json["m03"] + ",";
-            content += json["m04"] + ",";
-            content += json["m05"] + ",";
-            content += json["m06"] + ",";
-            content += json["m07"] + ",";
-            content += json["m08"] + ",";
-            content += json["m09"] + ",";
-            content += json["m10"] + ",";
-            content += json["m11"] + ",";
-            content += json["m12"] + ",";
-            content += json["m13"] + ",";
-            content += json["m14"] + ",";
-            content += json["m15"] + ",";
-            content += json["m16"] + ",";
-            content += json["m17"] + ",";
-            content += json["m18"] + ",";
-            content += json["m19"] + ",";
-            content += json["m20"] + ",";
-            content += json["m21"] + ",";
-            content += json["m22"] + ",";
-            content += json["m23"] + ",";
-            content += json["m24"] + ",";
-            content += json["m25"] + ",";
-            content += json["m26"] + ",";
-            content += json["m27"] + ",";
-            content += json["m28"] + ",";
-            content += json["m29"] + ",";
-            content += json["m30"] + ",";
+                content += json["m00"] + ",";
+                content += json["m01"] + ",";
+                content += json["m02"] + ",";
+                content += json["m03"] + ",";
+                content += json["m04"] + ",";
+                content += json["m05"] + ",";
+                content += json["m06"] + ",";
+                content += json["m07"] + ",";
+                content += json["m08"] + ",";
+                content += json["m09"] + ",";
+                content += json["m10"] + ",";
+                content += json["m11"] + ",";
+                content += json["m12"] + ",";
+                content += json["m13"] + ",";
+                content += json["m14"] + ",";
+                content += json["m15"] + ",";
+                content += json["m16"] + ",";
+                content += json["m17"] + ",";
+                content += json["m18"] + ",";
+                content += json["m19"] + ",";
+                content += json["m20"] + ",";
+                content += json["m21"] + ",";
+                content += json["m22"] + ",";
+                content += json["m23"] + ",";
+                content += json["m24"] + ",";
+                content += json["m25"] + ",";
+                content += json["m26"] + ",";
+                content += json["m27"] + ",";
+                content += json["m28"] + ",";
+                content += json["m29"] + ",";
+                content += json["m30"] + ",";
 
-            content += json["w00"] + ",";
-            content += json["w01"] + ",";
-            content += json["w02"] + ",";
-            content += json["w03"] + ",";
-            content += json["w04"] + ",";
-            content += json["w05"] + ",";
-            content += json["w06"] + ",";
-            content += json["w07"] + ",";
-            content += json["w08"] + ",";
-            content += json["w09"] + ",";
-            content += json["w10"] + ",";
-            content += json["w11"] + ",";
-            content += json["w12"] + ",";
-            content += json["w13"] + ",";
-            content += json["w14"] + ",";
-            content += json["w15"] + ",";
-            content += json["w16"] + ",";
-            content += json["w17"] + ",";
-            content += json["w18"] + ",";
-            content += json["w19"] + ",";
-            content += json["w20"] + ",";
-            content += json["w21"] + ",";
-            content += json["w22"] + ",";
-            content += json["w23"] + ",";
-            content += json["w24"] + ",";
-            content += json["w25"] + ",";
-            content += json["w26"] + ",";
-            content += json["w27"] + ",";
-            content += json["w28"] + ",";
-            content += json["w29"] + ",";
-            content += json["w30"] + "\n";
+                content += json["w00"] + ",";
+                content += json["w01"] + ",";
+                content += json["w02"] + ",";
+                content += json["w03"] + ",";
+                content += json["w04"] + ",";
+                content += json["w05"] + ",";
+                content += json["w06"] + ",";
+                content += json["w07"] + ",";
+                content += json["w08"] + ",";
+                content += json["w09"] + ",";
+                content += json["w10"] + ",";
+                content += json["w11"] + ",";
+                content += json["w12"] + ",";
+                content += json["w13"] + ",";
+                content += json["w14"] + ",";
+                content += json["w15"] + ",";
+                content += json["w16"] + ",";
+                content += json["w17"] + ",";
+                content += json["w18"] + ",";
+                content += json["w19"] + ",";
+                content += json["w20"] + ",";
+                content += json["w21"] + ",";
+                content += json["w22"] + ",";
+                content += json["w23"] + ",";
+                content += json["w24"] + ",";
+                content += json["w25"] + ",";
+                content += json["w26"] + ",";
+                content += json["w27"] + ",";
+                content += json["w28"] + ",";
+                content += json["w29"] + ",";
+                content += json["w30"] + "\n";
 
-
-                //content += json["s29"] + "\n";
-
+            // Unicodeコードポイントの配列に変換する
+            var unicode_array = str_to_unicode_array(content);
+            // SJISコードポイントの配列に変換
+            var sjis_code_array = Encoding.convert(
+                unicode_array, // ※文字列を直接渡すのではない点に注意
+                'SJIS',  // to
+                'UNICODE' // from
+            );
+            // 文字コード配列をTypedArrayに変換する
+            var uint8_array = new Uint8Array( sjis_code_array );
 
             var type = "text/csv";
-            var blob = new Blob([content], {type: type});
-
-            //var blob = new Blob([ uint8_array ], { type: 'text/csv' });
-
+            //var blob = new Blob([content], {type: type});
+            var blob = new Blob([uint8_array], {type: type});
 
             $(".pyramid-save-a").remove();
             $("body").append("<a class='pyramid-save-a'></a>");
@@ -720,50 +721,6 @@ $(function() {
                 "download":"pyramid.csv"
             });
             $(".pyramid-save-a")[0].click();//[0]が肝
-
-
-            //----------------------------------------------------------------------------------------------------------
-            /*
-            var mapElement = $(this).parents(".mapBros");
-            var mapElementID = mapElement.attr("id");
-            console.log(mapElementID)
-            var content = "";
-            //content += "コード,市町村,町字,人口,世帯,面積,入力欄\n";
-            var columnLength = mapElement.find(".cityTableDiv thead tr th").length
-            console.log(columnLength);
-            mapElement.find(".cityTableDiv tr").each(function(e){
-                //console.log(e);
-                for (i=0; i<columnLength; i++){
-                    content += $(this).find("td,th").eq(i).text() + ",";
-                };
-                content=content.substr(0,content.length-1) + "\n";
-            });
-            //console.log(mapElement.find(".nenTd").eq(0).text())
-            //var csv_line = "あ,日本語,a,b,c,d,e\r\nSJIS,ならば,文字化け,しない";
-            var csv_line = content;
-            // Unicodeコードポイントの配列に変換する
-            var unicode_array = str_to_unicode_array( csv_line );
-            // SJISコードポイントの配列に変換
-            var sjis_code_array = Encoding.convert(
-                unicode_array, // ※文字列を直接渡すのではない点に注意
-                'SJIS',  // to
-                'UNICODE' // from
-            );
-            // 文字コード配列をTypedArrayに変換する
-            var uint8_array = new Uint8Array( sjis_code_array );
-            // 指定されたデータを保持するBlobを作成する
-            var blob = new Blob([ uint8_array ], { type: 'text/csv' });
-            var prefName = mapElement.find(".estatPrefSelect option:selected").text().split("_ ")[1];
-            var nen = mapElement.find(".nenTd").eq(0).text()
-            if (window.navigator.msSaveBlob) {//ieのとき
-                window.navigator.msSaveBlob(blob, "estatie.csv");
-            }else{
-                $(this)[0].download = "estat" + prefName + nen + ".csv"
-                $(this)[0].href = window.URL.createObjectURL(blob);
-            };
-            */
-            //----------------------------------------------------------------------------------------------------------
-
 
         }).fail(function(){
             console.log("失敗!");
