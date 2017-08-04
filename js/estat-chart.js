@@ -585,6 +585,142 @@ $(function() {
             console.log(json);
             //funcEstatH27Pyramid(mapName,areaCode,areaName,json);
 
+            var aaa = "あ,い,う";
+            var content = "";
+                content += "市区町村コード,町丁字コード,地域識別番号,秘匿処理,秘匿先情報,合算地域,";
+                content += "都道府県名,市区町村名,大字・町名,字・丁目名,";
+                content += "総数,0～4歳,5～9歳,10～14歳,15～19歳,20～24歳,25～29歳,30～34歳,35～39歳,40～44歳,45～49歳,50～54歳,55～59歳,60～64歳,65～69歳,70～74歳,75～79歳,80～84歳,85～89歳,90～94歳,95～99歳,100歳以上,年齢「不詳」,総年齢,平均年齢,15歳未満,15～64歳,65歳以上,75歳以上,85歳以上,外国人,";
+                content += "男総数,男0～4歳,男5～9歳,男10～14歳,男15～19歳,男20～24歳,男25～29歳,男30～34歳,男35～39歳,男40～44歳,男45～49歳,男50～54歳,男55～59歳,男60～64歳,男65～69歳,男70～74歳,男75～79歳,男80～84歳,男85～89歳,男90～94歳,男95～99歳,男100歳以上,男年齢「不詳」,男総年齢,男平均年齢,男15歳未満,男15～64歳,男65歳以上,男75歳以上,男85歳以上,男外国人,";
+                content += "女総数,女0～4歳,女5～9歳,女10～14歳,女15～19歳,女20～24歳,女25～29歳,女30～34歳,女35～39歳,女40～44歳,女45～49歳,女50～54歳,女55～59歳,女60～64歳,女65～69歳,女70～74歳,女75～79歳,女80～84歳,女85～89歳,女90～94歳,女95～99歳,女100歳以上,女年齢「不詳」,女総年齢,女平均年齢,女15歳未満,女15～64歳,女65歳以上,女75歳以上,女85歳以上,女外国人";
+
+                content += "\n";
+
+                content += json["citycode"] + ",";
+                content += json["azacode"] + ",";
+                content += json["sikibetu"] + ",";
+                content += json["hitoku"] + ",";
+                content += json["hitokusaki"] + ",";
+                content += json["gassann"] + ",";
+
+                content += json["prefname"] + ",";
+                content += json["cityname"] + ",";
+                content += json["ooazaname"] + ",";
+                content += json["azaname"] + ",";
+                content += json["s00"] + ",";
+                content += json["s01"] + ",";
+                content += json["s02"] + ",";
+                content += json["s03"] + ",";
+                content += json["s04"] + ",";
+                content += json["s05"] + ",";
+                content += json["s06"] + ",";
+                content += json["s07"] + ",";
+                content += json["s08"] + ",";
+                content += json["s09"] + ",";
+                content += json["s10"] + ",";
+                content += json["s11"] + ",";
+                content += json["s12"] + ",";
+                content += json["s13"] + ",";
+                content += json["s14"] + ",";
+                content += json["s15"] + ",";
+                content += json["s16"] + ",";
+                content += json["s17"] + ",";
+                content += json["s18"] + ",";
+                content += json["s19"] + ",";
+                content += json["s20"] + ",";
+                content += json["s21"] + ",";
+                content += json["s22"] + ",";
+                content += json["s23"] + ",";
+                content += json["s24"] + ",";
+                content += json["s25"] + ",";
+                content += json["s26"] + ",";
+                content += json["s27"] + ",";
+                content += json["s28"] + ",";
+                content += json["s29"] + ",";
+                content += json["s30"] + ",";
+
+            content += json["m00"] + ",";
+            content += json["m01"] + ",";
+            content += json["m02"] + ",";
+            content += json["m03"] + ",";
+            content += json["m04"] + ",";
+            content += json["m05"] + ",";
+            content += json["m06"] + ",";
+            content += json["m07"] + ",";
+            content += json["m08"] + ",";
+            content += json["m09"] + ",";
+            content += json["m10"] + ",";
+            content += json["m11"] + ",";
+            content += json["m12"] + ",";
+            content += json["m13"] + ",";
+            content += json["m14"] + ",";
+            content += json["m15"] + ",";
+            content += json["m16"] + ",";
+            content += json["m17"] + ",";
+            content += json["m18"] + ",";
+            content += json["m19"] + ",";
+            content += json["m20"] + ",";
+            content += json["m21"] + ",";
+            content += json["m22"] + ",";
+            content += json["m23"] + ",";
+            content += json["m24"] + ",";
+            content += json["m25"] + ",";
+            content += json["m26"] + ",";
+            content += json["m27"] + ",";
+            content += json["m28"] + ",";
+            content += json["m29"] + ",";
+            content += json["m30"] + ",";
+
+            content += json["w00"] + ",";
+            content += json["w01"] + ",";
+            content += json["w02"] + ",";
+            content += json["w03"] + ",";
+            content += json["w04"] + ",";
+            content += json["w05"] + ",";
+            content += json["w06"] + ",";
+            content += json["w07"] + ",";
+            content += json["w08"] + ",";
+            content += json["w09"] + ",";
+            content += json["w10"] + ",";
+            content += json["w11"] + ",";
+            content += json["w12"] + ",";
+            content += json["w13"] + ",";
+            content += json["w14"] + ",";
+            content += json["w15"] + ",";
+            content += json["w16"] + ",";
+            content += json["w17"] + ",";
+            content += json["w18"] + ",";
+            content += json["w19"] + ",";
+            content += json["w20"] + ",";
+            content += json["w21"] + ",";
+            content += json["w22"] + ",";
+            content += json["w23"] + ",";
+            content += json["w24"] + ",";
+            content += json["w25"] + ",";
+            content += json["w26"] + ",";
+            content += json["w27"] + ",";
+            content += json["w28"] + ",";
+            content += json["w29"] + ",";
+            content += json["w30"] + "\n";
+
+
+                //content += json["s29"] + "\n";
+
+
+            var type = "text/csv";
+            var blob = new Blob([content], {type: type});
+
+            //var blob = new Blob([ uint8_array ], { type: 'text/csv' });
+
+
+            $(".pyramid-save-a").remove();
+            $("body").append("<a class='pyramid-save-a'></a>");
+
+            $(".pyramid-save-a").attr({
+                "href": window.URL.createObjectURL(blob),
+                "download":"pyramid.csv"
+            });
+            $(".pyramid-save-a")[0].click();//[0]が肝
+
 
             //----------------------------------------------------------------------------------------------------------
             /*
