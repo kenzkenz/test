@@ -2120,14 +2120,14 @@ var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
         maxZoom:16
     })
 });
-
 var vtMaxColor = "indigo";
 var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
     title:"<span class='label label-default label-danger'>New</span>小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
-    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+    detail:"",
+    detail2:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
             "　色："+
             "<select class='syoutiiki-color-select'>" +
                 "<option value='indigo' selected>紫</option>" +
@@ -2137,17 +2137,17 @@ var syoutiiki1 = new ol.layer.VectorTile({
                 "<option value='black'>黒</option>" +
             "</select></div>",
     source: new ol.source.VectorTile({
-        cacheSize:10000,
+        cacheSize:100000,
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:10,
+            //minZoom:10,
             maxZoom:15
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei3/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
     }),
-    maxResolution:1222.99,
+    //maxResolution:1222.99,
     style: syoutiikiStyleFunction
 });
 var syoutiiki2 = new ol.layer.VectorTile({
@@ -2164,18 +2164,18 @@ var syoutiiki2 = new ol.layer.VectorTile({
                 "<option value='black'>黒</option>" +
             "</select></div>",
     source: new ol.source.VectorTile({
-        cacheSize:10000,
+        cacheSize:100000,
         format: new ol.format.MVT(),
         //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
         tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:10,
+            //minZoom:10,
             maxZoom:15
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei3/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
     }),
-    maxResolution:1222.99,
+    //maxResolution:1222.99,
     style: syoutiikiStyleFunction
 });
 var kyoudo = 1000;
@@ -2183,23 +2183,33 @@ function syoutiikiStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
     var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
     val = val/kyoudo;
+
+
+
     if(val>1) val = 1;
     var rgb = d3.rgb(vtColor(val));
     var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.9 + ")";
-    var style = new ol.style.Style({
-        fill: new ol.style.Fill({
-            //color:"rgba(" + val + ",0,0,0.9)"
-            //color:vtColor(val)
-            color:rgba
-        }),
-        stroke: new ol.style.Stroke({
-            color: "darkgray",
-            width: 1
-        }),
-        //zIndex:zindex
-    });
+    if(resolution<125.87) {
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: rgba
+            }),
+             stroke: new ol.style.Stroke({
+                color: "darkgray",
+                width: 1
+             })
+        });
+    }else{
+        if(val<0.2) return;
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: rgba
+            })
+        });
+    }
     return style;
 }
+
 
 //祖母ゾーニングのレイヤー
 var soboZ1 = new ol.layer.Vector({

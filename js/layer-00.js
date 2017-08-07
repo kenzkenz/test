@@ -27,8 +27,8 @@ $(function(){
                     namie1,
                     did1,
                     test,
-                    anno1,
-                    syoutiikitest
+                    //anno1,
+                    youtotiiki1
                     ];
     useLayersArr2 = [pale2,
                     suiro2,douro2,syoutiiki2,
@@ -48,7 +48,8 @@ $(function(){
                     mesh1000z2,kousoku9syu2,bingroad2,
                     tunamimvt2,
                     namie2,
-                    did2
+                    did2,
+                    youtotiiki2
                     ];
     $("body").on("click",".secret",function() {
         //alert("22");
@@ -413,6 +414,15 @@ $(function(){
             layer.getSource().changed();
         }
         //-------------------------------------------------------
+        $("#" + mapName).on("change",".youtotiiki-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            youtotiikiCateTarget = val;
+            layer.getSource().changed();
+        });
+        //-------------------------------------------------------
+
+
         return false;
     });
     //------------------------------------------------------------

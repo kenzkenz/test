@@ -80,7 +80,7 @@ $(function(){
                 funcMobakuuPopup(feature,map,evt);
                 break;
             case "chome":
-                funcChomePopup(feature,map,evt);
+                funcChomePopup(layer,feature,map,evt);
                 break;
             case "douro":
                 funcDouroPopup(feature,map,evt);
@@ -97,7 +97,54 @@ $(function(){
             case "suiro":
                 funcSuiroPopup(feature,map,evt);
                 break;
+            case "youtotiiki":
+                funcYoutotiikiPopup(layer,feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcYoutotiikiPopup(layer,feature,map,evt){
+
+        console.log(layer);
+        console.log(layer.getSource());
+        //console.log(layer.getSource().getFeatures());
+
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th' style='width:110px;'>行政区域コード</th><td class='popup-td'>" + featureProp["A29_001"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>都道府県名</th><td class='popup-td'>" + featureProp["A29_002"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>市区町村名</th><td class='popup-td'>" + featureProp["A29_003"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>用途地域分類</th><td class='popup-td'>" + featureProp["A29_004"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>用途地域名</th><td class='popup-td'>" + featureProp["A29_005"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>建ぺい率</th><td class='popup-td'>" + featureProp["A29_006"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>容積率</th><td class='popup-td'>" + featureProp["A29_007"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>総括図作成団体名</th><td class='popup-td'>" + featureProp["A29_008"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>総括図作成年</th><td class='popup-td'>" + featureProp["A29_009"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>備考</th><td class='popup-td'>" + featureProp["A29_010"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -272,7 +319,7 @@ $(function(){
         }
     }
     //-----------------------------------------------
-    function funcChomePopup(feature,map,evt){
+    function funcChomePopup(layer,feature,map,evt){
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
         if(geoType==="Point"){
@@ -280,8 +327,12 @@ $(function(){
         }else{
             var coord = evt.coordinate;
         }
-        console.log(feature.getGeometry());
+        console.log(feature);
+        //console.log(feature.get());
         //console.log(feature.getAll())
+
+        console.log(layer);
+        console.log(layer.getSource());
 
         console.log(featureProp);
         var content = "";
