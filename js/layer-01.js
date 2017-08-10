@@ -2123,7 +2123,7 @@ var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
 var vtMaxColor = "indigo";
 var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>小地域人口等(MVT)",
+    title:"<span class='label label-default label-danger'>New</span>全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"",
@@ -2151,7 +2151,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
     style: syoutiikiStyleFunction
 });
 var syoutiiki2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>小地域人口等(MVT)",
+    title:"<span class='label label-default label-danger'>New</span>全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
@@ -2183,9 +2183,6 @@ function syoutiikiStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
     var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
     val = val/kyoudo;
-
-
-
     if(val>1) val = 1;
     var rgb = d3.rgb(vtColor(val));
     var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.9 + ")";
@@ -2236,7 +2233,7 @@ var soboZ2 = new ol.layer.Vector({
 });
 
 var douro1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>道路中心線(MVT)",
+    title:"<span class='label label-default label-danger'>New</span>全国道路中心線(MVT)",
     name:"douro",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
@@ -2254,7 +2251,7 @@ var douro1 = new ol.layer.VectorTile({
     style: douroStyleFunction
 });
 var douro2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>道路中心線(MVT)",
+    title:"<span class='label label-default label-danger'>New</span>全国道路中心線(MVT)",
     name:"douro",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
@@ -2459,7 +2456,7 @@ var namie2 = new ol.layer.Tile({
 
 
 var suiro1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>河川中心線(MVT)",
+    title:"<span class='label label-default label-danger'>New</span>全国河川中心線(MVT)",
     name:"suiro",
     origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
     detail:"",
@@ -2479,7 +2476,7 @@ var suiro1 = new ol.layer.VectorTile({
 //var projection = ol.proj.get('EPSG:3857');
 //map2.getProjection()
 var suiro2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>河川中心線(MVT)",
+    title:"<span class='label label-default label-danger'>New</span>全国河川中心線(MVT)",
     name:"suiro",
     origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
     detail:"",
@@ -2618,7 +2615,7 @@ var tondabayasit2 = new ol.layer.Tile({
 var did1 = new ol.layer.Tile({
     //secret:true,
     title:"人口集中地区(DID地区)",
-    origin:"",
+    origin:"総務省統計局",
     detail:"平成２７年",
     icon:"<i class='fa fa-user fa-fw' style='color:red;'></i>",
     extent:transformE([130.705,31.36,131.921,32.892]),
@@ -2632,7 +2629,7 @@ var did1 = new ol.layer.Tile({
 var did2 = new ol.layer.Tile({
     //secret:true,
     title:"人口集中地区(DID地区)",
-    origin:"",
+    origin:"総務省統計局",
     detail:"平成２７年",
     icon:"<i class='fa fa-user fa-fw' style='color:red;'></i>",
     extent:transformE([130.705,31.36,131.921,32.892]),
@@ -2643,7 +2640,6 @@ var did2 = new ol.layer.Tile({
         maxZoom:18
     })
 });
-
 var test = new ol.layer.VectorTile({
     title:"経済センサスtest",
     name:"keizai-census",

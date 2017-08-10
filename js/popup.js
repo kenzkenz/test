@@ -100,15 +100,55 @@ $(function(){
             case "youtotiiki":
                 funcYoutotiikiPopup(layer,feature,map,evt);
                 break;
+            case "500mesh":
+                //funcYoutotiikiPopup(layer,feature,map,evt);
+                console.log(feature.getProperties());
+                break;
             default:
         }
     }
     //-----------------------------------------------
     function funcYoutotiikiPopup(layer,feature,map,evt){
-
+/*
+        youtoFeaturesFlg = true;
+        youtoFeatures = [];
+        layer.getSource().changed();
+        layer.getSource().on('change', function(evt) {
+            console.log(55555555555555)
+            console.log(youtoFeatures);
+        });
+*/
+        var extent = eval(map).getView().calculateExtent(eval(map).getSize());
+        console.log(extent);
+        /*
+        layer.forEachFeatureIntersectingExtent(extent, function(feature) {
+            console.log(88888)
+            //selectedFeatures.push(feature);
+            //info.push(feature.get('name'));
+        });
+        */
         console.log(layer);
         console.log(layer.getSource());
         //console.log(layer.getSource().getFeatures());
+        //layer.getSource().changed();
+        //var prop = layer.getSource()["a"]["a"]["gd"]["f"][0]["c"];
+        var prop = layer.getSource()["a"]["a"]["gd"]["f"];
+        console.log(prop);
+/*
+        layer.getSource().on('change', function(evt){
+            console.log(9999);
+            var source = evt.target;
+            if (source.getState() === 'ready') {
+                //var numFeatures = source.getFeatures().length;
+                //var numFeatures = source["a"]["a"]["gd"]["f"].length;
+                //console.log("Count after change: " + numFeatures);
+                console.log(source)
+            }
+        });
+        */
+
+
+
 
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();

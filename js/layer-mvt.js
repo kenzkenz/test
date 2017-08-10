@@ -2,10 +2,10 @@
 //var vtMaxColor = "indigo";
 //var vtColor = d3.interpolateLab("white",vtMaxColor);
 var youtotiiki1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>用途地域(MVT)test",
+    title:"<span class='label label-default label-danger'>New</span>全国用途地域(MVT)",
     name:"youtotiiki",
-    origin:"",
-    detail:"",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
+    detail:"A29-11_01_GML～A29-11_47_GML 23年度",
     detail2:"<div style=''>" +
         "<select class='youtotiiki-cate-select'>" +
         "<option value='0' selected>全て表示</option>" +
@@ -42,10 +42,11 @@ var youtotiiki1 = new ol.layer.VectorTile({
 });
 var youtotiikiCateTarget = 0;
 var youtotiiki2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>用途地域(MVT)test",
+    title:"<span class='label label-default label-danger'>New</span>全国用途地域(MVT)",
     name:"youtotiiki",
-    origin:"",
-    detail:"<div style=''>" +
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
+    detail:"A29-11_01_GML～A29-11_47_GML 23年度",
+    detail2:"<div style=''>" +
             "<select class='youtotiiki-cate-select'>" +
                 "<option value='0' selected>全て表示</option>" +
                 "<option value='1'>第一種低層住居専用地域</option>" +
@@ -75,9 +76,15 @@ var youtotiiki2 = new ol.layer.VectorTile({
     style: youtotiikiStyleFunction
 });
 //var kyoudo = 1000;
+var youtoFeaturesFlg = false;
+var youtoFeatures = [];
 function youtotiikiStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
     var cate = prop["A29_004"];
+
+
+    //if(youtoFeaturesFlg) youtoFeatures.push(prop);
+
 
     //console.log(cate);
     /*
@@ -96,7 +103,7 @@ function youtotiikiStyleFunction(feature, resolution) {
         12=工業専用地域 #66CCFF rgba(102,204,255,0.7);
         99=不明
     */
-    var rgba = "rgba(0,0,0,0)";
+    var rgba = "rgba(255,0,0,0.5)";
     if(youtotiikiCateTarget==cate || youtotiikiCateTarget==0) {
         switch (cate) {
             case 1://第一種低層住居専用地域
@@ -159,4 +166,82 @@ function youtotiikiStyleFunction(feature, resolution) {
         });
     }
     return style;
+}
+//----------------------------------------------------------------------------------------------------------------------
+var m500mesh1 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>500Mメッシュ(MVT)test",
+    name:"500mesh",
+    origin:"",
+    detail:"",
+    detail2:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:500000,
+        /*
+         format: new ol.format.MVT({
+         featureClass: ol.Feature
+         }),
+         */
+
+
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:8,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/500mesh2/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:611.50,
+    style: mesh500iStyleFunction
+});
+var meshMaxColor = "red";
+var meshColor = d3.interpolateLab("white",meshMaxColor);
+var meshKyoudo = 1000
+function mesh500iStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    //var cate = prop["A29_004"];
+    var rgba = "rgba(255,0,0,0.5)";
+    //T000847003
+    //T000846003
+
+        var prop = feature.getProperties();
+    /*
+        if(resolution>38.22) {
+            var val = prop["T000846003"];
+        }else{
+            var val = prop["T000847003"];
+        }
+    */
+
+        var val = prop["T000847003"];
+        if(!val){
+            val = prop["T000846003"]/4;
+        }
+
+        //console.log(val)
+        if(!val) val = 0;
+        val = val/meshKyoudo;
+        if(val>1) val = 1;
+        var rgb = d3.rgb(meshColor(val));
+        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.9 + ")";
+        if(resolution<19.11) {
+            //if(val==0) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        }else{
+            if(val<0.4) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
 }
