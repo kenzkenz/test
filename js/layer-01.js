@@ -2854,3 +2854,19 @@ function testFunction(feature, resolution) {
     });
     return style;
 }
+
+//延岡市１９５２
+var nobeoka19521 = new ol.layer.Tile({
+    title:"延岡市1952年古地図test",
+    origin:"",
+    detail:"" ,
+    coord:[131.664854,32.582407],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/nobeoka1952/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:19
+    })
+});

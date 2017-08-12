@@ -7,7 +7,7 @@ var plI = 0;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,
-                    syoutiiki1,youtotiiki1,suiro1,douro1,
+                    dozyouzu1,syoutiiki1,youtotiiki1,suiro1,douro1,
                     ooameasia07201,ooameasia07181,
                     t0802dol1,t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
@@ -27,10 +27,11 @@ $(function(){
                     did1,
                     test,
                     //anno1,
-                    m500mesh1
+                    m500mesh1,
+                    nobeoka19521
                     ];
     useLayersArr2 = [pale2,
-                    syoutiiki2,youtotiiki2,suiro2,douro2,
+                    dozyouzu2,syoutiiki2,youtotiiki2,suiro2,douro2,
                     ooameasia07202,ooameasia07182,
                     t0802dol2,t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
@@ -425,7 +426,13 @@ $(function(){
             layer.getSource().changed();
         });
         //-------------------------------------------------------
-
+        $("#" + mapName).on("change",".dozyouzu-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            dozyouzuTarget = val;
+            layer.getSource().changed();
+        });
+        //-------------------------------------------------------
 
         return false;
     });

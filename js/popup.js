@@ -104,7 +104,42 @@ $(function(){
                 //funcYoutotiikiPopup(layer,feature,map,evt);
                 console.log(feature.getProperties());
                 break;
+            case "dozyouzu":
+                funcDozyouzuPopup(feature,map,evt);
+                console.log(feature.getProperties());
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcDozyouzuPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'>土壌分類名</th><td class='popup-td'>" + featureProp["SoilName"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>土壌分類記号</th><td class='popup-td'>" + featureProp["SSerGrCD"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
