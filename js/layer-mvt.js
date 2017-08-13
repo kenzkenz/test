@@ -2,7 +2,7 @@
 //var vtMaxColor = "indigo";
 //var vtColor = d3.interpolateLab("white",vtMaxColor);
 var youtotiiki1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国用途地域(MVT)",
+    title:"全国用途地域(MVT)",
     name:"youtotiiki",
     origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
     detail:"A29-11_01_GML～A29-11_47_GML 23年度",
@@ -42,7 +42,7 @@ var youtotiiki1 = new ol.layer.VectorTile({
 });
 var youtotiikiCateTarget = 0;
 var youtotiiki2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国用途地域(MVT)",
+    title:"全国用途地域(MVT)",
     name:"youtotiiki",
     origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
     detail:"A29-11_01_GML～A29-11_47_GML 23年度",
@@ -232,17 +232,19 @@ var dozyouzu1 = new ol.layer.VectorTile({
     detail2:"<div style=''>" +
         "土壌分類選択:" +
         "<select class='dozyouzu-cate-select'>" +
-        "<option value='0' selected>全て表示</option>" +
-        "<option value='A'>造成土</option>" +
-        "<option value='B'>有機質土</option>" +
-        "<option value='C'>ポドゾル</option>" +
-        "<option value='D'>黒ボク土</option>" +
-        "<option value='E'>暗赤色土</option>" +
-        "<option value='F'>低地土</option>" +
-        "<option value='G'>赤黄色土</option>" +
-        "<option value='H'>停滞水成土</option>" +
-        "<option value='I'>褐色森林土</option>" +
-        "<option value='J'>未熟土</option>" +
+        "<option value='99' selected>選択してください。</option>" +
+        "<option value='0'>全て表示</option>" +
+        //"<option value='A'>A造成土</option>" +
+        "<option value='B'>B有機質土</option>" +
+        "<option value='C'>Cポドゾル</option>" +
+        "<option value='D'>D黒ボク土</option>" +
+        "<option value='E'>E暗赤色土</option>" +
+        "<option value='F'>F低地土</option>" +
+        "<option value='G'>G赤黄色土</option>" +
+        "<option value='H'>H停滞水成土</option>" +
+        "<option value='I'>I褐色森林土</option>" +
+        "<option value='J'>J未熟土</option>" +
+        "<option value='Z'>Z市街地・水域・岩石等</option>" +
         "</select></div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
@@ -255,7 +257,9 @@ var dozyouzu1 = new ol.layer.VectorTile({
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/dozyouzu/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
-    style: dozyouzuStyleFunction
+    style: dozyouzuStyleFunction,
+    //renderMode:"vector"
+    renderMode:"image"
 });
 var dozyouzu2 = new ol.layer.VectorTile({
     title:"<span class='label label-default label-danger'>New</span>全国土壌図(MVT)",
@@ -263,20 +267,22 @@ var dozyouzu2 = new ol.layer.VectorTile({
     origin:"<a href='http://www.naro.affrc.go.jp/publicity_report/press/laboratory/niaes/074982.html' target='_blank'>農研機構</a>",
     detail:"",
     detail2:"<div style=''>" +
-    "土壌分類選択:" +
-    "<select class='dozyouzu-cate-select'>" +
-    "<option value='0' selected>全て表示</option>" +
-    "<option value='A'>造成土</option>" +
-    "<option value='B'>有機質土</option>" +
-    "<option value='C'>ポドゾル</option>" +
-    "<option value='D'>黒ボク土</option>" +
-    "<option value='E'>暗赤色土</option>" +
-    "<option value='F'>低地土</option>" +
-    "<option value='G'>赤黄色土</option>" +
-    "<option value='H'>停滞水成土</option>" +
-    "<option value='I'>褐色森林土</option>" +
-    "<option value='J'>未熟土</option>" +
-    "</select></div>",
+        "土壌分類選択:" +
+        "<select class='dozyouzu-cate-select'>" +
+        "<option value='99' selected>選択してください。</option>" +
+        "<option value='0'>全て表示</option>" +
+        //"<option value='A'>A造成土</option>" +
+        "<option value='B'>B有機質土</option>" +
+        "<option value='C'>Cポドゾル</option>" +
+        "<option value='D'>D黒ボク土</option>" +
+        "<option value='E'>E暗赤色土</option>" +
+        "<option value='F'>F低地土</option>" +
+        "<option value='G'>G赤黄色土</option>" +
+        "<option value='H'>H停滞水成土</option>" +
+        "<option value='I'>I褐色森林土</option>" +
+        "<option value='J'>J未熟土</option>" +
+        "<option value='Z'>Z市街地・水域・岩石等</option>" +
+        "</select></div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
@@ -302,12 +308,7 @@ function dozyouzuStyleFunction(feature, resolution) {
     }
     var rgba = "rgba(0,0,0,0.5)";
     if(dozyouzuTarget==cate || dozyouzuTarget==0) {
-
         switch (cate) {
-
-            case "Z"://市街地／水域など
-                rgba = "rgba(255,255,255,0.0)";
-                break;
             case "A"://造成土
                 var r = 255 - Number(cate2) * 10;
                 rgba = "rgba(" + r + ",255,255,0.8)";
@@ -343,11 +344,6 @@ function dozyouzuStyleFunction(feature, resolution) {
                         break;
                 }
                 break;
-                //var r = 168 + Number(cate2) * 10;
-                //rgba = "rgba(" + r + ",56,0,0.8)";
-
-                //rgba = "rgba(168,56,0,0.8)";
-                //break;
             case "E"://暗赤色土
                 switch (cate2){
                     case "1"://石灰性暗赤色土
@@ -361,9 +357,6 @@ function dozyouzuStyleFunction(feature, resolution) {
                         break;
                 }
                 break;
-                //var r = 115 + Number(cate2) * 10;
-                //rgba = "rgba(" + r + ",0,0,0.8)";
-                //break;
             case "F"://低地土
                 switch (cate2){
                     case "1"://低地水田土
@@ -383,9 +376,6 @@ function dozyouzuStyleFunction(feature, resolution) {
                         break;
                 }
                 break;
-                //var r = 0 + Number(cate2) * 10;
-                //rgba = "rgba(" + r + ",112,255,0.8)";
-                //break;
             case "G"://赤黄色土
                 switch (cate2){
                     case "1"://粘土集積赤黄色土
@@ -396,9 +386,6 @@ function dozyouzuStyleFunction(feature, resolution) {
                         break;
                 }
                 break;
-                //var r = 255 - Number(cate2) * 10;
-                //rgba = "rgba(" + r + ",170,0,0.8)";
-                //break;
             case "H"://停滞水成土
                 switch (cate2){
                     case "1"://停滞水グライ土
@@ -409,9 +396,6 @@ function dozyouzuStyleFunction(feature, resolution) {
                         break;
                 }
                 break;
-                //var r = 0 + Number(cate2) * 10;
-                //rgba = "rgba(" + r + ",255,197,0.8)";
-                //break;
             case "I"://褐色森林土
                 rgba = "rgba(0,149,83,0.8)";
                 break;
@@ -431,11 +415,20 @@ function dozyouzuStyleFunction(feature, resolution) {
                         break;
                 }
                 break;
-                //var r = 130 + Number(cate2) * 10;
-                //rgba = "rgba(" + r + ",130,130,0.8)";
-                //break;
+            case "Z"://市街地／水域など
+                switch (cate2){
+                    case "1"://岩石地
+                        rgba = "rgba(116,121,132,0.8)";
+                        break;
+                    case "2"://？？？
+                        rgba = "red";
+                        break;
+                    case "3"://市街地／水域など
+                        rgba = "rgba(255,255,255,0.8)";
+                        break;
+                }
+                break;
         }
-
     }else{
         return;
     }
@@ -452,6 +445,265 @@ function dozyouzuStyleFunction(feature, resolution) {
         });
     }else{
         //if(val<0.2) return;
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: rgba
+            })
+        });
+    }
+    return style;
+}
+
+var syokusei1 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>エコリス植生図(MVT)",
+    name:"syokusei",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'>エコリス地図タイル</a>",
+    detail:"第5回 自然環境保全基礎調査 植生調査結果を着色したものです。バイナリベクトルタイルの実験です。エコリス植生図(ラスタ)も参照してください。",
+    detail2:"<div style=''>" +
+        "植生で選択 " +
+        "<select class='syokusei-cate-select'>" +
+        "<option value='99' selected>選択してください。</option>" +
+        "<option value='0'>全て表示</option>" +
+        "<option value='1'>高山帯自然域植生</option>" +
+        "<option value='2'>コケモモ-トウヒクラス域自然植生</option>" +
+        "<option value='3'>コケモモ-トウヒクラス域代償植生</option>" +
+        "<option value='4'>ブナクラス域自然植生</option>" +
+        "<option value='5'>ブナクラス域代償植生</option>" +
+        "<option value='6'>ヤブツバキクラス域自然植生</option>" +
+        "<option value='7'>ヤブツバキクラス域代償植生</option>" +
+        "<option value='8'>河辺・湿原・沼沢地・砂丘植生</option>" +
+        "<option value='9'>植林地・耕作地植生</option>" +
+        "<option value='10'>市街地等</option>" +
+        "</select>" +
+        "<br>植林で選択 " +
+        "<select class='syokurin-cate-select'>" +
+        "<option value='99' selected>選択してください。</option>" +
+        "<option value='0'>全て表示</option>" +
+        "<option value='b-常緑針葉樹植林'>常緑針葉樹植林</option>" +
+        "<option value='b-スギ・ヒノキ・サワラ植林'>スギ・ヒノキ・サワラ植林</option>" +
+        "<option value='b-スギ植林'>スギ植林</option>" +
+        "<option value='b-スギ・ヒノキ植林'>スギ・ヒノキ植林</option>" +
+        "<option value='b-開放水域'>開放水域</option>" +
+        "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/ecoris/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: syokuseizuStyleFunction
+});
+var syokusei2 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>エコリス植生図(MVT)",
+    name:"syokusei",
+    origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'>エコリス地図タイル</a>",
+    detail:"第5回 自然環境保全基礎調査 植生調査結果を着色したものです。バイナリベクトルタイルの実験です。エコリス植生図(ラスタ)も参照してください。",
+    detail2:"<div style=''>" +
+    "植生で選択 " +
+    "<select class='syokusei-cate-select'>" +
+    "<option value='99' selected>選択してください。</option>" +
+    "<option value='0'>全て表示</option>" +
+    "<option value='1'>高山帯自然域植生</option>" +
+    "<option value='2'>コケモモ-トウヒクラス域自然植生</option>" +
+    "<option value='3'>コケモモ-トウヒクラス域代償植生</option>" +
+    "<option value='4'>ブナクラス域自然植生</option>" +
+    "<option value='5'>ブナクラス域代償植生</option>" +
+    "<option value='6'>ヤブツバキクラス域自然植生</option>" +
+    "<option value='7'>ヤブツバキクラス域代償植生</option>" +
+    "<option value='8'>河辺・湿原・沼沢地・砂丘植生</option>" +
+    "<option value='9'>植林地・耕作地植生</option>" +
+    "<option value='10'>市街地等</option>" +
+    "</select>" +
+    "<br>植林で選択 " +
+    "<select class='syokurin-cate-select'>" +
+    "<option value='99' selected>選択してください。</option>" +
+    "<option value='0'>全て表示</option>" +
+    "<option value='b-常緑針葉樹植林'>常緑針葉樹植林</option>" +
+    "<option value='b-スギ・ヒノキ・サワラ植林'>スギ・ヒノキ・サワラ植林</option>" +
+    "<option value='b-スギ植林'>スギ植林</option>" +
+    "<option value='b-スギ・ヒノキ植林'>スギ・ヒノキ植林</option>" +
+    "<option value='b-開放水域'>開放水域</option>" +
+    "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/ecoris/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: syokuseizuStyleFunction
+});
+var syokuseiTarget = "0";
+function syokuseizuStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var SYOKU = prop["SYOKU_C"];
+    //console.log(cate);
+    var rgba = "rgba(0,0,0,0.5)";
+
+    if(syokuseiTarget.substr(0,1)!=="b") {
+        if (syokuseiTarget == SYOKU || syokuseiTarget == 0) {
+            switch (SYOKU) {
+                case 1://
+                    rgba = "#fdf1ce";
+                    break;
+                case 2://
+                    rgba = "#997f60";
+                    break;
+                case 3://
+                    rgba = "#a58f74";
+                    break;
+                case 4://
+                    rgba = "#178017";
+                    break;
+                case 5://
+                    rgba = "#5b9700";
+                    break;
+                case 6://
+                    rgba = "#003300";
+                    break;
+                case 7://
+                    rgba = "#004a00";
+                    break;
+                case 8://
+                    rgba = "#ffff00";
+                    break;
+                case 9://
+                    rgba = "#8cd27d";
+                    break;
+                case 10://
+                    //return;
+                    rgba = "#868585";
+                    break;
+            }
+            var DAI = prop["DAI_N"];
+            switch (DAI) {
+                case "植林地":
+                    rgba = "#697720";
+                    break;
+                case "竹林":
+                    rgba = "#cccc20";
+                    break;
+                case "牧草地・ゴルフ場・芝地":
+                    rgba = "#69ff00";
+                    break;
+                case "耕作地":
+                    rgba = "#999662";
+                    break;
+            }
+
+            var HANREI = prop["HANREI_N"];
+            switch (HANREI) {
+                case "水田雑草群落":
+                    rgba = "#8cd27d";
+                    break;
+                case "開放水域":
+                    rgba = "#99ffff";
+                    break;
+                //-----------------------
+                /*
+                 case "常緑針葉樹植林":
+                 rgba = "#fd4202";
+                 break;
+                 case "スギ・ヒノキ・サワラ植林":
+                 rgba = "#fd4202";
+                 break;
+                 case "スギ植林":
+                 rgba = "#fd4202";
+                 break;
+                 case "スギ・ヒノキ植林":
+                 rgba = "#fd4202";
+                 break;
+                 */
+            }
+        } else {
+            return;
+        }
+    }else{
+        var HANREI = prop["HANREI_N"];
+
+        if (syokuseiTarget.split("-")[1] == HANREI || syokuseiTarget == 0) {
+            switch (HANREI) {
+                case "常緑針葉樹植林":
+                    rgba = "#fd4202";
+                    break;
+                case "スギ・ヒノキ・サワラ植林":
+                    rgba = "#fd4202";
+                    break;
+                case "スギ植林":
+                    rgba = "#fd4202";
+                    break;
+                case "スギ・ヒノキ植林":
+                    rgba = "#fd4202";
+                    break;
+                case "開放水域":
+                    rgba = "#99ffff";
+                    break;
+                //-----------------------
+                /*
+                 case "常緑針葉樹植林":
+                 rgba = "#fd4202";
+                 break;
+                 case "スギ・ヒノキ・サワラ植林":
+                 rgba = "#fd4202";
+                 break;
+                 case "スギ植林":
+                 rgba = "#fd4202";
+                 break;
+                 case "スギ・ヒノキ植林":
+                 rgba = "#fd4202";
+                 break;
+                 */
+            }
+        }else{
+            return;
+        }
+        /*
+        "<option value='b-常緑針葉樹植林'>常緑針葉樹植林</option>" +
+        "<option value='b-スギ・ヒノキ・サワラ植林'>スギ・ヒノキ・サワラ植林</option>" +
+        "<option value='b-スギ植林'>スギ植林</option>" +
+        "<option value='b-スギ・ヒノキ植林'>スギ・ヒノキ植林</option>" +
+        "<option value='b-開放水域'>開放水域</option>" +
+        */
+
+    }
+    if(resolution<4.78) {//14は9.55
+    //if(resolution<19.11) {//13
+        //console.log(rgba)
+        var text = prop["HANREI_N"];
+        var textColor = "white";
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: rgba
+            }),
+            stroke: new ol.style.Stroke({
+                color: "darkgray",
+                width: 1
+            }),
+            text: new ol.style.Text({
+                font: "8px sans-serif",
+                text: text,
+                //rotation: prop["arrngAgl"],
+                fill: new ol.style.Fill({
+                    color:textColor
+                }),
+                /*
+                stroke: new ol.style.Stroke({
+                    color: "white",
+                    width: 1
+                })
+                */
+            })
+        });
+    }else{
         var style = new ol.style.Style({
             fill: new ol.style.Fill({
                 color: rgba

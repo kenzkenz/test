@@ -7,7 +7,7 @@ var plI = 0;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,
-                    dozyouzu1,syoutiiki1,youtotiiki1,suiro1,douro1,
+                    syokusei1,dozyouzu1,syoutiiki1,youtotiiki1,suiro1,douro1,
                     ooameasia07201,ooameasia07181,
                     t0802dol1,t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
@@ -17,6 +17,7 @@ $(function(){
                     miyagikotizu1,toukyoukotizu1,hukuikotizu1,simanekotizu1,yamagutikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
                     seamlessphoto1,gazo11,muro1,murous1,murosenzen1,
                     tondabayasik1,tondabayasit1,
+                    hukuokasisenzen1,
                     kago1,sengokago1,
                     kawadake1,ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
                     //mrtiba1,mransei1,
@@ -31,7 +32,7 @@ $(function(){
                     nobeoka19521
                     ];
     useLayersArr2 = [pale2,
-                    dozyouzu2,syoutiiki2,youtotiiki2,suiro2,douro2,
+                    syokusei2,dozyouzu2,syoutiiki2,youtotiiki2,suiro2,douro2,
                     ooameasia07202,ooameasia07182,
                     t0802dol2,t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
@@ -41,6 +42,7 @@ $(function(){
                     miyagikotizu2,toukyoukotizu2,hukuikotizu2,simanekotizu2,yamagutikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
                     seamlessphoto2,gazo12,muro2,murous2,murosenzen2,
                     tondabayasik2,tondabayasit2,
+                    hukuokasisenzen2,
                     kago2,sengokago2,
                     kawadake2,ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
                     //mrtiba2,mransei2,
@@ -431,6 +433,21 @@ $(function(){
             console.log(val);
             dozyouzuTarget = val;
             layer.getSource().changed();
+        });
+        //-------------------------------------------------------
+        $("#" + mapName).on("change",".syokusei-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            syokuseiTarget = val;
+            layer.getSource().changed();
+            $("#" + mapName + " .syokurin-cate-select").val("99");
+        });
+        $("#" + mapName).on("change",".syokurin-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            syokuseiTarget = val;
+            layer.getSource().changed();
+            $("#" + mapName + " .syokusei-cate-select").val("99");
         });
         //-------------------------------------------------------
 

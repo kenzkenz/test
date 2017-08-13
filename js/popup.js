@@ -108,7 +108,37 @@ $(function(){
                 funcDozyouzuPopup(feature,map,evt);
                 console.log(feature.getProperties());
                 break;
+            case "syokusei":
+                funcSyokuseiPopup(feature,map,evt);
+                console.log(feature.getProperties());
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcSyokuseiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th' style='width:70px;'>大分類</th><td class='popup-td'>" + featureProp["DAI_N"]  + "</td></tr>";
+        //table += "<tr><th class='popup-th'>凡例コード</th><td class='popup-td'>" + featureProp["HANREI_C"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>凡例</th><td class='popup-td'>" + featureProp["HANREI_N"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>植生コード</th><td class='popup-td'>" + featureProp["SYOKU_C"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>植生</th><td class='popup-td'>" + featureProp["SYOKU_N"] + "</td></tr>";
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -120,11 +150,59 @@ $(function(){
         }else{
             var coord = evt.coordinate;
         }
+
+        var noukenUrl = "http://soil-inventory.dc.affrc.go.jp/explain/";
+        var dozyouAr =
+            [
+                {"id":"B1","name":"有機質土","url":"B.php","detail":"湿生植物の遺体が、過湿のため分解を免れ厚く堆積した土壌。主として沖積地や海岸砂丘の後背湿地、谷地、高山などの湿地に分布する。"},
+                {"id":"C1","name":"ポドゾル","url":"C1.php","detail":"漂白した層と腐植または鉄・アルミニウムが集積した層の層序をもつ土壌。自然状態では、漂白層の上に粗腐植層が存在しているのが一般的である。"},
+                {"id":"D1","name":"未熟黒ボク土","url":"D1.php","detail":"堆積した火山放出物が、ある程度の土壌化作用を受け、リン酸を固定する性質や有機物の集積（全炭素で3％以上）を示しはじめた段階の土壌である。"},
+                {"id":"D2","name":"グライ黒ボク土","url":"D2.php","detail":"地下水位の高い場所にある黒ボク土で、一年を通じて水で飽和されている層が50cm以内に出てくる土壌。黒ボク土の分布域を刻む谷底、谷地、沖積低湿地などの地下水位の高いところに分布している。"},
+                {"id":"D3","name":"多湿黒ボク土","url":"D3.php","detail":"地下水の影響で湿っている黒ボク土。黒ボク土の分布域に接する台地間の谷底、台地内の谷地、沖積低地に分布が広いが、排水の不良な台地にも分布している。"},
+                {"id":"D4","name":"褐色黒ボク土","url":"D4.php","detail":"森林下に出来る黒ボク土で、有機物含量は高いが、黒色味が弱く褐色の表層を持つ。天然林下の風化火山灰土壌は、有機物含量が高くても黒色を呈しないことがある。ブナ林下に典型的に発達する。"},
+                {"id":"D5","name":"非アロフェン質黒ボク土","url":"D5.php","detail":"容積重が小さく、リン酸吸収係数も高い「黒ボク特徴」を示すが、主要粘土鉱物は結晶性の2：1型鉱物である。土壌中からカルシウムやマグネシウムなどの塩基が溶脱すると、2：1型粘土鉱物に吸着される交換性Al が多量に存在するようになり、強酸性を示す。"},
+                {"id":"D6","name":"アロフェン質黒ボク土","url":"D6.php","detail":"最も普通に見られる黒ボク土。主として火山放出物を母材とし、良好な排水条件下における風化によって生成した結晶度の弱い粘土鉱物（アロフェン、イモゴライト）と腐植の集積によって特徴づけられる土壌。"},
+                {"id":"E1","name":"石灰性暗赤色土","url":"E1.php","detail":"石灰岩など石灰質の母材から出来た土壌。暗い赤色のことが多いが、石灰質母材から出来ていてpHが高く塩基に富んでいれば、必ずしも暗赤色で無くてもよい。主に南西諸島の石灰岩地帯に分布する。"},
+                {"id":"E2","name":"酸性暗赤色土","url":"E2.php","detail":"暗赤色の次表層の一部で酸性（ｐHが5.5未満）を示す土壌。塩基が下方に流れる溶脱作用の進んだ結果、元々中性付近だった暗赤色土が酸性化した土壌、および熱水変成作用によって生成した火山系暗赤色土が相当する。"},
+                {"id":"E3","name":"塩基性暗赤色土","url":"E3.php","detail":"主に超塩基性岩（かんらん岩、蛇紋岩）から出来て、pHが高い土壌。超塩基性岩が地表にでている場所に分布する。"},
+                {"id":"F1","name":"低地水田土","url":"F1.php","detail":"元々地下水の影響が無いか弱いところに水田を作ったため、鉄集積層が出来たり、灰色化した特徴的な断面をもつようになった低地の土壌。"},
+                {"id":"F2","name":"グライ低地土","url":"F2.php","detail":"低地土大群の中で、最も地下水位が高く、年間を通じてほとんど水に飽和されたグライ層が50cm以内に出てくる土壌。"},
+                {"id":"F3","name":"灰色低地土","url":"F3.php","detail":"中間的な湿性状態の沖積地の土壌。日本の水田の代表的な土壌。季節的地下水の飽和により発達した地下水湿性特徴を示す斑鉄層が地表下50cm以内に現れる。"},
+                {"id":"F4","name":"褐色低地土","url":"F4.php","detail":"沖積低地の中では最も乾いた土地にある、黄褐色の次表層を持つ土壌。"},
+                {"id":"F5","name":"未熟低地土","url":"F5.php","detail":"未風化の土砂が堆積したままの土壌。鉄が風化遊離しないため斑鉄をもたず、ふつう灰色（土砂そのものの色）を呈してしていることが多い。"},
+                {"id":"G1","name":"粘土集積赤黄色土","url":"G1.php","detail":"「粘土集積層」をもつ赤黄色土。本土壌群は主に、本州の中位段丘から高位段丘上および南西諸島一帯の平坦で安定した地形面に分布する。畑、果樹園などに利用されている。"},
+                {"id":"G2","name":"風化変質赤黄色土","url":"G2.php","detail":"「粘土集積層」をもたず、「風化変質層」をもつ赤黄色土。この土壌群は、主に、本州の中位段丘から高位段丘上および南西諸島一帯に分布する。「風化変質層」：風化を受けて色が変わったり、粘土が多くなったり、塊状の構造が出来たりした層。"},
+                {"id":"H1","name":"停滞水グライ土","url":"H1.php","detail":"　台地、丘陵地、山地にある排水不良な土壌。本土壌には、2つのタイプがある。ひとつは台地、丘陵地、山地の排水不良な微凹地に分布するもので、北海道などでみられる。その分布は局所的な場合が多く、分布する場所の微地形や排水状態の違いにより、疑似グライ土や泥炭土へ移行する場合がある。もうひとつは、台地、丘陵地および山地の棚田のように人為的要因によるもので、稲作期の人為的湛水状態に加えて非稲作期も過湿になりやすい多雪地や排水不良地にみられる。"},
+                {"id":"I1","name":"褐色森林土","url":"I1.php","detail":"火山灰の影響の少ない山地・丘陵地に分布する褐色あるいは黄褐色の「風化変質層」をもつ土壌。「風化変質層」：風化を受けて色が変わったり粘土が多くなったり塊状の構造が出来たりした層"},
+                {"id":"J1","name":"火山放出物未熟土","url":"J1.php","detail":"噴火から年数が少なく未風化な火山灰、軽石などからなる未熟な土壌。とくに北海道、東北、関東、九州などの活火山の周辺部に分布する。"},
+                {"id":"J2","name":"砂質未熟土","url":"J2.php","detail":"砂丘地の未熟な土壌。主として、海岸線に沿う砂丘地、砂堆、砂洲、砂嘴などの微高地に分布する。"},
+                {"id":"J3","name":"固結岩屑土","url":"J3.php","detail":"地表から30cm以内に固結した岩盤が現われる未熟土。侵食の激しい山地、丘陵地の傾斜面に分布する土層の浅い土壌である。"},
+                {"id":"J4","name":"陸成未熟土","url":"J4.php","detail":"山地、丘陵地、洪積台地の風化の進んでいない未熟な土壌。西南日本に広く分布するマサ（花崗岩風化物）の多くや南西諸島に分布する泥灰岩由来のジャーガルが本土壌群に相当する。"},
+                {"id":"","name":"","url":".php","detail":""},
+                {"id":"","name":"","url":".php","detail":""}
+
+            ];
         console.log(featureProp);
+        var targetId = featureProp["SG_CD"];
+        console.log(targetId);
+        var dozyouArFilter = dozyouAr.filter(function (item,index) {
+            if(item.id===targetId) return true;
+        });
+
+        var target = dozyouArFilter[0];
+        console.log(target)
+
+
+
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
-        table += "<tr><th class='popup-th'>土壌分類名</th><td class='popup-td'>" + featureProp["SoilName"]  + "</td></tr>";
         table += "<tr><th class='popup-th'>土壌分類記号</th><td class='popup-td'>" + featureProp["SSerGrCD"] + "</td></tr>";
+        table += "<tr><th class='popup-th' style='width:80px;'>土壌分類名</th><td class='popup-td'>" + featureProp["SoilName"]  + "</td></tr>";
+        if(target) {
+            table += "<tr><th class='popup-th'>説明</th><td class='popup-td'>" + target["detail"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>リンク</th><td class='popup-td'><a href='" + noukenUrl + target["url"] + "' target='_blank'>農研機構のページ</a></td></tr>";
+        }
+
         /*
          for(key in featureProp){
          table += "<tr>";

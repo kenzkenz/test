@@ -180,6 +180,7 @@ label:hover{
 /*背景インフォメーションのテーブル-----------------------------------------------*/
 .info-tbl{
     width:300px;
+    margin:0 0 10px 0;
 }
 .info-tbl tr td:nth-child(1){
     width:50px;

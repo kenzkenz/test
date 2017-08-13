@@ -391,7 +391,37 @@ var murosenzen2 = new ol.layer.Tile({
     })
 });
 
-
+//福岡市戦前地図-----------------------------------------
+var hukuokasisenzen1 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>福岡市戦前地図",
+    origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
+    detail:"" ,
+    coord:[130.401799,33.590146],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/stanford/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        maxZoom:16
+    })
+});
+var hukuokasisenzen2 = new ol.layer.Tile({
+    title:"<span class='label label-default label-danger'>New</span>福岡市戦前地図",
+    origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
+    detail:"" ,
+    coord:[130.401799,33.590146],
+    zoom:14,
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/stanford/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        //minZoom:12,
+        maxZoom:16
+    })
+});
 
 
 //ハザードマップ関係------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -572,7 +602,7 @@ var ryuuiki2 = new ol.layer.Tile({
 });
 //エコリス植生図
 var ecoris1 = new ol.layer.Tile({
-    title:"エコリス植生図",
+    title:"エコリス植生図(ラスタ)",
     origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'><br>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:blue;'></i>",
@@ -585,7 +615,7 @@ var ecoris1 = new ol.layer.Tile({
 	})
 });
 var ecoris2 = new ol.layer.Tile({
-    title:"エコリス植生図",
+    title:"エコリス植生図(ラスタ)",
     origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'><br>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色し、国土地理院 基盤地図情報 数値標高データ10mメッシュから作成した陰影起伏図に重ねたものです。",
     icon:"<i class='fa fa-map-o fa-fw' style='color:blue;'></i>",
@@ -1138,7 +1168,7 @@ var sobo2 = new ol.layer.Tile({
 //宮崎県古地図
 var kotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>45宮崎県古地図(大正14年)",
+    title:"45宮崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/miyazakiKen.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1155,7 +1185,7 @@ var kotizu1 = new ol.layer.Tile({
 });
 var kotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>45宮崎県古地図(大正14年)",
+    title:"45宮崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/miyazakiKen.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1173,7 +1203,7 @@ var kotizu2 = new ol.layer.Tile({
 //高知県古地図
 var koutikotizu1 = new ol.layer.Tile({
     name:"koutikotizu1",
-    title:"<span class='label label-default label-danger'>New</span>39高知県古地図(大正14年)",
+    title:"39高知県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a type='button' class='btn btn-xs btn-primary btn-block' href='oldmap/koutiken.jpg' target='_blank'>jpg取得</a>" +
             "<a type='button' class='crop-btn btn btn-xs btn-primary btn-block'>実験中</a>",
@@ -1191,7 +1221,7 @@ var koutikotizu1 = new ol.layer.Tile({
 });
 var koutikotizu2 = new ol.layer.Tile({
     name:"koutikotizu2",
-    title:"<span class='label label-default label-danger'>New</span>39高知県古地図(大正14年)",
+    title:"39高知県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/koutiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1209,7 +1239,7 @@ var koutikotizu2 = new ol.layer.Tile({
 //熊本県古地図
 var kumamotokotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>43熊本県古地図(大正14年)",
+    title:"43熊本県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/kumamotoken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1226,7 +1256,7 @@ var kumamotokotizu1 = new ol.layer.Tile({
 });
 var kumamotokotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>43熊本県古地図(大正14年)",
+    title:"43熊本県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/kumamotoken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1244,7 +1274,7 @@ var kumamotokotizu2 = new ol.layer.Tile({
 //佐賀県古地図
 var sagakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>41佐賀県古地図(大正14年)",
+    title:"41佐賀県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/sagaken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1261,7 +1291,7 @@ var sagakotizu1 = new ol.layer.Tile({
 });
 var sagakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>41佐賀県古地図(大正14年)",
+    title:"41佐賀県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/sagaken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1279,7 +1309,7 @@ var sagakotizu2 = new ol.layer.Tile({
 //福岡県古地図
 var hukuokakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>40福岡県古地図(大正14年)",
+    title:"40福岡県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1296,7 +1326,7 @@ var hukuokakotizu1 = new ol.layer.Tile({
 });
 var hukuokakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>40福岡県古地図(大正14年)",
+    title:"40福岡県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1314,7 +1344,7 @@ var hukuokakotizu2 = new ol.layer.Tile({
 //大分県古地図
 var ooitakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>44大分県古地図(大正14年)",
+    title:"44大分県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1331,7 +1361,7 @@ var ooitakotizu1 = new ol.layer.Tile({
 });
 var ooitakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>44大分県古地図(大正14年)",
+    title:"44大分県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1349,7 +1379,7 @@ var ooitakotizu2 = new ol.layer.Tile({
 //長崎県古地図
 var nagasakikotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>42長崎県古地図(大正14年)",
+    title:"42長崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1366,7 +1396,7 @@ var nagasakikotizu1 = new ol.layer.Tile({
 });
 var nagasakikotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>42長崎県古地図(大正14年)",
+    title:"42長崎県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1384,7 +1414,7 @@ var nagasakikotizu2 = new ol.layer.Tile({
 //鹿児島県古地図
 var kagosimakotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>46鹿児島県古地図(大正14年)",
+    title:"46鹿児島県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1401,7 +1431,7 @@ var kagosimakotizu1 = new ol.layer.Tile({
 });
 var kagosimakotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>46鹿児島県古地図(大正14年)",
+    title:"46鹿児島県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"",
     //message:"1925年",
@@ -1419,7 +1449,7 @@ var kagosimakotizu2 = new ol.layer.Tile({
 //宮城県古地図
 var miyagikotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>04宮城県古地図(大正14年)",
+    title:"04宮城県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/miyagiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1436,7 +1466,7 @@ var miyagikotizu1 = new ol.layer.Tile({
 });
 var miyagikotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>04宮城県古地図(大正14年)",
+    title:"04宮城県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/miyagiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1455,7 +1485,7 @@ var miyagikotizu2 = new ol.layer.Tile({
 //山口県古地図
 var yamagutikotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>35山口県古地図(大正14年)",
+    title:"35山口県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/yamagutiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1472,7 +1502,7 @@ var yamagutikotizu1 = new ol.layer.Tile({
 });
 var yamagutikotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>35山口県古地図(大正14年)",
+    title:"35山口県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/yamagutiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1490,7 +1520,7 @@ var yamagutikotizu2 = new ol.layer.Tile({
 //東京都古地図
 var toukyoukotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>13東京都古地図(大正14年)",
+    title:"13東京都古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1507,7 +1537,7 @@ var toukyoukotizu1 = new ol.layer.Tile({
 });
 var toukyoukotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>13東京都古地図(大正14年)",
+    title:"13東京都古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1525,7 +1555,7 @@ var toukyoukotizu2 = new ol.layer.Tile({
 //島根県古地図
 var simanekotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>32島根県古地図(大正14年)",
+    title:"32島根県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1542,7 +1572,7 @@ var simanekotizu1 = new ol.layer.Tile({
 });
 var simanekotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>32島根県古地図(大正14年)",
+    title:"32島根県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/toukyou.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1560,7 +1590,7 @@ var simanekotizu2 = new ol.layer.Tile({
 //福井県古地図
 var hukuikotizu1 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>18福井県古地図(大正14年)",
+    title:"18福井県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/hukuiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -1577,7 +1607,7 @@ var hukuikotizu1 = new ol.layer.Tile({
 });
 var hukuikotizu2 = new ol.layer.Tile({
     name:"kotizu",
-    title:"<span class='label label-default label-danger'>New</span>18福井県古地図(大正14年)",
+    title:"18福井県古地図(大正14年)",
     origin:"<a href='http://dl.ndl.go.jp/' target='_blank'>国立国会図書館デジタルコレクション</a>より",
     detail:"<a href='oldmap/hukuiken.jpg' target='_blank'>jpg</a>",
     //message:"1925年",
@@ -2123,7 +2153,7 @@ var kyuukeisyakikenkasyoAll2 = new ol.layer.Tile({
 var vtMaxColor = "indigo";
 var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国小地域人口等(MVT)",
+    title:"全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"",
@@ -2151,7 +2181,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
     style: syoutiikiStyleFunction
 });
 var syoutiiki2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国小地域人口等(MVT)",
+    title:"全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
@@ -2233,7 +2263,7 @@ var soboZ2 = new ol.layer.Vector({
 });
 
 var douro1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国道路中心線(MVT)",
+    title:"全国道路中心線(MVT)",
     name:"douro",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
@@ -2251,7 +2281,7 @@ var douro1 = new ol.layer.VectorTile({
     style: douroStyleFunction
 });
 var douro2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国道路中心線(MVT)",
+    title:"全国道路中心線(MVT)",
     name:"douro",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
@@ -2456,7 +2486,7 @@ var namie2 = new ol.layer.Tile({
 
 
 var suiro1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国河川中心線(MVT)",
+    title:"全国河川中心線(MVT)",
     name:"suiro",
     origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
     detail:"",
@@ -2476,7 +2506,7 @@ var suiro1 = new ol.layer.VectorTile({
 //var projection = ol.proj.get('EPSG:3857');
 //map2.getProjection()
 var suiro2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国河川中心線(MVT)",
+    title:"全国河川中心線(MVT)",
     name:"suiro",
     origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
     detail:"",
@@ -2550,7 +2580,7 @@ function suiroStyleFunction(feature, resolution) {
 }
 
 var tondabayasik1 = new ol.layer.Tile({
-    title:"<span class='label label-default label-danger'>New</span>富田林市航空写真",
+    title:"富田林市航空写真",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
     coord:[135.60006642031433, 34.50010582072453],
@@ -2565,7 +2595,7 @@ var tondabayasik1 = new ol.layer.Tile({
     })
 });
 var tondabayasik2 = new ol.layer.Tile({
-    title:"<span class='label label-default label-danger'>New</span>富田林市航空写真",
+    title:"富田林市航空写真",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
     coord:[135.60006642031433, 34.50010582072453],
@@ -2580,7 +2610,7 @@ var tondabayasik2 = new ol.layer.Tile({
     })
 });
 var tondabayasit1 = new ol.layer.Tile({
-    title:"<span class='label label-default label-danger'>New</span>富田林市地形図",
+    title:"富田林市地形図",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
     coord:[135.60006642031433, 34.50010582072453],
@@ -2595,7 +2625,7 @@ var tondabayasit1 = new ol.layer.Tile({
     })
 });
 var tondabayasit2 = new ol.layer.Tile({
-    title:"<span class='label label-default label-danger'>New</span>富田林市地形図",
+    title:"富田林市地形図",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
     coord:[135.60006642031433, 34.50010582072453],
@@ -2870,3 +2900,4 @@ var nobeoka19521 = new ol.layer.Tile({
         maxZoom:19
     })
 });
+
