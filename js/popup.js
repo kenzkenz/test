@@ -112,7 +112,91 @@ $(function(){
                 funcSyokuseiPopup(feature,map,evt);
                 console.log(feature.getProperties());
                 break;
+            case "bunkazai":
+                console.log(feature.getProperties());
+                funcBunkazaiPopup(feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcBunkazaiPopup(feature,map,evt){
+        console.log(feature);
+        var featureProp = feature.getProperties();
+        console.log(featureProp);
+        var geoType = feature.getGeometry().getType();
+        console.log(feature.getGeometry());
+        //if(geoType==="Point"){
+        //    var coord = feature.getGeometry().getCoordinates();
+        //}else{
+            var coord = evt.coordinate;
+        //}
+        console.log(featureProp);
+
+        var daikubunAr =
+            [
+                {"id":"1","name":"有形文化財","color":""},
+                {"id":"2","name":"無形文化財","color":""},
+                {"id":"3","name":"民俗文化財","color":""},
+                {"id":"4","name":"記念物","color":""},
+                {"id":"5","name":"文化的景観","color":""},
+                {"id":"6","name":"伝統的建造物群","color":""},
+                {"id":"7","name":"文化財の保存技術","color":""}
+            ];
+        var targetId004 = featureProp["P32_004"];
+        console.log(targetId004);
+        var daikubunArFilter = daikubunAr.filter(function (item,index) {
+            if(item.id==targetId004) return true;
+        });
+        console.log(daikubunArFilter[0]);
+
+        //syoukubunArはcommon.jsにいる。
+        var targetId005 = featureProp["P32_005"];
+        console.log(targetId005);
+        var syoukubunArFilter = syoukubunAr.filter(function (item,index) {
+            if(item.id==targetId005) return true;
+        });
+        console.log(syoukubunArFilter[0]);
+
+        var levelAr =
+            [
+                {"id":"1","name":"敷地・号・建物レベル","color":""},
+                {"id":"2","name":"番地レベル","color":""},
+                {"id":"3","name":"大字・町丁目レベル","color":""},
+                {"id":"4","name":"市区町村レベル","color":""},
+                {"id":"5","name":"都道府県レベル","color":""},
+                {"id":"9","name":"緯度経度レベル","color":""}
+            ];
+        var targetId009 = featureProp["P32_009"];
+        console.log(targetId009);
+        var levelArFilter = levelAr.filter(function (item,index) {
+            if(item.id==targetId009) return true;
+        });
+        console.log(levelArFilter[0]);
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'style='width:80px;'>種別大区分</th><td class='popup-td'>" + daikubunArFilter[0]["name"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>種別小区分</th><td class='popup-td'>" +　syoukubunArFilter[0]["name"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>名称</th><td class='popup-td'>" + featureProp["P32_006"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>所在地</th><td class='popup-td'>" + featureProp["P32_007"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>指定年月日</th><td class='popup-td'>" + featureProp["P32_008"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>レベル</th><td class='popup-td'>" + levelArFilter[0]["name"] + "</td></tr>";
+        /*
+         for(key in featureProp){
+         table += "<tr>";
+         var prop = featureProp[key];
+         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+         table += "</tr>";
+         }
+         */
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -125,6 +209,7 @@ $(function(){
             var coord = evt.coordinate;
         }
         console.log(featureProp);
+
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
         table += "<tr><th class='popup-th' style='width:70px;'>大分類</th><td class='popup-td'>" + featureProp["DAI_N"]  + "</td></tr>";
@@ -141,6 +226,7 @@ $(function(){
             popup2.show(coord,content);
         }
     }
+
     //-----------------------------------------------
     function funcDozyouzuPopup(feature,map,evt){
         var featureProp = feature.getProperties();
@@ -196,7 +282,7 @@ $(function(){
 
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
-        table += "<tr><th class='popup-th'>土壌分類記号</th><td class='popup-td'>" + featureProp["SSerGrCD"] + "</td></tr>";
+        table += "<tr><th class='popup-th'></th><td class='popup-td'>" + featureProp["SSerGrCD"] + "</td></tr>";
         table += "<tr><th class='popup-th' style='width:80px;'>土壌分類名</th><td class='popup-td'>" + featureProp["SoilName"]  + "</td></tr>";
         if(target) {
             table += "<tr><th class='popup-th'>説明</th><td class='popup-td'>" + target["detail"] + "</td></tr>";

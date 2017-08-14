@@ -712,3 +712,88 @@ function syokuseizuStyleFunction(feature, resolution) {
     }
     return style;
 }
+
+var bunkazai1 = new ol.layer.VectorTile({
+    title:"<span class='label label-default label-danger'>New</span>全国文化財(MVT)test",
+    name:"bunkazai",
+    origin:"",
+    detail:"",
+    detail2:"<div style=''>" +
+        "種類小区分選択:" +
+        "<select class='syoukubun-cate-select'>" +
+        "<option value='99' selected>選択してください。</option>" +
+        "<option value='0'>全て表示</option>" +
+        "<option value='11'>有形文化財</option>" +
+        "<option value='21'>無形文化財</option>" +
+        "<option value='31'>有形民俗文化財</option>" +
+        "<option value='32'>無形民俗文化財</option>" +
+        "<option value='41'>史跡（旧跡を含む）</option>" +
+        "<option value='42'>名勝</option>" +
+        "<option value='43'>天然記念物</option>" +
+        "<option value='51'>重要文化的景観</option>" +
+        "<option value='61'>伝統的建造物群保存地区</option>" +
+        "<option value='71'>選定保存技術</option>" +
+        "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkazai2/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: bunkazaiStyleFunction,
+    renderMode:"vector"
+    //renderMode:"image"
+});
+var syoukubunTarget = "0";
+function bunkazaiStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    //var SYOKU = prop["SYOKU_C"];
+    var targetId005 = prop["P32_005"];
+    //console.log(targetId005);
+    var syoukubunArFilter = syoukubunAr.filter(function (item,index) {
+        if(item.id==targetId005) return true;
+    });
+    //console.log(syoukubunArFilter[0]);
+
+    if(syoukubunTarget=="0" || syoukubunTarget==targetId005) {
+
+    }else{
+        return;
+    }
+
+    var fillColor = syoukubunArFilter[0]["color"];
+    var style = new ol.style.Style({
+        image: new ol.style.Circle({
+            //radius:pointRadius,
+            radius:8,
+            fill: new ol.style.Fill({
+                //color:fillColor ? fillColor : "orange"
+                color: fillColor
+            }),
+            stroke: new ol.style.Stroke({color: "white", width: 1})
+        })
+    });
+    return style;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

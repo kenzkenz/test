@@ -29,7 +29,8 @@ $(function(){
                     test,
                     //anno1,
                     m500mesh1,
-                    nobeoka19521
+                    nobeoka19521,
+                    bunkazai1
                     ];
     useLayersArr2 = [pale2,
                     syokusei2,dozyouzu2,syoutiiki2,youtotiiki2,suiro2,douro2,
@@ -448,6 +449,14 @@ $(function(){
             syokuseiTarget = val;
             layer.getSource().changed();
             $("#" + mapName + " .syokusei-cate-select").val("99");
+        });
+        //-------------------------------------------------------
+        $("#" + mapName).on("change",".syoukubun-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            syoukubunTarget = val;
+            layer.getSource().changed();
+            //$("#" + mapName + " .syokurin-cate-select").val("99");
         });
         //-------------------------------------------------------
 

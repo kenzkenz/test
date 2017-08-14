@@ -2178,7 +2178,8 @@ var syoutiiki1 = new ol.layer.VectorTile({
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
-    style: syoutiikiStyleFunction
+    style: syoutiikiStyleFunction,
+    //renderMode:"vector"
 });
 var syoutiiki2 = new ol.layer.VectorTile({
     title:"全国小地域人口等(MVT)",

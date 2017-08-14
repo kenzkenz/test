@@ -320,3 +320,16 @@ var commonstyleFunction = function(feature, resolution) {
     return style;
 };
 //----------------------------------------------------------------------------------------------------------------------
+var syoukubunAr =
+    [
+        {"id":"11","name":"有形文化財","color":"red"},
+        {"id":"21","name":"無形文化財","color":"blue"},
+        {"id":"31","name":"有形民俗文化財","color":"red"},
+        {"id":"32","name":"無形民俗文化財","color":"blue"},
+        {"id":"41","name":"史跡（旧跡を含む）","color":"green"},
+        {"id":"42","name":"名勝","color":"green"},
+        {"id":"43","name":"天然記念物","color":"green"},
+        {"id":"51","name":"重要文化的景観","color":"green"},
+        {"id":"61","name":"伝統的建造物群保存地区","color":"black"},
+        {"id":"71","name":"選定保存技術","color":"black"}
+    ];
