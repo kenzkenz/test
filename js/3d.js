@@ -26,6 +26,7 @@ $(function(){
                 d3Flg = false;
             }
             if(ol3d1==null){
+                console.log(9999)
                 ol3d1 = new olcs.OLCesium({
                     map:map1
                 });

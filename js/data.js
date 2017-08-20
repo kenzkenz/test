@@ -667,5 +667,17 @@ var dataLayerArr =
             "opacity":"0.7",
             "zoom":""
         }
+        /*
+        ,
+        {
+            "id":"maizou1",
+            "title":"    ",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+            "opacity":"0.7",
+            "zoom":""
+        }
+        */
     ];
 

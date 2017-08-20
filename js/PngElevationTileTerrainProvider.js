@@ -153,6 +153,7 @@
                         p = ( Math.round( py ) * wim + Math.round( px ) ) * bpp
                         h = 256 * ( 256 * pix[ p+0 ] + pix[ p+1 ] ) + pix[ p+2 ];
                         h = ( h == 8388608 ) ? 0 : h;	// 無効値補正
+                        //h = h*10;
                         hmp[ p_hmp++ ] = h << 8 >> 8;	// 24ビットの2補数表現と解釈
                         px += pxinc;
                     }

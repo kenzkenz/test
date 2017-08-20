@@ -48,29 +48,48 @@ function getElev(coordinate,mapName,then){
         }
         then(h);
     }
-
-
     var elevImgSrc = elevServer + z + '/' + y + '/' + x + '.png?res=cm'
     if(prevImgSrc != elevImgSrc) {
         erevImg.src = elevImgSrc;
     }else{
         canvasRead();
-        /*
-        var canvas = document.createElement('canvas');
-        var context = canvas.getContext('2d');
-        var h = "e";
-        //var data = null;
-        canvas.width = 1;
-        canvas.height = 1;
-        context.drawImage(erevImg,i,j,1,1,0,0,1,1);
-        data = context.getImageData(0,0,1,1).data;
-        if(data[3] === 255){
-            h = (data[0] * 256 * 256 + data[1] * 256 + data[2]) / 100;
-        }
-        then(h)
-        */
     }
     prevImgSrc = elevImgSrc;
+}
+//-----------------------------------------------------------------------------
+
+
+function getPixelVale(coordinate,mapName,then){
+    var pngServer = 'https://mtile.pref.miyazaki.lg.jp/tile/mvt/totiriyoul/';
+    var z = Math.floor(eval(mapName).getView().getZoom());
+    if(z>13) z=13;
+    var R = 6378137;// 地球の半径(m);
+    var rx = (0.5 + coordinate[0]/(2*R*Math.PI))*Math.pow(2,z);
+    var ry = (0.5 - coordinate[1]/(2*R*Math.PI))*Math.pow(2,z);
+    var x = Math.floor(rx);// タイルX座標
+    var y = Math.floor(ry);// タイルY座標
+    var tmsy = (1 << z) -y -1;//tms形式に変換
+    var i = (rx - x) * 256;// タイル内i座標
+    var j = (ry - y) * 256;// タイル内j座標
+    //console.log(z,x,tmsy,i,j);
+
+    var pngImg = new Image();
+    pngImg.crossOrigin = 'anonymouse';
+    pngImg.onload = function(){
+        var canvas = document.createElement('canvas');
+        var context = canvas.getContext('2d');
+        canvas.width = 1;
+        canvas.height = 1;
+        context.drawImage(pngImg,i,j,1,1,0,0,1,1);
+        var targetRgba = context.getImageData(0,0,1,1).data;
+        //console.log(targetRgba)
+        //console.log(targetRgba);
+        then(targetRgba);
+    };
+
+    var pngImgSrc = pngServer + z + '/' + x + '/' + tmsy + '.png?res=cm'
+    pngImg.src = pngImgSrc;
+    console.log(pngImgSrc)
 }
 //-----------------------------------------------------------------------------
 //バックグラウンドで色を判断する。
@@ -332,4 +351,20 @@ var syoukubunAr =
         {"id":"51","name":"重要文化的景観","color":"green"},
         {"id":"61","name":"伝統的建造物群保存地区","color":"black"},
         {"id":"71","name":"選定保存技術","color":"black"}
+    ];
+//---------------------------------------------------------------------------------------------------------------------
+var totiriyouAr =
+    [
+        {"id":"0100","name":"田","color":"rgb(255,255,0)","teigi":""},
+        {"id":"0200","name":"その他の農用地","color":"rgb(255,204,153)","teigi":""},
+        {"id":"0500","name":"森林","color":"rgb(0,170,0)","teigi":""},
+        {"id":"0600","name":"荒地","color":"rgb(255,153,0)","teigi":""},
+        {"id":"0700","name":"建物用地","color":"rgb(255,0,0)","teigi":""},
+        {"id":"0901","name":"道路","color":"rgb(140,140,140)","teigi":""},
+        {"id":"0902","name":"鉄道","color":"rgb(180,180,180)","teigi":""},
+        {"id":"1000","name":"その他の用地","color":"rgb(200,70,15)","teigi":""},
+        {"id":"1100","name":"河川地及び湖沼","color":"rgb(0,0,255)","teigi":""},
+        {"id":"1400","name":"海浜","color":"rgb(255,255,153)","teigi":""},
+        {"id":"1500","name":"海水域","color":"rgb(0,204,255)","teigi":""},
+        {"id":"1600","name":"ゴルフ場","color":"rgb(0,255,0)","teigi":""},
     ];

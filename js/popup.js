@@ -116,7 +116,133 @@ $(function(){
                 console.log(feature.getProperties());
                 funcBunkazaiPopup(feature,map,evt);
                 break;
+            case "kumamoto":
+                console.log(feature.getProperties());
+                funcKumamotoPopup(feature,map,evt);
+                break;
+            case "totiriyou":
+                console.log(feature.getProperties());
+                funcTotiriyouPopup(feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcKumamotoPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+
+        var content = "";
+        /*
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th' style='width:70px;'>大分類</th><td class='popup-td'>" + featureProp["DAI_N"]  + "</td></tr>";
+        //table += "<tr><th class='popup-th'>凡例コード</th><td class='popup-td'>" + featureProp["HANREI_C"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>凡例</th><td class='popup-td'>" + featureProp["HANREI_N"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>植生コード</th><td class='popup-td'>" + featureProp["SYOKU_C"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>植生</th><td class='popup-td'>" + featureProp["SYOKU_N"] + "</td></tr>";
+        table += "</table>";
+        content += table;
+        */
+
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+            table += "</tr>";
+        }
+        content += table;
+
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    map1.on("singleclick", function(evt) {
+
+        //totiriyoul1
+
+        //if(mapName=="map1"){
+            var layers = useLayersArr1;
+        //}else{
+        //    var layers = useLayersArr2;
+       /// }
+
+        $("#map1" + " .haikei-tbl tbody tr").each(function(e) {
+            var text = $(this).find("label").text();
+            var chk = $(this).find("input").prop("checked");
+
+            if(text.indexOf("全国土地利用細分メッシュ")!=-1){
+                //console.log(text);
+                //console.log(chk);
+                if(chk){
+                    getPixelVale(evt.coordinate,"map1",function(targetRgba){
+                        //console.log(targetRgba);
+                        var r = targetRgba[0];
+                        var g = targetRgba[1];
+                        var b = targetRgba[2];
+                        //console.log(r,g,b);
+                        var targetColor = "rgb(" + r + "," + g + "," + b + ")";
+                        //console.log(targetColor);
+                        var totiriyouArFilter = totiriyouAr.filter(function (item,index) {
+                            if(item.color==targetColor) return true;
+                        });
+                        console.log(totiriyouArFilter[0]["name"])
+
+                        var coord = evt.coordinate;
+
+                        var content = "";
+                        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+                        table += "<tr><th class='popup-th'style='width:80px;'>メッシュ</th><td class='popup-td'></td></tr>";
+                        table += "<tr><th class='popup-th'>土地利用種</th><td class='popup-td'>" +　totiriyouArFilter[0]["name"] + "</td></tr>";
+
+                        table += "</table>";
+
+                        content += table;
+                        popup1.show(coord,content);
+
+                    });
+                }
+            }
+        });
+    });
+    function funcTotiriyouPopup(feature,map,evt){
+        console.log(feature);
+        var featureProp = feature.getProperties();
+        console.log(featureProp);
+        console.log(feature.getGeometry());
+        var coord = evt.coordinate;
+        console.log(featureProp);
+
+
+        //syoukubunArはcommon.jsにいる。
+        var targetTotiriyou = featureProp["土地利用種"];
+        console.log(targetTotiriyou);
+        var totiriyouArFilter = totiriyouAr.filter(function (item,index) {
+            if(item.id==targetTotiriyou) return true;
+        });
+        console.log(totiriyouArFilter[0]);
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'style='width:80px;'>メッシュ</th><td class='popup-td'>" + featureProp["メッシュ"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>土地利用種</th><td class='popup-td'>" +　totiriyouArFilter[0]["name"] + "</td></tr>";
+
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -218,7 +344,6 @@ $(function(){
         table += "<tr><th class='popup-th'>植生コード</th><td class='popup-td'>" + featureProp["SYOKU_C"] + "</td></tr>";
         table += "<tr><th class='popup-th'>植生</th><td class='popup-td'>" + featureProp["SYOKU_N"] + "</td></tr>";
         table += "</table>";
-
         content += table;
         if(map==="map1") {
             popup1.show(coord,content);
@@ -226,7 +351,6 @@ $(function(){
             popup2.show(coord,content);
         }
     }
-
     //-----------------------------------------------
     function funcDozyouzuPopup(feature,map,evt){
         var featureProp = feature.getProperties();
@@ -278,8 +402,6 @@ $(function(){
         var target = dozyouArFilter[0];
         console.log(target)
 
-
-
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
         table += "<tr><th class='popup-th'></th><td class='popup-td'>" + featureProp["SSerGrCD"] + "</td></tr>";
@@ -288,15 +410,6 @@ $(function(){
             table += "<tr><th class='popup-th'>説明</th><td class='popup-td'>" + target["detail"] + "</td></tr>";
             table += "<tr><th class='popup-th'>リンク</th><td class='popup-td'><a href='" + noukenUrl + target["url"] + "' target='_blank'>農研機構のページ</a></td></tr>";
         }
-
-        /*
-         for(key in featureProp){
-         table += "<tr>";
-         var prop = featureProp[key];
-         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-         table += "</tr>";
-         }
-         */
         table += "</table>";
 
         content += table;
@@ -308,24 +421,9 @@ $(function(){
     }
     //-----------------------------------------------
     function funcYoutotiikiPopup(layer,feature,map,evt){
-/*
-        youtoFeaturesFlg = true;
-        youtoFeatures = [];
-        layer.getSource().changed();
-        layer.getSource().on('change', function(evt) {
-            console.log(55555555555555)
-            console.log(youtoFeatures);
-        });
-*/
+
         var extent = eval(map).getView().calculateExtent(eval(map).getSize());
         console.log(extent);
-        /*
-        layer.forEachFeatureIntersectingExtent(extent, function(feature) {
-            console.log(88888)
-            //selectedFeatures.push(feature);
-            //info.push(feature.get('name'));
-        });
-        */
         console.log(layer);
         console.log(layer.getSource());
         //console.log(layer.getSource().getFeatures());
@@ -333,21 +431,6 @@ $(function(){
         //var prop = layer.getSource()["a"]["a"]["gd"]["f"][0]["c"];
         var prop = layer.getSource()["a"]["a"]["gd"]["f"];
         console.log(prop);
-/*
-        layer.getSource().on('change', function(evt){
-            console.log(9999);
-            var source = evt.target;
-            if (source.getState() === 'ready') {
-                //var numFeatures = source.getFeatures().length;
-                //var numFeatures = source["a"]["a"]["gd"]["f"].length;
-                //console.log("Count after change: " + numFeatures);
-                console.log(source)
-            }
-        });
-        */
-
-
-
 
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
@@ -369,14 +452,6 @@ $(function(){
         table += "<tr><th class='popup-th'>総括図作成団体名</th><td class='popup-td'>" + featureProp["A29_008"] + "</td></tr>";
         table += "<tr><th class='popup-th'>総括図作成年</th><td class='popup-td'>" + featureProp["A29_009"] + "</td></tr>";
         table += "<tr><th class='popup-th'>備考</th><td class='popup-td'>" + featureProp["A29_010"] + "</td></tr>";
-        /*
-         for(key in featureProp){
-         table += "<tr>";
-         var prop = featureProp[key];
-         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-         table += "</tr>";
-         }
-         */
         table += "</table>";
 
         content += table;
@@ -400,14 +475,6 @@ $(function(){
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
             table += "<tr><th class='popup-th'>区分</th><td class='popup-td'>" + featureProp["rivCtg"]  + "</td></tr>";
             table += "<tr><th class='popup-th'>type</th><td class='popup-td'>" + featureProp["type"] + "</td></tr>";
-        /*
-         for(key in featureProp){
-         table += "<tr>";
-         var prop = featureProp[key];
-         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-         table += "</tr>";
-         }
-         */
         table += "</table>";
 
         content += table;
@@ -429,20 +496,17 @@ $(function(){
         console.log(featureProp)
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
-            table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"]  + "</td></tr>";
+            table += "<tr><th class='popup-th' style='width:70px;'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
             table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["CSS_NAME"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>字</th><td class='popup-td'>" + featureProp["MOJI"]  + "</td></tr>";
-        //table += "<tr><th class='popup-th'>幅</th><td class='popup-td'>" + featureProp["rnkWidth"] + "</td></tr>";
-        /*
-         for(key in featureProp){
-         table += "<tr>";
-         var prop = featureProp[key];
-         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-         table += "</tr>";
-         }
-         */
+            table += "<tr><th class='popup-th'>字</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>事業所数</th><td class='popup-td'>" + featureProp["JIGYOSHO"] + "</td></tr>";
+            table += "<tr><th class='popup-th' style='font-weight: bold;'>従業員数</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JUGYOSHA"])).toLocaleString() + "人</td></tr>";
+            table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
+            //table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
         table += "</table>";
 
+
+        
         content += table;
         if(map==="map1") {
             popup1.show(coord,content);
@@ -567,9 +631,6 @@ $(function(){
             var coord = evt.coordinate;
         }
         console.log(feature);
-        //console.log(feature.get());
-        //console.log(feature.getAll())
-
         console.log(layer);
         console.log(layer.getSource());
 
@@ -586,13 +647,14 @@ $(function(){
             table += "<tr><th class='popup-th' style='font-weight: bold;'>人口</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
             table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
             table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
-        table += "</table>";
-        content += table;
-        content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-H27-pyramid-btn'>人口ピラミッド(estatH27)</button>";
-        content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estatH22)</button>";
-        content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
-        content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
-        content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
+            table += "</table>";
+
+            content += table;
+            content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-H27-pyramid-btn'>人口ピラミッド(estatH27)</button>";
+            content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estatH22)</button>";
+            content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
+            content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
+            content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
 
         //------------------------------------------------------------------------------------------------------------
         /*
@@ -1180,17 +1242,11 @@ $(function(){
             $(".ol-viewport").css({cursor:"pointer"});
             var prop =  feature.getProperties();
             var hoverText = prop["_hover"];
-
-            //if(!feature) return;
-
-            //console.log(feature.getGeometry());
-
             try {
                 var coord = feature.getGeometry().getCoordinates();
             }catch(e){
                 return;
             }
-
             if(hoverText) {
                 var pic = null;
                 for(var key in prop){

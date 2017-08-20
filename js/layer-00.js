@@ -4,6 +4,7 @@ var plusLayer1 = [];
 var plusLayer2 = [];
 var plI = 0;
 
+
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,
@@ -30,7 +31,9 @@ $(function(){
                     //anno1,
                     m500mesh1,
                     nobeoka19521,
-                    bunkazai1
+                    bunkazai1,
+                    totiriyou1,
+                    kumamoto1
                     ];
     useLayersArr2 = [pale2,
                     syokusei2,dozyouzu2,syoutiiki2,youtotiiki2,suiro2,douro2,
@@ -174,6 +177,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
 
             if(!Array.isArray(layer)){
                 layer.set("altitudeMode","clampToGround");
+                layer.set("selectable",true);
                 eval(mapName).addLayer(layer);
                 //座標を移動する。
                 if(layer.getProperties()["coord"]){
@@ -186,11 +190,13 @@ function funcHaikeiTableCreate(mapElement,mapName){
                     var zoom = layer.getProperties()["zoom"];
                     eval(mapName).getView().setZoom(zoom);
                 }
+
             }else{//配列のとき
                 for(var i = 0; i < layer.length; i++){
                     eval(mapName).addLayer(layer[i]);
                 }
             }
+
             trErement.children().animate({
                 "background-color":"#FFC0CB"
             },1000).animate({
@@ -353,7 +359,7 @@ $(function(){
         //------------------------------------------------------
 
         console.log(prop["name"]);
-
+        /*
         if(prop["name"]==="keizai-census"){
 
             var extent = eval(mapName).getView().calculateExtent(eval(mapName).getSize());
@@ -370,16 +376,15 @@ $(function(){
             for(key in prop){
                 //console.log(key);
                 if(key.indexOf("ks_T000")!=-1) option += "<option value='" + key +  "'>" + key.replace("ks_","") + "</option>"
-                /*
-                 table += "<tr>";
-                 var prop = featureProp[key];
-                 table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-                 table += "</tr>";
-                 */
+
+                 //table += "<tr>";
+                 //var prop = featureProp[key];
+                 //table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+                 //table += "</tr>";
+
             }
             $("#" + mapName + " .target-select").html(option)
         }
-
         $("#" + mapName).on("change",".target-select",function() {
             var val = $(this).val();
             console.log(val);
@@ -399,6 +404,7 @@ $(function(){
             vtColor = d3.interpolateLab("white",vtMaxColor);
             layer.getSource().changed();
         }
+        */
         //------------------------------------------------------
         $("#" + mapName + " .syoutiikitext").spinner({
             max:5000, min:100, step:100,
@@ -456,10 +462,41 @@ $(function(){
             console.log(val);
             syoukubunTarget = val;
             layer.getSource().changed();
-            //$("#" + mapName + " .syokurin-cate-select").val("99");
         });
         //-------------------------------------------------------
+        $("#" + mapName).on("change",".totiriyou-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            totiriyouTarget = val;
+            console.log(layer);
 
+            for(var i = 0; i < layer.length; i++){
+                layer[i].getSource().changed();
+            }
+            //totiriyou40001.getSource().changed();
+        });
+        //-------------------------------------------------------
+        $("#" + mapName + " .keizaitext").spinner({
+            max:100000, min:100, step:100,
+            spin:function(event,ui){
+                keizaiColorChange(ui.value,mapName);
+            }
+        });
+        $("#" + mapName).on("change",".keizaicensus-color-select",function(){
+            var mapObj = funcMaps($(this));
+            var mapName = mapObj["name"];
+            console.log(mapName);
+            console.log($("#" + mapName + " .keizaitext").val());
+            kyoudo = $("#" + mapName + " .keizaitext").val();
+            keizaiColorChange(kyoudo,mapName);
+        });
+        function keizaiColorChange(kyoudo0,mapName){
+            kyoudoKeizai = kyoudo0;
+            keizaiMaxColor = $("#" + mapName + " .keizaicensus-color-select").val();
+            console.log(keizaiMaxColor);
+            keizaiColor = d3.interpolateLab("white",keizaiMaxColor);
+            layer.getSource().changed();
+        }
         return false;
     });
     //------------------------------------------------------------
