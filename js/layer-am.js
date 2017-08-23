@@ -1,10 +1,10 @@
 //旧日本軍地図
 //宮崎
 var am1_1 = new ol.layer.Tile({
-    title:"宮崎県戦前地図（昭和7年頃）",
+    title:"宮崎県戦前地図",
     origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
     detail:"",
-    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    icon:"<i class='fa fa-map fa-fw' style='color:black;'></i>",
     message:"1930年頃",
     extent:transformE([131.25056622503527,31.836781105613056,131.50012046119798,32.00354506835566]),
     source: new ol.source.XYZ({

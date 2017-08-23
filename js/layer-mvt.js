@@ -1,7 +1,171 @@
-
-//var vtMaxColor = "indigo";
-//var vtColor = d3.interpolateLab("white",vtMaxColor);
+//全国河川中心線----------------------------------------------------------------------------------------------------------
+var suiro1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国河川中心線(MVT)",
+    name:"suiro",
+    origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: suiroStyleFunction
+});
+var suiro2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国河川中心線(MVT)",
+    name:"suiro",
+    origin:"<a href='https://github.com/hfu/rvrcl-vt' target='_blank'>rvrcl-vt</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: suiroStyleFunction
+});
+function suiroStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var rivCtg = prop["rivCtg"];
+    var type = prop["type"];
+    var level = prop["level"];
+    var strokeColor = "dodgerblue";
+    var strokeWidth = 1;
+    var lineDash = [];
+    switch (rivCtg) {
+        case "一級河川":
+            strokeColor = "mediumblue";
+            strokeWidth = 2;
+            lineDash = [1];
+            break;
+        case "二級河川":
+            strokeColor = "blue";
+            strokeWidth = 2;
+            lineDash = [1];
+            break;
+        default:
+    }
+    switch (type) {
+        case "人工水路（地下）":
+            strokeColor = "red";
+            strokeWidth = 2;
+            lineDash = [2,4];
+            break;
+        case "人工水路（空間）":
+            strokeColor = "red";
+            strokeWidth = 2;
+            lineDash = [1];
+            break;
+        default:
+    }
+    if(resolution>611.50) strokeWidth = 1;
+    var style = new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color: strokeColor,
+            width: strokeWidth,
+            lineDash:lineDash
+        })
+    });
+    return style;
+}
+//全国河川中心線ここまで---------------------------------------------------------------------------------------------------
+//全国道路中心線----------------------------------------------------------------------------------------------------------
+var douro1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国道路中心線(MVT)",
+    name:"douro",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:8,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: douroStyleFunction
+});
+var douro2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国道路中心線(MVT)",
+    name:"douro",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"ズーム率14以上で全て描画します。<br>高速道路＝赤、国道＝緑、都道府県道＝黒、幅3m未満＝赤破線",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            minZoom:8,
+            maxZoom:14
+        }),
+        tilePixelRatio:16,
+        url: "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: douroStyleFunction
+});
+function douroStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var syurui = prop["rdCtg"];
+    var haba = prop["rnkWidth"];
+    var strokeColor = null;
+    var strokeWidth = null;
+    var lineDash = [];
+    switch (syurui) {
+        case "高速自動車国道等":
+            strokeColor = "red";
+            strokeWidth = 4;
+            strokeColor = "red";
+            lineDash = [1];
+            break;
+        case "国道":
+            strokeColor = "green";
+            strokeWidth = 4;
+            lineDash = [1];
+            break;
+        case "都道府県道":
+            strokeColor = "black";
+            strokeWidth = 2;
+            break;
+        default:
+            if(haba!="3m未満") {
+                strokeColor = "blue";
+                strokeWidth = 1;
+                lineDash = [1];
+            }else{
+                strokeColor = "red";
+                strokeWidth = 1;
+                lineDash = [1,2];
+            }
+    }
+    var style = new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color:strokeColor,
+            width: strokeWidth,
+            lineDash:lineDash
+        })
+    });
+    return style;
+}
+//全国道路中心線ここまで---------------------------------------------------------------------------------------------------
+//全国用途地域-----------------------------------------------------------------------------------------------------------
 var youtotiiki1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国用途地域(MVT)",
     name:"youtotiiki",
     origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
@@ -24,11 +188,6 @@ var youtotiiki1 = new ol.layer.VectorTile({
         "</select></div>",
     source: new ol.source.VectorTile({
         cacheSize:100000,
-        /*
-        format: new ol.format.MVT({
-            featureClass: ol.Feature
-        }),
-        */
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
             //minZoom:10,
@@ -42,6 +201,7 @@ var youtotiiki1 = new ol.layer.VectorTile({
 });
 var youtotiikiCateTarget = 0;
 var youtotiiki2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国用途地域(MVT)",
     name:"youtotiiki",
     origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='_blank'>国土数値情報　用途地域データ</a>",
@@ -72,12 +232,8 @@ var youtotiiki2 = new ol.layer.VectorTile({
         tilePixelRatio:16,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/youtotiiki/{z}/{x}/{y}.mvt"
     }),
-    //maxResolution:1222.99,
     style: youtotiikiStyleFunction
 });
-//var kyoudo = 1000;
-var youtoFeaturesFlg = false;
-var youtoFeatures = [];
 function youtotiikiStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
     var cate = prop["A29_004"];
@@ -136,7 +292,6 @@ function youtotiikiStyleFunction(feature, resolution) {
             })
         });
     }else{
-        //if(val<0.2) return;
         var style = new ol.style.Style({
             fill: new ol.style.Fill({
                 color: rgba
@@ -145,9 +300,10 @@ function youtotiikiStyleFunction(feature, resolution) {
     }
     return style;
 }
+//全国用途地域ここまで-----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 var m500mesh1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>500Mメッシュ(MVT)test",
+    title:"500Mメッシュ(MVT)test",
     name:"500mesh",
     origin:"",
     detail:"",
@@ -223,9 +379,10 @@ function mesh500iStyleFunction(feature, resolution) {
         }
         return style;
 }
-
+//全国土壌図-------------------------------------------------------------------------------------------------------------
 var dozyouzu1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国土壌図(MVT)",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国土壌図(MVT)",
     name:"dozyouzu",
     origin:"<a href='http://www.naro.affrc.go.jp/publicity_report/press/laboratory/niaes/074982.html' target='_blank'>農研機構</a>",
     detail:"",
@@ -262,7 +419,8 @@ var dozyouzu1 = new ol.layer.VectorTile({
     renderMode:"image"
 });
 var dozyouzu2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国土壌図(MVT)",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国土壌図(MVT)",
     name:"dozyouzu",
     origin:"<a href='http://www.naro.affrc.go.jp/publicity_report/press/laboratory/niaes/074982.html' target='_blank'>農研機構</a>",
     detail:"",
@@ -453,9 +611,11 @@ function dozyouzuStyleFunction(feature, resolution) {
     }
     return style;
 }
-
+//全国土壌図ここまで-------------------------------------------------------------------------------------------------------
+//エコリス植生図----------------------------------------------------------------------------------------------------------
 var syokusei1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>エコリス植生図(MVT)",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"エコリス植生図(MVT)",
     name:"syokusei",
     origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色したものです。バイナリベクトルタイルの実験です。エコリス植生図(ラスタ)も参照してください。",
@@ -499,7 +659,8 @@ var syokusei1 = new ol.layer.VectorTile({
     style: syokuseizuStyleFunction
 });
 var syokusei2 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>エコリス植生図(MVT)",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"エコリス植生図(MVT)",
     name:"syokusei",
     origin:"<a href='http://map.ecoris.info/' target='_blank'><img src='icon/ecorischan.png' title='エコリスちゃん'>エコリス地図タイル</a>",
     detail:"第5回 自然環境保全基礎調査 植生調査結果を着色したものです。バイナリベクトルタイルの実験です。エコリス植生図(ラスタ)も参照してください。",
@@ -712,9 +873,9 @@ function syokuseizuStyleFunction(feature, resolution) {
     }
     return style;
 }
-
+//エコリス植生図ここまで---------------------------------------------------------------------------------------------------
 var bunkazai1 = new ol.layer.VectorTile({
-    title:"<span class='label label-default label-danger'>New</span>全国文化財(MVT)test",
+    title:"全国文化財(MVT)test",
     name:"bunkazai",
     origin:"",
     detail:"",
@@ -921,8 +1082,6 @@ function totiriyouStyleFunction(feature, resolution) {
     }
     return style;
 }
-
-
 //-----------------------------------------------------------------------------------------------------------------------
 var kumamoto1 = new ol.layer.VectorTile({
     title:"test999",
@@ -1068,77 +1227,11 @@ function kumamotoStyleFunction(feature, resolution) {
     return style;
 
 }
-/*
-var test = new ol.layer.VectorTile({
-    title:"経済センサスtest",
-    name:"keizai-census",
-    origin:"",
-    detail2:"対象列<select class='target-select'></select>" +
-    "<div style=''>リミット：<input type='text' class='kslimittext' value='500' size='5'>" +
-    "　色："+
-    "<select class='syoutiiki-color-select'>" +
-    "<option value='indigo' selected>紫</option>" +
-    "<option value='red'>赤</option>" +
-    "<option value='green'>緑</option>" +
-    "<option value='blue'>青</option>" +
-    "<option value='black'>黒</option>" +
-    "</select></div>",
-    source: new ol.source.VectorTile({
-        cacheSize:10000,
-        format: new ol.format.MVT(),
-        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:12
-        }),
-        tilePixelRatio:16,
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/keizaisensas/{z}/{x}/{y}.mvt"
-    }),
-    maxResolution:1222.99,
-    //style: createMapboxStreetsV6Style()
-    style: keizaiCensusStyleFunction
-
-
-});
-//var keizaiCensusTarget = "A〜S 全産業事業所数";
-//var keizaiCensusTarget = "JUGYOSHA";
-var keizaiCensusTarget = "ks_T000843001";
-
-var ksLimit = 500;
-function keizaiCensusStyleFunction(feature, resolution) {
-
-    var prop = feature.getProperties();
-    //console.log(prop)
-    var val = prop[keizaiCensusTarget];
-    //console.log(val)
-    if(val==="-") val = 0;
-    val = val/ksLimit;
-    if(val>1) val = 1;
-
-    //val = 0.5;
-
-    var rgb = d3.rgb(vtColor(val));
-    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val + ")";
-    //console.log(rgba);
-
-    var style = new ol.style.Style({
-        fill: new ol.style.Fill({
-            //color:"rgba(" + val + ",0,0,0.9)"
-            //color:vtColor(val)
-            color:rgba
-        }),
-        stroke: new ol.style.Stroke({
-            color: "grey",
-            width: 1
-        }),
-        //zIndex:zindex
-    });
-    return style;
-}
-*/
+//全国小地域人口等--------------------------------------------------------------------------------------------------------
 var vtMaxColor = "indigo";
 var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
@@ -1168,6 +1261,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
     //renderMode:"vector"
 });
 var syoutiiki2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
@@ -1222,7 +1316,8 @@ function syoutiikiStyleFunction(feature, resolution) {
     }
     return style;
 }
-//----------------------------------------------------------------------------------------------------------------------
+//全国小地域人口等ここまで--------------------------------------------------------------------------------------------------
+//経済センサス------------------------------------------------------------------------------------------------------------
 var test = new ol.layer.VectorTile({
     title:"経済センサスtest(MVT)",
     name:"keizai-census",
@@ -1245,8 +1340,8 @@ var test = new ol.layer.VectorTile({
             maxZoom:15
         }),
         tilePixelRatio:16,
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/keizaisensas/{z}/{x}/{y}.mvt"
-        //url: "https://github.com/kenzkenz/keizaicensus_syoutiiki/mvt/{z}/{x}/{y}.mvt"
+        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/keizaisensas/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/keizaicensus/mvt/{z}/{x}/{y}.mvt"
 
     }),
     //maxResolution:1222.99,
@@ -1305,3 +1400,89 @@ function keizaiCensasStyleFunction(feature, resolution) {
     }
     return style;
 }
+//経済センサスここまで-----------------------------------------------------------------------------------------------------
+//全国都市地域------------------------------------------------------------------------------------------------------------
+var tositiiki1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国都市地域(MVT)試行中",
+    name:"tositiiki",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tositiiki2/{z}/{x}/{y}.mvt"
+        //url: "https://kenzkenz.github.io/toshichiiki/{z}/{x}/{y}.mvt"
+        url:'https://kenzkenz2.xsrv.jp/to/{z}/{x}/{y}.mvt'
+    }),
+    style: tositiikiStyleFunction
+
+});
+var tositiiki2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国都市地域(MVT)試行中",
+    name:"tositiiki",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:10
+        }),
+        tilePixelRatio:16,
+        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tositiiki2/{z}/{x}/{y}.mvt"
+        //url: "https://kenzkenz.github.io/keizaicensus/mvt/{z}/{x}/{y}.mvt"
+        url:'https://kenzkenz2.xsrv.jp/to/{z}/{x}/{y}.mvt'
+    }),
+    style: tositiikiStyleFunction
+});
+function tositiikiStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var layerNo = prop["layer_no"];
+    //console.log(layerNo);
+    var rgba = "black";
+    var zindex = 0;
+    switch (layerNo) {
+        case 1://都市地域
+            rgba = "rgba(40,152,53,0.7)";
+            break;
+        case 2://市街化区域
+            rgba = "rgba(239,255,3,0.7)";
+            zindex = 1;
+            break;
+        case 3://市街化調整区域
+            rgba = "rgba(126,219,109,0.7)";
+            break;
+        case 4://その他用途地域
+            rgba = "rgba(253,191,111,0.7)";
+            break;
+    }
+    if(resolution<125.87) {
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: rgba
+            }),
+            stroke: new ol.style.Stroke({
+                color: "darkgray",
+                width: 1
+            }),
+            zIndex:zindex
+        });
+    }else{
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: rgba
+            })
+        });
+    }
+    return style;
+}
+
+
+
+//全国都市地域ここまで-----------------------------------------------------------------------------------------------------

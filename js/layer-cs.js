@@ -2,7 +2,7 @@ var cs1k1 = new ol.layer.Tile({
     title:"全国_CS立体図_10m",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'>G空間情報センター</a>",
     detail:"長野県林業総合センター様が作成した立体地図です。全国_CS立体図10mのデータ「CS立体図」は、長野県林業総合センターが考案した地形表現図(c) Esri Japan発行 ArcGIS Geo Suite地形(基盤地形情報10mメッシュ）を基に作製",
-    icon:"<i class='fa fa-map-o' style='color:brown;'></i>",
+    icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
     extent:transformE([128.4,32.5,129.5306,34.7]),
 	source: new ol.source.XYZ({
 		attributions:[new ol.Attribution({html:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'><label>G空間情報センター</label></a>"})],

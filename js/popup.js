@@ -124,7 +124,70 @@ $(function(){
                 console.log(feature.getProperties());
                 funcTotiriyouPopup(feature,map,evt);
                 break;
+            case "tositiiki":
+                console.log(feature.getProperties());
+                funcTositiikiPopup(feature,map,evt);
+                break;
+
+
+
+
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcTositiikiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+
+        var layerNo = featureProp["layer_no"];
+        var name = "";
+        switch (layerNo) {
+            case 1://都市地域
+                name = "都市地域";
+                break;
+            case 2://市街化区域
+                name = "市街化区域";
+                break;
+            case 3://市街化調整区域
+                name = "市街化調整区域";
+                break;
+            case 4://その他用途地域
+                name = "その他用途地域";
+                break;
+        }
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th' style='width:70px;'>コード</th><td class='popup-td'>" + featureProp["layer_no"]  + "</td></tr>";
+        table += "<tr><th class='popup-th'>区分</th><td class='popup-td'>" + name + "</td></tr>";
+        table += "<tr><th class='popup-th'>年度</th><td class='popup-td'>" + featureProp["fis_year"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + featureProp["area_size"] + "</td></tr>";
+        table += "</table>";
+        content += table;
+
+
+        /*
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+            table += "</tr>";
+        }
+        content += table;
+        */
+
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
