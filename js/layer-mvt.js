@@ -1477,12 +1477,12 @@ function tositiikiStyleFunction(feature, resolution) {
         var style = new ol.style.Style({
             fill: new ol.style.Fill({
                 color: rgba
-            })
+            }),
+            zIndex:zindex
         });
     }
     return style;
 }
-
 
 
 //全国都市地域ここまで-----------------------------------------------------------------------------------------------------

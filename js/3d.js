@@ -110,8 +110,16 @@ $(function(){
             }
 
 
-
-
+            if(mapName==="map1") {
+                var resasLayer = resasLayermap1;
+            }else{
+                var resasLayer = resasLayermap2;
+            }
+            if(resasLayer){
+                var features = resasLayer.getSource().getFeatures();
+                console.log(features);
+                czmlCreate(features,$(this));
+            }
 
 
             if(mapName==="map1") {
@@ -124,6 +132,7 @@ $(function(){
                 console.log(features);
                 czmlCreate(features,$(this));
             }
+
             if(mapName==="map1") {
                 var mesh500Layer = mesh500Layer1;
             }else{

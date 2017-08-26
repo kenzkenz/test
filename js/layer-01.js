@@ -992,7 +992,7 @@ var did1 = new ol.layer.Tile({
     origin:"総務省統計局",
     detail:"平成２７年",
     icon:"<i class='fa fa-user fa-fw' style='color:red;'></i>",
-    extent:transformE([130.705,31.36,131.921,32.892]),
+    //extent:transformE([130.705,31.36,131.921,32.892]),
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/did2015/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1006,7 +1006,7 @@ var did2 = new ol.layer.Tile({
     origin:"総務省統計局",
     detail:"平成２７年",
     icon:"<i class='fa fa-user fa-fw' style='color:red;'></i>",
-    extent:transformE([130.705,31.36,131.921,32.892]),
+    //extent:transformE([130.705,31.36,131.921,32.892]),
     source: new ol.source.XYZ({
         url:"https://maps.gsi.go.jp/xyz/did2015/{z}/{x}/{y}.png",
         crossOrigin:"anonymous",
@@ -1014,7 +1014,6 @@ var did2 = new ol.layer.Tile({
         maxZoom:18
     })
 });
-
 
 var anno1 = new ol.layer.VectorTile({
     title:"annoTest",
@@ -2378,13 +2377,30 @@ var sekiz2 = new ol.layer.Tile({
     })
 });
 //地質関係ここまで--------------------------------------------------------------------------------------------------------
+var rekisitekiakntou1 = new ol.layer.Tile({
+    title:"歴史的農業環境 (関東)",
+    origin:"",
+    detail:"",
+    //icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Tokyo5000-900913-L/{z}/{x}/{y}.jpg",
+        //minZoom :1,
+        maxZoom:17
+    })
+});
 
 
-
-
-
-
-
+var rekisitekihukuyama1 = new ol.layer.Tile({
+    title:"歴史的農業環境 (福山市)",
+    origin:"",
+    detail:"",
+    //icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Fukuyama_1899-900913-L/{z}/{x}/{y}.png",
+        //minZoom :1,
+        maxZoom:17
+    })
+});
 
 
 

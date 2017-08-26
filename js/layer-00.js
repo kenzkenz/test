@@ -4,7 +4,6 @@ var plusLayer1 = [];
 var plusLayer2 = [];
 var plI = 0;
 
-
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,
@@ -33,7 +32,8 @@ $(function(){
                     nobeoka19521,
                     bunkazai1,
                     totiriyou1,
-                    kumamoto1
+                    kumamoto1,
+                    rekisitekiakntou1,rekisitekihukuyama1
                     ];
     useLayersArr2 = [pale2,blank2,relief2,
                     ort2,seamlessphoto2,gazo12,muro2,kago2,
