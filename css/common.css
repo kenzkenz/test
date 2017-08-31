@@ -477,8 +477,10 @@ label:hover{
                 -1px -1px 2px white;
 }
 .hoverMsg-div img{
-    width:100px;
+    width:150px;
     border-radius:10px;
+    border:5px solid rgba(255,255,255,0.8);
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.4);
 }
 /*エディット関係------------------------------------------------------------*/
 .edit-btn{
@@ -500,4 +502,17 @@ label:hover{
     -webkit-user-select:none;
     -ms-user-select:none;
     pointer-events:none;
+}
+/*modal-img -------------------------------------------------------------*/
+.modal-img{
+    text-align:center;
+}
+.modal-img img{
+    max-width:100%;
+}
+.modal-header{
+    padding:10px;
+}
+.modal-content{
+    background-color: rgba(255,255,255,0.8);
 }

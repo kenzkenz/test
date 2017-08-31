@@ -7,10 +7,12 @@ var plI = 0;
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [pale1,blank1,relief1,
-                    ort1,seamlessphoto1,gazo11,muro1,tondabayasik1,tondabayasik2,kago1,
+                    ort1,seamlessphoto1,gazo11,usamiyazaki011,usamiyakonozyou011,usanobeoka011,muro1,tondabayasik1,tondabayasik2,kago1,
                     syokusei1,dozyouzu1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,
                     ooameasia07201,ooameasia07181,
                     t0802dol1,t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
+                    rekisitekikantou1,zinsokugazou1,rekisitekitoukyou1,rekisitekihukuyama1,
+                    kumamotoIseki1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
                     osm1,mierune1,mieruneMono1,toner1,
                     aya1,sobo1,soboZ1,
@@ -32,14 +34,15 @@ $(function(){
                     nobeoka19521,
                     bunkazai1,
                     totiriyou1,
-                    kumamoto1,
-                    rekisitekiakntou1,rekisitekihukuyama1
+                    kumamotoIsekiTest2
                     ];
     useLayersArr2 = [pale2,blank2,relief2,
-                    ort2,seamlessphoto2,gazo12,muro2,kago2,
+                    ort2,seamlessphoto2,gazo12,usamiyazaki012,usamiyakonozyou012,usanobeoka012,muro2,kago2,
                     syokusei2,dozyouzu2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,
                     ooameasia07202,ooameasia07182,
                     t0802dol2,t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
+                    rekisitekikantou2,zinsokugazou2,rekisitekitoukyou2,rekisitekihukuyama2,
+                    kumamotoIseki2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
                     osm2,mierune2,mieruneMono2,toner2,
                     aya2,sobo2,soboZ2,
@@ -62,6 +65,7 @@ $(function(){
         $(".secret-tr").toggle();
     });
 });
+
 //------------------------------------------------------------------------------
 //背景ダイアログ用のテーブルを作成する。haikei.jsで使っている。
 function funcHaikeiTableCreate(mapElement,mapName){
@@ -344,7 +348,9 @@ $(function(){
         content += "<tr><td>出典</td><td>" + prop["origin"] + "</td></tr>";
         content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
         content += "</table>";
-        content += prop["detail2"];
+
+        if(prop["detail2"]) content += prop["detail2"];
+
         mydialog({
             id:"info-dialog",
             class:"info-dialog",

@@ -128,12 +128,59 @@ $(function(){
                 console.log(feature.getProperties());
                 funcTositiikiPopup(feature,map,evt);
                 break;
-
-
+            case "noukenkikou1":
+                console.log(feature.getProperties());
+                funcNoukenkikouModal(feature,map,evt);
+                break;
+            case "zinsokugazou":
+                console.log(feature.getProperties());
+                funcNoukenkikouModal(feature,map,evt);
+                break;
 
 
             default:
         }
+    }
+    //---------------------------------------------------
+    function funcNoukenkikouModal(feature,map,evt){
+        console.log(feature);
+        var featureProp = feature.getProperties();
+        console.log(featureProp);
+        console.log(feature.getGeometry());
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var maxHeight = $(window).height()-150;
+        console.log(maxHeight);
+        $("#modal-img-div").remove();
+        var content = "";
+        content += '<div class="modal fade" id="modal-img-div" tabindex="-1">';
+        content += '<div class="modal-dialog modal-lg">';
+        content += '<div class="modal-content">';
+        content += '<div class="modal-header">';
+        content += '<button type="button" class="close" data-dismiss="modal"><span>×</span></button>';
+        content += '<h4 class="modal-title">';
+        content += featureProp["ID"];
+        content += '</h4>';
+        content += '</div>';
+        content += '<div class="modal-body">';
+        content += '<div class="modal-img">';
+        content += featureProp["画像"];
+        content += '</div>';
+        content += '</div>';
+        //content += '<div class="modal-footer">';
+        //content += '<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>';
+        //content += '</div>';
+        content += '</div>';
+        content += '</div>';
+        content += '</div>';
+        $("body").append(content);
+
+        $(".modal-img img").css({
+            "max-height":maxHeight + "px"
+        });
+
+        $("#modal-img-div").modal();
+
     }
     //-----------------------------------------------
     function funcTositiikiPopup(feature,map,evt){
@@ -171,8 +218,6 @@ $(function(){
         table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + featureProp["area_size"] + "</td></tr>";
         table += "</table>";
         content += table;
-
-
         /*
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
         for(key in featureProp){
@@ -193,26 +238,55 @@ $(function(){
     //-----------------------------------------------
     function funcKumamotoPopup(feature,map,evt){
         var featureProp = feature.getProperties();
-        var geoType = feature.getGeometry().getType();
-        if(geoType==="Point"){
-            var coord = feature.getGeometry().getCoordinates();
-        }else{
-            var coord = evt.coordinate;
-        }
+        var coord = evt.coordinate;
         console.log(featureProp);
+        console.log(featureProp["ITM01_NAME"])
+        if(!featureProp["ITM01_NAME"]) {
+            var th01 = "遺跡番号";
+            var td01 = featureProp["m_cont1"];
+            var th02 = "遺跡名称"
+            var td02 = featureProp["m_cont2"];
+            var th03 = "所在地";
+            var td03 = featureProp["m_cont3"];
+            var th04 = "時代";
+            var td04 = featureProp["m_cont4"];
+            var th05 = "種別";
+            var td05 = featureProp["m_cont5"];
+            var th06 = "指定分類";
+            var td06 = featureProp["m_cont6"];
+            var th07 = "概要";
+            var td07 = featureProp["summary"];
+        }else{
+            var th01 = "遺跡番号";
+            var td01 = featureProp["ITM01_VAL"];
+            var th02 = "遺跡名称"
+            var td02 = featureProp["ITM02_VAL"];
+            var th03 = "備考1";
+            var td03 = featureProp["ITM03_VAL"];
+            var th04 = "備考2";
+            var td04 = featureProp["ITM04_VAL"];
+            var th05 = "備考3";
+            var td05 = featureProp["ITM05_VAL"];
+            var th06 = "指定分類";
+            var td06 = featureProp["ITM06_VAL"];
+            var th07 = "概要";
+            var td07 = "";
+        }
 
         var content = "";
-        /*
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
-        table += "<tr><th class='popup-th' style='width:70px;'>大分類</th><td class='popup-td'>" + featureProp["DAI_N"]  + "</td></tr>";
-        //table += "<tr><th class='popup-th'>凡例コード</th><td class='popup-td'>" + featureProp["HANREI_C"] + "</td></tr>";
-        table += "<tr><th class='popup-th'>凡例</th><td class='popup-td'>" + featureProp["HANREI_N"] + "</td></tr>";
-        table += "<tr><th class='popup-th'>植生コード</th><td class='popup-td'>" + featureProp["SYOKU_C"] + "</td></tr>";
-        table += "<tr><th class='popup-th'>植生</th><td class='popup-td'>" + featureProp["SYOKU_N"] + "</td></tr>";
+        table += "<tr><th class='popup-th' style='width:60px;'>" + th01 + "</th><td class='popup-td'>" + td01  + "</td></tr>";
+        table += "<tr><th class='popup-th'>" + th02 + "</th><td class='popup-td'>" + td02 + "</td></tr>";
+        table += "<tr><th class='popup-th'>" + th03 + "</th><td class='popup-td'>" + td03 + "</td></tr>";
+        table += "<tr><th class='popup-th'>" + th04 + "</th><td class='popup-td'>" + td04 + "</td></tr>";
+        table += "<tr><th class='popup-th'>" + th05 + "</th><td class='popup-td'>" + td05 + "</td></tr>";
+        table += "<tr><th class='popup-th'>" + th06 + "</th><td class='popup-td'>" + td06 + "</td></tr>";
+        table += "<tr><th class='popup-th'>" + th07 + "</th><td class='popup-td'>" + td07 + "</td></tr>";
+        //table += "<tr><th class='popup-th'>出典</th><td class='popup-td'>" + syutten + "</td></tr>";
         table += "</table>";
         content += table;
-        */
 
+        /*
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
         for(key in featureProp){
             table += "<tr>";
@@ -221,6 +295,7 @@ $(function(){
             table += "</tr>";
         }
         content += table;
+        */
 
         if(map==="map1") {
             popup1.show(coord,content);
@@ -1312,21 +1387,34 @@ $(function(){
             }
             if(hoverText) {
                 var pic = null;
+                var pic1 = null;
                 for(var key in prop){
                     if(key!=="geometry") {
                         var match = prop[key].match(/<img.src(.*?)>/);
                         if(match){
                             pic = match[0];
+                            pic1 = match[1];
                             break;
                         }
                     }
                 }
+                console.log(pic);
+                console.log(pic1);
+
+                //pic = pic.replace(/"/gi,"'");
                 if(pic) hoverText = pic.replace("<img src='","<img src='./php/proxy-jpeg.php?url=") + "<br>" + hoverText;
+                //if(pic) hoverText = pic.replace("<img src='","<img src='./php/proxy-jpeg.php?url=") + "<br>" + hoverText;
+                console.log(hoverText);
                 if (map === "map1") {
-                    $("#hoverMsg1-div").html(hoverText).css({"color":prop["_fillColor"]});
+                    $("#hoverMsg1-div").html(hoverText).css({
+                        "color":prop["_fillColor"],
+                        //"border":"solid 1px dimgrey"
+                    });
                     hoverMsg1.setPosition(coord);
                 } else {
-                    $("#hoverMsg2-div").html(hoverText).css({"color":prop["_fillColor"]});
+                    $("#hoverMsg2-div").html(hoverText).css({
+                        "color":prop["_fillColor"]
+                    });
                     hoverMsg2.setPosition(coord);
                 }
             }

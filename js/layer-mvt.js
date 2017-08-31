@@ -1083,62 +1083,183 @@ function totiriyouStyleFunction(feature, resolution) {
     return style;
 }
 //-----------------------------------------------------------------------------------------------------------------------
-var kumamoto1 = new ol.layer.VectorTile({
-    title:"test999",
+var kumamotoIseki1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"熊本県遺跡(MVT)",
     name:"kumamoto",
     origin:"",
     detail:"",
+    /*
      detail2:"<div style=''>" +
-         "選択:" +
-         "<select class='kumamoto-cate-select'>" +
-         "<option value='99' selected>選択してください。</option>" +
-         "<option value='0'>全て表示</option>" +
-         "<option value='遺跡地図（富合町指定物件）'>遺跡地図（富合町指定物件）</option>" +
-         "<option value='遺跡地図_その他（建造物、墓地など）'>遺跡地図_その他（建造物、墓地など）</option>" +
-         "<option value='遺跡地図_その他（建造物、墓地など）（指定物件）'>遺跡地図_その他（建造物、墓地など）（指定物件）</option>" +
-         "<option value='遺跡地図_横穴'>遺跡地図_横穴</option>" +
-         "<option value='遺跡地図_横穴（指定物件）'>遺跡地図_横穴（指定物件）</option>" +
-         "<option value='遺跡地図_古墳'>遺跡地図_古墳</option>" +
-         "<option value='遺跡地図_古墳（指定物件）'>遺跡地図_古墳（指定物件）</option>" +
-         "<option value='遺跡地図_寺院'>遺跡地図_寺院</option>" +
-         "<option value='遺跡地図_寺院（指定物件）'>遺跡地図_寺院（指定物件）</option>" +
-         "<option value='遺跡地図_寺院跡'>遺跡地図_寺院跡</option>" +
-         "<option value='遺跡地図_寺院跡（指定物件）'>遺跡地図_寺院跡（指定物件）</option>" +
-         "<option value='遺跡地図_城跡'>遺跡地図_城跡</option>" +
-         "<option value='遺跡地図_城跡（指定物件）'>遺跡地図_城跡（指定物件）</option>" +
-         "<option value='遺跡地図_神社（指定物件）'>遺跡地図_神社（指定物件）</option>" +
-         "<option value='遺跡地図_神社跡'>遺跡地図_神社跡</option>" +
-         "<option value='遺跡地図_石塔・石碑（指定物件）'>遺跡地図_石塔・石碑（指定物件）</option>" +
-         "<option value='遺跡地図_大樹・老樹（指定物件）'>遺跡地図_大樹・老樹（指定物件）</option>" +
-         "<option value='遺跡地図_窯跡'>遺跡地図_窯跡</option>" +
-         "<option value='遺跡地図（富合町遺跡）'>遺跡地図（富合町遺跡）</option>" +
-         "<option value='遺跡地図（城南町遺跡（点））'>遺跡地図（城南町遺跡（点））</option>" +
-         "<option value='遺跡地図(富合町遺跡群）'>遺跡地図(富合町遺跡群）</option>" +
-         "<option value='遺跡地図_遺跡群'></option>" +
-         "<option value='遺跡地図_遺跡群（指定物件）'>遺跡地図_遺跡群（指定物件）</option>" +
-         "<option value='遺跡地図（登録物件）'>遺跡地図（登録物件）</option>" +
-         "<option value='遺跡地図（城南町遺跡）'></option>" +
-         "</select></div>",
-
+     "選択:" +
+     "<select class='kumamoto-cate-select'>" +
+     "<option value='99' selected>選択してください。</option>" +
+     "<option value='0'>全て表示</option>" +
+     "<option value='遺跡地図（富合町指定物件）'>遺跡地図（富合町指定物件）</option>" +
+     "<option value='遺跡地図_その他（建造物、墓地など）'>遺跡地図_その他（建造物、墓地など）</option>" +
+     "<option value='遺跡地図_その他（建造物、墓地など）（指定物件）'>遺跡地図_その他（建造物、墓地など）（指定物件）</option>" +
+     "<option value='遺跡地図_横穴'>遺跡地図_横穴</option>" +
+     "<option value='遺跡地図_横穴（指定物件）'>遺跡地図_横穴（指定物件）</option>" +
+     "<option value='遺跡地図_古墳'>遺跡地図_古墳</option>" +
+     "<option value='遺跡地図_古墳（指定物件）'>遺跡地図_古墳（指定物件）</option>" +
+     "<option value='遺跡地図_寺院'>遺跡地図_寺院</option>" +
+     "<option value='遺跡地図_寺院（指定物件）'>遺跡地図_寺院（指定物件）</option>" +
+     "<option value='遺跡地図_寺院跡'>遺跡地図_寺院跡</option>" +
+     "<option value='遺跡地図_寺院跡（指定物件）'>遺跡地図_寺院跡（指定物件）</option>" +
+     "<option value='遺跡地図_城跡'>遺跡地図_城跡</option>" +
+     "<option value='遺跡地図_城跡（指定物件）'>遺跡地図_城跡（指定物件）</option>" +
+     "<option value='遺跡地図_神社（指定物件）'>遺跡地図_神社（指定物件）</option>" +
+     "<option value='遺跡地図_神社跡'>遺跡地図_神社跡</option>" +
+     "<option value='遺跡地図_石塔・石碑（指定物件）'>遺跡地図_石塔・石碑（指定物件）</option>" +
+     "<option value='遺跡地図_大樹・老樹（指定物件）'>遺跡地図_大樹・老樹（指定物件）</option>" +
+     "<option value='遺跡地図_窯跡'>遺跡地図_窯跡</option>" +
+     "<option value='遺跡地図（富合町遺跡）'>遺跡地図（富合町遺跡）</option>" +
+     "<option value='遺跡地図（城南町遺跡（点））'>遺跡地図（城南町遺跡（点））</option>" +
+     "<option value='遺跡地図(富合町遺跡群）'>遺跡地図(富合町遺跡群）</option>" +
+     "<option value='遺跡地図_遺跡群'></option>" +
+     "<option value='遺跡地図_遺跡群（指定物件）'>遺跡地図_遺跡群（指定物件）</option>" +
+     "<option value='遺跡地図（登録物件）'>遺跡地図（登録物件）</option>" +
+     "<option value='遺跡地図（城南町遺跡）'></option>" +
+     "</select></div>",
+     */
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:10,
-            maxZoom:15
+            maxZoom:16
         }),
         tilePixelRatio:16,
-        //https://kouapp.main.jp/maps/b_tiles/shouhan_test/s_tile/
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamoto/{z}/{x}/{y}.mvt"
-        //url: "http://kouapp.main.jp/maps/b_tiles/shouhan_test/s_tile/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamotoiseki3/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
-    style: kumamotoStyleFunction,
-    //renderMode:"vector"
-    //renderMode:"image"
+    style: kumamotoStyleFunction
+});
+var kumamotoIseki2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"熊本県遺跡(MVT)",
+    name:"kumamoto",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:16
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamotoiseki3/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: kumamotoStyleFunction
+});
+var kumamotoIsekiTest2 = new ol.layer.VectorTile({
+    title:"testtest",
+    name:"kumamoto",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:16
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamotoisekiline/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    //style: suiroStyleFunction
+    style: kumamotoStyleFunction
 });
 var kumamotoTarget = "0";
 function kumamotoStyleFunction(feature, resolution) {
+    //console.log(feature);
+    var prop = feature.getProperties();
+    var geoType = feature.getGeometry().getType();
+    //var fillColor = prop["_fillColor"];
+    var zindex = prop["_zindex"];
+    if(resolution>2445) {//ズーム６
+        var pointRadius = 2;
+    }else if(resolution>1222) {//ズーム７
+        var pointRadius = 2;
+    }else if(resolution>611){
+        var pointRadius = 2;
+    }else if(resolution>305) {
+        var pointRadius = 2;
+    }else if(resolution>152) {
+        var pointRadius = 2;
+    }else if(resolution>76) {
+        var pointRadius = 2;
+    }else if(resolution>38) {
+        var pointRadius = 4;
+    }else{
+        var pointRadius = 6;
+    }
+    //console.log(geoType);
+    switch (geoType){
+        case "MultiLineString":
+        case "LineString":
+            //var lineDash = eval(prop["_lineDash"]);
+            var style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color:"red",
+                    //lineDash:lineDash,
+                    width:1
+                })
+            });
+            break;
+        case "MultiPoint":
+        case "Point":
+            if(resolution>305) break;
+                var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius:pointRadius,
+                    fill: new ol.style.Fill({
+                        color:"orange"
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 1
+                    })
+                })
+            });
+            break;
+        case "Polygon":
+        case "MultiPolygon":
+            /*
+            if(fillColor==""){
+                fillColor = d3CategoryColor(d3CategoryColorI);
+                d3CategoryColorI++;
+                //console.log(d3CategoryColorI)
+                feature["I"]["_fillColor"] = fillColor;
+            }
+            */
+
+            if(resolution<305) {
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:"rgba(0,128,0,0.8)"
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: "gray",
+                        width: 1
+                    }),
+                    zIndex: 0
+                });
+            }else{
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:"rgba(0,128,0,1.0)"
+                    }),
+                    zIndex: 0
+                });
+            }
+            break;
+        default:
+    }
+    return style;
+
+
+    /*
     var prop = feature.getProperties();
     var fillColor = "black";
     var layerAr =
@@ -1225,6 +1346,7 @@ function kumamotoStyleFunction(feature, resolution) {
             break;
     }
     return style;
+    */
 
 }
 //全国小地域人口等--------------------------------------------------------------------------------------------------------

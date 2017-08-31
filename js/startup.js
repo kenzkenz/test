@@ -43,14 +43,15 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         msg += "★背景のうち(MVT)とついているものは3D化できません！<br>";
         //msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 背景に全国の用途地域を追加しました。<br>";
-        msg += "2 背景に東峰地区(7/30,31撮影)を追加しました。<br>";
-        msg += "3 小地域人口等(MVT)から人口ピラミッドを作成します。<br>";
-        msg += "4 背景に道路中心線・河川中心線を追加しました。<br>";
-        msg += "5 背景に福井県の古地図を追加しました。<br>";
-        msg += "6 背景にアジア航測株式会社撮影航空写真追加しました。<br>";
-        msg += "7 背景に島根県の古地図を追加しました。<br>";
-        msg += "8 背景に東峰地区の航空写真を追加しました。<br>";
+        msg += "1 背景に迅速測図を追加しました。<br>";
+        msg += "2 背景に全国の用途地域を追加しました。<br>";
+        msg += "3 背景に東峰地区(7/30,31撮影)を追加しました。<br>";
+        msg += "4 小地域人口等(MVT)から人口ピラミッドを作成します。<br>";
+        msg += "5 背景に道路中心線・河川中心線を追加しました。<br>";
+        msg += "6 背景に福井県の古地図を追加しました。<br>";
+        msg += "7 背景にアジア航測株式会社撮影航空写真追加しました。<br>";
+        msg += "8 背景に島根県の古地図を追加しました。<br>";
+        //msg += "8 背景に東峰地区の航空写真を追加しました。<br>";
         //msg += "5 背景に小地域人口等を追加しました。<br>";
        // msg += "6 背景に朝倉地区の航空写真を追加しました。<br>";
         //msg += "6 背景に東京都、山口県の古地図を追加しました。<br>";
@@ -71,7 +72,7 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/08/08</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/08/29</div>";
         $.notify({//options
             message: msg
         }, {//settings
@@ -101,7 +102,7 @@ $(function(){
         center:center,
         zoom:zoom
     });
-    inu.setZIndex(9999999);
+    //inu.setZIndex(9999999);
     editLayer.set("altitudeMode","clampToGround");
     editLayer.setZIndex(9999999);//edit.js参照
     editLayer.set("selectable",true);
@@ -109,7 +110,8 @@ $(function(){
     //id map1に起動時に表示されるレイヤーをセット
     map1 = new ol.Map({
         target:"map1",
-        layers:[pale1,inu,editLayer],
+        //layers:[pale1,inu,editLayer],
+        layers:[pale1,editLayer],
         view:view1,
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
             new ol.interaction.DragRotateAndZoom()//shift+ドラッグで回転可能に
@@ -117,7 +119,8 @@ $(function(){
     });
     map2 = new ol.Map({
         target:"map2",
-        layers:[pale2,inu],
+        //layers:[pale2,inu],
+        layers:[pale2],
         view:view1,//最初はview1
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
             new ol.interaction.DragRotateAndZoom()

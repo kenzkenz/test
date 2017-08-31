@@ -1237,7 +1237,7 @@ var gazo11 = new ol.layer.Tile({
     title:"国土地理院_40年前の写真",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"国土画像情報（第一期1974～1978年撮影）",
-    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
     message:"74～78年",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -1251,7 +1251,7 @@ var gazo12 = new ol.layer.Tile({
     title:"国土地理院_40年前の写真",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
-    icon:"<i class='fa fa-picture-o fa-fw' style='color:green;'></i>",
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
     message:"74～78年",
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
@@ -2377,31 +2377,175 @@ var sekiz2 = new ol.layer.Tile({
     })
 });
 //地質関係ここまで--------------------------------------------------------------------------------------------------------
-var rekisitekiakntou1 = new ol.layer.Tile({
-    title:"歴史的農業環境 (関東)",
-    origin:"",
+//農研機構さんのラスタータイル----------------------------------------------------------------------------------------------
+var rekisitekikantou1 = new ol.layer.Tile({
+    title:"迅速測図 (関東)",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
     detail:"",
-    //icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
     source: new ol.source.XYZ({
-        url:"https://www.finds.jp/ws/tmc/1.0.0/Tokyo5000-900913-L/{z}/{x}/{y}.jpg",
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Kanto_Rapid-900913-L/{z}/{x}/{y}.png",
         //minZoom :1,
         maxZoom:17
     })
 });
-
-
-var rekisitekihukuyama1 = new ol.layer.Tile({
-    title:"歴史的農業環境 (福山市)",
-    origin:"",
+var rekisitekikantou2= new ol.layer.Tile({
+    title:"迅速測図 (関東)",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
     detail:"",
-    //icon:"<i class='fa fa-map fa-fw' style='color:darkred;'></i>",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Kanto_Rapid-900913-L/{z}/{x}/{y}.png",
+        maxZoom:17
+    })
+});
+var rekisitekitoukyou1 = new ol.layer.Tile({
+    title:"五千分一東京図測量原図",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
+    detail:"",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Tokyo5000-900913-L/{z}/{x}/{y}.png",
+        maxZoom:18
+    })
+});
+var rekisitekitoukyou2 = new ol.layer.Tile({
+    title:"五千分一東京図測量原図",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
+    detail:"",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Tokyo5000-900913-L/{z}/{x}/{y}.png",
+        maxZoom:18
+    })
+});
+var rekisitekihukuyama1 = new ol.layer.Tile({
+    title:"旧版地形図 (福山市)",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
+    detail:"",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
     source: new ol.source.XYZ({
         url:"https://www.finds.jp/ws/tmc/1.0.0/Fukuyama_1899-900913-L/{z}/{x}/{y}.png",
-        //minZoom :1,
         maxZoom:17
     })
 });
-
+var rekisitekihukuyama2 = new ol.layer.Tile({
+    title:"旧版地形図 (福山市)",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
+    detail:"",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+    source: new ol.source.XYZ({
+        url:"https://www.finds.jp/ws/tmc/1.0.0/Fukuyama_1899-900913-L/{z}/{x}/{y}.png",
+        maxZoom:17
+    })
+});
+//農研機構さんのラスタータイル ここまで--------------------------------------------------------------------------------------
+//農研機構さんのgeojson---------------------------------------------------------------------------------------------------
+var zinsokugazou1 = new ol.layer.Vector({
+    name:"zinsokugazou",
+    title:"迅速測図・視図(関東)",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
+    detail:"",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+    source:new ol.source.Vector({
+        url:"geojson/zinsokugazou.geojson",
+        format: new ol.format.GeoJSON()
+    }),
+    style:commonstyleFunction
+});
+var zinsokugazou2 = new ol.layer.Vector({
+    name:"zinsokugazou",
+    title:"迅速測図・視図(関東)",
+    origin:"<a href='http://www.finds.jp/tmc/layers.html.ja' target='_blank'>農研機構</a>",
+    detail:"",
+    icon:"<i class='fa fa-map fa-fw' style='color:green;'></i>",
+    source:new ol.source.Vector({
+        url:"geojson/zinsokugazou.geojson",
+        format: new ol.format.GeoJSON()
+    }),
+    style:commonstyleFunction
+});
+//農研機構さんのgeojson ここまで-------------------------------------------------------------------------------------------
+//米軍航空写真-----------------------------------------------------------------------------------------------------------
+var usamiyazaki011 = new ol.layer.Tile({
+    title:"宮崎市米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/miyazaki01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var usamiyazaki012 = new ol.layer.Tile({
+    title:"宮崎市米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/miyazaki01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var usanobeoka011 = new ol.layer.Tile({
+    title:"延岡市米軍航空写真(昭和23年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/nobeoka01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var usanobeoka012 = new ol.layer.Tile({
+    title:"延岡市米軍航空写真(昭和23年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/nobeoka01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var usamiyakonozyou011 = new ol.layer.Tile({
+    title:"都城市米軍航空写真(昭和23年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/miyakonozyou01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var usamiyakonozyou012 = new ol.layer.Tile({
+    title:"都城市米軍航空写真(昭和23年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/miyakonozyou01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+//米軍航空写真 ここまで----------------------------------------------------------------------------------------------------
 
 
 

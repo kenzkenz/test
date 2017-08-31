@@ -43,7 +43,7 @@ $(function(){
             htmlChar += "<td class='data-td-info'><i class='fa fa-info-circle fa-lg primary'></i></td>";
             htmlChar += "</tr>";
         }
-        htmlChar += "</table>実験：<span class='zikken'>バス</span>：<span class='zikken'>AED</span>：<span class='zikken'>消火栓</span>：<span class='zikken'>xxx</span></div>";
+        //htmlChar += "</table>実験：<span class='zikken'>バス</span>：<span class='zikken'>AED</span>：<span class='zikken'>消火栓</span>：<span class='zikken'>xxx</span></div>";
         $("#" + mapName + " .data-dialog .dialog-content").html(htmlChar);
 
         $("#" + mapName + " .data-tbl tbody").sortable({
@@ -215,8 +215,6 @@ $(function(){
     function osmStyleFunction(feature, resolution) {
         var prop = feature.getProperties();
         //console.log(prop);
-        //console.log(prop["tags"]);
-        //console.log(prop["tags"]["hazard_type"]);
         var geoType = feature.getGeometry().getType();
         var fillColor = prop["_fillColor"];
         var hazardType = prop["tags"]["hazard_type"];
@@ -377,11 +375,25 @@ $(function(){
             });
             //--------------------------------------
             console.log(dataLayerId);
-            if(dataLayerId.split("-")[1]!=="yakuba") {
-                var layerName = "dataLayer";
-            }else{
-                var layerName = "yakubaLayer";
+            //if(dataLayerId.split("-")[1]!=="yakuba") {
+            //    var layerName = "dataLayer";
+            //}else{
+            //    var layerName = "yakubaLayer";
+            //}
+
+            var layerName = dataLayerId.split("-")[1];
+
+            switch (layerName) {
+                case "noukenkikou1":
+                    layerName = "noukenkikou1";
+                    break;
+                case "yakuba":
+                    layerName = "yakubaLayer";
+                    break;
+                default:
+                    layerName = "dataLayer";
             }
+
             dataLayer[dataLayerId] = new ol.layer.Vector({
                 name:layerName,
                 source:vectorSource,
@@ -667,6 +679,21 @@ var dataLayerArr =
             "opacity":"0.7",
             "zoom":""
         }
+        /*
+        ,
+        {
+            "id":"noukenkikou1",
+            "title":"農研機構test",
+            "origin":"",
+            "detail":"",
+            "icon":"<i class='fa fa-map fa-fw' style='color:red;'></i>",
+            "opacity":"0.7",
+            "zoom":""
+        }
+        */
+
+        
+
         /*
         ,
         {
