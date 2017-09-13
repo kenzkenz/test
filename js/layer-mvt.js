@@ -303,6 +303,8 @@ function youtotiikiStyleFunction(feature, resolution) {
 //全国用途地域ここまで-----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 var m500mesh1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
     title:"500Mメッシュ(MVT)test",
     name:"500mesh",
     origin:"",
@@ -874,7 +876,11 @@ function syokuseizuStyleFunction(feature, resolution) {
     return style;
 }
 //エコリス植生図ここまで---------------------------------------------------------------------------------------------------
+//全国文化財-------------------------------------------------------------------------------------------------------------
 var bunkazai1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
     title:"全国文化財(MVT)test",
     name:"bunkazai",
     origin:"",
@@ -910,6 +916,45 @@ var bunkazai1 = new ol.layer.VectorTile({
     renderMode:"vector"
     //renderMode:"image"
 });
+var bunkazai2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国文化財(MVT)test",
+    name:"bunkazai",
+    origin:"",
+    detail:"",
+    detail2:"<div style=''>" +
+    "種類小区分選択:" +
+    "<select class='syoukubun-cate-select'>" +
+    "<option value='99' selected>選択してください。</option>" +
+    "<option value='0'>全て表示</option>" +
+    "<option value='11'>有形文化財</option>" +
+    "<option value='21'>無形文化財</option>" +
+    "<option value='31'>有形民俗文化財</option>" +
+    "<option value='32'>無形民俗文化財</option>" +
+    "<option value='41'>史跡（旧跡を含む）</option>" +
+    "<option value='42'>名勝</option>" +
+    "<option value='43'>天然記念物</option>" +
+    "<option value='51'>重要文化的景観</option>" +
+    "<option value='61'>伝統的建造物群保存地区</option>" +
+    "<option value='71'>選定保存技術</option>" +
+    "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkazai2/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,
+    style: bunkazaiStyleFunction,
+    renderMode:"vector"
+    //renderMode:"image"
+});
 var syoukubunTarget = "0";
 function bunkazaiStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
@@ -926,7 +971,6 @@ function bunkazaiStyleFunction(feature, resolution) {
     }else{
         return;
     }
-
     var fillColor = syoukubunArFilter[0]["color"];
     var style = new ol.style.Style({
         image: new ol.style.Circle({
@@ -940,11 +984,12 @@ function bunkazaiStyleFunction(feature, resolution) {
         })
     });
     return style;
-
 }
+//全国文化財ここまで------------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
 var totiriyoul1 = new ol.layer.Tile({
-    //secret:true,
+    folder:"child",
+    category:"test",
     title:"全国土地利用細分メッシュtest",
     name:"totiriyou",
     origin:"",
@@ -979,6 +1024,8 @@ var totiriyoul1 = new ol.layer.Tile({
 });
 //全国土地利用図
 var totiriyou30001 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
     title:"",
     name:"totiriyou",
     origin:"",
@@ -999,6 +1046,8 @@ var totiriyou30001 = new ol.layer.VectorTile({
     //renderMode:"image"
 });
 var totiriyou40001 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
     title:"",
     name:"totiriyou",
     origin:"",
@@ -1019,6 +1068,8 @@ var totiriyou40001 = new ol.layer.VectorTile({
     //renderMode:"image"
 });
 var totiriyou50001 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
     title:"",
     name:"totiriyou",
     origin:"",
@@ -1039,6 +1090,8 @@ var totiriyou50001 = new ol.layer.VectorTile({
     renderMode:"image"
 });
 var totiriyou60001 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
     title:"",
     name:"totiriyou",
     origin:"",
@@ -1083,7 +1136,10 @@ function totiriyouStyleFunction(feature, resolution) {
     return style;
 }
 //-----------------------------------------------------------------------------------------------------------------------
+
 var kumamotoIseki1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
     icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
     title:"熊本県遺跡(MVT)",
     name:"kumamoto",
@@ -1126,15 +1182,17 @@ var kumamotoIseki1 = new ol.layer.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:16
+            maxZoom:17
         }),
         tilePixelRatio:16,
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamotoiseki3/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
     style: kumamotoStyleFunction
 });
 var kumamotoIseki2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
     icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
     title:"熊本県遺跡(MVT)",
     name:"kumamoto",
@@ -1144,10 +1202,10 @@ var kumamotoIseki2 = new ol.layer.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:16
+            maxZoom:17
         }),
         tilePixelRatio:16,
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamotoiseki3/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
     style: kumamotoStyleFunction
@@ -1176,7 +1234,6 @@ function kumamotoStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
     var geoType = feature.getGeometry().getType();
     //var fillColor = prop["_fillColor"];
-    var zindex = prop["_zindex"];
     if(resolution>2445) {//ズーム６
         var pointRadius = 2;
     }else if(resolution>1222) {//ズーム７
@@ -1195,14 +1252,20 @@ function kumamotoStyleFunction(feature, resolution) {
         var pointRadius = 6;
     }
     //console.log(geoType);
+    var text = "";
+    if(resolution<4.78) {
+        if(prop["m_cont2"]) {
+            text = prop["m_cont2"];
+        }else{
+            text = prop["ITM02_VAL"];
+        }
+    }
     switch (geoType){
         case "MultiLineString":
         case "LineString":
-            //var lineDash = eval(prop["_lineDash"]);
             var style = new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color:"red",
-                    //lineDash:lineDash,
                     width:1
                 })
             });
@@ -1210,7 +1273,7 @@ function kumamotoStyleFunction(feature, resolution) {
         case "MultiPoint":
         case "Point":
             if(resolution>305) break;
-                var style = new ol.style.Style({
+            var style = new ol.style.Style({
                 image: new ol.style.Circle({
                     radius:pointRadius,
                     fill: new ol.style.Fill({
@@ -1220,21 +1283,21 @@ function kumamotoStyleFunction(feature, resolution) {
                         color: "white",
                         width: 1
                     })
+                }),
+                text: new ol.style.Text({
+                    font: "8px sans-serif",
+                    text: text,
+                    offsetY:10,
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 3
+                    })
                 })
             });
             break;
         case "Polygon":
         case "MultiPolygon":
-            /*
-            if(fillColor==""){
-                fillColor = d3CategoryColor(d3CategoryColorI);
-                d3CategoryColorI++;
-                //console.log(d3CategoryColorI)
-                feature["I"]["_fillColor"] = fillColor;
-            }
-            */
-
-            if(resolution<305) {
+            if(resolution<76) {
                 var style = new ol.style.Style({
                     fill: new ol.style.Fill({
                         color:"rgba(0,128,0,0.8)"
@@ -1242,6 +1305,14 @@ function kumamotoStyleFunction(feature, resolution) {
                     stroke: new ol.style.Stroke({
                         color: "gray",
                         width: 1
+                    }),
+                    text: new ol.style.Text({
+                        font: "8px sans-serif",
+                        text: text,
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 3
+                        })
                     }),
                     zIndex: 0
                 });
@@ -1257,97 +1328,6 @@ function kumamotoStyleFunction(feature, resolution) {
         default:
     }
     return style;
-
-
-    /*
-    var prop = feature.getProperties();
-    var fillColor = "black";
-    var layerAr =
-        [
-            {"name":"遺跡地図（富合町指定物件）","color":"red"},
-            {"name":"遺跡地図_その他（建造物、墓地など）","color":"green"},
-            {"name":"遺跡地図_その他（建造物、墓地など）（指定物件）","color":"blue"},
-            {"name":"遺跡地図_横穴","color":"gold"},
-            {"name":"遺跡地図_横穴（指定物件）","color":"magenta"},//??
-            {"name":"遺跡地図_古墳","color":"peru"},
-            {"name":"遺跡地図_古墳（指定物件）","color":"mediumseagreen"},
-            {"name":"遺跡地図_寺院","color":"springgreen"},
-            {"name":"遺跡地図_寺院（指定物件）","color":"darkolivegreen"},
-            {"name":"遺跡地図_寺院跡","color":"purple"},
-            {"name":"遺跡地図_寺院跡（指定物件）","color":"navy"},
-            {"name":"遺跡地図_城跡","color":"firebrick"},
-            {"name":"遺跡地図_城跡（指定物件）","color":"lightseagreen"},
-            {"name":"遺跡地図_神社（指定物件）","color":"chocolate"},
-            {"name":"遺跡地図_神社跡","color":"rosybrown"},
-            {"name":"遺跡地図_石塔・石碑（指定物件）","color":"deepskyblue"},
-            {"name":"遺跡地図_大樹・老樹（指定物件）","color":"pink"},
-            {"name":"遺跡地図_窯跡","color":"orange"},
-            {"name":"遺跡地図（富合町遺跡）","color":"darkcyan"},
-            {"name":"遺跡地図（城南町遺跡（点））","color":"maroon"},
-            {"name":"遺跡地図(富合町遺跡群）","color":"darkslateblue"},
-            {"name":"遺跡地図_遺跡群","color":"turquoise"},
-            {"name":"遺跡地図_遺跡群（指定物件）","color":"chartreuse"},
-            {"name":"遺跡地図（登録物件）","color":"olive"},
-            {"name":"遺跡地図（城南町遺跡）","color":"crimson"},
-
-        ];
-    var targetName = prop["LAYER_NAME"];
-    //console.log(targetName);
-    var layerArFilter = layerAr.filter(function (item,index) {
-        if(item.name==targetName) return true;
-    });
-    //console.log(layerArFilter[0]);
-
-    if(layerArFilter[0]) fillColor = layerArFilter[0]["color"];
-
-    var geoType = feature.getGeometry().getType();
-    //console.log(geoType)
-    switch (geoType) {
-        case "LineString":
-            var lineDash = eval(prop["_lineDash"]);
-            var style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                    color: fillColor ? fillColor : "red",
-                    lineDash: lineDash,
-                    width: 6
-                })
-            });
-            break;
-        case "Point":
-            var style = new ol.style.Style({
-                image: new ol.style.Circle({
-                    radius: 6,
-                    fill: new ol.style.Fill({
-                        color: fillColor ? fillColor : "orange"
-                    }),
-                    stroke: new ol.style.Stroke({color: "white", width: 1})
-                }),
-                Index:1
-            });
-            break;
-        case "Polygon":
-        case "MultiPolygon":
-            if(fillColor==""){
-                fillColor = d3CategoryColor(d3CategoryColorI);
-                d3CategoryColorI++;
-                //console.log(d3CategoryColorI)
-                feature["I"]["_fillColor"] = fillColor;
-            }
-            var style = new ol.style.Style({
-                fill: new ol.style.Fill({
-                    color:fillColor ? fillColor : "rgba(200,100,100,0.4)"
-                }),
-                stroke: new ol.style.Stroke({
-                    color: "gray",
-                    width: 1
-                }),
-                zIndex:0
-            });
-            break;
-    }
-    return style;
-    */
-
 }
 //全国小地域人口等--------------------------------------------------------------------------------------------------------
 var vtMaxColor = "indigo";
@@ -1441,6 +1421,8 @@ function syoutiikiStyleFunction(feature, resolution) {
 //全国小地域人口等ここまで--------------------------------------------------------------------------------------------------
 //経済センサス------------------------------------------------------------------------------------------------------------
 var test = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
     title:"経済センサスtest(MVT)",
     name:"keizai-census",
     origin:"",
@@ -1605,6 +1587,442 @@ function tositiikiStyleFunction(feature, resolution) {
     }
     return style;
 }
-
-
 //全国都市地域ここまで-----------------------------------------------------------------------------------------------------
+//宮崎県津波浸水----------------------------------------------------------------------------------------------------------
+var tunamimvt1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"hazard",
+    title:"津波浸水想定区域(宮崎県)(MVT)",
+    name:"tunamimvt",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:red;'></i>",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            //maxZoom:12
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunami/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    //maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: tunamiStyleFunction
+});
+var tunamimvt2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"hazard",
+    title:"津波浸水想定区域(宮崎県)(MVT)",
+    name:"tunamimvt",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:red;'></i>",
+    source: new ol.source.VectorTile({
+        cacheSize:10000,
+        format: new ol.format.MVT(),
+        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            //maxZoom:12
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunami/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    //maxResolution:1222.99,
+    //style: createMapboxStreetsV6Style()
+    style: tunamiStyleFunction
+});
+function tunamiStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var level = prop["level"];
+    var fillColor = "black";
+    switch (level) {
+        case 1:
+            fillColor = "rgba(0,255,0,0.7)";
+            break;
+        case 2:
+            fillColor = "rgba(255,230,0,0.7)";
+            break;
+        case 3:
+            fillColor = "rgba(255,153,0,0.7)";
+            break;
+        case 4:
+            fillColor = "rgba(239,117,152,0.7)";
+            break;
+        case 5:
+            fillColor = "rgba(255,40,0,0.7)";
+            break;
+        case 6:
+            fillColor = "rgba(180,0,104,0.7)";
+            break;
+        case 7:
+            fillColor = "rgba(128,0,255,0.7)";
+            break;
+    }
+
+    var style = new ol.style.Style({
+        fill: new ol.style.Fill({
+            color:fillColor
+        }),
+        /*
+         stroke: new ol.style.Stroke({
+         color: "grey",
+         width: 1
+         }),
+         */
+        //zIndex:zindex
+    });
+    return style;
+}
+//宮崎県津波浸水ここまで---------------------------------------------------------------------------------------------------
+//全国博物館-------------------------------------------------------------------------------------------------------------
+var zenkokuHakubutukan1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国博物館等(MVT)test",
+    name:"zenkokuiseki",
+    origin:"<a href='https://savemlak.jp' target='_blank'>saveMLAK Community</a>",
+    detail:"博物館・美術館、図書館、文書館、公民館の情報です。",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/hakubutukan/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: zenkokuhakubutukanStyleFunction
+});
+var zenkokuHakubutukan2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国博物館等(MVT)test",
+    name:"zenkokuiseki",
+    origin:"<a href='https://savemlak.jp' target='_blank'>saveMLAK Community</a>",
+    detail:"博物館・美術館、図書館、文書館、公民館の情報です。",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/hakubutukan/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: zenkokuhakubutukanStyleFunction
+});
+function zenkokuhakubutukanStyleFunction(feature, resolution) {
+    if(resolution>1222) return;
+    var prop = feature.getProperties();
+
+    if(resolution>305) {
+        var pointRadius = 2;
+    }else if(resolution>152) {
+        var pointRadius = 4;
+    }else if(resolution>76) {
+        var pointRadius = 4;
+    }else if(resolution>38) {
+        var pointRadius = 4;
+    }else{
+        var pointRadius = 6;
+    }
+    var text = "";
+    if(resolution<19.11) {
+        text = prop["name"];
+    }
+    var fillColor = "blue";
+
+    var name = prop["name"];
+    if(name.indexOf("博物館")!==-1) {
+        fillColor = "red";
+    }else if(name.indexOf("美術館")!==-1){
+        fillColor = "red";
+    }else if(name.indexOf("図書館")!==-1){
+        fillColor = "green";
+    }
+
+    var style = new ol.style.Style({
+        image: new ol.style.Circle({
+            radius:pointRadius,
+            fill: new ol.style.Fill({
+                color:fillColor
+            }),
+            /*
+             stroke: new ol.style.Stroke({
+             color: "white",
+             width: 1
+             })
+             */
+        }),
+        text: new ol.style.Text({
+            font: "8px sans-serif",
+            text: text,
+            offsetY:10,
+            stroke: new ol.style.Stroke({
+                color: "white",
+                width: 3
+            })
+        })
+    });
+    return style;
+}
+//全国遺跡---------------------------------------------------------------------------------------------------------------
+var zenkokuIseki1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国旧石器時代遺跡(MVT)",
+    name:"zenkokuiseki",
+    origin:"<a href='http://palaeolithic.jp/data/index.htm' target='_blank'>データベース『日本列島の旧石器時代遺跡』</a>の全国版遺跡データ(csv)",
+    detail:"日本旧石器学会 ",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/zenkoku/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: zenkokuisekiStyleFunction
+});
+var zenkokuIseki2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国旧石器時代遺跡(MVT)",
+    name:"zenkokuiseki",
+    origin:"<a href='http://palaeolithic.jp/data/index.htm' target='_blank'>データベース『日本列島の旧石器時代遺跡』</a>の全国版遺跡データ(csv)",
+    detail:"日本旧石器学会 ",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/zenkoku/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: zenkokuisekiStyleFunction
+});
+function zenkokuisekiStyleFunction(feature, resolution) {
+    //console.log(feature);
+    var prop = feature.getProperties();
+    var geoType = feature.getGeometry().getType();
+    //var fillColor = prop["_fillColor"];
+    if(resolution>2445) {//ズーム６
+        var pointRadius = 2;
+    }else if(resolution>1222) {//ズーム７
+        var pointRadius = 2;
+    }else if(resolution>611){
+        var pointRadius = 2;
+    }else if(resolution>305) {
+        var pointRadius = 2;
+    }else if(resolution>152) {
+        var pointRadius = 4;
+    }else if(resolution>76) {
+        var pointRadius = 4;
+    }else if(resolution>38) {
+        var pointRadius = 4;
+    }else{
+        var pointRadius = 6;
+    }
+    //console.log(geoType);
+    var text = "";
+    if(resolution<19.11) {
+        text = prop["遺跡名"];
+    }
+    switch (geoType){
+        case "MultiLineString":
+        case "LineString":
+            var style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color:"red",
+                    width:1
+                })
+            });
+            break;
+        case "MultiPoint":
+        case "Point":
+            if(resolution>1222) break;
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius:pointRadius,
+                    fill: new ol.style.Fill({
+                        color:"red"
+                    }),
+                    /*
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 1
+                    })
+                    */
+                }),
+                text: new ol.style.Text({
+                    font: "8px sans-serif",
+                    text: text,
+                    offsetY:10,
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 3
+                    })
+                })
+            });
+            break;
+        case "Polygon":
+        case "MultiPolygon":
+            if(resolution<76) {
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:"rgba(0,128,0,0.8)"
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: "gray",
+                        width: 1
+                    }),
+                    text: new ol.style.Text({
+                        font: "8px sans-serif",
+                        text: text,
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 3
+                        })
+                    }),
+                    zIndex: 0
+                });
+            }else{
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:"rgba(0,128,0,1.0)"
+                    }),
+                    zIndex: 0
+                });
+            }
+            break;
+        default:
+    }
+    return style;
+}
+//-----------------
+var gunmaIseki1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"群馬県遺跡(MVT)test",
+    name:"gunma",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/gunmaken/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: kumamotoStyleFunction
+});
+//全国博物館-------------------------------------------------------------------------------------------------------------
+var bunkatyoudb1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"国指定文化財等データベース(MVT)",
+    name:"bunkatyoudb",
+    origin:"<a href='http://kunishitei.bunka.go.jp/bsys' target='_blank'>国指定文化財等データベース</a>",
+    detail:"文化庁のデータベースからcsvを取得しました。",
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkatyoudb/{z}/{x}/{y}.mvt"
+    }),
+    style: bunkatyoudbStyleFunction
+});
+var bunkatyoudb2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"国指定文化財等データベース(MVT)",
+    name:"bunkatyoudb",
+    origin:"<a href='http://kunishitei.bunka.go.jp/bsys' target='_blank'>国指定文化財等データベース</a>",
+    detail:"文化庁のデータベースからcsvを取得しました。",
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:17
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkatyoudb/{z}/{x}/{y}.mvt"
+    }),
+    style: bunkatyoudbStyleFunction
+});
+function bunkatyoudbStyleFunction(feature, resolution) {
+    if(resolution>611.5) return;
+    var prop = feature.getProperties();
+
+    if(resolution>305) {
+        var pointRadius = 2;
+    }else if(resolution>152) {
+        var pointRadius = 4;
+    }else if(resolution>76) {
+        var pointRadius = 4;
+    }else if(resolution>38) {
+        var pointRadius = 4;
+    }else{
+        var pointRadius = 6;
+    }
+    var text = "";
+    if(resolution<9.55) {
+        text = prop["名称"];
+    }
+    var fillColor = "blue";
+
+    var category = prop["文化財種類"];
+
+    switch (category) {
+        case "国宝・重要文化財(建造物)":
+            fillColor = "magenta";
+            break;
+    }
+    var style = new ol.style.Style({
+        image: new ol.style.Circle({
+            radius:pointRadius,
+            fill: new ol.style.Fill({
+                color:fillColor
+            }),
+            /*
+             stroke: new ol.style.Stroke({
+             color: "white",
+             width: 1
+             })
+             */
+        }),
+        text: new ol.style.Text({
+            font: "8px sans-serif",
+            text: text,
+            offsetY:10,
+            stroke: new ol.style.Stroke({
+                color: "white",
+                width: 3
+            })
+        })
+    });
+    return style;
+}

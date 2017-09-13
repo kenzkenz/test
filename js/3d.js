@@ -2,12 +2,41 @@ var ol3d1 = null;
 var ol3d2 = null;
 var prevTilt = 0.5;
 var d3Flg = true;
+
 $(function(){
+    $(".elevMag-text").spinner({
+        max:10, min:1, step:1,
+        stop:function(event,ui){
+            //syoutiikiColorChange(ui.value,mapName);
+            var mapObj = funcMaps($(this));
+            var mapName = mapObj["name"];
+            console.log(mapName)
+            console.log(ui.value)
+            if(mapName==="map1") {
+                var scene = ol3d1.getCesiumScene();
+            }else{
+                var scene = ol3d2.getCesiumScene();
+            }
+
+            var terrain = new Cesium.PngElevationTileTerrainProvider({
+                url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+                tilingScheme: new Cesium.GeographicTilingScheme(),
+                magnification:Number($(this).val())
+            });
+            scene.terrainProvider = terrain;
+        }
+    });
+
     //3Dボタン
     $(".d3d2-btn").click(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-        if($(this).text()=="3D"){
+        if($(this).text()==="3D"){
+
+            $("#" + mapName + " .cesium-btn-up").show(500);
+            $("#" + mapName + " .cesium-btn-down").show(500);
+            $("#" + mapName + " .elevMag").show(500);
+
             if(d3Flg) {
                 $.notify({//options
                     message: "<div style='text-align:center;'><i class='fa fa-exclamation fa-fw'></i>十字コントーラーはドラッグで移動可能です。</div>"
@@ -31,10 +60,21 @@ $(function(){
                     map:map1
                 });
                 var scene1 = ol3d1.getCesiumScene();
+
                 var terrain = new Cesium.PngElevationTileTerrainProvider({
                     url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+                    //url:"https://cyberjapandata.gsi.go.jp/xyz/dem_png/{z}/{x}/{y}.png",
                     tilingScheme: new Cesium.GeographicTilingScheme(),
+                    magnification:1
                 });
+                /*
+                terrain = new Cesium.CesiumTerrainProvider({
+                    url: 'https://assets.agi.com/stk-terrain/world'
+                });
+                */
+
+
+
                 scene1.terrainProvider = terrain;
                 scene1.screenSpaceCameraController._minimumZoomRate = 1;//10000
                 // ズームしたときの，ホイールに対する動作制御。
@@ -53,6 +93,7 @@ $(function(){
                 var terrain = new Cesium.PngElevationTileTerrainProvider({
                     url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
                     tilingScheme: new Cesium.GeographicTilingScheme(),
+                    magnification:1
                 });
                 scene2.terrainProvider = terrain;
                 scene2.screenSpaceCameraController._minimumZoomRate = 1;
@@ -152,6 +193,11 @@ $(function(){
 
 
         }else{
+
+            $("#" + mapName + " .cesium-btn-up").hide(500);
+            $("#" + mapName + " .cesium-btn-down").hide(500);
+            $("#" + mapName + " .elevMag").hide(500);
+
             var ol3d = eval(mapObj["ol3d"]);
             //ol3d.setEnabled(false);
             mapObj["element"].find(".cesium-btn-div").hide(500);
@@ -171,6 +217,17 @@ $(function(){
             $(this).text("3D");
         }
     });
+    //------------------------------------------------------------
+
+    $(".elevMag-text").change(function(){
+        var scene1 = ol3d1.getCesiumScene();
+        var terrain = new Cesium.PngElevationTileTerrainProvider({
+            url:"https://gsj-seamless.jp/labs/elev2/elev/gsi10m_latlng_257/{z}/{y}/{x}.png",
+            tilingScheme: new Cesium.GeographicTilingScheme(),
+            magnification:Number($(this).val())
+        });
+        scene1.terrainProvider = terrain;
+    });
     //--------------------------------------------------------------------------
     //セシウム操作ボタンを移動可能に
     $(".cesium-btn-div").draggable({
@@ -184,36 +241,46 @@ $(function(){
     //仰角----------------------------------------------------------------------
     $("body").on("mousedown",".cesium-btn-up,.cesium-btn-down",function(){
         var mapObj = funcMaps($(this));
-        var ol3d = eval(mapObj["ol3d"]);
-        tiltFlg = true;
-        var tiltUp = function(upDown){
-            if(tiltFlg){
-                var tilt = ol3d.getCamera().getTilt();
-                if(upDown=="up"){
-                    if($("#sync-btn").text()=="非同期"){//起動時はこっち
-                        if (tilt < 1.5) ol3d1.getCamera().setTilt(tilt + 0.05);
-                        if (tilt < 1.5) ol3d2.getCamera().setTilt(tilt + 0.05);
-                    }else{
-                        if (tilt < 1.5) ol3d.getCamera().setTilt(tilt + 0.05);
+        var mapName = mapObj["name"];
+        var text = $("#" + mapName + " .d3d2-btn").text();
+        if(text==="3D"){
+            alert("MVT時は3D操作できません。")
+
+        }else {
+            var ol3d = eval(mapObj["ol3d"]);
+            tiltFlg = true;
+            var tiltUp = function (upDown) {
+                if (tiltFlg) {
+                    var tilt = ol3d.getCamera().getTilt();
+                    if (upDown == "up") {
+                        if ($("#sync-btn").text() == "非同期") {//起動時はこっち
+                            if (tilt < 1.5) ol3d1.getCamera().setTilt(tilt + 0.05);
+                            if (tilt < 1.5) ol3d2.getCamera().setTilt(tilt + 0.05);
+                        } else {
+                            if (tilt < 1.5) ol3d.getCamera().setTilt(tilt + 0.05);
+                        }
+                    } else {
+                        if ($("#sync-btn").text() == "非同期") {//起動時はこっち
+                            if (tilt > 0) ol3d1.getCamera().setTilt(tilt - 0.05);
+                            if (tilt > 0) ol3d2.getCamera().setTilt(tilt - 0.05);
+                        } else {
+                            if (tilt > 0) ol3d.getCamera().setTilt(tilt - 0.05);
+                        }
                     }
-                }else{
-                    if($("#sync-btn").text()=="非同期") {//起動時はこっち
-                        if (tilt > 0) ol3d1.getCamera().setTilt(tilt - 0.05);
-                        if (tilt > 0) ol3d2.getCamera().setTilt(tilt - 0.05);
-                    }else {
-                        if (tilt > 0) ol3d.getCamera().setTilt(tilt - 0.05);
-                    }
+                    setTimeout(function () {
+                        tiltUp(upDown)
+                    }, 20);
+                } else {
+                    clearTimeout(tiltUp);
                 }
-                setTimeout(function(){tiltUp(upDown)},20);
-            }else{
-                clearTimeout(tiltUp);
+            };
+            if ($(this).attr("class").match("cesium-btn-up")) {
+                tiltUp("up");
+            } else {
+                tiltUp("down");
             }
-        };
-        if($(this).attr("class").match("cesium-btn-up")){
-            tiltUp("up");
-        }else{
-            tiltUp("down");
         }
+
         return false;
     }).mouseup(function(){
         tiltFlg = false;
@@ -223,25 +290,51 @@ $(function(){
     //左右回転------------------------------------------------------------------
     $("body").on("mousedown",".cesium-btn-left,.cesium-btn-right",function(){
         var mapObj = funcMaps($(this));
-        var ol3d = eval(mapObj["ol3d"]);
-        tiltFlg = true;
-        var tiltLeft = function(leftRight){
-            if(tiltFlg){
-                var head = ol3d.getCamera().getHeading();
-                if(leftRight=="left"){
-                    ol3d.getCamera().setHeading(head - 0.05);
+        var mapName = mapObj["name"];
+        var text = $("#" + mapName + " .d3d2-btn").text();
+        console.log(text);
+        if(text==="3D"){
+            tiltFlg = true;
+            var tiltLeft = function(leftRight){
+                if(tiltFlg){
+                    var rotate = eval(mapName).getView().getRotation();
+                    if(leftRight=="left"){
+                        eval(mapName).getView().setRotation(rotate-0.1);
+                    }else{
+                        eval(mapName).getView().setRotation(rotate+0.1);
+                    }
+                    setTimeout(function(){tiltLeft(leftRight)},20);
                 }else{
-                    ol3d.getCamera().setHeading(head + 0.05);
+                    clearTimeout(tiltLeft);
                 }
-                setTimeout(function(){tiltLeft(leftRight)},20);
+            };
+            if($(this).attr("class").match("cesium-btn-left")){
+                tiltLeft("left");
             }else{
-                clearTimeout(tiltLeft);
+                tiltLeft("right");
             }
-        };
-        if($(this).attr("class").match("cesium-btn-left")){
-            tiltLeft("left");
+
         }else{
-            tiltLeft("right");
+            var ol3d = eval(mapObj["ol3d"]);
+            tiltFlg = true;
+            var tiltLeft = function(leftRight){
+                if(tiltFlg){
+                    var head = ol3d.getCamera().getHeading();
+                    if(leftRight=="left"){
+                        ol3d.getCamera().setHeading(head - 0.05);
+                    }else{
+                        ol3d.getCamera().setHeading(head + 0.05);
+                    }
+                    setTimeout(function(){tiltLeft(leftRight)},20);
+                }else{
+                    clearTimeout(tiltLeft);
+                }
+            };
+            if($(this).attr("class").match("cesium-btn-left")){
+                tiltLeft("left");
+            }else{
+                tiltLeft("right");
+            }
         }
         return false;
     }).mouseup(function(){

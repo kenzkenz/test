@@ -53,14 +53,12 @@ $(function(){
             //var circleLayer = circleLayer1;
             var circleCenterX = coord1[0];//15438034; //the X center of your circle
             var circleCenterY = coord1[1];//4186771; //the Y center of your circle
-
         }else{
             map2.removeLayer(circleLayer2);
             map2.removeLayer(mesh500Layer2);
             //var circleLayer = circleLayer2;
             var circleCenterX = coord2[0];//15438034; //the X center of your circle
             var circleCenterY = coord2[1];//4186771; //the Y center of your circle
-
         }
         var km = val;
         //var circleCenterX = coord1[0];//15438034; //the X center of your circle
@@ -480,27 +478,18 @@ $(function(){
     //★★★★★★★
     //map1
     $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
-    /*
-    $("body").on("mouseenter",".dialog-content,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
+    $("body").on("mouseenter",".ol-popup,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
         $("#map1")[0].removeEventListener('contextmenu',myContextmenu1,false);
-    }).on("mouseleave",".dialog-content,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
+    }).on("mouseleave",".ol-popup,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
         $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
     });
-    */
-    $("body").on("click",".mydialog .dialog-hidden",function(){
-        $("#map1")[0].addEventListener('contextmenu',myContextmenu1,false);
-    });
-    //map2
+    //map2------
     $("#map2")[0].addEventListener('contextmenu',myContextmenu2,false);
-    /*
-    $("body").on("mouseenter",".dialog-content,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
+    $("body").on("mouseenter",".ol-popup,.dialog-base",function(){//contentにマウスが当たったら通常の右クリックメニュー復活。
         $("#map2")[0].removeEventListener('contextmenu',myContextmenu2,false);
-    }).on("mouseleave",".dialog-content,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
+    }).on("mouseleave",".ol-popup,.dialog-base",function(){//contentからマウスが抜けたら通常の右クリックメニューを無効化。
         $("#map2")[0].addEventListener('contextmenu',myContextmenu2,false);
     });
-    */
-
-
     //---------------------------------------------------------
     function myContextmenu1(evt){
         var myContextmenuTop = evt.clientY;

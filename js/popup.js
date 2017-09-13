@@ -136,9 +136,98 @@ $(function(){
                 console.log(feature.getProperties());
                 funcNoukenkikouModal(feature,map,evt);
                 break;
-
+            case "zenkokuiseki":
+                console.log(feature.getProperties());
+                funcZenkokuisekiPopup(feature,map,evt);
+                break;
+            case "gunma":
+                console.log(feature.getProperties());
+                funcGunmaisekiPopup(feature,map,evt);
+                break;
+            case "bunkatyoudb":
+                console.log(feature.getProperties());
+                funcBunkatyoudbPopup(feature,map,evt);
+                break;
 
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcGunmaisekiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+            table += "</tr>";
+        }
+        content += table;
+
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcBunkatyoudbPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            console.log(key);
+
+            if(key=="名称"){
+                var daityouId = featureProp["台帳ID"];
+                var taisyouId = featureProp["管理対象ID"];
+                console.log(daityouId);
+                console.log(taisyouId);
+                prop = "<a href='http://kunishitei.bunka.go.jp/bsys/maindetails.asp?register_id=" + daityouId + "&item_id=" + taisyouId + "' target='_blank'>" + prop + "</a>";
+                console.log(prop);
+            }
+
+            table += "<th class='popup-th' style='width:100px;'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+            table += "</tr>";
+        }
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcZenkokuisekiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var content = "";
+         var table = "<table class='popup-tbl table table-bordered table-hover'>";
+         for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            console.log(String(prop).substr(0,4));
+
+            if(String(prop).substr(0,4)=="http"){
+                prop = "<a href='" + prop + "' target='_blank'>" + prop + "</a>";
+            }
+
+            table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+            table += "</tr>";
+         }
+         content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //---------------------------------------------------

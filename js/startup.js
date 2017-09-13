@@ -8,6 +8,7 @@ $(function(){
     //--------------------------------------------------------------------------
     //起動時に画面リサイズ、部品リサイズ
     $("#map1").height($(window).height());
+    //$("#map1 .cesium-btn-div").show();
     $(window).on('resize',function(){
         $("#map1").height($(window).height());
         funcResize();
@@ -42,15 +43,19 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
         msg += "★背景のうち(MVT)とついているものは3D化できません！<br>";
+        msg += "★詳しい追加情報等は<a href='https://www.facebook.com/hinatagis' target='_blank'><i class='fa fa-facebook-square fa-fw' style='color:navy;'></i>FBへ</a><br>";
         //msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 背景に迅速測図を追加しました。<br>";
-        msg += "2 背景に全国の用途地域を追加しました。<br>";
-        msg += "3 背景に東峰地区(7/30,31撮影)を追加しました。<br>";
-        msg += "4 小地域人口等(MVT)から人口ピラミッドを作成します。<br>";
-        msg += "5 背景に道路中心線・河川中心線を追加しました。<br>";
-        msg += "6 背景に福井県の古地図を追加しました。<br>";
-        msg += "7 背景にアジア航測株式会社撮影航空写真追加しました。<br>";
-        msg += "8 背景に島根県の古地図を追加しました。<br>";
+        msg += "1 背景に国土地理院_治水地形分類図を追加しました。<br>";
+        msg += "2 背景に国指定文化財等データベース(MVT)を追加しました。<br>";
+        msg += "3 背景に全国旧石器時代遺跡(MVT)を追加しました。<br>";
+        msg += "4 背景に迅速測図を追加しました。<br>";
+        msg += "5 背景に全国の用途地域を追加しました。<br>";
+        //msg += "6 背景に東峰地区(7/30,31撮影)を追加しました。<br>";
+        //msg += "7 小地域人口等(MVT)から人口ピラミッドを作成します。<br>";
+        //msg += "6 背景に道路中心線・河川中心線を追加しました。<br>";
+        //msg += "6 背景に福井県の古地図を追加しました。<br>";
+        //msg += "7 背景にアジア航測株式会社撮影航空写真追加しました。<br>";
+        //msg += "8 背景に島根県の古地図を追加しました。<br>";
         //msg += "8 背景に東峰地区の航空写真を追加しました。<br>";
         //msg += "5 背景に小地域人口等を追加しました。<br>";
        // msg += "6 背景に朝倉地区の航空写真を追加しました。<br>";
@@ -72,7 +77,9 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/08/29</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/09/11</div>";
+        msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='http://www.the-miyanichi.co.jp/contents/media/4/20170911-nihonniti0911.pdf' target='_blank'><img src='icon/ushi.png' style='width:80px;'></a></div>";
+
         $.notify({//options
             message: msg
         }, {//settings

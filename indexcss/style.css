@@ -73,6 +73,18 @@ article{
 .hinata img{
     width: 75px;
 }
+/*追加*/
+.iotlabo{
+    position: fixed;
+    right:2%;
+    bottom:5%;
+}
+.iotlabo img{
+    width: 175px;
+}
+
+
+
 @media screen and ( max-width:1000px ){
     .brand-logo img{
         width: 70%;

@@ -1,6 +1,8 @@
 //旧日本軍地図
 //宮崎
 var am1_1 = new ol.layer.Tile({
+    folder:"child",
+    category:"senzensengo",
     title:"宮崎県戦前地図",
     origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
     detail:"",
@@ -15,7 +17,9 @@ var am1_1 = new ol.layer.Tile({
     })
 });
 var am1_2 = new ol.layer.Tile({
-    title:"宮崎県戦前地図（昭和7年頃）",
+    folder:"child",
+    category:"senzensengo",
+    title:"宮崎県戦前地図",
     origin:"<a href='http://stanford.maps.arcgis.com/apps/SimpleViewer/index.html?appid=733446cc5a314ddf85c59ecc10321b41' target='_blank'>スタンフォード大学</a>",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",

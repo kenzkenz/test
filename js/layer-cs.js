@@ -1,4 +1,6 @@
 var cs1k1 = new ol.layer.Tile({
+    folder:"child",
+    category:"tisitutikei",
     title:"全国_CS立体図_10m",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'>G空間情報センター</a>",
     detail:"長野県林業総合センター様が作成した立体地図です。全国_CS立体図10mのデータ「CS立体図」は、長野県林業総合センターが考案した地形表現図(c) Esri Japan発行 ArcGIS Geo Suite地形(基盤地形情報10mメッシュ）を基に作製",
@@ -11,6 +13,8 @@ var cs1k1 = new ol.layer.Tile({
 	})
 });
 var cs1k2 = new ol.layer.Tile({
+    folder:"child",
+    category:"tisitutikei",
     title:"全国_CS立体図_10m",
     origin:"<a href='https://www.geospatial.jp/ckan/dataset/cs-10m-01' target='_blank'>G空間情報センター</a>",
     detail:"長野県林業総合センター様が作成した立体地図です。全国_CS立体図10mのデータ「CS立体図」は、長野県林業総合センターが考案した地形表現図(c) Esri Japan発行 ArcGIS Geo Suite地形(基盤地形情報10mメッシュ）を基に作製",

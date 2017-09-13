@@ -643,6 +643,15 @@ $(function(){
     var usanobeoka01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[131.64274083236256,32.60088231170043],[131.64576196838883,32.56682595015175],[131.6866101214159,32.569394791319695],[131.6833921838439,32.60345319767427],[131.64274083236256,32.60088231170043]]]}};
 
     var usamiyakonozyou01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[131.04779079423696,31.737216707967036],[131.0394943251865,31.70602219470331],[131.07436304238013,31.699340535995177],[131.08386614921028,31.728894532278588],[131.04779079423696,31.737216707967036]]]}};
+
+    var usakobayasi01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[130.93209119761264,32.017912105548774],[130.93486138110785,31.957586219789818],[131.00474687540796,31.959746972963657],[131.0020002933768,32.01944035371619],[130.93209119761264,32.017912105548774]]]}};
+
+    var usakumamoto01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[130.672716249714,32.80744680231432],[130.66541917110675,32.77521843018094],[130.70335004403316,32.76909254407853],[130.7102074659617,32.80116251993236],[130.672716249714,32.80744680231432]]]}};
+
+    var jpnfukuoka01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[130.41557119200294,33.62142613899613],[130.41540065199501,33.5994647329223],[130.43588819125716,33.599238406843085],[130.43630126461127,33.62129431987087],[130.41557119200294,33.62142613899613]]]}};
+
+    var usamuroran01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[140.9508923140588,42.35566087461484],[140.9537247267785,42.2918210235388],[141.03974893620259,42.292940681225446],[141.03821312545276,42.35733332918781],[140.9508923140588,42.35566087461484]]]}};
+
     var cropObjAr = [
         {
             "dep":miyazakiDep,
@@ -728,6 +737,26 @@ $(function(){
             "dep":usamiyakonozyou01Dep,
             "layer1":usamiyakonozyou011,
             "layer2":usamiyakonozyou012
+        },
+        {
+            "dep":usakobayasi01Dep,
+            "layer1":usakobayasi011,
+            "layer2":usakobayasi012
+        },
+        {
+            "dep":usakumamoto01Dep,
+            "layer1":usakumamoto011,
+            "layer2":usakumamoto012
+        },
+        {
+            "dep":jpnfukuoka01Dep,
+            "layer1":jpnfukuoka011,
+            "layer2":jpnfukuoka012
+        },
+        {
+            "dep":usamuroran01Dep,
+            "layer1":usamuroran011,
+            "layer2":usamuroran012
         }
     ];
     for (var i=0; i < cropObjAr.length; i++) {

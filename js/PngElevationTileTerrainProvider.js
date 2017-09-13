@@ -17,11 +17,10 @@
         defaultValue,
         defined,
     	PngElevationTileTerrainProvider;
-
 	if ( typeof Cesium === 'undefined' ) {	// Cesiumが利用できない環境では何も返さず終了
 		return;
 	}
-
+console.log("cesium")
 	defaultValue = Cesium.defaultValue,
     defined = Cesium.defined,
     PngElevationTileTerrainProvider = function( description ) {
@@ -33,6 +32,8 @@
 
         this._url = defaultValue( description.url, defaultUrl );
         this._proxy = description.proxy;
+
+        this._mag = description.magnification;//追加
 
 		if ( typeof description.tilingScheme !== 'undefined' ) {
 			// tilingSchemeの指定があればそれを使用
@@ -92,6 +93,8 @@
 	    	xAdj2, yAdj2,	// 標高マップとタイル画像の倍率の差
 	        that = this,
 	    	promise;
+
+        var mag = this._mag;//追加
 
       	if ( this._tilingScheme.constructor === Cesium.GeographicTilingScheme ) {
 	    	yAdj = 1;
@@ -154,6 +157,9 @@
                         h = 256 * ( 256 * pix[ p+0 ] + pix[ p+1 ] ) + pix[ p+2 ];
                         h = ( h == 8388608 ) ? 0 : h;	// 無効値補正
                         //h = h*10;
+
+                        h = h * mag;//追加
+
                         hmp[ p_hmp++ ] = h << 8 >> 8;	// 24ビットの2補数表現と解釈
                         px += pxinc;
                     }

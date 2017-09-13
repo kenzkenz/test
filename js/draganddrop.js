@@ -160,8 +160,8 @@ $(function(){
                 case "jpg":
                     imgSet(event.file);
                     break;
-                case "":
-
+                case "tif":
+                    imgSet(event.file);
                     break;
                 case "":
 
@@ -172,7 +172,6 @@ $(function(){
             return;
         }
         console.log(event.features)
-
 
 
         var vectorSource = new ol.source.Vector({
@@ -339,7 +338,11 @@ $(function(){
     */
     //-------------------------------------------------------------------------------------
     function imgSet(file) {
-        var bloburl = window.URL.createObjectURL(file);
+
+        var blob = new Blob([file],{type:'image/tiff'});
+        console.log(blob);
+
+        var bloburl = window.URL.createObjectURL(blob);
         console.log(bloburl);
         var center = map1.getView().getCenter();
         console.log(center);

@@ -18,6 +18,7 @@ $(function(){
             return;
         }
         if($(this).text()==="2画面"){//起動時はこっち
+            //$("#map2 .cesium-btn-div").show();
             if($(window).width()>1000){//横幅が大きいときは横に分割
                 $("#map1").animate({"width":"50%"},500,function(){map1.updateSize();});
                 $("#map2").show().animate({"width":"50%","height":$(window).height()+"px"},0,function(){
@@ -31,7 +32,7 @@ $(function(){
                     $(".mydialog").eq(i).animate({"left":left+"px"},500);
                 }
                 //十字ボタンも移動-----------------------------------------------
-                var left = $(".cesium-btn-div").css("left").replace("px","")/2 - $(".cesium-btn-div").width()/2;
+                var left = $(".cesium-btn-div").css("left").replace("px","")/2 - $(".cesium-btn-div").width()/2/2;
                 $(".cesium-btn-div").animate({"left":left+"px"},500);
             }else{//横幅が狭いときは縦に分割
                 $("#map1").animate({"height":$(window).height()/2+"px"},500,function(){map1.updateSize();});
@@ -49,6 +50,7 @@ $(function(){
             $("#sync-btn").show();
             $(".dualscreen-btn").text("1画面");
         }else{
+
             if($(window).width()>1000){//横幅が大きいときは横に分割
                 $("#map1").animate({"width":"100%"},500,function(){map1.updateSize();});
                 $("#map2").animate({"height":"1px"},0,function(){
@@ -62,7 +64,7 @@ $(function(){
                     $(".mydialog").eq(i).animate({"left":left+"px"},500);
                 }
                 //十字ボタンも移動-----------------------------------------------
-                var left = $(".cesium-btn-div").css("left").replace("px","")*2 + $(".cesium-btn-div").width();
+                var left = $(".cesium-btn-div").css("left").replace("px","")*2 + $(".cesium-btn-div").width()/2;
                 $(".cesium-btn-div").animate({"left":left+"px"},500);
             }else{//横幅が狭いときは縦に分割
                 $("#map1").animate({"width":"100%","height":$(window).height()+"px"},500,function(){map1.updateSize();});

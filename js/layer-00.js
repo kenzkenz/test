@@ -6,59 +6,116 @@ var plI = 0;
 
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,
-                    ort1,seamlessphoto1,gazo11,usamiyazaki011,usamiyakonozyou011,usanobeoka011,muro1,tondabayasik1,tondabayasik2,kago1,
+    useLayersArr1 = [pale1,blank1,relief1,lcmfc2_1,
+                    ort1,seamlessphoto1,gazo11,
+        //戦後米軍地図
+                    usamiyazaki011,usamiyakonozyou011,usanobeoka011,usakobayasi011,usakumamoto011,usamuroran011,
+                    jpnfukuoka011,
+                    muro1,tondabayasik1,tondabayasik2,kago1,
                     syokusei1,dozyouzu1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,
+                    osm1,mierune1,mieruneMono1,toner1,
+                    tondabayasit1,
+                    //mesh1000z1,kousoku9syu1,
+                    //namie1,
+                    did1,
+        //九州北部豪雨
+        sikiriKyuusyuuHokubuGouu,
+                    ooameasahi01,
                     ooameasia07201,ooameasia07181,
                     t0802dol1,t0713dol21,t0713dol11,t0707dol1,t0707dol31,t0708dol11,t0710dol1,
+        //熊本地震
+        sikiriKumamotoJisin,
+                    kumamoto0724_1,kumamoto_0705_1,kumamoto_0531_1,kumamoto_0530_1,kumamoto_0429A_1,kumamoto_0429B_1,kumamoto_04201_1,kumamoto_04202_1,
+                    kumamoto_04203_1,kumamoto_04204_1,kumamoto_04205_1,kumamoto_04206_1,kumamoto_04207_1,kumamoto_04208_1,kumamoto_04209_1,
+                    kumamoto_042010_1,kumamoto_042011_1,kumamoto_0419dol2_1,kumamoto_0419dol6_1,kumamoto_0416dol1_1,kumamoto_0416dol2_1,
+                    kumamoto_0416dol3_1,kumamoto_0416dol4_1,kumamoto_0416dol5_1,kumamoto_0416dol6_1,kumamoto_0416dol7_1,kumamoto_0415dol1_1,
+                    kumamoto_0415dol2_1,kumamoto_0415dol3_1,
+        //迅速測図等
+        sikiriJinsokutou,
                     rekisitekikantou1,zinsokugazou1,rekisitekitoukyou1,rekisitekihukuyama1,
-                    kumamotoIseki1,
-                    kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
-                    osm1,mierune1,mieruneMono1,toner1,
+        //遺跡文化財
+        sikiriIsekibunkazai,
+                    bunkatyoudb1,zenkokuHakubutukan1,bunkazai1,zenkokuIseki1,kumamotoIseki1,gunmaIseki1,
+        //ユネスコ
+        sikiriUnesco,
                     aya1,sobo1,soboZ1,
+        //古地図
+        sikiriKotizu,
                     miyagikotizu1,toukyoukotizu1,hukuikotizu1,simanekotizu1,yamagutikotizu1,koutikotizu1,hukuokakotizu1,sagakotizu1,nagasakikotizu1,kumamotokotizu1,ooitakotizu1,kotizu1,kagosimakotizu1,obikoyizu1,//obi1,
+        //戦前戦後
+        sikiriSenzensengo,
                     amArr1,
                     murosenzen1,hukuokasisenzen1,
                     sengomiya1,sengonobe1,sengomiyako1,murous1,sengokago1,
-                    tondabayasit1,
-                    kawadake1,ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,
+        //地質地形
+        sikiriTisititikei,
+                    kawadake1,ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,sizuokaCs1,
                     //mrtiba1,mransei1,
-                    tunami1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
-                    mesh1000z1,kousoku9syu1,bingroad1,
-                    tunamimvt1,
-                    namie1,
-                    did1,
+        //ハザード
+        sikiriHazard,
+                    tunami1,tunamimvt1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
+        sikiriTest,
                     test,
                     //anno1,
                     m500mesh1,
                     nobeoka19521,
-                    bunkazai1,
                     totiriyou1,
-                    kumamotoIsekiTest2
+                    bingroad1,
+                    kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1
                     ];
-    useLayersArr2 = [pale2,blank2,relief2,
-                    ort2,seamlessphoto2,gazo12,usamiyazaki012,usamiyakonozyou012,usanobeoka012,muro2,kago2,
+
+    //--------------------------
+    useLayersArr2 = [pale2,blank2,relief2,lcmfc2_2,
+                    ort2,seamlessphoto2,gazo12,
+        //戦後米軍地図
+                    usamiyazaki012,usamiyakonozyou012,usanobeoka012,usakobayasi012,usakumamoto012,usamuroran012,
+                    jpnfukuoka012,
+                    muro2,kago2,
                     syokusei2,dozyouzu2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,
+                    osm2,mierune2,mieruneMono2,toner2,
+                    tondabayasit2,
+                    //mrtiba2,mransei2,
+                    //mesh1000z2,kousoku9syu2,
+                    //namie2,
+                    did2,
+        //九州北部豪雨
+        sikiriKyuusyuuHokubuGouu,
+                    ooameasahi02,
                     ooameasia07202,ooameasia07182,
                     t0802dol2,t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
+        //熊本地震
+        sikiriKumamotoJisin,
+                    kumamoto0724_2,kumamoto_0705_2,kumamoto_0531_2,kumamoto_0530_2,kumamoto_0429A_2,kumamoto_0429B_2,kumamoto_04201_2,kumamoto_04202_2,
+                    kumamoto_04203_2,kumamoto_04204_2,kumamoto_04205_2,kumamoto_04206_2,kumamoto_04207_2,kumamoto_04208_2,kumamoto_04209_2,
+                    kumamoto_042010_2,kumamoto_042011_2,kumamoto_0419dol2_2,kumamoto_0419dol6_2,kumamoto_0416dol1_2,kumamoto_0416dol2_2,
+                    kumamoto_0416dol3_2,kumamoto_0416dol4_2,kumamoto_0416dol5_2,kumamoto_0416dol6_2,kumamoto_0416dol7_2,kumamoto_0415dol1_2,
+                    kumamoto_0415dol2_2,kumamoto_0415dol3_2,
+        //迅速測図等
+        sikiriJinsokutou,
                     rekisitekikantou2,zinsokugazou2,rekisitekitoukyou2,rekisitekihukuyama2,
-                    kumamotoIseki2,
-                    kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
-                    osm2,mierune2,mieruneMono2,toner2,
+        //遺跡文化財
+        sikiriIsekibunkazai,
+                    bunkatyoudb2,zenkokuHakubutukan2,bunkazai2,kumamotoIseki2,zenkokuIseki2,
+        //ユネスコ
+        sikiriUnesco,
                     aya2,sobo2,soboZ2,
+        //古地図
+        sikiriKotizu,
                     miyagikotizu2,toukyoukotizu2,hukuikotizu2,simanekotizu2,yamagutikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi2,
+        //戦前戦後
+        sikiriSenzensengo,
                     amArr2,
                     murosenzen2,hukuokasisenzen2,
                     sengomiya2,sengonobe2,sengomiyako2,murous2,sengokago2,
-                    tondabayasit2,
-                    kawadake2,ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,
-                    //mrtiba2,mransei2,
-                    tunami2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
-                    mesh1000z2,kousoku9syu2,bingroad2,
-                    tunamimvt2,
-                    namie2,
-                    did2,
-                    youtotiiki2
+        //地質地形
+        sikiriTisititikei,
+                    kawadake2,ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,sizuokaCs2,
+        //ハザード
+        sikiriHazard,
+                    tunami2,tunamimvt2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
+        sikiriTest,
+                    bingroad2,
+                    kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2
                     ];
     $("body").on("click",".secret",function() {
         alert("");
@@ -75,27 +132,39 @@ function funcHaikeiTableCreate(mapElement,mapName){
         var layers = useLayersArr2;
     }
     var htmlChar = "<div class='haikei-tbl-div'><table class='haikei-tbl table table-bordered table-condensed'>";
-    for(var i = 0; i <layers.length; i++){
-        if(i==0){
+    for(var i = 0; i <layers.length; i++) {
+        if (i == 0) {
             var chkChar = "checked";
-        }else{
+        } else {
             var chkChar = "";
         }
-        if(!Array.isArray(layers[i])){//配列でないとき
+        if (!Array.isArray(layers[i])) {//配列でないとき
             var prop = layers[i].getProperties();
-        }else{//配列のとき
+        } else {//配列のとき
             var prop = layers[i][0].getProperties();
         }
-        if(prop["icon"]) {
+        if (prop["icon"]) {
             var icon = prop["icon"] + " ";
-        }else{
+        } else {
             var icon = "";
         }
-        if(prop["secret"]) {
-            htmlChar += "<tr class='secret-tr' style='display:none;'>";
-        }else{
-            htmlChar += "<tr>";
+
+        var trHtml = "";
+        /*
+        if (prop["secret"]) {
+            trHtml = "<tr class='secret-tr' style='display:none;'>";
+        } else {
+            trHtml = "<tr>";
         }
+        */
+        if (prop["folder"] === "child"){
+            trHtml = "<tr class='tr-" + prop["category"] + "' style='display:none;'>";
+        } else {
+            trHtml = "<tr>";
+        }
+
+        htmlChar += trHtml;
+
 
         htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + "> " + icon +  prop["title"] + "</label></td>";
         htmlChar += "<td class='td-slider'><div class='haikei-slider'></div></td>";
@@ -104,7 +173,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
         htmlChar += "</tr>";
     }
     htmlChar += "</table>";
-    htmlChar += "<div style='text-align:right;'><span class='secret'>情報政策課</span></div>";
+    //htmlChar += "<div style='text-align:right;'><span class='secret'>情報政策課</span></div>";
     htmlChar += "</div>";
     mapElement.find(".haikei-dialog .dialog-content").html(htmlChar);
     funcHaikeiTblDivHeight();//common.jsにある関数
@@ -130,6 +199,43 @@ function funcHaikeiTableCreate(mapElement,mapName){
     mapElement.find("input:checkbox[name='haikei-check']").on("ifChanged",function(event){
         //背景レイヤーの追加、削除
         var layer = layers[Number($(this).val())];
+        if(!Array.isArray(layer)){//普通のとき
+            var prop = layer.getProperties();
+        }else{//配列のとき
+            var prop = layer[0].getProperties();
+        }
+        if(prop["folder"]==="parent"){
+            console.log(prop["folder"]);
+            console.log(prop["category"]);
+            var trErement = $(".tr-" + prop["category"]);
+            trErement.toggle();
+            if($(this).prop("checked")) {
+                trErement.children().animate({
+                    "background-color": "rgba(51,122,183,1.0)"
+                }, 1000).animate({
+                    "background-color": "white"
+                }, 1000);
+            }
+            return;
+        }
+
+        /*
+        if(layer.getProperties()["folder"]==="parent"){
+            console.log(layer.getProperties()["folder"]);
+            console.log(layer.getProperties()["category"]);
+            var trErement = $(".tr-" + layer.getProperties()["category"]);
+            trErement.toggle();
+            if($(this).prop("checked")) {
+                trErement.children().animate({
+                    "background-color": "rgba(51,122,183,1.0)"
+                }, 1000).animate({
+                    "background-color": "white"
+                }, 1000);
+            }
+            return;
+        }
+        */
+
         try {
             if (layer.get("name") === "sobo") {
                 if ($(this).prop("checked")) {
@@ -154,8 +260,10 @@ function funcHaikeiTableCreate(mapElement,mapName){
                 }
             }
         }catch(e){}
+
         var trErement = $(this).parents("tr");
         if($(this).prop("checked")){
+            /*
             if(!Array.isArray(layer)) {
                 var bigMsg = layer.getProperties()["message"];
             }else{
@@ -171,13 +279,10 @@ function funcHaikeiTableCreate(mapElement,mapName){
                     "duration": 2000,
                     "complete": function () {
                         $("#" + mapName + " .big-msg-div").remove();
-                        //$("#" + mapName + " .big-msg-div").slideUp(500,function(){
-                        //    $("#" + mapName + " .big-msg-div").remove();
-                        //});
                     }
                 });
             }
-
+            */
             if(!Array.isArray(layer)){
                 layer.set("altitudeMode","clampToGround");
                 layer.set("selectable",true);
@@ -252,6 +357,7 @@ function funcHaikeiTableCreate(mapElement,mapName){
             console.log("ログ失敗!");
         });
     });
+    //チェックボックスを押した時　ここまで★★★★★--------------------------------------------------------------------------
 }
 //------------------------------------------------------------------------------
 //背景レイヤーの重なり順をtr順に変更する。
@@ -516,7 +622,11 @@ $(function(){
         var mapObj = funcMaps($(this));
         var id = "plus-dialog-" + mapObj["name"];
         var content = "地図タイルのURLを入力します。<br>・国土地理院標準地図の例：<br>　http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png";
-            content += "<br>・国土地理院空中写真（1936年頃：東京都23区）の例<br>　http://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png"
+            content += "<br>・国土地理院空中写真（1936年頃：東京都23区）の例<br>　http://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png";
+            content += "<br>・タイルを配信しているサイト";
+            content += "<div style='padding:0 0 0 20px'>";
+            content += "<a href='https://mapwarper.h-gis.jp' target='_blank'>日本版Map Warper</a>";
+            content += "</div>";
             content += "<input type='text' class='form-control plus-input' placeholder='例：http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'>";
             content += '<div class="plus-div"><button type="button" class="btn btn-primary plus-btn">追加</button></div>';
         mydialog({

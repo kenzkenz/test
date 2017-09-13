@@ -102,7 +102,9 @@ label:hover{
     top:50px;
 }
 .ol-zoom{
-    display:none;
+    /*display:none;*/
+    bottom:40px;
+    top:auto;
 }
 /*画面上部のボタン--------------------------------------------------------------*/
 .top-left-div{
@@ -190,15 +192,16 @@ label:hover{
 .cesium-btn-div{
 	position:absolute;
 	top:50%;
-	left:50%;
+	right:0px;
 	z-index:999999999;
 	display:none;
 	height:145px;
 	width:145px;
     margin-left:-72px;
-    margin-top:-72px;
+    /*margin-top:-72px;*/
+    margin-top:20px;
 	background:rgba(0,0,0,0.1);
-	border-radius:145px;
+	border-radius:145px 0 0 145px;
 	-moz-user-select:none;
 	-webkit-user-select:none;
 	-ms-user-select:none;
@@ -216,6 +219,7 @@ label:hover{
     width:40px;
     height:40px;
     margin-left:-20px;
+    display:none;
 }
 .cesium-btn-down{
     position:absolute;
@@ -225,6 +229,7 @@ label:hover{
     width:40px;
     height:40px;
     margin-left:-20px;
+    display:none;
 }
 .cesium-btn-left{
     position:absolute;
@@ -243,6 +248,24 @@ label:hover{
     width:40px;
     height:40px;
     margin-top:-20px;
+}
+.elevMag{
+    position:absolute;
+    top:60px;
+    left:50%;
+    padding:0;
+    /*width:40px;*/
+    /*height:40px;*/
+    margin-left:-20px;
+    text-align:center;
+    display:none;
+}
+
+.cesium-btn-div .ui-spinner{
+    font-size:10px;
+    width:30px;
+    background:rgba(0,0,0,0);
+    border:none;
 }
 /*webフォント用-----------------------------------------------------------------*/
 .primary{
