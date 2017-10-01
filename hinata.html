@@ -18,11 +18,10 @@
         <script src="bootstrap/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="css/animate.css" />
         <script src="js/bootstrap-notify.js"></script>
-        
+
         <link rel="stylesheet" href="js/ol3/ol-cesium-v1.27/ol.css" type="text/css">
         <script src="js/ol3/ol-cesium-v1.27/Cesium/Cesium.js"></script>
         <script src="js/ol3/ol-cesium-v1.27/olcesium.js"></script>
-
 
         <!--
         <link rel="stylesheet" href="js/ol3/ol-cesium-v1.31/ol.css" type="text/css">
@@ -39,7 +38,8 @@
         <script src="js/layer-01.js"></script>
         <script src="js/layer-cs.js"></script>
         <script src="js/layer-am.js"></script>
-        <script src="js/layer-mvt.js"><</script>
+        <script src="js/layer-mvt.js"></script>
+        <script src="js/layer-vt.js"></script>
         <script src="js/startup.js"></script>
         <script src="js/menu.js"></script>
         <script src="js/contextmenu.js"></script>
@@ -55,22 +55,33 @@
         <script src="js/estat-chart.js"></script>
         <script src="js/resas.js"></script>
         <script src="js/resas-chart.js"></script>
+        <script src="js/senkyoku-chart.js"></script>
         <script src="js/data.js"></script>
         <link href="js/select2/select2.css" rel="stylesheet" />
         <script src="js/select2/select2.js"></script>
+
         <script src="js/jquery.ui.touch-punch.js"></script>
+
         <script src="js/icheck/icheck.min.js"></script>
         <script src="js/blockui.js"></script>
         <script src="js/rgbcolor.js"></script>
         <link href="js/tablesorter/themes/blue/style.css" rel="stylesheet" />
         <script src="js/tablesorter/jquery.tablesorter.js"></script>
+        <script src="js/tiff.js"></script>
+
+
+        <script src="js/geotiff/bundle.js"></script>
+
+
         <!--<script src="js/d3.v3.min.js"></script>-->
         <script src="js/ol3ext/targetcontrol.js"></script>
         <script src="js/ol3ext/ol.ordering.js"></script>
         <script src="js/ol3ext/wikicommonssource.js"></script>
         <link rel="stylesheet" href="js/ol3ext/ol3-popup/ol3-popup.css" />
         <script src="js/ol3ext/ol3-popup/ol3-popup.js"></script>
+
         <script src="js/ol3ext/longtouchinteraction.js"></script>
+
         <script src="js/ol3ext/geoimagesource.js"></script>
         <!--<script src="js/ol3ext/buttoncontrol.js"></script>-->
         <link rel="stylesheet" href="js/ol3ext/control/controlbar.css" />
@@ -116,6 +127,7 @@
 -->
         <link rel="stylesheet" href="js/spectrum/spectrum.css" />
         <script src="js/spectrum/spectrum.js"></script>
+        <script src="js/ol-hash.js"></script>
 
     </head>
     <body>
@@ -197,6 +209,9 @@
             </div>
         </div>
         <div id="map2" class="maps"></div>
+        <!--<canvas id='canvas-tiff'></canvas>-->
+
+
         <!--ie11対策 Polyfill-->
         <script>
             if (typeof Object.assign != 'function') {

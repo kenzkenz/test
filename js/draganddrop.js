@@ -339,73 +339,138 @@ $(function(){
     //-------------------------------------------------------------------------------------
     function imgSet(file) {
 
+        console.log(GeoTIFF);
+
         var blob = new Blob([file],{type:'image/tiff'});
         console.log(blob);
-
         var bloburl = window.URL.createObjectURL(blob);
         console.log(bloburl);
-        var center = map1.getView().getCenter();
-        console.log(center);
-        var scaleX = 1;
-        var scaleY = 1;
-        var xmin = 0;
-        var ymin = 0;
-        var xmax = 50000;
-        var ymax = 50000;
 
-        var geoimageSource = new ol.source.GeoImage({
-            url:bloburl,
-            imageCenter: center,
-            imageScale: [scaleX,scaleY],
-            imageCrop: [xmin,ymin,xmax,ymax],
-            imageRotate: 0,
-            projection: 'EPSG:3857',
-            crossOrigin:"anonymous"
-        });
 
-        geoimg = new ol.layer.Image({
-            name: "Georef",
-            opacity: 1,
-            source:geoimageSource
-        });
 
-        console.log(geoimageSource.getScale());
+               
 
-        geoimg.set("altitudeMode","clampToGround");
-        map1.addLayer(geoimg);
-        //map1.getView().fit(geoimg.getSource().getExtent());
-        geoimg.setZIndex(9999);
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', bloburl, true);
+        xhr.responseType = 'arraybuffer';
+        xhr.onload = function(e) {
+            var tiff = GeoTIFF.parse(this.response);
+            console.log(tiff);
+            var image = tiff.getImage(); // or use .getImage(n) where n is between 0 and
+            // tiff.getImageCount()
+            console.log(image);
+            console.log(image.getWidth(), image.getHeight(), image.getSamplesPerPixel());
+            var rasters = image.readRasters();
+            console.log(rasters);
 
-        var content = "";
-            content += "<div style='display:none'>中心：lon<input class ='centerLon imgset' type='number' value='" + center[0] + "' step='10'>";
-            content += "lat<input class ='centerLat imgset' type='number' value='" + center[1] + "' step='10'><br></div>";
-            //content += "倍率：横<input class ='scaleX imgset' type='number' value='1' step='0.01'>";
-            //content += "縦<input class ='scaleY imgset' type='number' value='1' step='0.01'>";
-            content += "倍率：<input class ='scaleXY imgset' type='number' value='1' step='0.01'><br>";
-            //content += "透過度<input class ='imgopa imgset' type='number' value='1' step='0.01'>";
-            content += "<div class='imgopa-slider'></div>";
-            //content += "<button type='button' class='img-btn btn btn-primary btn-block'>反映</button>";
-        mydialog({
-            id:"img-dialog-" + mapName,
-            class:"img-dialog",
-            map:mapName,
-            title:"img",
-            content:content,
-            top:"55px",
-            left:"20px",
-            //width:"400px",
-            rmDialog:true,
-            //hide:true,
-            minMax:false
-        });
-        imgCenterPointLayerCreate();
+            var blob2 = new Blob([image],{type:'image/tiff'});
+            console.log(blob2);
 
-        $(".imgopa-slider").slider({
-            min:0,max:1,value:1,step:0.01,
-            slide: function(event, ui){
-                geoimg.setOpacity(ui.value);
-            }
-        });
+            image.readRGB(function(raster) {
+
+                var canvas = document.getElementById('canvas-tiff');
+                //var canvas = document.createElement('canvas1');
+
+
+                var aaa = image.getWidth()/image.getHeight();
+
+                console.log(aaa);
+
+                var width = image.getWidth();
+                var height = image.getHeight();
+
+                canvas.width = width;
+                canvas.height = height;
+
+                console.log(image.getWidth(),image.getHeight());
+
+                //canvas.width = 500;
+                //canvas.height = 500;
+
+                var ctx = canvas.getContext("2d");
+                //var imageData = ctx.createImageData(image.getWidth(), image.getHeight());
+
+                var imageData = ctx.createImageData(width,height);
+
+                var data = imageData.data;
+                var o = 0;
+                for (var i = 0; i < raster.length; i+=3) {
+                    data[o] = raster[i];
+                    data[o+1] = raster[i+1];
+                    data[o+2] = raster[i+2];
+                    data[o+3] = 255;
+                    o += 4;
+                }
+                ctx.putImageData(imageData, 0, 0);
+                var jpegImage = canvas.toDataURL("image/jpeg")
+
+                var center = map1.getView().getCenter();
+                console.log(center);
+                var scaleX = 1;
+                var scaleY = 1;
+                var xmin = 0;
+                var ymin = 0;
+                var xmax = 50000;
+                var ymax = 50000;
+
+                var geoimageSource = new ol.source.GeoImage({
+                    url:jpegImage,
+                    //image:jpegImage,
+                    imageCenter: center,
+                    imageScale: [scaleX,scaleY],
+                    imageCrop: [xmin,ymin,xmax,ymax],
+                    imageRotate: 0,
+                    projection: 'EPSG:3857',
+                    crossOrigin:"anonymous"
+                });
+
+                geoimg = new ol.layer.Image({
+                    name: "Georef",
+                    opacity: 1,
+                    source:geoimageSource
+                });
+
+                console.log(geoimageSource.getScale());
+
+                geoimg.set("altitudeMode","clampToGround");
+                map1.addLayer(geoimg);
+                //map1.getView().fit(geoimg.getSource().getExtent());
+                geoimg.setZIndex(9999);
+
+                var content = "";
+                content += "<div style='display:none'>中心：lon<input class ='centerLon imgset' type='number' value='" + center[0] + "' step='10'>";
+                content += "lat<input class ='centerLat imgset' type='number' value='" + center[1] + "' step='10'><br></div>";
+                //content += "倍率：横<input class ='scaleX imgset' type='number' value='1' step='0.01'>";
+                //content += "縦<input class ='scaleY imgset' type='number' value='1' step='0.01'>";
+                content += "倍率：<input class ='scaleXY imgset' type='number' value='1' step='0.01'><br>";
+                //content += "透過度<input class ='imgopa imgset' type='number' value='1' step='0.01'>";
+                content += "<div class='imgopa-slider'></div>";
+                //content += "<button type='button' class='img-btn btn btn-primary btn-block'>反映</button>";
+                mydialog({
+                    id:"img-dialog-" + mapName,
+                    class:"img-dialog",
+                    map:mapName,
+                    title:"img",
+                    content:content,
+                    top:"55px",
+                    left:"20px",
+                    //width:"400px",
+                    rmDialog:true,
+                    //hide:true,
+                    minMax:false
+                });
+                imgCenterPointLayerCreate();
+
+                $(".imgopa-slider").slider({
+                    min:0,max:1,value:1,step:0.01,
+                    slide: function(event, ui){
+                        geoimg.setOpacity(ui.value);
+                    }
+                });
+
+            });
+        };
+        xhr.send();
     }
     //-----------------------------------------------------------------------------
     function imgCenterPointLayerCreate(coord) {

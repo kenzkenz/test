@@ -74,7 +74,6 @@ var sikiriIsekibunkazai = new ol.layer.Tile({
     detail:"",
     icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
 });
-
 var sikiriTisititikei = new ol.layer.Tile({
     folder:"parent",
     category:"tisitutikei",
@@ -91,10 +90,34 @@ var sikiriHazard = new ol.layer.Tile({
     detail:"",
     icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
 });
+var mierune = new ol.layer.Tile({
+    folder:"parent",
+    category:"mierune",
+    title:"MIERUNE地図フォルダ",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
+var sikiriGenzaiSyasin = new ol.layer.Tile({
+    folder:"parent",
+    category:"genzaisyasin",
+    title:"現在の航空写真フォルダ",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
+var sikiriKakoSyasin = new ol.layer.Tile({
+    folder:"parent",
+    category:"kakosyasin",
+    title:"昔の航空写真フォルダ",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
 //国土地理院（災害以外）---------------------------------------------------------------------------------------------------
 //国土地理院淡色地図のレイヤー
 var pale1 = new ol.layer.Tile({
-    title:"国土地理院_淡色地図",
+    title:"地理院_淡色地図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -107,7 +130,7 @@ var pale1 = new ol.layer.Tile({
     })
 });
 var pale2 = new ol.layer.Tile({
-    title:"国土地理院_淡色地図",
+    title:"地理院_淡色地図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -125,7 +148,7 @@ var pale2 = new ol.layer.Tile({
 });
 //国土地理院_白地図
 var blank1 = new ol.layer.Tile({
-    title:"国土地理院_白地図",
+    title:"地理院_白地図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -136,7 +159,7 @@ var blank1 = new ol.layer.Tile({
     })
 });
 var blank2 = new ol.layer.Tile({
-    title:"国土地理院_白地図",
+    title:"地理院_白地図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -148,7 +171,7 @@ var blank2 = new ol.layer.Tile({
 });
 //国土地理院_色別標高図
 var relief1 = new ol.layer.Tile({
-    title:"国土地理院_色別標高図",
+    title:"地理院_色別標高図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"海域部は会場保安庁海洋情報部の資料を使用して作成",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -159,7 +182,7 @@ var relief1 = new ol.layer.Tile({
     })
 });
 var relief2 = new ol.layer.Tile({
-    title:"国土地理院_色別標高図",
+    title:"地理院_色別標高図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"海域部は会場保安庁海洋情報部の資料を使用して作成",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -171,7 +194,7 @@ var relief2 = new ol.layer.Tile({
 });
 //国土地理院_治水地形分類図
 var lcmfc2_1 = new ol.layer.Tile({
-    title:"国土地理院_治水地形分類図",
+    title:"地理院_治水地形分類図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"治水地形分類図 更新版（2007～2014年）",
     detail2:"<div style='overflow:auto;height:300px;text-align:center'>" +
@@ -187,7 +210,7 @@ var lcmfc2_1 = new ol.layer.Tile({
     })
 });
 var lcmfc2_2 = new ol.layer.Tile({
-    title:"国土地理院_治水地形分類図",
+    title:"地理院_治水地形分類図",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"治水地形分類図 更新版（2007～2014年）",
     detail2:"<div style='overflow:auto;height:300px;text-align:center'>" +
@@ -223,7 +246,47 @@ var osm2 = new ol.layer.Tile({
     })
 });
 //ミエルネ地図
+var mieruneNormal1 = new ol.layer.Tile({
+    //folder:"child",
+    //category:"mierune",
+    title:"MIERUNE地図Normal(デモ)",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.<br>" +
+            "<hr class='my-hr'>ご自分のシステム等でMIERUNE地図Normalを使用したい場合はinfo@mierune.co.jpまで連絡を！",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
+        //url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        url:"https://tile.cdn.mierune.co.jp/styles/normal/{z}/{x}/{y}.png?key=227f0537b49914faf4453586db3fb0bd483ec3242e75b4605ef912eb5f9b31f58e7d8e907355e63703bee54f9206d3a932023538a51d90a8b294d617e8337d77a0c43f72",
+        crossOrigin:"anonymous",
+        maxZoom:20
+    })
+});
+var mieruneNormal2 = new ol.layer.Tile({
+    //folder:"child",
+    //category:"mierune",
+    title:"MIERUNE地図Normal(デモ)",
+    origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
+    detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.<br>" +
+            "<hr class='my-hr'>ご自分のシステム等でMIERUNE地図Normalを使用したい場合はinfo@mierune.co.jpまで連絡を！",
+    icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"Maptiles by <a href='http://www.mierune.co.jp/' target='_blank'><label>MIERUNE</label></a>, under CC BY. Data by <a href='http://osm.org/copyright' target='_blank'><label>OpenStreetMap</label></a> contributors, under ODbL."})],
+        //url:"https://tile.mierune.co.jp/mierune/{z}/{x}/{y}.png",
+        url:"https://tile.cdn.mierune.co.jp/styles/normal/{z}/{x}/{y}.png?key=227f0537b49914faf4453586db3fb0bd483ec3242e75b4605ef912eb5f9b31f58e7d8e907355e63703bee54f9206d3a932023538a51d90a8b294d617e8337d77a0c43f72",
+        crossOrigin:"anonymous",
+        maxZoom:20
+    })
+});
+
+
+
+
+
+
 var mierune1 = new ol.layer.Tile({
+    folder:"child",
+    category:"mierune",
     title:"MIERUNE地図",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
@@ -240,6 +303,8 @@ var mierune1 = new ol.layer.Tile({
     })
 });
 var mierune2 = new ol.layer.Tile({
+    folder:"child",
+    category:"mierune",
     title:"MIERUNE地図",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
@@ -252,6 +317,8 @@ var mierune2 = new ol.layer.Tile({
     })
 });
 var mieruneMono1 = new ol.layer.Tile({
+    folder:"child",
+    category:"mierune",
     title:"MIERUNE地図モノクロ",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.",
@@ -264,6 +331,8 @@ var mieruneMono1 = new ol.layer.Tile({
     })
 });
 var mieruneMono2 = new ol.layer.Tile({
+    folder:"child",
+    category:"mierune",
     title:"MIERUNE地図モノクロ",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     icon:"<i class='fa fa-map-o fa-fw' style='color:dimgrey;'></i>",
@@ -275,6 +344,8 @@ var mieruneMono2 = new ol.layer.Tile({
         maxZoom:18
     })
 });
+
+
 //toner
 var toner1 = new ol.layer.Tile({
     title:"Stamen Toner",
@@ -2241,6 +2312,8 @@ var nobeoka19521 = new ol.layer.Tile({
 //航空写真---------------------------------------------------------------------------------------------------------------
 //宮崎県オルソ
 var ort1 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"宮崎県航空写真",
     origin:"宮崎県県土整備部砂防課",
     detail:"砂防課が平成25年度に撮影した航空写真をオルソ補正したもの",
@@ -2255,6 +2328,8 @@ var ort1 = new ol.layer.Tile({
     })
 });
 var ort2 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"宮崎県航空写真",
     origin:"宮崎県県土整備部砂防課",
     detail:"砂防課が平成25年度に撮影した航空写真をオルソ補正したもの",
@@ -2270,6 +2345,8 @@ var ort2 = new ol.layer.Tile({
 });
 //空中写真のレイヤー
 var seamlessphoto1 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"国土地理院_空中写真",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
@@ -2283,6 +2360,8 @@ var seamlessphoto1 = new ol.layer.Tile({
     })
 });
 var seamlessphoto2 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"国土地理院_空中写真",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"国土画像情報（第一期1974～1978年撮影）",
@@ -2297,7 +2376,9 @@ var seamlessphoto2 = new ol.layer.Tile({
 });
 //40年前の写真
 var gazo11 = new ol.layer.Tile({
-    title:"国土地理院_40年前の写真",
+    folder:"child",
+    category:"kakosyasin",
+    title:"国土地理院_40年前の写真年(74〜78年)",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"国土画像情報（第一期1974～1978年撮影）",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
@@ -2311,7 +2392,9 @@ var gazo11 = new ol.layer.Tile({
     })
 });
 var gazo12 = new ol.layer.Tile({
-    title:"国土地理院_40年前の写真",
+    folder:"child",
+    category:"kakosyasin",
+    title:"国土地理院_40年前の写真(74〜78年)",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
@@ -2326,6 +2409,8 @@ var gazo12 = new ol.layer.Tile({
 });
 //室蘭市オルソH28
 var muro1 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"室蘭市航空写真",
     origin:"<a href='http://www.city.muroran.lg.jp/main/org2260/odlib.php' target='_blank'>むろらんオープンデータライブラリ</a>",
     detail:"平成28年度撮影",
@@ -2341,7 +2426,9 @@ var muro1 = new ol.layer.Tile({
 });
 var muro2;
 muro2 = new ol.layer.Tile({
-    title: "H室蘭市航空写真",
+    folder:"child",
+    category:"genzaisyasin",
+    title: "室蘭市航空写真",
     origin:"<a href='http://www.city.muroran.lg.jp/main/org2260/odlib.php' target='_blank'>むろらんオープンデータライブラリ</a>",
     detail:"平成28年度撮影",
     coord: [140.973774, 42.315226],
@@ -2386,6 +2473,8 @@ var muroQ2 = new ol.layer.Tile({
     })
 });
 var tondabayasik1 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"富田林市航空写真",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
@@ -2401,6 +2490,8 @@ var tondabayasik1 = new ol.layer.Tile({
     })
 });
 var tondabayasik2 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"富田林市航空写真",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
@@ -2417,6 +2508,8 @@ var tondabayasik2 = new ol.layer.Tile({
 });
 //鹿児島市オルソ
 var kago1 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"鹿児島市航空写真",
     //origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
     //detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
@@ -2432,6 +2525,8 @@ var kago1 = new ol.layer.Tile({
     })
 });
 var kago2 = new ol.layer.Tile({
+    folder:"child",
+    category:"genzaisyasin",
     title:"鹿児島市航空写真",
     //origin:"<a href='https://kagolug.org/kagoshima-city-opendata/mapdata/tile/airphoto/' target='_blank'>地図タイル配信サイト</a>",
     //detail:"鹿児島市よりクリエィティブ・コモンズ表示4.0国際ライセンスの下に提供されているデータを元にmatoken氏が作成された地図タイルです。",
@@ -3696,6 +3791,8 @@ var zinsokugazou2 = new ol.layer.Vector({
 //農研機構さんのgeojson ここまで-------------------------------------------------------------------------------------------
 //米軍航空写真-----------------------------------------------------------------------------------------------------------
 var usamiyazaki011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"宮崎市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3709,6 +3806,8 @@ var usamiyazaki011 = new ol.layer.Tile({
     })
 });
 var usamiyazaki012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"宮崎市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3722,6 +3821,8 @@ var usamiyazaki012 = new ol.layer.Tile({
     })
 });
 var usanobeoka011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"延岡市米軍航空写真(昭和23年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3735,6 +3836,8 @@ var usanobeoka011 = new ol.layer.Tile({
     })
 });
 var usanobeoka012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"延岡市米軍航空写真(昭和23年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3748,6 +3851,8 @@ var usanobeoka012 = new ol.layer.Tile({
     })
 });
 var usamiyakonozyou011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"都城市米軍航空写真(昭和23年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3761,6 +3866,8 @@ var usamiyakonozyou011 = new ol.layer.Tile({
     })
 });
 var usamiyakonozyou012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"都城市米軍航空写真(昭和23年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3774,6 +3881,8 @@ var usamiyakonozyou012 = new ol.layer.Tile({
     })
 });
 var usakobayasi011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"小林市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3787,6 +3896,8 @@ var usakobayasi011 = new ol.layer.Tile({
     })
 });
 var usakobayasi012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"小林市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3800,6 +3911,8 @@ var usakobayasi012 = new ol.layer.Tile({
     })
 });
 var usakumamoto011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"熊本市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3813,6 +3926,8 @@ var usakumamoto011 = new ol.layer.Tile({
     })
 });
 var usakumamoto012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"熊本市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3826,6 +3941,8 @@ var usakumamoto012 = new ol.layer.Tile({
     })
 });
 var usamuroran011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"室蘭市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3839,6 +3956,8 @@ var usamuroran011 = new ol.layer.Tile({
     })
 });
 var usamuroran012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"室蘭市米軍航空写真(昭和22年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3851,15 +3970,138 @@ var usamuroran012 = new ol.layer.Tile({
         maxZoom:18
     })
 });
+var usanatori011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"名取市米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/natori01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var usanatori012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"名取市米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/natori01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var usasendai011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"仙台市米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/sendai01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var usasendai012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"仙台市米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/sendai01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
 
 
-
-
+var usasiawase011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"しあわせの村米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    coord:[135.11447,34.70677],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/siawase/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var usasiawase012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"しあわせの村米軍航空写真(昭和22年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    coord:[135.11447,34.70677],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/usa/siawase/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
 
 
 //米軍航空写真 ここまで----------------------------------------------------------------------------------------------------
 //日本陸軍航空写真--------------------------------------------------------------------------------------------------------
+var jpn23ku011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"東京都23区日本陸軍航空写真(昭和11年頃)",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+var jpn23ku012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"東京都23区日本陸軍航空写真(昭和11年頃)",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://cyberjapandata.gsi.go.jp/xyz/ort_riku10/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:18
+    })
+});
+
+
+
 var jpnfukuoka011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"福岡市吉塚駅付近日本陸軍航空写真(昭和14年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3873,6 +4115,8 @@ var jpnfukuoka011 = new ol.layer.Tile({
     })
 });
 var jpnfukuoka012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
     title:"福岡市吉塚駅付近日本陸軍航空写真(昭和14年)",
     origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
     detail:"国土地理院のサービスです。" ,
@@ -3885,8 +4129,36 @@ var jpnfukuoka012 = new ol.layer.Tile({
         maxZoom:18
     })
 });
-
-
+var jpnnoboribetu011 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"登別市鷲別駅付近日本陸軍航空写真(昭和19年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/jpn/muroran01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var jpnnoboribetu012 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"登別市鷲別駅付近日本陸軍航空写真(昭和19年)",
+    origin:"<a href='http://mapps.gsi.go.jp/article2.html' target='_blank'>地図・空中写真閲覧サービス</a>",
+    detail:"国土地理院のサービスです。" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/jpn/muroran01/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
 //日本陸軍航空写真ここまで-------------------------------------------------------------------------------------------------
 
 

@@ -1,5 +1,7 @@
 var popup1;
 var popup2;
+var senkyokuPyramidJson1;
+var senkyokuPyramidJson2;
 $(function(){
     popup1 = new ol.Overlay.Popup();
     map1.addOverlay(popup1);
@@ -148,8 +150,219 @@ $(function(){
                 console.log(feature.getProperties());
                 funcBunkatyoudbPopup(feature,map,evt);
                 break;
-
+            case "syougakkouku":
+                console.log(feature.getProperties());
+                funcSyougakkoukuPopup(feature,map,evt);
+                break;
+            case "tyuugakkouku":
+                console.log(feature.getProperties());
+                funcTyuugakkoukuPopup(feature,map,evt);
+                break;
+            case "sizentikei":
+                console.log(feature.getProperties());
+                funcSizentikeiPopup(feature,map,evt);
+                break;
+            case "iryouken":
+                console.log(feature.getProperties());
+                funcIryoukenPopup(feature,map,evt);
+                break;
+            case "senkyoku":
+                console.log(feature.getProperties());
+                funcSenkyokuPopup(feature,map,evt);
+                break;
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcSenkyokuPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var content = "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='senkyoku-pyramid-btn'>人口ピラミッド</button><br>";
+        content += "<input type='hidden' class='senkyoku-code' value='" + featureProp["kucode"] + "'>";
+        content += "<input type='hidden' class='senkyoku-name' value='" + featureProp["kuname"] + "'>";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            var ninFlg = true;
+            var tani = "";
+            switch (key) {
+                case "kucode":
+                    key = "選挙区コード";
+                    ninFlg = false;
+                    break;
+                case "kuname":
+                    key = "選挙区名";
+                    ninFlg = false;
+                    break;
+                case "ken":
+                    key = "都道府県";
+                    ninFlg = false;
+                    break;
+                case "ku":
+                    key = "区";
+                    ninFlg = false;
+                    break;
+                case "男_平均年齢":
+                case "女_平均年齢":
+                case "総数_平均年齢":
+                    tani = "歳";
+                    break;
+                case "layer":
+                    ninFlg = false;
+                    break;
+                default:
+                    tani = "人"
+            }
+            if(ninFlg === true) {
+                prop = prop.toLocaleString() + tani;
+                table += "<th class='popup-th' style='width:150px;'>" + key + "</th><td class='popup-td' style='text-align:right;'>" + prop + "</td>";
+            }else{
+                if(key!=="layer") table += "<th class='popup-th' style='width:150px;'>" + key + "</th><td class='popup-td' style='width:100px;'>" + prop + "</td>";
+            }
+            table += "</tr>";
+        }
+        content += table;
+
+        if(map==="map1") {
+            popup1.show(coord,content);
+            senkyokuPyramidJson1 = featureProp;
+        }else{
+            popup2.show(coord,content);
+            senkyokuPyramidJson2 = featureProp;
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    function funcIryoukenPopup(feature,map,evt){
+        console.log(feature);
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'style='width:120px;'>市区町村名</th><td class='popup-td'>" + prop["A38b_002"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>二次医療圏コード</th><td class='popup-td'>" +　prop["A38b_003"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>二次医療圏名</th><td class='popup-td'>" +　prop["A38b_004"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>面積(医療計画)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_005"] + "m2</td></tr>";
+        table += "<tr><th class='popup-th'>面積(住基)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_006"] + "m2</td></tr>";
+        table += "<tr><th class='popup-th'>人口(医療計画)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_007"].toLocaleString() + "人</td></tr>";
+        table += "<tr><th class='popup-th'>総人口(住基)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_008"].toLocaleString() + "人</td></tr>";
+        table += "<tr><th class='popup-th'>15才未満人口(住基)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_009"].toLocaleString() + "人</td></tr>";
+        table += "<tr><th class='popup-th'>15才以上65才未満人口(住基)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_010"].toLocaleString() + "人</td></tr>";
+        table += "<tr><th class='popup-th'>65才以上人口(住基)</th><td class='popup-td' style='text-align:right'>" +　prop["A38b_011"].toLocaleString() + "人</td></tr>";
+
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    function funcSizentikeiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var code = featureProp["code"];
+        console.log(code);
+        var landFormName="";
+        var naritachi="";
+        var risk="";
+        for(var i=0;i<codeList_sizen2.length;i++){
+            if(codeList_sizen2[i][0]==code){
+                landFormName = codeList_sizen2[i][1];
+                naritachi = codeList_sizen2[i][2];
+                risk = codeList_sizen2[i][3];
+                break;
+            }
+        }
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'style='width:90px;'>code</th><td class='popup-td'>" + code + "</td></tr>";
+        table += "<tr><th class='popup-th'>分類名</th><td class='popup-td'>" +　landFormName + "</td></tr>";
+        table += "<tr><th class='popup-th'>成り立ち</th><td class='popup-td'>" +　naritachi + "</td></tr>";
+        table += "<tr><th class='popup-th'>リスク</th><td class='popup-td'>" +　risk + "</td></tr>";
+        table += "</table>";
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    function funcTyuugakkoukuPopup(feature,map,evt){
+        console.log(feature);
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var type = feature.getGeometry().getType();
+        console.log(type);
+        if(type==="Polygon") {
+            var cityCode = featureProp["A32_006"];
+            var syutai = featureProp["A32_007"];
+            var meisyou = featureProp["A32_008"];
+            var syozaiti = featureProp["A32_009"];
+        }else{
+            var cityCode = featureProp["A32_001"];
+            var syutai = featureProp["A32_002"];
+            var meisyou = featureProp["A32_003"];
+            var syozaiti = featureProp["A32_004"];
+        }
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'style='width:90px;'>市区町村コード</th><td class='popup-td'>" + cityCode + "</td></tr>";
+        table += "<tr><th class='popup-th'>設置主体</th><td class='popup-td'>" +　syutai + "</td></tr>";
+        table += "<tr><th class='popup-th'>名称</th><td class='popup-td'>" +　meisyou + "</td></tr>";
+        table += "<tr><th class='popup-th'>所在地</th><td class='popup-td'>" +　syozaiti + "</td></tr>";
+
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    function funcSyougakkoukuPopup(feature,map,evt){
+        console.log(feature);
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var type = feature.getGeometry().getType();
+        console.log(type);
+        if(type==="Polygon") {
+            var cityCode = featureProp["A27_005"];
+            var syutai = featureProp["A27_006"];
+            var meisyou = featureProp["A27_007"];
+            var syozaiti = featureProp["A27_008"];
+        }else{
+            var cityCode = featureProp["A27_001"];
+            var syutai = featureProp["A27_002"];
+            var meisyou = featureProp["A27_003"];
+            var syozaiti = featureProp["A27_004"];
+        }
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th'style='width:90px;'>市区町村コード</th><td class='popup-td'>" + cityCode + "</td></tr>";
+        table += "<tr><th class='popup-th'>設置主体</th><td class='popup-td'>" +　syutai + "</td></tr>";
+        table += "<tr><th class='popup-th'>名称</th><td class='popup-td'>" +　meisyou + "</td></tr>";
+        table += "<tr><th class='popup-th'>所在地</th><td class='popup-td'>" +　syozaiti + "</td></tr>";
+
+        table += "</table>";
+
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -212,16 +425,16 @@ $(function(){
         var content = "";
          var table = "<table class='popup-tbl table table-bordered table-hover'>";
          for(key in featureProp){
-            table += "<tr>";
-            var prop = featureProp[key];
-            console.log(String(prop).substr(0,4));
-
-            if(String(prop).substr(0,4)=="http"){
-                prop = "<a href='" + prop + "' target='_blank'>" + prop + "</a>";
-            }
-
-            table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-            table += "</tr>";
+             if(key!=="layer") {
+                 table += "<tr>";
+                 var prop = featureProp[key];
+                 console.log(String(prop).substr(0, 4));
+                 if (String(prop).substr(0, 4) == "http") {
+                     prop = "<a href='" + prop + "' target='_blank'>" + prop + "</a>";
+                 }
+                 table += "<th class='popup-th' style='width:110px;'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+                 table += "</tr>";
+             }
          }
          content += table;
         if(map==="map1") {
@@ -951,8 +1164,16 @@ $(function(){
         }).fail(function(){
             console.log("失敗!");
         });
+    }
+    /*
+    function funcSenkyokuPyramid(mapName,prefCode,areaCode,areaName){
+        console.log(mapName)
+        var citycode = areaCode.substr(0,5);
+        var azacode = areaCode.substr(5,6);
+
 
     }
+    */
 
 
 
@@ -1164,6 +1385,10 @@ $(function(){
         var areaCode = contentElement.find(".area-code").val();
         var areaName = contentElement.find(".area-name").val();
 
+        var senkyokuCode = contentElement.find(".senkyoku-code").val();
+        var senkyokuName = contentElement.find(".senkyoku-name").val();
+
+
         if(action){
             switch (action) {
                 case "pyramid-btn":
@@ -1177,6 +1402,9 @@ $(function(){
                     break;
                 case "syoutiiki-H27-pyramid-btn":
                     funcSyoutiikiH27Pyramid(mapName,prefCode,areaCode,areaName);
+                    break;
+                case "senkyoku-pyramid-btn":
+                    funcSenkyokuPyramid(mapName,senkyokuCode,senkyokuName);
                     break;
             }
         }

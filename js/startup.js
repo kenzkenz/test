@@ -33,7 +33,6 @@ $(function(){
             })
         }
     }
-
     //--------------------------------------------------------------------------
     //bootstrapのtooltip スマホタッチでタッチが二回必要になるので見送り
     //$('[data-toggle="tooltip"]').tooltip({html:true,container:"body"});
@@ -45,11 +44,18 @@ $(function(){
         msg += "★背景のうち(MVT)とついているものは3D化できません！<br>";
         msg += "★詳しい追加情報等は<a href='https://www.facebook.com/hinatagis' target='_blank'><i class='fa fa-facebook-square fa-fw' style='color:navy;'></i>FBへ</a><br>";
         //msg += "！！現在も継続的に作成中です！！<br>";
-        msg += "1 背景に国土地理院_治水地形分類図を追加しました。<br>";
-        msg += "2 背景に国指定文化財等データベース(MVT)を追加しました。<br>";
-        msg += "3 背景に全国旧石器時代遺跡(MVT)を追加しました。<br>";
-        msg += "4 背景に迅速測図を追加しました。<br>";
-        msg += "5 背景に全国の用途地域を追加しました。<br>";
+
+        //msg += "<canvas id='canvas1'></canvas>";
+        msg += "1 背景に地理院_地形分類(自然地形)()を追加しました。<br>";
+        msg += "2 背景に全国中学校区(MVT)を追加しました。<br>";
+        msg += "3 背景に全国小学校区(MVT)を追加しました。<br>";
+        msg += "4 背景に全国縄文・弥生集落遺跡(MVT)を追加しました。<br>";
+        msg += "5 背景に静岡県CS立体図を追加しました。<br>";
+        msg += "6 背景に地理院_治水地形分類図を追加しました。<br>";
+        //msg += "5 背景に国指定文化財等データベース(MVT)を追加しました。<br>";
+        //msg += "6 背景に全国旧石器時代遺跡(MVT)を追加しました。<br>";
+        //msg += "4 背景に迅速測図を追加しました。<br>";
+        //msg += "5 背景に全国の用途地域を追加しました。<br>";
         //msg += "6 背景に東峰地区(7/30,31撮影)を追加しました。<br>";
         //msg += "7 小地域人口等(MVT)から人口ピラミッドを作成します。<br>";
         //msg += "6 背景に道路中心線・河川中心線を追加しました。<br>";
@@ -77,13 +83,12 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/09/11</div>";
-        msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='http://www.the-miyanichi.co.jp/contents/media/4/20170911-nihonniti0911.pdf' target='_blank'><img src='icon/ushi.png' style='width:80px;'></a></div>";
-
+        msg += "宮崎県情報政策課<br>最終更新:2017/09/27</div>";
+        msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='https://www.osgeo.jp/' target='_blank'><img src='icon/osgeo.png' style='width:80px;background:'></a></div>";
         $.notify({//options
             message: msg
         }, {//settings
-            type: "danger",
+            type: "info",
             z_index: 999999,
             placement: {
                 from: "bottom",
@@ -97,18 +102,49 @@ $(function(){
         });
     }
     //webストレージから中陣地座標、ズーム率を取得
+
+
+    var urlHash = location.hash;
+    console.log(urlHash);
+
+
+    /*
+    if(urlHash) {
+        console.log(urlHash);
+        var zoom = urlHash.split("/")[0];
+        var lon = urlHash.split("/")[2];
+        var lat = urlHash.split("/")[1];
+        console.log(lon)
+        var center = ol.proj.fromLonLat([lon,lat]);
+    }else{
+        var center = JSON.parse(localStorage.getItem("lonlat"));
+        var zoom = localStorage.getItem("zoom");
+    }
+    //var center = JSON.parse(localStorage.getItem("lonlat"));
+    //var zoom = localStorage.getItem("zoom");
+
+    */
+
+    //var center = null;
+    //var zoom = null;
+
+
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");
+
     if(center==undefined){
         center = ol.proj.fromLonLat([131.423860,31.911069]);//中心地を宮崎市に
     }
     if(zoom==undefined){
         zoom = 14;
     }
+
     var view1 = new ol.View({
         center:center,
         zoom:zoom
     });
+
+
     //inu.setZIndex(9999999);
     editLayer.set("altitudeMode","clampToGround");
     editLayer.setZIndex(9999999);//edit.js参照
@@ -118,7 +154,7 @@ $(function(){
     map1 = new ol.Map({
         target:"map1",
         //layers:[pale1,inu,editLayer],
-        layers:[pale1,editLayer],
+        layers:[mieruneNormal1,editLayer],
         view:view1,
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
             new ol.interaction.DragRotateAndZoom()//shift+ドラッグで回転可能に
@@ -127,7 +163,7 @@ $(function(){
     map2 = new ol.Map({
         target:"map2",
         //layers:[pale2,inu],
-        layers:[pale2],
+        layers:[mieruneNormal2],
         view:view1,//最初はview1
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
             new ol.interaction.DragRotateAndZoom()
@@ -274,6 +310,10 @@ $(function(){
             alert("お使いのブラウザには座標取得機能がありません。")
         }
     }
+
+    ol.hash(map1);
+    ol.hash(map2);
+
     /*
     //現在地取得
     $(".here-btn").click(function(){

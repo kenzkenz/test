@@ -492,6 +492,7 @@ var dataLayerArr =
             "opacity":"0.5",
             "zoom":""
         },
+        /*
         {
             "id":"senkyoku",
             "title":"小選挙区75歳以上比率",
@@ -501,6 +502,7 @@ var dataLayerArr =
             "opacity":"1",
             "zoom":"6"
         },
+        */
         {
             "id":"kousokudouro",
             "title":"高速道路(全国)",

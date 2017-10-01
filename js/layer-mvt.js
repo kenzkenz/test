@@ -1776,7 +1776,7 @@ function zenkokuhakubutukanStyleFunction(feature, resolution) {
     });
     return style;
 }
-//全国遺跡---------------------------------------------------------------------------------------------------------------
+//旧石器遺跡---------------------------------------------------------------------------------------------------------------
 var zenkokuIseki1 = new ol.layer.VectorTile({
     folder:"child",
     category:"isekibunkazai",
@@ -1785,6 +1785,34 @@ var zenkokuIseki1 = new ol.layer.VectorTile({
     name:"zenkokuiseki",
     origin:"<a href='http://palaeolithic.jp/data/index.htm' target='_blank'>データベース『日本列島の旧石器時代遺跡』</a>の全国版遺跡データ(csv)",
     detail:"日本旧石器学会 ",
+    detail2:"<div style=''>" +
+        "石器種類:" +
+        "<select class='kyuusekki-cate-select'>" +
+        "<option value='99' selected>選択してください。</option>" +
+        "<option value='0'>全て表示</option>" +
+        "<option value='ナイフ形石器'>ナイフ形石器</option>" +
+        "<option value='台形（様）石器'>台形（様）石器</option>" +
+        "<option value='斧形石器'>斧形石器</option>" +
+        "<option value='剥片尖頭器'>剥片尖頭器</option>" +
+        "<option value='角錐状石器・三稜尖頭器'>角錐状石器・三稜尖頭器</option>" +
+        "<option value='槍先形尖頭器'>槍先形尖頭器</option>" +
+        "<option value='両面調整石器'>両面調整石器</option>" +
+        "<option value='細石刃・細石核等'>細石刃・細石核等</option>" +
+        "<option value='神子柴型石斧'>神子柴型石斧</option>" +
+        "<option value='有茎（舌）尖頭器'>有茎（舌）尖頭器</option>" +
+        "<option value='掻器・削器'>掻器・削器</option>" +
+        "<option value='彫器'>彫器</option>" +
+        "<option value='砥石'>砥石</option>" +
+        "<option value='叩石'>叩石</option>" +
+        "<option value='台石'>台石</option>" +
+        "<option value='礫器'>礫器</option>" +
+        "<option value='その他の石器'>その他の石器</option>" +
+        "<option value='草創期土器'>草創期土器</option>" +
+        "<option value='ブロック･ユニット'>ブロック･ユニット</option>" +
+        "<option value='礫群・配石'>礫群・配石</option>" +
+        "<option value='炭化物集中'>炭化物集中</option>" +
+        "<option value='その他の遺構'>その他の遺構</option>" +
+        "</select></div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
@@ -1817,18 +1845,12 @@ var zenkokuIseki2 = new ol.layer.VectorTile({
     //maxResolution:152.87,
     style: zenkokuisekiStyleFunction
 });
+var kyuusekkiTarget = "0";
 function zenkokuisekiStyleFunction(feature, resolution) {
     //console.log(feature);
     var prop = feature.getProperties();
-    var geoType = feature.getGeometry().getType();
     //var fillColor = prop["_fillColor"];
-    if(resolution>2445) {//ズーム６
-        var pointRadius = 2;
-    }else if(resolution>1222) {//ズーム７
-        var pointRadius = 2;
-    }else if(resolution>611){
-        var pointRadius = 2;
-    }else if(resolution>305) {
+    if(resolution>305) {
         var pointRadius = 2;
     }else if(resolution>152) {
         var pointRadius = 4;
@@ -1839,83 +1861,145 @@ function zenkokuisekiStyleFunction(feature, resolution) {
     }else{
         var pointRadius = 6;
     }
-    //console.log(geoType);
     var text = "";
     if(resolution<19.11) {
         text = prop["遺跡名"];
     }
-    switch (geoType){
-        case "MultiLineString":
-        case "LineString":
-            var style = new ol.style.Style({
-                stroke: new ol.style.Stroke({
-                    color:"red",
-                    width:1
-                })
-            });
-            break;
-        case "MultiPoint":
-        case "Point":
-            if(resolution>1222) break;
-            var style = new ol.style.Style({
-                image: new ol.style.Circle({
-                    radius:pointRadius,
-                    fill: new ol.style.Fill({
-                        color:"red"
-                    }),
-                    /*
-                    stroke: new ol.style.Stroke({
-                        color: "white",
-                        width: 1
-                    })
-                    */
-                }),
-                text: new ol.style.Text({
-                    font: "8px sans-serif",
-                    text: text,
-                    offsetY:10,
-                    stroke: new ol.style.Stroke({
-                        color: "white",
-                        width: 3
-                    })
-                })
-            });
-            break;
-        case "Polygon":
-        case "MultiPolygon":
-            if(resolution<76) {
-                var style = new ol.style.Style({
-                    fill: new ol.style.Fill({
-                        color:"rgba(0,128,0,0.8)"
-                    }),
-                    stroke: new ol.style.Stroke({
-                        color: "gray",
-                        width: 1
-                    }),
-                    text: new ol.style.Text({
-                        font: "8px sans-serif",
-                        text: text,
-                        stroke: new ol.style.Stroke({
-                            color: "white",
-                            width: 3
-                        })
-                    }),
-                    zIndex: 0
-                });
-            }else{
-                var style = new ol.style.Style({
-                    fill: new ol.style.Fill({
-                        color:"rgba(0,128,0,1.0)"
-                    }),
-                    zIndex: 0
-                });
-            }
-            break;
-        default:
+    var fillColor = "red";
+    if(kyuusekkiTarget === "0") {
+        if (resolution > 1222) return;
+    }else{
+        if(prop[kyuusekkiTarget]) {
+            fillColor = "blue";
+        }else{
+            return;
+        }
     }
+    var style = new ol.style.Style({
+        image: new ol.style.Circle({
+            radius:pointRadius,
+            fill: new ol.style.Fill({
+                color:fillColor
+            }),
+            /*
+            stroke: new ol.style.Stroke({
+                color: "white",
+                width: 1
+            })
+            */
+        }),
+        text: new ol.style.Text({
+            font: "8px sans-serif",
+            text: text,
+            offsetY:10,
+            stroke: new ol.style.Stroke({
+                color: "white",
+                width: 3
+            })
+        })
+    });
     return style;
 }
-//-----------------
+
+//縄文弥生遺跡------------------------------------------------------------------------------------------------------------
+var yayoi1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国縄文・弥生集落遺跡(MVT)",
+    name:"zenkokuiseki",
+    origin:"<a href='https://www.rekihaku.ac.jp/doc/gaiyou/jomo.html' target='_blank'>縄文・弥生集落遺跡データベース</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/yoyoi/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: yayoiStyleFunction
+});
+var yayoi2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"isekibunkazai",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"全国縄文・弥生集落遺跡(MVT)",
+    name:"zenkokuiseki",
+    origin:"<a href='https://www.rekihaku.ac.jp/doc/gaiyou/jomo.html' target='_blank'>縄文・弥生集落遺跡データベース</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/yoyoi/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: yayoiStyleFunction
+});
+var yayoiTarget = "0";
+function yayoiStyleFunction(feature, resolution) {
+    //console.log(feature);
+    var prop = feature.getProperties();
+    //var fillColor = prop["_fillColor"];
+    if(resolution>305) {
+        var pointRadius = 2;
+    }else if(resolution>152) {
+        var pointRadius = 4;
+    }else if(resolution>76) {
+        var pointRadius = 4;
+    }else if(resolution>38) {
+        var pointRadius = 4;
+    }else{
+        var pointRadius = 6;
+    }
+    var text = "";
+    if(resolution<19.11) {
+        text = prop["遺跡名"].split(" ")[0];
+    }
+    var fillColor = "darkgreen";
+
+    if(yayoiTarget === "0") {
+        if (resolution > 1222) return;
+    }else{
+        if(prop[yayoiTarget]) {
+            fillColor = "blue";
+        }else{
+            return;
+        }
+    }
+    var style = new ol.style.Style({
+        image: new ol.style.Circle({
+            radius:pointRadius,
+            fill: new ol.style.Fill({
+                color:fillColor
+            }),
+            /*
+             stroke: new ol.style.Stroke({
+             color: "white",
+             width: 1
+             })
+             */
+        }),
+        text: new ol.style.Text({
+            font: "8px sans-serif",
+            text: text,
+            offsetY:10,
+            stroke: new ol.style.Stroke({
+                color: "white",
+                width: 3
+            })
+        })
+    });
+    return style;
+}
+
+//群馬遺跡---------------------------------------------------------------------------------------------------------------
 var gunmaIseki1 = new ol.layer.VectorTile({
     folder:"child",
     category:"isekibunkazai",
@@ -2025,4 +2109,553 @@ function bunkatyoudbStyleFunction(feature, resolution) {
         })
     });
     return style;
+}
+//福井県林道---------------------------------------------------------------------------------------------------------------
+var fukuiRindou1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
+    icon:"<i class='fa fa-leaf fa-fw' style='color:darkgreen;'></i>",
+    title:"福井県林道(MVT)",
+    name:"zenkokuiseki",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/fukuiken/rindou/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:152.87,
+    style: fukuiRindouStyleFunction
+});
+function fukuiRindouStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var fillColor = "black";
+    if(prop["type"]==="r") {
+        fillColor = "red"
+    }else{
+        fillColor = "blue"
+    }
+    var style = new ol.style.Style({
+        stroke: new ol.style.Stroke({
+            color:fillColor,
+            width: 2
+        })
+    });
+    return style;
+}
+//小学校区---------------------------------------------------------------------------------------------------------------
+var syougakkouku1 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国小学校区(MVT)",
+    name:"syougakkouku",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='_blank'>国土数値情報　小学校区データ</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/syougakkouku2/{z}/{x}/{y}.mvt"
+    }),
+    style: syougakkoukuStyleFunction
+});
+/*
+syougakkouku1.on('precompose', function(evt) {
+    evt.context.globalCompositeOperation = 'color'
+});
+*/
+var syougakkouku2 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国小学校区(MVT)",
+    name:"syougakkouku",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='_blank'>国土数値情報　小学校区データ</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/syougakkouku2/{z}/{x}/{y}.mvt"
+    }),
+    style: syougakkoukuStyleFunction
+});
+var d3syougakkoukuColor = d3.scale.category20();
+var d3tyuugakkoukuColor = d3.scale.category20c();
+function syougakkoukuStyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var geoType = feature.getGeometry().getType();
+    //var rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
+    //var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+    var text = "";
+    if(resolution<38.22){
+        if(prop["A27_003"]) {
+            text = prop["A27_003"];
+        }else{
+            text = prop["A32_003"];
+        }
+    }
+
+    if(prop["A27_005"]) {
+        var rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
+        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+    }else{
+        var rgb = d3.rgb(d3tyuugakkoukuColor(Number(prop["id"])));
+        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+    }
+
+    switch (geoType){
+        case "MultiPoint":
+        case "Point":
+            if(resolution>305) break;
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius:3,
+                    fill: new ol.style.Fill({
+                        color:"black"
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 1
+                    })
+                }),
+                text: new ol.style.Text({
+                    font: "8px sans-serif",
+                    text: text,
+                    offsetY:10,
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 3
+                    })
+                })
+            });
+            break;
+        case "Polygon":
+        case "MultiPolygon":
+            if(resolution<76) {
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:rgba
+                    }),
+                    stroke: new ol.style.Stroke({
+                        color: "gray",
+                        width: 1
+                    }),
+                    text: new ol.style.Text({
+                        font: "8px sans-serif",
+                        text: text,
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 3
+                        })
+                    }),
+                    zIndex: 0
+                });
+            }else{
+                var style = new ol.style.Style({
+                    fill: new ol.style.Fill({
+                        color:rgba
+                    }),
+                    zIndex: 0
+                });
+            }
+            break;
+        default:
+    }
+    return style;
+}
+//中学校区---------------------------------------------------------------------------------------------------------------
+var tyuugakkouku1 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国中学校区(MVT)",
+    name:"tyuugakkouku",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A32-v2_0.html' target='_blank'>国土数値情報　中学校区データ</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tyuugakkouku/{z}/{x}/{y}.mvt"
+    }),
+    style: syougakkoukuStyleFunction
+});
+/*
+tyuugakkouku1.on('precompose', function(evt) {
+    evt.context.globalCompositeOperation = 'color'
+});
+*/
+var tyuugakkouku2 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国中学校区(MVT)",
+    name:"tyuugakkouku",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A32-v2_0.html' target='_blank'>国土数値情報　中学校区データ</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tyuugakkouku/{z}/{x}/{y}.mvt"
+    }),
+    style: syougakkoukuStyleFunction
+});
+//医療圏---------------------------------------------------------------------------------------------------------------
+var iryouken1 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"二次医療圏(MVT)",
+    name:"iryouken",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38.html' target='_blank'>国土数値情報　医療圏データ</a>",
+    detail:"",
+    detail2:"<div style=''>" +
+            "　色："+
+            "<select class='iryouken-color-select'>" +
+                "<option value='0' selected>ランダム</option>" +
+                "<option value='1'>老年人口率</option>" +
+                "<option value='2'>生産年齢人口率</option>" +
+                "<option value='3'>年少人口率</option>" +
+            "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iryouken/{z}/{x}/{y}.mvt"
+    }),
+    //style: syougakkoukuStyleFunction
+    style: d3StyleFunction("A38b_003")
+});
+/*
+iryouken1.on('precompose', function(evt) {
+    evt.context.globalCompositeOperation = 'color'
+});
+*/
+var iryouken2 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"二次医療圏(MVT)",
+    name:"iryouken",
+    origin:"<a href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A38.html' target='_blank'>国土数値情報　医療圏データ</a>",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iryouken/{z}/{x}/{y}.mvt"
+    }),
+    //style: syougakkoukuStyleFunction
+    style: d3StyleFunction("A38b_003")
+});
+var iryoukenTarget = "0";
+function d3StyleFunction(colotTarget) {
+    var d3Color = d3.scale.category20();
+    var d3Color2 = d3.interpolateLab("white","red");
+    var d3Color3 = d3.interpolateLab("white","blue");
+    var d3Color4 = d3.interpolateLab("white","green");
+    return function(feature, resolution) {
+        var prop = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        //var rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
+        //var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+        var text = "";
+        if (resolution < 38.22) {
+            //text = prop["A38b_004"];
+        }
+        switch (iryoukenTarget) {
+            case "0":
+                var rgb = d3.rgb(d3Color(Number(prop[colotTarget])));
+                var bbb = Number(prop[colotTarget].substr(0, 2));
+                var ccc = Number(prop[colotTarget].substr(2, 2)) * 5;
+                //console.log(rgb.b-bbb);
+                if (rgb.b - bbb) {
+                    var blue = rgb.b - bbb
+                } else {
+                    var blue = 0
+                }
+                if (rgb.r - ccc) {
+                    var red = rgb.r - ccc
+                } else {
+                    var red = 0
+                }
+                var rgba = "rgba(" + red + "," + rgb.g + "," + blue + ",0.7)";
+                break;
+            case "1":
+                var souzinkou = Number(prop["A38b_008"]);
+                var rounen = Number(prop["A38b_011"]);
+                var ritu = rounen / souzinkou;
+                ritu = (ritu - 0.15) * 5
+                //console.log(rounen,souzinkou);
+                //console.log(ritu);
+                var rgb = d3.rgb(d3Color2(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+            case "2":
+                var souzinkou = Number(prop["A38b_008"]);
+                var seisan = Number(prop["A38b_010"]);
+                var ritu = seisan / souzinkou;
+                ritu = (ritu - 0.4) * 4
+                //console.log(rounen,souzinkou);
+                //console.log(ritu);
+                var rgb = d3.rgb(d3Color3(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+            case "3":
+                var souzinkou = Number(prop["A38b_008"]);
+                var nensyou = Number(prop["A38b_009"]);
+                var ritu = nensyou / souzinkou;
+                ritu = (ritu - 0.1) * 20
+                //console.log(nensyou,souzinkou);
+                //console.log(ritu);
+                var rgb = d3.rgb(d3Color4(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+        }
+
+        switch (geoType) {
+            case "MultiPoint":
+            case "Point":
+                if (resolution > 305) break;
+                var style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 3,
+                        fill: new ol.style.Fill({
+                            color: "black"
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 1
+                        })
+                    }),
+                    text: new ol.style.Text({
+                        font: "8px sans-serif",
+                        text: text,
+                        offsetY: 10,
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 3
+                        })
+                    })
+                });
+                break;
+            case "Polygon":
+            case "MultiPolygon":
+                if (resolution < 2445.98) {
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: rgba
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "gray",
+                            width: 1
+                        }),
+                        text: new ol.style.Text({
+                            font: "8px sans-serif",
+                            text: text,
+                            stroke: new ol.style.Stroke({
+                                color: "white",
+                                width: 3
+                            })
+                        }),
+                        zIndex: 0
+                    });
+                } else {
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: rgba
+                        }),
+                        zIndex: 0
+                    });
+                }
+                break;
+            default:
+        }
+        return style;
+    };
+}
+//-----------------------------------------------------------------------------------
+//選挙区
+var senkyoku1 = new ol.layer.VectorTile({
+    //folder:"child",
+    //category:"test",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H29選挙区(MVT)test",
+    name:"senkyoku",
+    origin:"<a href='http://www.csis.u-tokyo.ac.jp/~nishizawa/senkyoku/' target='_blank'>衆議院議員選挙の小選挙区に関するデータを提供するページ</a>",
+    detail:"",
+    detail2:"<div style=''>" +
+            "　色："+
+            "<select class='senkyoku-color-select'>" +
+                "<option value='0' selected>ランダム</option>" +
+                "<option value='1'>老年人口率(赤いほど老年率高し)</option>" +
+                "<option value='2'>生産年齢人口率(青いほど生産年齢率高し)</option>" +
+                "<option value='3'>年少人口率(緑ほど年少人口率高し)</option>" +
+            "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/senkyoku/{z}/{x}/{y}.mvt"
+    }),
+    //style: syougakkoukuStyleFunction
+    style: senkyokuStyleFunction("kucode")
+});
+var senkyokuTarget = "0";
+function senkyokuStyleFunction(colotTarget) {
+    var d3Color = d3.scale.category20();
+    var d3Color2 = d3.interpolateLab("white","red");
+    var d3Color3 = d3.interpolateLab("white","blue");
+    var d3Color4 = d3.interpolateLab("white","green");
+    return function(feature, resolution) {
+        var prop = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        //var rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
+        //var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+        //console.log(prop);
+        var text = "";
+        if (resolution < 38.22) {
+            //text = prop["A38b_004"];
+        }
+        switch (senkyokuTarget) {
+            case "0":
+                var rgb = d3.rgb(d3Color(Number(prop[colotTarget])));
+                //ar bbb = Number(prop[colotTarget].substr(0, 2));
+                //var ccc = Number(prop[colotTarget].substr(2, 2)) * 5;
+                //console.log(rgb.b-bbb);
+                /*
+                if (rgb.b - bbb) {
+                    var blue = rgb.b - bbb
+                } else {
+                    var blue = 0
+                }
+                if (rgb.r - ccc) {
+                    var red = rgb.r - ccc
+                } else {
+                    var red = 0
+                }
+                var rgba = "rgba(" + red + "," + rgb.g + "," + blue + ",0.7)";
+                */
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+            case "1":
+                var souzinkou = Number(prop["総数_総数（年齢）"]);
+                var rounen = Number(prop["総数_（再掲）65歳以上"]);
+                var ritu = rounen / souzinkou;
+                ritu = (ritu - 0.15) * 5
+                //console.log(rounen,souzinkou);
+                //console.log(ritu);
+                var rgb = d3.rgb(d3Color2(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+            case "2":
+                var souzinkou = Number(prop["総数_総数（年齢）"]);
+                var seisan = Number(prop["総数_（再掲）15〜64歳"]);
+                var ritu = seisan / souzinkou;
+                ritu = (ritu - 0.4) * 4
+                //console.log(rounen,souzinkou);
+                //console.log(ritu);
+                var rgb = d3.rgb(d3Color3(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+            case "3":
+                var souzinkou = Number(prop["総数_総数（年齢）"]);
+                var nensyou = Number(prop["総数_（再掲）15歳未満"]);
+                var ritu = nensyou / souzinkou;
+                ritu = (ritu - 0.1) * 20
+                //console.log(nensyou,souzinkou);
+                //console.log(ritu);
+                var rgb = d3.rgb(d3Color4(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+                break;
+        }
+
+        switch (geoType) {
+            case "MultiPoint":
+            case "Point":
+                if (resolution > 305) break;
+                var style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 3,
+                        fill: new ol.style.Fill({
+                            color: "black"
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 1
+                        })
+                    }),
+                    text: new ol.style.Text({
+                        font: "8px sans-serif",
+                        text: text,
+                        offsetY: 10,
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 3
+                        })
+                    })
+                });
+                break;
+            case "Polygon":
+            case "MultiPolygon":
+                if (resolution < 2445.98) {
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: rgba
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "gray",
+                            width: 1
+                        }),
+                        text: new ol.style.Text({
+                            font: "8px sans-serif",
+                            text: text,
+                            stroke: new ol.style.Stroke({
+                                color: "white",
+                                width: 3
+                            })
+                        }),
+                        zIndex: 0
+                    });
+                } else {
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: rgba
+                        }),
+                        zIndex: 0
+                    });
+                }
+                break;
+            default:
+        }
+        return style;
+    };
 }

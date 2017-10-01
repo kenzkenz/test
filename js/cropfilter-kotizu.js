@@ -652,6 +652,8 @@ $(function(){
 
     var usamuroran01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[140.9508923140588,42.35566087461484],[140.9537247267785,42.2918210235388],[141.03974893620259,42.292940681225446],[141.03821312545276,42.35733332918781],[140.9508923140588,42.35566087461484]]]}};
 
+    var jpnnoboribetu01Dep = {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[141.03126196140073,42.39454195024936],[141.02091498817106,42.34245839978723],[141.09174471824662,42.337014968253385],[141.10192327643404,42.38881946446622],[141.03126196140073,42.39454195024936]]]}};
+
     var cropObjAr = [
         {
             "dep":miyazakiDep,
@@ -757,6 +759,11 @@ $(function(){
             "dep":usamuroran01Dep,
             "layer1":usamuroran011,
             "layer2":usamuroran012
+        },
+        {
+            "dep":jpnnoboribetu01Dep,
+            "layer1":jpnnoboribetu011,
+            "layer2":jpnnoboribetu012
         }
     ];
     for (var i=0; i < cropObjAr.length; i++) {

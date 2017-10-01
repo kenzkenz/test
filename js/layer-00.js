@@ -6,18 +6,30 @@ var plI = 0;
 
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [pale1,blank1,relief1,lcmfc2_1,
-                    ort1,seamlessphoto1,gazo11,
-        //戦後米軍地図
-                    usamiyazaki011,usamiyakonozyou011,usanobeoka011,usakobayasi011,usakumamoto011,usamuroran011,
-                    jpnfukuoka011,
-                    muro1,tondabayasik1,tondabayasik2,kago1,
-                    syokusei1,dozyouzu1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,
-                    osm1,mierune1,mieruneMono1,toner1,
+    useLayersArr1 = [mieruneNormal1,
+                    pale1,blank1,relief1,lcmfc2_1,tikeiVectorTileSizen1,
+        //現在の航空写真
+        sikiriGenzaiSyasin,
+                    ort1,seamlessphoto1,
+                    muro1,tondabayasik1,kago1,
+        //過去の航空写真
+        sikiriKakoSyasin,
+                    usasiawase011,
+                    gazo11,
+                    jpn23ku011,
+                    usamiyazaki011,usamiyakonozyou011,usanobeoka011,usakobayasi011,usakumamoto011,usamuroran011,usanatori011,
+                    usasendai011,
+                    jpnfukuoka011,jpnnoboribetu011,
+
+                    syokusei1,dozyouzu1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,syougakkouku1,tyuugakkouku1,iryouken1,senkyoku1,
+                    osm1,toner1,
                     tondabayasit1,
                     //mesh1000z1,kousoku9syu1,
                     //namie1,
                     did1,
+        //mieruneさん
+        mierune,
+                    mierune1,mieruneMono1,
         //九州北部豪雨
         sikiriKyuusyuuHokubuGouu,
                     ooameasahi01,
@@ -35,7 +47,7 @@ $(function(){
                     rekisitekikantou1,zinsokugazou1,rekisitekitoukyou1,rekisitekihukuyama1,
         //遺跡文化財
         sikiriIsekibunkazai,
-                    bunkatyoudb1,zenkokuHakubutukan1,bunkazai1,zenkokuIseki1,kumamotoIseki1,gunmaIseki1,
+                    bunkatyoudb1,zenkokuHakubutukan1,bunkazai1,zenkokuIseki1,yayoi1,kumamotoIseki1,//gunmaIseki1,
         //ユネスコ
         sikiriUnesco,
                     aya1,sobo1,soboZ1,
@@ -61,23 +73,37 @@ $(function(){
                     nobeoka19521,
                     totiriyou1,
                     bingroad1,
-                    kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1
+                    kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
+                    fukuiRindou1
                     ];
 
+
     //--------------------------
-    useLayersArr2 = [pale2,blank2,relief2,lcmfc2_2,
-                    ort2,seamlessphoto2,gazo12,
-        //戦後米軍地図
-                    usamiyazaki012,usamiyakonozyou012,usanobeoka012,usakobayasi012,usakumamoto012,usamuroran012,
-                    jpnfukuoka012,
-                    muro2,kago2,
-                    syokusei2,dozyouzu2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,
-                    osm2,mierune2,mieruneMono2,toner2,
+    useLayersArr2 = [mieruneNormal2,
+                    pale2,blank2,relief2,lcmfc2_2,tikeiVectorTileSizen2,
+        //現在の航空写真
+        sikiriGenzaiSyasin,
+                    ort2,seamlessphoto2,
+                    muro2,tondabayasik2,kago2,
+        //過去の航空写真
+        sikiriKakoSyasin,
+                    usasiawase012,
+                    gazo12,
+                    jpn23ku012,
+                    usamiyazaki012,usamiyakonozyou012,usanobeoka012,usakobayasi012,usakumamoto012,usamuroran012,usanatori012,
+                    usasendai012,
+                    jpnfukuoka012,jpnnoboribetu012,
+
+                    syokusei2,dozyouzu2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,syougakkouku2,tyuugakkouku2,iryouken2,
+                    osm2,toner2,
                     tondabayasit2,
                     //mrtiba2,mransei2,
                     //mesh1000z2,kousoku9syu2,
                     //namie2,
                     did2,
+        //mieruneさん
+        mierune,
+                    mierune2,mieruneMono2,
         //九州北部豪雨
         sikiriKyuusyuuHokubuGouu,
                     ooameasahi02,
@@ -95,7 +121,7 @@ $(function(){
                     rekisitekikantou2,zinsokugazou2,rekisitekitoukyou2,rekisitekihukuyama2,
         //遺跡文化財
         sikiriIsekibunkazai,
-                    bunkatyoudb2,zenkokuHakubutukan2,bunkazai2,kumamotoIseki2,zenkokuIseki2,
+                    bunkatyoudb2,zenkokuHakubutukan2,bunkazai2,zenkokuIseki2,yayoi2,kumamotoIseki2,
         //ユネスコ
         sikiriUnesco,
                     aya2,sobo2,soboZ2,
@@ -164,7 +190,6 @@ function funcHaikeiTableCreate(mapElement,mapName){
         }
 
         htmlChar += trHtml;
-
 
         htmlChar += "<td><label><input type='checkbox' name='haikei-check' value='" + i + "'" + chkChar + "> " + icon +  prop["title"] + "</label></td>";
         htmlChar += "<td class='td-slider'><div class='haikei-slider'></div></td>";
@@ -286,6 +311,8 @@ function funcHaikeiTableCreate(mapElement,mapName){
             if(!Array.isArray(layer)){
                 layer.set("altitudeMode","clampToGround");
                 layer.set("selectable",true);
+
+
                 eval(mapName).addLayer(layer);
                 //座標を移動する。
                 if(layer.getProperties()["coord"]){
@@ -575,6 +602,13 @@ $(function(){
             layer.getSource().changed();
         });
         //-------------------------------------------------------
+        $("#" + mapName).on("change",".kyuusekki-cate-select",function() {
+            var val = $(this).val();
+            console.log(val);
+            kyuusekkiTarget = val;
+            layer.getSource().changed();
+        });
+        //-------------------------------------------------------
         $("#" + mapName).on("change",".totiriyou-cate-select",function() {
             var val = $(this).val();
             console.log(val);
@@ -601,6 +635,7 @@ $(function(){
             kyoudo = $("#" + mapName + " .keizaitext").val();
             keizaiColorChange(kyoudo,mapName);
         });
+        //------------------------------------------------
         function keizaiColorChange(kyoudo0,mapName){
             kyoudoKeizai = kyoudo0;
             keizaiMaxColor = $("#" + mapName + " .keizaicensus-color-select").val();
@@ -608,6 +643,22 @@ $(function(){
             keizaiColor = d3.interpolateLab("white",keizaiMaxColor);
             layer.getSource().changed();
         }
+        //------------------------------------------------
+        $("#" + mapName).on("change",".iryouken-color-select",function(){
+            var val = $(this).val();
+            console.log(val);
+            iryoukenTarget = val;
+            layer.getSource().changed();
+        });
+        //------------------------------------------------
+        $("#" + mapName).on("change",".senkyoku-color-select",function(){
+            var val = $(this).val();
+            console.log(val);
+            senkyokuTarget = val;
+            layer.getSource().changed();
+        });
+
+
         return false;
     });
     //------------------------------------------------------------

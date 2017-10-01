@@ -539,3 +539,12 @@ label:hover{
 .modal-content{
     background-color: rgba(255,255,255,0.8);
 }
+/*選挙区のグラフ関係-------------------------------------------------------------*/
+.senkyoku-chart-pyramid-div{
+    height:495px;
+    width:470px;
+    /*
+    height:400px;
+    width:400px;
+    */
+}

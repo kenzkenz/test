@@ -87,9 +87,13 @@ $(function(){
     //--------------------------------------------------------------------------
     //リセットボタン
     $("body").on("click",".reset-btn",function() {
+        var url = location.href.split("#")[0];
+        //alert(url);
+        history.pushState(null, null,url);
         location.reload(true);
         localStorage.clear();
-        location.reload(true);
+        //history.pushState(null, null, "ddd");
+        //location.reload(true);
     });
     //--------------------------------------------------------------------------
     //PNG保存ボタン

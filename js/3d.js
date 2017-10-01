@@ -31,6 +31,20 @@ $(function(){
     $(".d3d2-btn").click(function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
+        var layers = eval(mapName).getLayers().getArray();
+        console.log(layers);
+        for (j = 0; j < layers.length; j++) {
+            console.log(layers[j].getProperties());
+            console.log(String(layers[j].getProperties()["title"]).indexOf("MVT"));
+            if(String(layers[j].getProperties()["title"]).indexOf("MVT")==-1) {
+                console.log("非MVT")
+            }else{
+                console.log("MVT")
+                alert("MVTは3D化できません！MVTの背景のチェックを外してください。");
+                return;s
+            }
+        }
+
         if($(this).text()==="3D"){
 
             $("#" + mapName + " .cesium-btn-up").show(500);
