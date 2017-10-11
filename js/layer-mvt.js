@@ -1330,15 +1330,107 @@ function kumamotoStyleFunction(feature, resolution) {
     return style;
 }
 //全国小地域人口等--------------------------------------------------------------------------------------------------------
-var vtMaxColor = "indigo";
-var vtColor = d3.interpolateLab("white",vtMaxColor);
-var syoutiiki1 = new ol.layer.VectorTile({
+//h17
+var syoutiikiH17_1 = new ol.layer.VectorTile({
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
-    title:"全国小地域人口等(MVT)",
+    title:"H17全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
     detail:"",
-    detail2:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+    detail2:"<div class='detail2-div'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+        "　色："+
+        "<select class='syoutiiki-color-select'>" +
+            "<option value='indigo' selected>紫</option>" +
+            "<option value='red'>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
+        "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h17/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: syoutiikiCommonStyleFunction("indigo",1000)
+    //renderMode:"vector"
+});
+var syoutiikiH17_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H17全国小地域人口等(MVT)",
+    name:"chome",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"",
+    detail2:"<div class='detail2-div'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+        "　色："+
+        "<select class='syoutiiki-color-select'>" +
+            "<option value='indigo' selected>紫</option>" +
+            "<option value='red'>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
+        "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h17/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: syoutiikiCommonStyleFunction("indigo",1000)
+    //renderMode:"vector"
+});
+function syoutiikiCommonStyleFunction(maxColor,limit) {
+    //var maxColor = "red";
+    var d3Color = d3.interpolateLab("white",maxColor);
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+        var val = Math.floor(prop["JINKO"] / (prop["AREA"] / 200000));
+        val = val / limit;
+        if (val > 1) val = 1;
+        var rgb = d3.rgb(d3Color(val));
+        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
+        if (resolution < 125.87) {
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            if (val < 0.2) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
+//-------------------
+//H22
+var syoutiikiH22_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H22全国小地域人口等(MVT)",
+    name:"chome",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"",
+    detail2:"<div class='detail2-div'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
     "　色："+
     "<select class='syoutiiki-color-select'>" +
     "<option value='indigo' selected>紫</option>" +
@@ -1348,7 +1440,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
     "<option value='black'>黒</option>" +
     "</select></div>",
     source: new ol.source.VectorTile({
-        cacheSize:100000,
+        //cacheSize:100000,
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
             //minZoom:10,
@@ -1356,18 +1448,19 @@ var syoutiiki1 = new ol.layer.VectorTile({
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h22/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
-    style: syoutiikiStyleFunction,
+    style: syoutiikiCommonStyleFunction("indigo",1000)
     //renderMode:"vector"
 });
-var syoutiiki2 = new ol.layer.VectorTile({
+var syoutiikiH22_2 = new ol.layer.VectorTile({
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
-    title:"全国小地域人口等(MVT)",
+    title:"H22全国小地域人口等(MVT)",
     name:"chome",
     origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
-    detail:"<div style=''>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+    detail:"",
+    detail2:"<div class='detail2-div'>強度：<input type='text' class='hsyoutiikitext' value='1000' size='5'>" +
     "　色："+
     "<select class='syoutiiki-color-select'>" +
     "<option value='indigo' selected>紫</option>" +
@@ -1376,6 +1469,106 @@ var syoutiiki2 = new ol.layer.VectorTile({
     "<option value='blue'>青</option>" +
     "<option value='black'>黒</option>" +
     "</select></div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h22/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: syoutiikiCommonStyleFunction("indigo",1000)
+    //renderMode:"vector"
+});
+function syoutiikiCommonStyleFunction(maxColor,limit) {
+    //var maxColor = "red";
+    var d3Color = d3.interpolateLab("white",maxColor);
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+        var val = Math.floor(prop["JINKO"] / (prop["AREA"] / 200000));
+        val = val / limit;
+        if (val > 1) val = 1;
+        var rgb = d3.rgb(d3Color(val));
+        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
+        if (resolution < 125.87) {
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            if (val < 0.2) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
+
+
+
+
+
+//-------------------
+//H27
+var vtMaxColor = "indigo";
+var vtColor = d3.interpolateLab("white",vtMaxColor);
+var syoutiiki1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H27全国小地域人口等(MVT)",
+    name:"chome",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"",
+    detail2:"<div class='detail2-div'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+        "　色："+
+        "<select class='syoutiiki-color-select'>" +
+            "<option value='indigo' selected>紫</option>" +
+            "<option value='red'>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
+        "</select></div>",
+    source: new ol.source.VectorTile({
+        cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/h27syouchiiki_mvt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: syoutiikiCommonStyleFunction("indigo",1000),
+    //renderMode:"vector"
+});
+var syoutiiki2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H27全国小地域人口等(MVT)",
+    name:"chome",
+    origin:"<a href='https://github.com/hfu/chome-vt' target='_blank'>chome-vt</a>",
+    detail:"<div class='detail2-div'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
+        "　色："+
+        "<select class='syoutiiki-color-select'>" +
+            "<option value='indigo' selected>紫</option>" +
+            "<option value='red'>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
+        "</select></div>",
     source: new ol.source.VectorTile({
         cacheSize:100000,
         format: new ol.format.MVT(),
@@ -1388,8 +1581,9 @@ var syoutiiki2 = new ol.layer.VectorTile({
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
-    style: syoutiikiStyleFunction
+    style: syoutiikiCommonStyleFunction("indigo",1000)
 });
+/*
 var kyoudo = 1000;
 function syoutiikiStyleFunction(feature, resolution) {
     var prop = feature.getProperties();
@@ -1418,6 +1612,7 @@ function syoutiikiStyleFunction(feature, resolution) {
     }
     return style;
 }
+*/
 //全国小地域人口等ここまで--------------------------------------------------------------------------------------------------
 //経済センサス------------------------------------------------------------------------------------------------------------
 var test = new ol.layer.VectorTile({
@@ -2524,7 +2719,8 @@ var senkyoku1 = new ol.layer.VectorTile({
             maxZoom:15
         }),
         tilePixelRatio:16,
-        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/senkyoku/{z}/{x}/{y}.mvt"
+        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/senkyoku/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/h29senkyoku/{z}/{x}/{y}.mvt"
     }),
     //style: syougakkoukuStyleFunction
     style: senkyokuStyleFunction("kucode")
@@ -2658,4 +2854,303 @@ function senkyokuStyleFunction(colotTarget) {
         }
         return style;
     };
+}
+//----------------------------------------------------------------------------------------------------------------------
+//500メッシュ
+var mesh500_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"500Mメッシュ人口(MVT)",
+    name:"mesh500",
+    origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
+    detail:"",
+    detail2:
+        "<div class='detail2-div'>" +
+        "<select class='mesh500-year-select mesh500-select'>" +
+            "<option value='h27' selected>平成27年</option>" +
+            "<option value='h22'>平成22年</option>" +
+            "<option value='h17'>平成17年</option>" +
+            "<option value='h12'>平成12年</option>" +
+            "<option value='h07'>平成7年</option>" +
+            "<option value='h99'>7〜27比較</option>" +
+        "</select>" +
+        "　強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
+        "　色："+
+        "<select class='mesh500-color-select mesh500-select'>" +
+            "<option value='indigo' selected>紫</option>" +
+            "<option value='red'>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
+        "</select>" +
+        "</div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/500mesh/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,//ズーム7
+    style: mesh500CommonStyleFunction("indigo",1000,"h27")
+    //renderMode:"vector"
+});
+var mesh500_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"500Mメッシュ人口(MVT)",
+    name:"mesh500",
+    origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
+    detail:"",
+    detail2:
+        "<div class='detail2-div'>" +
+            "<select class='mesh500-year-select mesh500-select'>" +
+            "<option value='h27' selected>平成27年</option>" +
+            "<option value='h22'>平成22年</option>" +
+            "<option value='h17'>平成17年</option>" +
+            "<option value='h12'>平成12年</option>" +
+            "<option value='h07'>平成7年</option>" +
+        "</select>" +
+        "　強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
+        "　色："+
+        "<select class='mesh500-color-select mesh500-select'>" +
+            "<option value='indigo' selected>紫</option>" +
+            "<option value='red'>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
+        "</select>" +
+        "</div>",
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/500mesh/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,//ズーム7
+    style: mesh500CommonStyleFunction("indigo",1000,"h27")
+    //renderMode:"vector"
+});
+function mesh500CommonStyleFunction(maxColor,limit,year) {
+    var d3Color = d3.interpolateLab("white",maxColor);
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+
+        if(year==="h99") {//比較
+            var h07 = prop["h07"];
+            if (!h07) h07 = 0;
+            var h27 = prop["h27"];
+            if (!h27) h27 = 0;
+            var val = h27 / h07;
+            if(isNaN(val)) return;//0割る0のとき
+            if (!isFinite(val)) val = 999;
+            if (val > 2) val = 2;
+            val = val - 1;
+            if(val<=0) {
+                if(h27===0){
+                    d3Color = d3.interpolateLab("white","black");
+                }else{
+                    d3Color = d3.interpolateLab("white","red");
+                }
+                val = Math.abs(val);
+            }else{
+                d3Color = d3.interpolateLab("white","blue");
+
+            }
+            var rgb = d3.rgb(d3Color(val));
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.6 + ")";
+        }else{//通常
+            //console.log(9999999999999999)
+            var val = prop[year];
+            if(!val) return;
+            val = val / limit;
+            //if(val<0.05) return;
+            if (val > 1) val = 1;
+            var rgb = d3.rgb(d3Color(val));
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
+        }
+        if (resolution < 125.87) {
+            //if (!val) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            //if (!val) return;
+            if(val<0.05) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
+//----------------------------------------------------------------------------------------------------------------------
+//経済センサス
+var keizaiCensusDetail1 ="事業所数、従業員数を小地域の面積で割って色を塗っています。強度をあげると色を塗る基準の上限が上がります。";
+var keizaiCensusDetail2 =
+    "<div class='detail2-div'>" +
+    "事業所：<select class='keizaicensus-column-select keizaicensus-select' style='margin-bottom:10px;'>" +
+        "<option value='99'>選択してください</option>" +
+        "<option value='T000843001' selected>総数（Ａ〜Ｓ全産業）</option>" +
+        "<option value='T000843002'>Ａ〜Ｒ全産業（Ｓ公務を除く）</option>" +
+        "<option value='T000843003'>Ａ〜Ｂ農林漁業</option>" +
+        "<option value='T000843004'>Ｃ〜Ｓ非農林漁業</option>" +
+        "<option value='T000843005'>Ｃ〜Ｒ非農林漁業（Ｓ公務を除く）</option>" +
+        "<option value='T000843006'>Ｃ鉱業、採石業、砂利採取業</option>" +
+        "<option value='T000843007'>Ｄ建設業</option>" +
+        "<option value='T000843008'>Ｅ製造業</option>" +
+        "<option value='T000843009'>Ｆ電気・ガス・熱供給・水道業</option>" +
+        "<option value='T000843010'>Ｇ情報通信業</option>" +
+        "<option value='T000843011'>Ｈ運輸業、郵便業</option>" +
+        "<option value='T000843012'>Ｉ卸売業、小売業</option>" +
+        "<option value='T000843013'>Ｊ金融業、保険業</option>" +
+        "<option value='T000843014'>Ｋ不動産業、物品賃貸業</option>" +
+        "<option value='T000843015'>Ｌ学術研究、専門・技術サービス業</option>" +
+        "<option value='T000843016'>Ｍ宿泊業、飲食サービス業</option>" +
+        "<option value='T000843017'>Ｎ生活関連サービス業、娯楽業</option>" +
+        "<option value='T000843018'>Ο教育、学習支援業</option>" +
+        "<option value='T000843019'>Ｐ医療、福祉</option>" +
+        "<option value='T000843020'>Ｑ複合サービス事業</option>" +
+        "<option value='T000843021'>Ｒサービス業（他に分類されないもの）</option>" +
+        "<option value='T000843022'>Ｓ公務（他に分類されるものを除く）</option>" +
+        "<option value='T000843023'>１〜４人</option>" +
+        "<option value='T000843024'>５〜９人</option>" +
+        "<option value='T000843025'>１０〜１９人</option>" +
+        "<option value='T000843026'>２０〜２９人</option>" +
+        "<option value='T000843027'>３０人以上</option>" +
+        "<option value='T000843028'>出向・派遣従業者のみ</option>" +
+    "</select>" +
+    "<br>" +
+    "事業者：<select class='keizaicensus-column2-select keizaicensus-select' style='margin-bottom:10px;'>" +
+        "<option value='99' selected>選択してください</option>" +
+        "<option value='T000843029'>総数（Ａ〜Ｓ全産業）</option>" +
+        "<option value='T000843030'>男総数（Ａ〜Ｓ全産業）</option>" +
+        "<option value='T000843031'>女総数（Ａ〜Ｓ全産業）</option>" +
+        "<option value='T000843032'>Ａ〜Ｒ全産業（Ｓ公務を除く）</option>" +
+        "<option value='T000843033'>男Ａ〜Ｒ全産業（Ｓ公務を除く）</option>" +
+        "<option value='T000843034'>女Ａ〜Ｒ全産業（Ｓ公務を除く）</option>" +
+        "<option value='T000843035'>Ａ〜Ｂ農林漁業</option>" +
+        "<option value='T000843036'>Ｃ〜Ｓ非農林漁業</option>" +
+        "<option value='T000843037'>Ｃ〜Ｒ非農林漁業（Ｓ公務を除く）</option>" +
+        "<option value='T000843038'>Ｃ鉱業、採石業、砂利採取業</option>" +
+        "<option value='T000843039'>Ｄ建設業</option>" +
+        "<option value='T000843040'>Ｅ製造業</option>" +
+        "<option value='T000843041'>Ｆ電気・ガス・熱供給・水道業</option>" +
+        "<option value='T000843042'>Ｇ情報通信業</option>" +
+        "<option value='T000843043'>Ｈ運輸業、郵便業</option>" +
+        "<option value='T000843044'>Ｉ卸売業、小売業</option>" +
+        "<option value='T000843045'>Ｊ金融業、保険業</option>" +
+        "<option value='T000843046'>Ｋ不動産業、物品賃貸業</option>" +
+        "<option value='T000843047'>Ｌ学術研究、専門・技術サービス業</option>" +
+        "<option value='T000843048'>Ｍ宿泊業、飲食サービス業</option>" +
+        "<option value='T000843049'>Ｎ生活関連サービス業、娯楽業</option>" +
+        "<option value='T000843050'>Ο教育、学習支援業</option>" +
+        "<option value='T000843051'>Ｐ医療、福祉</option>" +
+        "<option value='T000843052'>Ｑ複合サービス事業</option>" +
+        "<option value='T000843053'>Ｒサービス業（他に分類されないもの）</option>" +
+        "<option value='T000843054'>Ｓ公務（他に分類されるものを除く）</option>" +
+        "<option value='T000843055'>１〜４人</option>" +
+        "<option value='T000843056'>５〜９人</option>" +
+        "<option value='T000843057'>１０〜１９人</option>" +
+        "<option value='T000843058'>２０〜２９人</option>" +
+        "<option value='T000843059'>３０人以上</option>" +
+    "</select>" +
+    "<br>" +
+    "　強度：<input type='text' class='keizaicensustext' value='1000' size='5'>" +
+    "　色："+
+    "<select class='keizaicensus-color-select keizaicensus-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>";
+var keizaiCensus_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26経済センサス(MVT)",
+    name:"keizaicensus",
+    origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
+    detail:keizaiCensusDetail1,
+    detail2:keizaiCensusDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/h26keizai_census_sangyoubetu_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,//ズーム7
+    style: keizaiCensusStyleFunction("indigo",1000,"T000843001")
+});
+var keizaiCensus_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26経済センサス(MVT)",
+    name:"keizaicensus",
+    origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
+    detail:keizaiCensusDetail1,
+    detail2:keizaiCensusDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/h26keizai_census_sangyoubetu_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,//ズーム7
+    style: keizaiCensusStyleFunction("indigo",1000,"T000843001")
+});
+function keizaiCensusStyleFunction(maxColor,limit,column) {
+    var d3Color = d3.interpolateLab("white",maxColor);
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+        var val = prop[column];
+        if(val==="-" || !val) return;
+        val = val / (prop["AREA"]/1000000) / limit;
+        //if(val<0.05) return;
+        if (val > 1) val = 1;
+        var rgb = d3.rgb(d3Color(val));
+        var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
+
+        if (resolution < 125.87) {
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            if(val<0.05) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
 }

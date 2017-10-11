@@ -114,6 +114,14 @@ var sikiriKakoSyasin = new ol.layer.Tile({
     detail:"",
     icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
 });
+var sikiriDrTashiro = new ol.layer.Tile({
+    folder:"parent",
+    category:"drTashiro",
+    title:"<span style='color:red;'>テスト中！_</span>宮崎市写真フォルダ",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
 //国土地理院（災害以外）---------------------------------------------------------------------------------------------------
 //国土地理院淡色地図のレイヤー
 var pale1 = new ol.layer.Tile({
@@ -4129,6 +4137,14 @@ var jpnfukuoka012 = new ol.layer.Tile({
         maxZoom:18
     })
 });
+var sikiriKakoSyasin = new ol.layer.Tile({
+    folder:"parent",
+    category:"kakosyasin",
+    title:"昔の航空写真フォルダ",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
 var jpnnoboribetu011 = new ol.layer.Tile({
     folder:"child",
     category:"kakosyasin",
@@ -4160,7 +4176,94 @@ var jpnnoboribetu012 = new ol.layer.Tile({
     })
 });
 //日本陸軍航空写真ここまで-------------------------------------------------------------------------------------------------
-
-
-
-
+//田代先生提供資料
+var drTashiroH07syasin1 = new ol.layer.Tile({
+    folder:"child",
+    category:"drTashiro",
+    title:"H7宮崎市航空写真",
+    origin:"",
+    detail:"" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/drtashiro/h07syasin/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var drTashiroH07syasin2 = new ol.layer.Tile({
+    folder:"child",
+    category:"drTashiro",
+    title:"H7宮崎市航空写真",
+    origin:"",
+    detail:"" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/drtashiro/h07syasin/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:17
+    })
+});
+var drTashiroS62syasin1 = new ol.layer.Tile({
+    folder:"child",
+    category:"drTashiro",
+    title:"S62宮崎市航空写真",
+    origin:"",
+    detail:"" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/drtashiro/s62syasin/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:16
+    })
+});
+var drTashiroS62syasin2 = new ol.layer.Tile({
+    folder:"child",
+    category:"drTashiro",
+    title:"S62宮崎市航空写真",
+    origin:"",
+    detail:"" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/drtashiro/s62syasin/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:16
+    })
+});
+var drTashiroS22syasin1 = new ol.layer.Tile({
+    folder:"child",
+    category:"drTashiro",
+    title:"S22宮崎市航空写真",
+    origin:"",
+    detail:"" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/drtashiro/s22syasin/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:16
+    })
+});
+var drTashiroS22syasin2 = new ol.layer.Tile({
+    folder:"child",
+    category:"drTashiro",
+    title:"S22宮崎市航空写真",
+    origin:"",
+    detail:"" ,
+    //coord:[140.973774,42.315226],
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    //extent:transformE([130.66371,31.34280,131.88045,32.87815]),
+    source: new ol.source.XYZ({
+        url:"https://mtile.pref.miyazaki.lg.jp/tile/hoka/drtashiro/s22syasin/{z}/{x}/{-y}.png",
+        crossOrigin:"anonymous",
+        maxZoom:16
+    })
+});

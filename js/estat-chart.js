@@ -124,24 +124,27 @@ $(function() {
 
 //----------------------------------------------------------------------------------------------------------------------
 //人口ピラミッドその１
-function funcEstatPyramid(mapName,areaCode,areaName,json){
-
+function funcEstatPyramid(mapName,estatCode,areaCode,areaName,json){
     var status = json["GET_STATS_DATA"]["RESULT"]["STATUS"];
     console.log(status);
-
     if(status!=0){
         alert(json["GET_STATS_DATA"]["RESULT"]["ERROR_MSG"]);
         return;
     }
-
     var content = "";
-    content += "<div id='estat-chart-pyramid-div-" + mapName + "-" + areaCode + "' class='estat-chart-pyramid-div'>";
+    content += "<div id='estat-chart-pyramid-div-" + mapName + "-" + estatCode + areaCode + "' class='estat-chart-pyramid-div'>";
     content += "</div>";
+    var title = "";
+    if(estatCode==="T000573") {
+        title = "人口ピラミッド(e-stat H22国勢調査 年齢5歳階級)"
+    }else{
+        title = "人口ピラミッド(e-stat H17国勢調査 年齢5歳階級)"
+    }
     mydialog({
-        id:"estat-chart-pyramid-dialog-" + mapName + "-" + areaCode,
+        id:"estat-chart-pyramid-dialog-" + mapName + "-" + estatCode + areaCode,
         class:"estat-chart-pyramid-dialog",
         map:mapName,
-        title:"人口ピラミッド(e-stat H22国勢調査 年齢5歳階級)",
+        title:title,
         content:content,
         top:"55px",
         right:"20px",
@@ -151,12 +154,11 @@ function funcEstatPyramid(mapName,areaCode,areaName,json){
         //minMax:true,
         rmDialog:true
     });
-    //var areaName = "kkkkkkk";
-    estatPyramidGraphFunc(json,areaCode,areaName,mapName);
+    estatPyramidGraphFunc(json,estatCode,areaCode,areaName,mapName);
 }
 //------------------------------------------------------------------------------
 //人口ピラミッドその２
-function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
+function estatPyramidGraphFunc(json,estatCode,areaCode,areaName,mapName){
     console.log(json);
     console.log(json["GET_STATS_DATA"]);
     console.log(json["GET_STATS_DATA"]["RESULT"]);
@@ -167,7 +169,6 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
         alert(json["GET_STATS_DATA"]["RESULT"]["ERROR_MSG"]);
         return;
     }
-
     console.log(json["GET_STATS_DATA"]["STATISTICAL_DATA"]);
 
     var azaName = json["GET_STATS_DATA"]["STATISTICAL_DATA"]["CLASS_INF"]["CLASS_OBJ"][2]["CLASS"]["@name"];
@@ -177,6 +178,7 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
     // console.log(json["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"]["VALUE"]);
 
     var valueArr = json["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"]["VALUE"];
+    console.log(valueArr);
 
     //T000573022,男０～４歳
     //T000573036,男７０～７４歳
@@ -185,43 +187,99 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
     var manGraphSeries = null;
     var womanGraphAr0 = [];
     var womanGraphSeries = null;
-
-    var manCat = [
-                "T000573022",
-                "T000573023",
-                "T000573024",
-                "T000573025",
-                "T000573026",
-                "T000573027",
-                "T000573028",
-                "T000573029",
-                "T000573030",
-                "T000573031",
-                "T000573032",
-                "T000573033",
-                "T000573034",
-                "T000573035",
-                "T000573036",
-                "T000573040"
-    ];
-    var womanCat =[
-                "T000573042",
-                "T000573043",
-                "T000573044",
-                "T000573045",
-                "T000573046",
-                "T000573047",
-                "T000573048",
-                "T000573049",
-                "T000573050",
-                "T000573051",
-                "T000573052",
-                "T000573053",
-                "T000573054",
-                "T000573055",
-                "T000573056",
-                "T000573060"
-    ];
+    console.log(estatCode);
+    if(estatCode==="T000573") {//平成22年度
+        var manCat = [
+            "T000573022",
+            "T000573023",
+            "T000573024",
+            "T000573025",
+            "T000573026",
+            "T000573027",
+            "T000573028",
+            "T000573029",
+            "T000573030",
+            "T000573031",
+            "T000573032",
+            "T000573033",
+            "T000573034",
+            "T000573035",
+            "T000573036",
+            "T000573040"
+        ];
+        var womanCat = [
+            "T000573042",
+            "T000573043",
+            "T000573044",
+            "T000573045",
+            "T000573046",
+            "T000573047",
+            "T000573048",
+            "T000573049",
+            "T000573050",
+            "T000573051",
+            "T000573052",
+            "T000573053",
+            "T000573054",
+            "T000573055",
+            "T000573056",
+            "T000573060"
+        ];
+        var jinkou = valueArr[0]["$"];
+        var jinkouman = valueArr[20]["$"];
+        var jinkouwoman = valueArr[40]["$"];
+        var heikin = null;
+        var heikinMan = null;
+        var heikinWoman = null;
+    }else if(estatCode==="T000051") {//平成17年度
+        var manCat = [
+            estatCode + "024",
+            estatCode + "025",
+            estatCode + "026",
+            estatCode + "027",
+            estatCode + "028",
+            estatCode + "029",
+            estatCode + "030",
+            estatCode + "031",
+            estatCode + "032",
+            estatCode + "033",
+            estatCode + "034",
+            estatCode + "035",
+            estatCode + "036",
+            estatCode + "037",
+            estatCode + "038",
+            estatCode + "043"
+        ];
+        var womanCat =[
+            estatCode + "046",
+            estatCode + "047",
+            estatCode + "048",
+            estatCode + "049",
+            estatCode + "050",
+            estatCode + "051",
+            estatCode + "052",
+            estatCode + "053",
+            estatCode + "054",
+            estatCode + "055",
+            estatCode + "056",
+            estatCode + "057",
+            estatCode + "058",
+            estatCode + "059",
+            estatCode + "060",
+            estatCode + "065"
+        ];
+        var jinkou = valueArr[0]["$"];
+        var jinkouman = valueArr[22]["$"];
+        var jinkouwoman = valueArr[44]["$"];
+        var heikin = Math.floor((Number(valueArr[21]["$"]) / Number(valueArr[0]["$"]))*10)/10;
+        var heikinMan = Math.floor((Number(valueArr[43]["$"]) / Number(valueArr[22]["$"]))*10)/10;
+        var heikinWoman = Math.floor((Number(valueArr[65]["$"]) / Number(valueArr[44]["$"]))*10)/10;
+    }
+    console.log(jinkou);
+    console.log(jinkouman);
+    console.log(heikin);
+    console.log(heikinMan);
+    console.log(heikinWoman);
 
     for (i=0; i<valueArr.length; i++) {
         var cat01 = valueArr[i]["@cat01"];
@@ -243,15 +301,6 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
     }
     console.log(manGraphAr0);
     console.log(womanGraphAr0);
-    //console.log(leftGraphData);
-    /*
-    for (i=0; i<leftGraphData.length; i++){
-        var value = -leftGraphData[i]["man"];
-        manGraphAr0.push(value);
-        var value = leftGraphData[i]["woman"];
-        womanGraphAr0.push(value);
-    }
-    */
     manGraphSeries = {
         "name":"男",
         "data":manGraphAr0,
@@ -285,7 +334,7 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
     pyramidGraph[areaCode] = Highcharts.chart({
         chart:{
             //renderTo:"pyramidGraphDiv_" + mapName + cityCode,
-            renderTo:"estat-chart-pyramid-div-" + mapName + "-" +  areaCode,
+            renderTo:"estat-chart-pyramid-div-" + mapName + "-" + estatCode + areaCode,
             type:"bar",
             animation:true,
             //aliginTicks:false
@@ -297,7 +346,9 @@ function estatPyramidGraphFunc(json,areaCode,areaName,mapName){
             //x: -20 //center
         },
         subtitle: {
-            //text:subtitle
+            //text:"平均:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)"
+            //text:"人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)"
+            text:"人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)<br>平均:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）"
         },
         credits:{
             enabled:false
@@ -508,7 +559,8 @@ function estatH27PyramidGraphFunc(json,areaCode,areaName,mapName){
             //x: -20 //center
         },
         subtitle: {
-            text:"平均:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)"
+            //text:"平均:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)"
+            text:"人口:" + jinkou + "人(男:" + jinkouman + "人・女:" + jinkouwoman + "人)<br>平均:" + heikin + "歳(男:" + heikinMan + "歳・女:" + heikinWoman + "歳）"
         },
         credits:{
             enabled:false
@@ -728,3 +780,247 @@ $(function() {
 
     })
 });
+
+
+//---------------------------------------------------------------------------------------------------------------
+//国勢調査小地域の人口推移その１
+function funcSyoutiikiZinkousuii(mapName,prefCode,areaCode,areaName){
+
+    console.log(mapName,prefCode,areaCode,areaName);
+
+    var content = "";
+    content += "<div id='syoutiiki-chart-suii-div-" + mapName + "-" + areaCode + "' class='syoutiiki-chart-suii-div'>";
+    content += "</div>";
+    mydialog({
+        id:"syoutiiki-chart-suii-dialog-" + mapName + "-" + areaCode,
+        class:"syoutiiki-chart-suii-dialog",
+        map:mapName,
+        title:"人口推移",
+        content:content,
+        top:"55px",
+        right:"20px",
+        //width:"400px",
+        rmDialog:false,
+        //hide:true,
+        //minMax:true,
+        rmDialog:true
+    });
+
+    var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsData?";
+    var estatCodeAr = ["T000051","T000573"];//17年度　22年度の順
+    var suiiAjax = [];
+
+    for(var i = 0; i < estatCodeAr.length; i++) {
+        suiiAjax[i] = new Promise(function (resolve, reject) {
+            $.ajax({
+                type: "get",
+                url: "php/proxy-estat-syoutiiki.php",
+                dataType: "json",
+                data: {
+                    tgtUrl: tgtUrl,
+                    statsDataId: estatCodeAr[i] + prefCode,
+                    cdArea: areaCode
+                    //cntGetFlg:"Y"
+                }
+            }).done(function (json) {
+                //console.log(json);
+                resolve(json);
+            }).fail(function () {
+                console.log("失敗!");
+            });
+        });
+    }
+
+    suiiAjax[2] = new Promise(function (resolve, reject) {
+        var citycode = areaCode.substr(0, 5);
+        var azacode = areaCode.substr(5, 6);
+        $.ajax({
+            type: "get",
+            url: "php/syoutiiki-select.php",
+            dataType: "json",
+            data: {
+                citycode: citycode,
+                azacode: azacode
+            }
+        }).done(function (json) {
+            //console.log(json);
+            resolve(json);
+        }).fail(function () {
+            console.log("失敗!");
+        });
+    });
+
+    Promise.all(suiiAjax).then(function (results) {
+        console.log(results);
+        console.log("完了");
+        syoutiikiSuiiFunc(results,mapName,areaCode,areaName)
+    });
+}
+//---------------------------------------------------------------------------------------------------------------
+//国勢調査小地域の人口推移その２
+function syoutiikiSuiiFunc(results,mapName,areaCode,areaName){
+    console.log(results,mapName,areaCode,areaName);
+    var nensyouAr = [];
+    var seisanAr = [];
+    var rounenAr = [];
+    var souzinkouAr = [];
+    var timeAr = [];
+    for(var i = 0; i < results.length; i++) {
+
+        if(results[i]["json"]) {
+            console.log(results[i]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]);
+            console.log();
+
+            if(results[i]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"]) {
+                var values = results[i]["json"]["GET_STATS_DATA"]["STATISTICAL_DATA"]["DATA_INF"]["VALUE"];
+            }else{
+                alert("地区割の変更があったため人口推移を作れません。");
+                return;
+            }
+            console.log(values);
+            if (i === 0) {
+                console.log(values[16]);
+                nensyouAr.push(values[16]["$"]);
+                seisanAr.push(values[17]["$"]);
+                rounenAr.push(values[18]["$"]);
+                souzinkouAr.push(values[0]["$"]);
+            } else {
+                console.log(values[16]);
+                nensyouAr.push(values[16]["$"]);
+                seisanAr.push(values[17]["$"]);
+                rounenAr.push(values[18]["$"]);
+                souzinkouAr.push(values[0]["$"]);
+            }
+            var estatCode = values[0]["@cat01"];
+            console.log(estatCode);
+            if(estatCode==="T000051001") {
+                timeAr.push("H17年");
+            }else if(estatCode==="T000573001"){
+                timeAr.push("H22年");
+            }
+        }else{
+            nensyouAr.push(results[i]["s25"]);
+            seisanAr.push(results[i]["s26"]);
+            rounenAr.push(results[i]["s27"]);
+            souzinkouAr.push(results[i]["s00"]);
+            timeAr.push("H27年");
+        }
+
+    }
+
+    console.log(nensyouAr,seisanAr,rounenAr,souzinkouAr,timeAr);
+
+    var nensyouGraphDataAr = [];
+    var seisanGraphDataAr = [];
+    var rounenGraphDataAr = [];
+    var souzinkouGraphDataAr = [];
+
+    for (i=0; i<nensyouAr.length; i++){
+        var rate = Math.floor(Number(nensyouAr[i])/Number(souzinkouAr[i])*1000)/10;
+        nensyouGraphDataAr.push(rate);
+        var rate = Math.floor(Number(seisanAr[i])/Number(souzinkouAr[i])*1000)/10;
+        seisanGraphDataAr.push(rate);
+        var rate = Math.floor(Number(rounenAr[i])/Number(souzinkouAr[i])*1000)/10;
+        rounenGraphDataAr.push(rate);
+        var souzinkouValue = Number(souzinkouAr[i]);
+        souzinkouGraphDataAr.push(souzinkouValue);
+    }
+    var nensyouGraphSeries = {
+        "yAxis":0,
+        "name":"年少人口(%)",
+        "data":nensyouGraphDataAr,
+        "color":"green"
+    };
+    var seisanGraphSeries = {
+        "yAxis":0,
+        "name":"生産年齢人口(%)",
+        "data":seisanGraphDataAr,
+        "color":"skyblue"
+    };
+    var rounenGraphSeries = {
+        "yAxis":0,
+        "name":"老年人口(%)",
+        "data":rounenGraphDataAr,
+        "color":"#df4242"
+    };
+    var souzinkouGraphSeries = {
+        "yAxis":1,
+        "type":"column",
+        "name":"総人口(人)",
+        "data":souzinkouGraphDataAr,
+        "color":"lightgrey"
+    };
+
+    suiiGraph[areaCode] = Highcharts.chart({
+        chart:{
+            renderTo:"syoutiiki-chart-suii-div-" + mapName + "-" +  areaCode,
+            type:"line",
+            animation:true
+            //aliginTicks:false
+        },
+        credits:{
+            enabled:false
+        },
+        xAxis: {
+            categories:timeAr,
+            tickWidth: 0,
+            gridLineWidth: 1,
+            /*
+             labels: {
+             align: 'left',
+             x: 3,
+             y: -3
+             }
+             */
+        },
+        yAxis:[
+            {//左
+                title: {
+                    text:null
+                },
+                labels:{
+                    formatter: function() {
+                        return Highcharts.numberFormat(Math.abs(this.value), 0) + "%";
+                    }
+                }
+            },
+            {//右
+                title: {
+                    text:null
+                },
+                labels:{
+                    //formatter: function() {
+                    //    return Highcharts.numberFormat(Math.abs(this.value), 0) + "%";
+                    // }
+                },
+                opposite:true
+            }
+        ],
+        plotOptions:{
+            line:{
+                dataLabels:{
+                    enabled:true
+                }
+            }
+        },
+        title: {
+            text:areaName
+        },
+        tooltip: {
+            /*
+             formatter: function(){
+             return this.series.name +'　'+ this.point.category +'<br/>'+
+             '割合: '+ Highcharts.numberFormat(Math.abs(this.point.y), 0) + "%";
+             },
+             */
+            shared: true,
+            crosshairs: true
+        },
+        series: [
+            souzinkouGraphSeries,
+            nensyouGraphSeries,
+            seisanGraphSeries,
+            rounenGraphSeries
+        ]
+    });
+}

@@ -4,10 +4,12 @@ var plusLayer1 = [];
 var plusLayer2 = [];
 var plI = 0;
 
+
 $(function(){
     //使用するレイヤーを設定
     useLayersArr1 = [mieruneNormal1,
                     pale1,blank1,relief1,lcmfc2_1,tikeiVectorTileSizen1,
+
         //現在の航空写真
         sikiriGenzaiSyasin,
                     ort1,seamlessphoto1,
@@ -21,7 +23,8 @@ $(function(){
                     usasendai011,
                     jpnfukuoka011,jpnnoboribetu011,
 
-                    syokusei1,dozyouzu1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,syougakkouku1,tyuugakkouku1,iryouken1,senkyoku1,
+                    syokusei1,dozyouzu1,syoutiikiH17_1,syoutiikiH22_1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,syougakkouku1,tyuugakkouku1,iryouken1,
+                    mesh500_1,keizaiCensus_1,
                     osm1,toner1,
                     tondabayasit1,
                     //mesh1000z1,kousoku9syu1,
@@ -74,13 +77,22 @@ $(function(){
                     totiriyou1,
                     bingroad1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
-                    fukuiRindou1
-                    ];
+                    fukuiRindou1,
 
+         //田代先生提供資料
+         sikiriDrTashiro,
+                    drTashiroH07syasin1,drTashiroS62syasin1,drTashiroS22syasin1
+
+                    ];
 
     //--------------------------
     useLayersArr2 = [mieruneNormal2,
                     pale2,blank2,relief2,lcmfc2_2,tikeiVectorTileSizen2,
+        /*
+        //田代先生提供資料
+        sikiriDrTashiro,
+                    drTashiroH07syasin2,drTashiroS62syasin2,drTashiroS22syasin2,
+        */
         //現在の航空写真
         sikiriGenzaiSyasin,
                     ort2,seamlessphoto2,
@@ -94,7 +106,8 @@ $(function(){
                     usasendai012,
                     jpnfukuoka012,jpnnoboribetu012,
 
-                    syokusei2,dozyouzu2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,syougakkouku2,tyuugakkouku2,iryouken2,
+                    syokusei2,dozyouzu2,syoutiikiH17_2,syoutiikiH22_2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,syougakkouku2,tyuugakkouku2,iryouken2,
+                    mesh500_2,keizaiCensus_2,
                     osm2,toner2,
                     tondabayasit2,
                     //mrtiba2,mransei2,
@@ -543,28 +556,103 @@ $(function(){
             layer.getSource().changed();
         }
         */
-        //------------------------------------------------------
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //小地域
         $("#" + mapName + " .syoutiikitext").spinner({
             max:5000, min:100, step:100,
             spin:function(event,ui){
-                syoutiikiColorChange(ui.value,mapName);
+                var colorVal = $(this).parents(".detail2-div").find("select").val();
+                syoutiikiColorChange(ui.value,colorVal);
             }
         });
         $("#" + mapName).on("change",".syoutiiki-color-select",function(){
-            var mapObj = funcMaps($(this));
-            var mapName = mapObj["name"];
-            console.log(mapName);
-            console.log($("#" + mapName + " .syoutiikitext").val());
-            kyoudo = $("#" + mapName + " .syoutiikitext").val();
-            syoutiikiColorChange(kyoudo,mapName);
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).val();
+            syoutiikiColorChange(limit,colorVal);
         });
-        function syoutiikiColorChange(kyoudo0,mapName){
-            kyoudo = kyoudo0;
-            vtMaxColor = $("#" + mapName + " .syoutiiki-color-select").val();
-            console.log(vtMaxColor);
-            vtColor = d3.interpolateLab("white",vtMaxColor);
+        function syoutiikiColorChange(limit,colorVal){
+            layer.setStyle(syoutiikiCommonStyleFunction(colorVal,limit));
             layer.getSource().changed();
         }
+        //--------------------------------------------------------------------------------------------------------------
+        //500mesh
+        $("#" + mapName + " .mesh500text").spinner({
+            max:5000, min:100, step:100,
+            spin:function(event,ui){
+                var colorVal = $(this).parents(".detail2-div").find(".mesh500-color-select").val();
+                var yearVal = $(this).parents(".detail2-div").find(".mesh500-year-select").val();
+                mesh500ColorChange(ui.value,colorVal,yearVal);
+            }
+        });
+        $("#" + mapName).on("change",".mesh500-select",function(){
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".mesh500-color-select").val();
+            var yearVal = $(this).parents(".detail2-div").find(".mesh500-year-select").val();
+            mesh500ColorChange(limit,colorVal,yearVal);
+        });
+        function mesh500ColorChange(limit,colorVal,yearVal){
+            layer.setStyle(mesh500CommonStyleFunction(colorVal,limit,yearVal));
+            layer.getSource().changed();
+        }
+        //--------------------------------------------------------------------------------------------------------------
+        //経済センサス
+        $("#" + mapName + " .keizaicensustext").spinner({
+            max:50000, min:1, step:100,
+            spin:function(event,ui){
+                var colorVal = $(this).parents(".detail2-div").find(".keizaicensus-color-select").val();
+                if($(this).parents(".detail2-div").find(".keizaicensus-column2-select").val()==="99") {
+                    var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column-select").val();
+                }else{
+                    var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
+                }
+                keizaiCensusColorChange(ui.value,colorVal,columunVal);
+            }
+        });
+        $("#" + mapName).on("keyup",".keizaicensustext",function(){
+            console.log("22222222s");
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".keizaicensus-color-select").val();
+            if($(this).parents(".detail2-div").find(".keizaicensus-column2-select").val()==="99") {
+                var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column-select").val();
+            }else{
+                var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
+            }
+            keizaiCensusColorChange(limit,colorVal,columunVal);
+        });
+        $("#" + mapName).on("change",".keizaicensus-select",function(){
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".keizaicensus-color-select").val();
+            if($(this).hasClass("keizaicensus-column-select")) {
+                var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column-select").val();
+                $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val("99");
+            }else if($(this).hasClass("keizaicensus-column2-select")) {
+                var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
+                $(this).parents(".detail2-div").find(".keizaicensus-column-select").val("99");
+            }else{
+                if($(this).parents(".detail2-div").find(".keizaicensus-column2-select").val()==="99") {
+                    var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column-select").val();
+                }else{
+                    var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
+                }
+            }
+            keizaiCensusColorChange(limit,colorVal,columunVal);
+        });
+        function keizaiCensusColorChange(limit,colorVal,columunVal){
+            layer.setStyle(keizaiCensusStyleFunction(colorVal,limit,columunVal));
+            layer.getSource().changed();
+        }
+
+
+
+
+
+
+
+
+
+
         //-------------------------------------------------------
         $("#" + mapName).on("change",".youtotiiki-cate-select",function() {
             var val = $(this).val();

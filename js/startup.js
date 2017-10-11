@@ -41,17 +41,20 @@ $(function(){
         var msg = "";
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
-        msg += "★背景のうち(MVT)とついているものは3D化できません！<br>";
+
+        msg += "★<a href='http://www.gsi.go.jp/bousaichiri/bousaichiri61013.html' target='_blank'>宮崎県立佐土原高校情報技術部 防災アプリ大賞受賞!！</a><br>";
+        msg += "★背景のうち(MVT)(VT)とついているものは3D化できません！<br>";
         msg += "★詳しい追加情報等は<a href='https://www.facebook.com/hinatagis' target='_blank'><i class='fa fa-facebook-square fa-fw' style='color:navy;'></i>FBへ</a><br>";
-        //msg += "！！現在も継続的に作成中です！！<br>";
 
         //msg += "<canvas id='canvas1'></canvas>";
-        msg += "1 背景に地理院_地形分類(自然地形)()を追加しました。<br>";
-        msg += "2 背景に全国中学校区(MVT)を追加しました。<br>";
-        msg += "3 背景に全国小学校区(MVT)を追加しました。<br>";
-        msg += "4 背景に全国縄文・弥生集落遺跡(MVT)を追加しました。<br>";
-        msg += "5 背景に静岡県CS立体図を追加しました。<br>";
-        msg += "6 背景に地理院_治水地形分類図を追加しました。<br>";
+        msg += "1 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
+        msg += "2 背景に二次医療圏(MVT)を追加しました。<br>";
+        msg += "3 背景に地理院_地形分類(自然地形)(VT)を追加しました。<br>";
+        msg += "4 背景に全国中学校区(MVT)を追加しました。<br>";
+        msg += "5 背景に全国小学校区(MVT)を追加しました。<br>";
+        //msg += "5 背景に全国縄文・弥生集落遺跡(MVT)を追加しました。<br>";
+        //msg += "5 背景に静岡県CS立体図を追加しました。<br>";
+        //msg += "6 背景に地理院_治水地形分類図を追加しました。<br>";
         //msg += "5 背景に国指定文化財等データベース(MVT)を追加しました。<br>";
         //msg += "6 背景に全国旧石器時代遺跡(MVT)を追加しました。<br>";
         //msg += "4 背景に迅速測図を追加しました。<br>";
@@ -83,7 +86,7 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/09/27</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/10/10</div>";
         msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='https://www.osgeo.jp/' target='_blank'><img src='icon/osgeo.png' style='width:80px;background:'></a></div>";
         $.notify({//options
             message: msg
@@ -143,7 +146,6 @@ $(function(){
         center:center,
         zoom:zoom
     });
-
 
     //inu.setZIndex(9999999);
     editLayer.set("altitudeMode","clampToGround");

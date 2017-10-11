@@ -170,8 +170,210 @@ $(function(){
                 console.log(feature.getProperties());
                 funcSenkyokuPopup(feature,map,evt);
                 break;
+            case "mesh500":
+                console.log(feature.getProperties());
+                funcMesh500Popup(feature,map,evt);
+                break;
+            case "keizaicensus":
+                console.log(feature.getProperties());
+                funcKeizaiCensusPopup(feature,map,evt);
+                break;
+
+
             default:
         }
+    }
+    //-----------------------------------------------
+    function funcKeizaiCensusPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th' style='width:70px;'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["CSS_NAME"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>字</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>事業所数</th><td class='popup-td'>" + featureProp["JIGYOSHO"] + "</td></tr>";
+        //table += "<tr><th class='popup-th' style='font-weight: bold;'>従業員数</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JUGYOSHA"])).toLocaleString() + "人</td></tr>";
+        //table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
+
+        //table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
+        table += "</table>";
+
+        var table2 = "事業所数<table class='popup-tbl table table-bordered table-hover'>";
+        table2 += "<tr><th class='popup-th' style='width:180px;'>総数（Ａ〜Ｓ全産業）</th><td class='popup-td' style='width:50px;'>" + featureProp["T000843001"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ａ〜Ｒ全産業（Ｓ公務を除く）</th><td class='popup-td'>" + featureProp["T000843002"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ａ〜Ｂ農林漁業</th><td class='popup-td'>" + featureProp["T000843003"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｃ〜Ｓ非農林漁業</th><td class='popup-td'>" + featureProp["T000843004"] + "</td></tr>";
+
+        table2 += "<tr><th class='popup-th'>Ｃ〜Ｒ非農林漁業（Ｓ公務を除く）</th><td class='popup-td'>" + featureProp["T000843005"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｃ鉱業、採石業、砂利採取業</th><td class='popup-td'>" + featureProp["T000843006"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｄ建設業</th><td class='popup-td'>" + featureProp["T000843007"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｅ製造業</th><td class='popup-td'>" + featureProp["T000843008"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｆ電気・ガス・熱供給・水道業</th><td class='popup-td'>" + featureProp["T000843009"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｇ情報通信業</th><td class='popup-td'>" + featureProp["T000843010"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｈ運輸業、郵便業</th><td class='popup-td'>" + featureProp["T000843011"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｉ卸売業、小売業</th><td class='popup-td'>" + featureProp["T000843012"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｊ金融業、保険業</th><td class='popup-td'>" + featureProp["T000843013"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｋ不動産業、物品賃貸業</th><td class='popup-td'>" + featureProp["T000843014"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｌ学術研究、専門・技術サービス業</th><td class='popup-td'>" + featureProp["T000843015"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｍ宿泊業、飲食サービス業</th><td class='popup-td'>" + featureProp["T000843016"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｎ生活関連サービス業、娯楽業</th><td class='popup-td'>" + featureProp["T000843017"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ο教育、学習支援業</th><td class='popup-td'>" + featureProp["T000843018"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｐ医療、福祉</th><td class='popup-td'>" + featureProp["T000843019"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｑ複合サービス事業</th><td class='popup-td'>" + featureProp["T000843020"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｒサービス業（他に分類されないもの）</th><td class='popup-td'>" + featureProp["T000843021"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>Ｓ公務（他に分類されるものを除く）</th><td class='popup-td'>" + featureProp["T000843022"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>１〜４人</th><td class='popup-td'>" + featureProp["T000843023"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>５〜９人</th><td class='popup-td'>" + featureProp["T000843024"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>１０〜１９人</th><td class='popup-td'>" + featureProp["T000843025"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>２０〜２９人</th><td class='popup-td'>" + featureProp["T000843026"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>３０人以上</th><td class='popup-td'>" + featureProp["T000843027"] + "</td></tr>";
+        table2 += "<tr><th class='popup-th'>出向・派遣従業者のみ</th><td class='popup-td'>" + featureProp["T000843028"] + "</td></tr>";
+        table2 += "</table>";
+
+        var table3 = "従業者数<table class='popup-tbl table table-bordered table-hover'>";
+        table3 += "<tr><th class='popup-th' style='width:180px;'>総数（Ａ〜Ｓ全産業）</th><td class='popup-td' style='width:50px;'>" + featureProp["T000843029"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>男総数（Ａ〜Ｓ全産業）</th><td class='popup-td'>" + featureProp["T000843030"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>女総数（Ａ〜Ｓ全産業）</th><td class='popup-td'>" + featureProp["T000843031"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ａ〜Ｒ全産業（Ｓ公務を除く）</th><td class='popup-td'>" + featureProp["T000843032"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>男Ａ〜Ｒ全産業（Ｓ公務を除く）</th><td class='popup-td'>" + featureProp["T000843033"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>女Ａ〜Ｒ全産業（Ｓ公務を除く）</th><td class='popup-td'>" + featureProp["T000843034"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ａ〜Ｂ農林漁業</th><td class='popup-td'>" + featureProp["T000843035"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｃ〜Ｓ非農林漁業</th><td class='popup-td'>" + featureProp["T000843036"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｃ〜Ｒ非農林漁業（Ｓ公務を除く）</th><td class='popup-td'>" + featureProp["T000843037"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｃ鉱業、採石業、砂利採取業</th><td class='popup-td'>" + featureProp["T000843038"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｄ建設業</th><td class='popup-td'>" + featureProp["T000843039"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｅ製造業</th><td class='popup-td'>" + featureProp["T000843040"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｆ電気・ガス・熱供給・水道業</th><td class='popup-td'>" + featureProp["T000843041"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｇ情報通信業</th><td class='popup-td'>" + featureProp["T000843042"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｈ運輸業、郵便業</th><td class='popup-td'>" + featureProp["T000843043"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｉ卸売業、小売業</th><td class='popup-td'>" + featureProp["T000843044"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｊ金融業、保険業</th><td class='popup-td'>" + featureProp["T000843045"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｋ不動産業、物品賃貸業</th><td class='popup-td'>" + featureProp["T000843046"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｌ学術研究、専門・技術サービス業</th><td class='popup-td'>" + featureProp["T000843047"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｍ宿泊業、飲食サービス業</th><td class='popup-td'>" + featureProp["T000843048"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｎ生活関連サービス業、娯楽業</th><td class='popup-td'>" + featureProp["T000843049"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ο教育、学習支援業</th><td class='popup-td'>" + featureProp["T000843050"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｐ医療、福祉</th><td class='popup-td'>" + featureProp["T000843051"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｑ複合サービス事業</th><td class='popup-td'>" + featureProp["T000843052"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｒサービス業（他に分類されないもの）</th><td class='popup-td'>" + featureProp["T000843053"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>Ｓ公務（他に分類されるものを除く）</th><td class='popup-td'>" + featureProp["T000843054"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>１〜４人</th><td class='popup-td'>" + featureProp["T000843055"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>５〜９人</th><td class='popup-td'>" + featureProp["T000843056"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>１０〜１９人</th><td class='popup-td'>" + featureProp["T000843057"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>２０〜２９人</th><td class='popup-td'>" + featureProp["T000843058"] + "</td></tr>";
+        table3 += "<tr><th class='popup-th'>３０人以上</th><td class='popup-td'>" + featureProp["T000843059"] + "</td></tr>";
+        table3 += "</table>";
+
+        content += table + table2 + table3;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //------------------------------------------------------------------------------------------------------------------
+    function funcMesh500Popup(feature,map,evt){
+        console.log(feature);
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop)
+
+        var h27 = 0;
+        var h22 = 0;
+        var h17 = 0;
+        var h12 = 0;
+        var h07 = 0;
+
+        if(prop["h27"]) h27 = Number(prop["h27"]).toLocaleString();
+        if(prop["h22"]) h22 = Number(prop["h22"]).toLocaleString();
+        if(prop["h17"]) h17 = Number(prop["h17"]).toLocaleString();
+        if(prop["h12"]) h12 = Number(prop["h12"]).toLocaleString();
+        if(prop["h07"]) h07 = Number(prop["h07"]).toLocaleString();
+
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        table += "<tr><th class='popup-th' style='width:45px;'>コード</th><td class='popup-td' style='width:60px;'>" + prop["KEY_CODE"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>平成27年人口</th><td class='popup-td' style='text-align:right'>" + h27 + "人</td></tr>";
+        table += "<tr><th class='popup-th'>平成22年人口</th><td class='popup-td' style='text-align:right'>" + h22 + "人</td></tr>";
+        table += "<tr><th class='popup-th'>平成17年人口</th><td class='popup-td' style='text-align:right'>" + h17 + "人</td></tr>";
+        table += "<tr><th class='popup-th'>平成12年人口</th><td class='popup-td' style='text-align:right'>" + h12 + "人</td></tr>";
+        table += "<tr><th class='popup-th'>平成07年人口</th><td class='popup-td' style='text-align:right'>" + h07 + "人</td></tr>";
+        table += "</table>";
+        //content += table;
+        content += "<div id='" + map + "chart500' style='height:200px;width:300px;'></div>";
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+        var souzinkouAr = [];
+        var timeAr = ["h07","h12","h17","h22","h27"];
+        for(var i=0;i<timeAr.length;i++){
+            if(prop[timeAr[i]]) {
+                souzinkouAr.push(Number(prop[timeAr[i]]));
+            }else{
+                souzinkouAr.push(0);
+            }
+        }
+
+        var mesh500GraphSeries = {
+            "yAxis":0,
+            "name":"総人口(人)",
+            "data":souzinkouAr,
+            "color":"green",
+            "showInLegend":false
+        };
+
+        var mesh500Chart = Highcharts.chart({
+            chart:{
+                renderTo:map + "chart500",
+                type:"line",
+                animation:true
+                //aliginTicks:false
+            },
+            credits:{
+                enabled:false
+            },
+            xAxis: {
+                categories:timeAr,
+                tickWidth: 0,
+                gridLineWidth: 1,
+            },
+            yAxis: {
+                title: {
+                    text: null
+                },
+                labels: {
+                    enabled: false
+                }
+            },
+            plotOptions:{
+                line:{
+                    dataLabels:{
+                        enabled:true
+                    }
+                }
+            },
+            title: {
+                text:null
+            },
+            tooltip: {
+                shared: true,
+                crosshairs: true
+            },
+            series: [
+                mesh500GraphSeries
+            ]
+        });
+
     }
     //-----------------------------------------------
     function funcSenkyokuPopup(feature,map,evt){
@@ -925,38 +1127,6 @@ $(function(){
         }
     }
     //-----------------------------------------------
-    function funcKeizaiCensusPopup(feature,map,evt){
-        var featureProp = feature.getProperties();
-        var geoType = feature.getGeometry().getType();
-        if(geoType==="Point"){
-            var coord = feature.getGeometry().getCoordinates();
-        }else{
-            var coord = evt.coordinate;
-        }
-        console.log(featureProp)
-        var content = "";
-        var table = "<table class='popup-tbl table table-bordered table-hover'>";
-            table += "<tr><th class='popup-th' style='width:70px;'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["CSS_NAME"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>字</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>事業所数</th><td class='popup-td'>" + featureProp["JIGYOSHO"] + "</td></tr>";
-            table += "<tr><th class='popup-th' style='font-weight: bold;'>従業員数</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JUGYOSHA"])).toLocaleString() + "人</td></tr>";
-            table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
-            //table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
-        table += "</table>";
-
-
-        
-        content += table;
-        if(map==="map1") {
-            popup1.show(coord,content);
-        }else{
-            popup2.show(coord,content);
-        }
-    }
-
-
-    //-----------------------------------------------
     function funcTunamimvtPopup(feature,map,evt){
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
@@ -1063,62 +1233,41 @@ $(function(){
     }
     //-----------------------------------------------
     function funcChomePopup(layer,feature,map,evt){
-        var featureProp = feature.getProperties();
-        var geoType = feature.getGeometry().getType();
-        if(geoType==="Point"){
-            var coord = feature.getGeometry().getCoordinates();
-        }else{
-            var coord = evt.coordinate;
-        }
-        console.log(feature);
-        console.log(layer);
-        console.log(layer.getSource());
-
-        console.log(featureProp);
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
         var content = "";
+        console.log(prop["H22KA01_"]);
+        if (prop["H17KA01_"]!==undefined) {
+            content += "平成17年度国勢調査";
+        }else if(prop["H22KA01_"]!==undefined) {
+            content += "平成22年度国勢調査";
+        }else{
+            content += "平成27年度国勢調査";
+        }
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
-            table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
-
-            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["GST_NAME"] + "</td></tr>";
-            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
-            //table += "<tr><th class='popup-th'>自治体</th><td class='popup-td popup-td-zititai'></td></tr>";
-            //table += "<tr><th class='popup-th'>小地域</th><td class='popup-td popup-td-aza'></td></tr>";
-
-            table += "<tr><th class='popup-th' style='font-weight: bold;'>人口</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JINKO"])).toLocaleString() + "人</td></tr>";
-            table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
-            table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(featureProp["JINKO"])/Number(featureProp["AREA"]) + "</td></tr>";
+            table += "<tr><th class='popup-th'>コード</th><td class='popup-td'>" + prop["KEY_CODE"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + prop["KEN_NAME"] + prop["GST_NAME"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>小地域</th><td class='popup-td'>" + prop["MOJI"] + "</td></tr>";
+            table += "<tr><th class='popup-th' style='font-weight: bold;'>人口</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(prop["JINKO"])).toLocaleString() + "人</td></tr>";
+            table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(prop["AREA"])).toLocaleString() + "</td></tr>";
+            //table += "<tr><th class='popup-th'>密度</th><td class='popup-td'>" + Number(prop["JINKO"])/Number(prop["AREA"]) + "</td></tr>";
             table += "</table>";
 
             content += table;
-            content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-H27-pyramid-btn'>人口ピラミッド(estatH27)</button>";
-            content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-pyramid-btn'>人口ピラミッド(estatH22)</button>";
-            content += "<input type='hidden' class='pref-code' value='" + featureProp["KEN"] + "'>";
-            content += "<input type='hidden' class='area-code' value='" + featureProp["KEY_CODE"] + "'>";
-            content += "<input type='hidden' class='area-name' value='" + featureProp["MOJI"] + "'>";
+            content += "人口ピラミッド<br>";
+            content += "<div class='btn-group btn-group-justified' style='margin-bottom:3px;'>";
+            content += "<div class='btn-group'><button type='button' class='btn btn-xs btn-primary' data-action='syoutiiki-H27-pyramid-btn'>H27</button></div>";
+            content += "<div class='btn-group'><button type='button' class='btn btn-xs btn-primary' data-action='syoutiiki-pyramid-btn' data-estatcode='T000573'>H22</button></div>";
+            content += "<div class='btn-group'><button type='button' class='btn btn-xs btn-primary' data-action='syoutiiki-pyramid-btn' data-estatcode='T000051'>H17</button></div>";
+            content += "</div>";
 
-        //------------------------------------------------------------------------------------------------------------
-        /*
-        var areaCode = featureProp["KEY_CODE"];
-        var citycode = areaCode.substr(0,5);
-        var azacode = areaCode.substr(5,6);
-        $.ajax({
-            type:"get",
-            url:"php/syoutiiki-select.php",
-            dataType:"json",
-            data:{
-                citycode:citycode,
-                azacode:azacode
-            }
-        }).done(function(json){
-            console.log(json);
-            $("#" + map + " .popup-td-zititai").text(json["cityname"]);
-            $("#" + map + " .popup-td-aza").text(json["ooazaname"] + json["azaname"]);
-        }).fail(function(){
-            console.log("失敗!");
-        });
-        */
-        //-------------------------------------------------------------------------------------------
+            content += "<button type='button' class='btn btn-xs btn-primary btn-block' data-action='syoutiiki-suii-btn'>人口推移</button>";
 
+            content += "<input type='hidden' class='pref-code' value='" + prop["KEN"] + "'>";
+            content += "<input type='hidden' class='area-code' value='" + prop["KEY_CODE"] + "'>";
+            content += "<input type='hidden' class='area-name' value='" + prop["MOJI"] + "'>";
+            //content += "<input type='hidden' class='estat-code' value='" + estatCode + "'>";
 
         if(map==="map1") {
             popup1.show(coord,content);
@@ -1126,7 +1275,7 @@ $(function(){
             popup2.show(coord,content);
         }
     }
-    function funcSyoutiikiPyramid(mapName,prefCode,areaCode,areaName){
+    function funcSyoutiikiPyramid(mapName,estatCode,prefCode,areaCode,areaName){
         var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsData?";
         $.ajax({
             type:"get",
@@ -1134,14 +1283,14 @@ $(function(){
             dataType:"json",
             data:{
                 tgtUrl:tgtUrl,
-                statsDataId:"T000573" + prefCode,
+                statsDataId:estatCode + prefCode,
                 //cdArea:"45201121003"
                 cdArea:areaCode
                 //cntGetFlg:"Y"
             }
         }).done(function(json){
             console.log(json);
-            funcEstatPyramid(mapName,areaCode,areaName,json["json"]);
+            funcEstatPyramid(mapName,estatCode,areaCode,areaName,json["json"]);
         }).fail(function(){
             console.log("失敗!");
         });
@@ -1165,44 +1314,6 @@ $(function(){
             console.log("失敗!");
         });
     }
-    /*
-    function funcSenkyokuPyramid(mapName,prefCode,areaCode,areaName){
-        console.log(mapName)
-        var citycode = areaCode.substr(0,5);
-        var azacode = areaCode.substr(5,6);
-
-
-    }
-    */
-
-
-
-    /*
-    var tgtUrl = "http://api.e-stat.go.jp/rest/2.1/app/json/getMetaInfo?";
-    $.ajax({
-        type:"get",
-        url:"php/proxy-estat.php",
-        dataType:"json",
-        data:{
-            tgtUrl:tgtUrl,
-            statsDataId:"C0020050245201",
-            cntGetFlg:"Y"
-        }
-    }).done(function(json){
-        var metainfoAr = json["json"]["GET_META_INFO"]["METADATA_INF"]["CLASS_INF"]["CLASS_OBJ"][1]["CLASS"];
-        var option = "<option value='99'>統計表を選択</option>";
-        for (i=0; i<metainfoAr.length; i++){
-            option += "<option value='" + metainfoAr[i]["@code"] + "'>" + (i+1) + "-"  + metainfoAr[i]["@name"] + "</option>";
-        }
-        citySelectOption = option;
-        //$("#" + mapName + " .estat-table-select").html(option);
-        //$.unblockUI();
-        //resolve();
-    }).fail(function(){
-        console.log("失敗!");
-    });
-    */
-
     //-----------------------------------------------
     function funcyakubaLayerPopup(feature,map,evt){
         var featureProp = feature.getProperties();
@@ -1288,7 +1399,6 @@ $(function(){
         var content = "";
             content += "自治体名：" + featureProp["自治体名"] + "<br>";
             content += "人数：" + featureProp["人数"].toLocaleString() + "人";
-
 
         if(map=="map1") {
             popup1.show(coord,content);
@@ -1385,6 +1495,8 @@ $(function(){
         var areaCode = contentElement.find(".area-code").val();
         var areaName = contentElement.find(".area-name").val();
 
+        var estatCode = event["target"].getAttribute("data-estatcode");
+
         var senkyokuCode = contentElement.find(".senkyoku-code").val();
         var senkyokuName = contentElement.find(".senkyoku-name").val();
 
@@ -1398,7 +1510,7 @@ $(function(){
                     funcResasZinkousuii(mapName,cityCode,cityName);
                     break;
                 case "syoutiiki-pyramid-btn":
-                    funcSyoutiikiPyramid(mapName,prefCode,areaCode,areaName);
+                    funcSyoutiikiPyramid(mapName,estatCode,prefCode,areaCode,areaName);
                     break;
                 case "syoutiiki-H27-pyramid-btn":
                     funcSyoutiikiH27Pyramid(mapName,prefCode,areaCode,areaName);
@@ -1406,6 +1518,12 @@ $(function(){
                 case "senkyoku-pyramid-btn":
                     funcSenkyokuPyramid(mapName,senkyokuCode,senkyokuName);
                     break;
+                case "syoutiiki-suii-btn":
+                    //alert("作成中");
+                    funcSyoutiikiZinkousuii(mapName,prefCode,areaCode,areaName);
+                    break;
+
+
             }
         }
     }
@@ -1444,7 +1562,7 @@ $(function(){
         }
     }
     //-----------------------------------------------
-    function funcMesh500Popup(feature,map,evt) {
+    function funcMesh500Popup未使用(feature,map,evt) {
         var properties = feature.getProperties();
         var coord = evt.coordinate;
         var meshCodeStr = properties["meshCode"];
@@ -1554,6 +1672,7 @@ $(function(){
             }
         });
     }
+
     //-----------------------------------------------
     function funcCsvPopup(feature,map,evt) {
         var featureProp = feature.getProperties();
