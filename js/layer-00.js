@@ -24,7 +24,7 @@ $(function(){
                     jpnfukuoka011,jpnnoboribetu011,
 
                     syokusei1,dozyouzu1,syoutiikiH17_1,syoutiikiH22_1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,syougakkouku1,tyuugakkouku1,iryouken1,
-                    mesh500_1,keizaiCensus_1,
+                    mesh500_1,keizaiCensus_1,fukushi_1,
                     osm1,toner1,
                     tondabayasit1,
                     //mesh1000z1,kousoku9syu1,
@@ -78,11 +78,14 @@ $(function(){
                     bingroad1,
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
                     fukuiRindou1,
+                    tunamimiyazakimvt1,
+        tunamiWakkanaimvt1
 
+        /*
          //田代先生提供資料
          sikiriDrTashiro,
                     drTashiroH07syasin1,drTashiroS62syasin1,drTashiroS22syasin1
-
+            */
                     ];
 
     //--------------------------
@@ -107,7 +110,7 @@ $(function(){
                     jpnfukuoka012,jpnnoboribetu012,
 
                     syokusei2,dozyouzu2,syoutiikiH17_2,syoutiikiH22_2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,syougakkouku2,tyuugakkouku2,iryouken2,
-                    mesh500_2,keizaiCensus_2,
+                    mesh500_2,keizaiCensus_2,fukushi_2,
                     osm2,toner2,
                     tondabayasit2,
                     //mrtiba2,mransei2,
@@ -492,8 +495,10 @@ $(function(){
         var content = "<table class='info-tbl table table-bordered table-condensed' data-layername='" + prop["name"] + "'>";
         content += "<tr><td>背景名</td><td>" + prop["title"] + "</td></tr>";
         content += "<tr><td>出典</td><td>" + prop["origin"] + "</td></tr>";
-        content += "<tr><td>説明</td><td>" + prop["detail"] + "</td></tr>";
+        content += "<tr><td>説明</td><td class='detail-td'>" + prop["detail"] + "</td></tr>";
         content += "</table>";
+        content += "<input type='hidden' class='layer-id' value='" + $(this).parents("tr").find("input").val() + "'>";
+            //$(this).parents("tr").find("input").val();
 
         if(prop["detail2"]) content += prop["detail2"];
 
@@ -564,17 +569,30 @@ $(function(){
             max:5000, min:100, step:100,
             spin:function(event,ui){
                 var colorVal = $(this).parents(".detail2-div").find("select").val();
-                syoutiikiColorChange(ui.value,colorVal);
+                var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+                syoutiikiColorChange(mapName,layerId,ui.value,colorVal);
             }
+        });
+        $("#" + mapName).on("keyup",".syoutiikitext",function(){
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".syoutiiki-color-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            syoutiikiColorChange(mapName,layerId,limit,colorVal);
         });
         $("#" + mapName).on("change",".syoutiiki-color-select",function(){
             var limit = $(this).parents(".detail2-div").find("input").val();
             var colorVal = $(this).val();
-            syoutiikiColorChange(limit,colorVal);
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            syoutiikiColorChange(mapName,layerId,limit,colorVal);
         });
-        function syoutiikiColorChange(limit,colorVal){
-            layer.setStyle(syoutiikiCommonStyleFunction(colorVal,limit));
-            layer.getSource().changed();
+        function syoutiikiColorChange(mapName,layerId,limit,colorVal){
+            if(mapName==="map1") {
+                var targetLayer = useLayersArr1[layerId];
+            }else{
+                var targetLayer = useLayersArr2[layerId];
+            }
+            targetLayer.setStyle(syoutiikiCommonStyleFunction(colorVal,limit));
+            targetLayer.getSource().changed();
         }
         //--------------------------------------------------------------------------------------------------------------
         //500mesh
@@ -583,18 +601,39 @@ $(function(){
             spin:function(event,ui){
                 var colorVal = $(this).parents(".detail2-div").find(".mesh500-color-select").val();
                 var yearVal = $(this).parents(".detail2-div").find(".mesh500-year-select").val();
-                mesh500ColorChange(ui.value,colorVal,yearVal);
+                var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+                mesh500ColorChange(mapName,layerId,ui.value,colorVal,yearVal);
             }
+        });
+        $("#" + mapName).on("keyup",".mesh500text",function(){
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".mesh500-color-select").val();
+            var yearVal = $(this).parents(".detail2-div").find(".mesh500-year-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            mesh500ColorChange(mapName,layerId,limit,colorVal,yearVal);
         });
         $("#" + mapName).on("change",".mesh500-select",function(){
             var limit = $(this).parents(".detail2-div").find("input").val();
             var colorVal = $(this).parents(".detail2-div").find(".mesh500-color-select").val();
             var yearVal = $(this).parents(".detail2-div").find(".mesh500-year-select").val();
-            mesh500ColorChange(limit,colorVal,yearVal);
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            mesh500ColorChange(mapName,layerId,limit,colorVal,yearVal);
+            console.log(yearVal);
+            console.log($(this).parents(".dialog-base").find(".detail-td"));
+            if(yearVal==="hutanritu") {
+                $(this).parents(".dialog-base").find(".detail-td").html(mesh500Detail);
+            }else{
+                $(this).parents(".dialog-base").find(".detail-td").html("");
+            }
         });
-        function mesh500ColorChange(limit,colorVal,yearVal){
-            layer.setStyle(mesh500CommonStyleFunction(colorVal,limit,yearVal));
-            layer.getSource().changed();
+        function mesh500ColorChange(mapName,layerId,limit,colorVal,yearVal){
+            if(mapName==="map1") {
+                var targetLayer = useLayersArr1[layerId];
+            }else{
+                var targetLayer = useLayersArr2[layerId];
+            }
+            targetLayer.setStyle(mesh500CommonStyleFunction(colorVal,limit,yearVal));
+            targetLayer.getSource().changed();
         }
         //--------------------------------------------------------------------------------------------------------------
         //経済センサス
@@ -607,11 +646,11 @@ $(function(){
                 }else{
                     var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
                 }
-                keizaiCensusColorChange(ui.value,colorVal,columunVal);
+                var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+                keizaiCensusColorChange(mapName,layerId,ui.value,colorVal,columunVal);
             }
         });
         $("#" + mapName).on("keyup",".keizaicensustext",function(){
-            console.log("22222222s");
             var limit = $(this).parents(".detail2-div").find("input").val();
             var colorVal = $(this).parents(".detail2-div").find(".keizaicensus-color-select").val();
             if($(this).parents(".detail2-div").find(".keizaicensus-column2-select").val()==="99") {
@@ -619,7 +658,8 @@ $(function(){
             }else{
                 var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
             }
-            keizaiCensusColorChange(limit,colorVal,columunVal);
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            keizaiCensusColorChange(mapName,layerId,limit,colorVal,columunVal);
         });
         $("#" + mapName).on("change",".keizaicensus-select",function(){
             var limit = $(this).parents(".detail2-div").find("input").val();
@@ -637,22 +677,63 @@ $(function(){
                     var columunVal = $(this).parents(".detail2-div").find(".keizaicensus-column2-select").val();
                 }
             }
-            keizaiCensusColorChange(limit,colorVal,columunVal);
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            keizaiCensusColorChange(mapName,layerId,limit,colorVal,columunVal);
         });
-        function keizaiCensusColorChange(limit,colorVal,columunVal){
-            layer.setStyle(keizaiCensusStyleFunction(colorVal,limit,columunVal));
-            layer.getSource().changed();
+        function keizaiCensusColorChange(mapName,layerId,limit,colorVal,columunVal){
+            if(mapName==="map1") {
+                var targetLayer = useLayersArr1[layerId];
+            }else{
+                var targetLayer = useLayersArr2[layerId];
+            }
+            targetLayer.setStyle(keizaiCensusStyleFunction(colorVal,limit,columunVal));
+            targetLayer.getSource().changed();
         }
+        //--------------------------------------------------------------------------------------------------------------
+        //福祉施設
+        $("#" + mapName).on("change",".fukushi-select",function(){
+            var target = $(this).val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(fukushiStyleFunction(target) );
+            targetLayer.getSource().changed();
+        });
+        //--------------------------------------------------------------------------------------------------------------
+        //津波浸水想定
+        $("#" + mapName).on("change",".tunami-select",function(){
+            var target = $(this).val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(tunamiMiyazakiStyleFunction(target) );
+            targetLayer.getSource().changed();
+        });
+        //--------------------------------------------------------------------------------------------------------------
+        //北海道津波浸水想定
+        $("#" + mapName).on("change",".tunamihokkaidou-select",function(){
+            var target = $(this).val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(tunamiHokkaidouStyleFunction(target));
+
+            /*
+            var source = targetLayer.getSource();
+            targetLayer.setSource(null);
+            targetLayer.setSource(source);
+            */
 
 
+            //targetLayer.getSource().changed();
+            /*
+            var souce = targetLayer.getSource();
+            souce.tileCache.expireCache({});
+            souce.tileCache.clear();
+            souce.refresh();
+            */
 
-
-
-
-
-
-
-
+        });
         //-------------------------------------------------------
         $("#" + mapName).on("change",".youtotiiki-cate-select",function() {
             var val = $(this).val();

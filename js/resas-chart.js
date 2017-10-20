@@ -75,6 +75,8 @@ function funcResasPyramid(mapName,cityCode,cityName){
                     hyou:hyou
                 }
             }).done(function(json){
+                console.log(json);
+                console.log(JSON.parse(json["jsontext"]));
                 resolve(json);
             }).fail(function(json){
                 console.log("失敗!");

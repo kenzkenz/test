@@ -1433,11 +1433,11 @@ var syoutiikiH22_1 = new ol.layer.VectorTile({
     detail2:"<div class='detail2-div'>強度：<input type='text' class='syoutiikitext' value='1000' size='5'>" +
     "　色："+
     "<select class='syoutiiki-color-select'>" +
-    "<option value='indigo' selected>紫</option>" +
-    "<option value='red'>赤</option>" +
-    "<option value='green'>緑</option>" +
-    "<option value='blue'>青</option>" +
-    "<option value='black'>黒</option>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
     "</select></div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
@@ -1463,11 +1463,11 @@ var syoutiikiH22_2 = new ol.layer.VectorTile({
     detail2:"<div class='detail2-div'>強度：<input type='text' class='hsyoutiikitext' value='1000' size='5'>" +
     "　色："+
     "<select class='syoutiiki-color-select'>" +
-    "<option value='indigo' selected>紫</option>" +
-    "<option value='red'>赤</option>" +
-    "<option value='green'>緑</option>" +
-    "<option value='blue'>青</option>" +
-    "<option value='black'>黒</option>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
     "</select></div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
@@ -1515,9 +1515,6 @@ function syoutiikiCommonStyleFunction(maxColor,limit) {
         return style;
     }
 }
-
-
-
 
 
 //-------------------
@@ -1625,11 +1622,11 @@ var test = new ol.layer.VectorTile({
     detail2:"<div style=''>強度：<input type='text' class='keizaitext' value='1000' size='5'>" +
         "　色："+
         "<select class='keizaicensus-color-select'>" +
-        "<option value='indigo'>紫</option>" +
-        "<option value='red' selected>赤</option>" +
-        "<option value='green'>緑</option>" +
-        "<option value='blue'>青</option>" +
-        "<option value='black'>黒</option>" +
+            "<option value='indigo'>紫</option>" +
+            "<option value='red' selected>赤</option>" +
+            "<option value='green'>緑</option>" +
+            "<option value='blue'>青</option>" +
+            "<option value='black'>黒</option>" +
         "</select></div>",
     source: new ol.source.VectorTile({
         cacheSize:100000,
@@ -1784,6 +1781,161 @@ function tositiikiStyleFunction(feature, resolution) {
 }
 //全国都市地域ここまで-----------------------------------------------------------------------------------------------------
 //宮崎県津波浸水----------------------------------------------------------------------------------------------------------
+var tunamiDetail2 =
+    "<div class='detail2-div'>" +
+    "　塗り分け選択："+
+    "<select class='tunami-select'>" +
+        "<option value='normal' selected>普通</option>" +
+        "<option value='ao'>青色で無段階</option>" +
+        "<option value='aka'>赤色で無段階</option>" +
+    "</select>" +
+    "</div>";
+var tunamimiyazakimvt1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
+    title:"test(MVT)",
+    name:"tunamimiyazaki",
+    origin:"",
+    detail:"",
+    detail2:tunamiDetail2,
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:red;'></i>",
+    source: new ol.source.VectorTile({
+        //cacheSize:10000,
+        overlaps:false,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:19
+        }),
+        tilePixelRatio:16,
+        url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunamimiyazaki/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    style: tunamiMiyazakiStyleFunction("normal")
+});
+/*
+tunamimiyazakimvt1.on('precompose', function(evt) {
+    evt.context.globalCompositeOperation = 'color'
+});
+*/
+function tunamiMiyazakiStyleFunction(target) {
+    return function (feature, resolution) {
+        if(target==="ao") {
+            var sinsuiColor = d3.interpolateLab("white", "navy");
+        }else{
+            var sinsuiColor = d3.interpolateLab("white", "darkred");
+        }
+
+        var prop = feature.getProperties();
+        if (prop["H_M"]) {
+            var level = prop["H_M"];
+            if(target==="normal") {
+                if (level < 0.3) {
+                    fillColor = "rgba(0,255,0,0.7)";
+                } else if (level < 1) {
+                    fillColor = "rgba(255,230,0,0.7)";
+                } else if (level < 2) {
+                    fillColor = "rgba(255,153,0,0.7)";
+                } else if (level < 5) {
+                    fillColor = "rgba(239,117,152,0.7)";
+                } else if (level < 10) {
+                    fillColor = "rgba(255,40,0,0.7)";
+                } else if (level < 20) {
+                    fillColor = "rgba(180,0,104,0.7)";
+                } else {
+                    fillColor = "rgba(128,0,255,0.7)";
+                }
+            }else {
+                fillColor = sinsuiColor(level / 10);
+            }
+
+        } else {
+            var level = prop["level"];
+            if(target==="normal") {
+                switch (level) {
+                    case 1://0.3
+                        fillColor = "rgba(0,255,0,0.7)";
+                        break;
+                    case 2://1
+                        fillColor = "rgba(255,230,0,0.7)";
+                        break;
+                    case 3://2
+                        fillColor = "rgba(255,153,0,0.7)";
+                        break;
+                    case 4://2〜5
+                        fillColor = "rgba(239,117,152,0.7)";
+                        break;
+                    case 5://10
+                        fillColor = "rgba(255,40,0,0.7)";
+                        break;
+                    case 6://20
+                        fillColor = "rgba(180,0,104,0.7)";
+                        break;
+                    case 7:
+                        fillColor = "rgba(128,0,255,0.7)";
+                        break;
+                }
+            }else {
+                switch (level) {
+                    case 1://0.3
+                        level = 0.3;
+                        break;
+                    case 2://1
+                        level = 1;
+                        break;
+                    case 3://2
+                        level = 2;
+                        break;
+                    case 4://2〜5
+                        level = 5;
+                        break;
+                    case 5://10
+                        level = 10;
+                        break;
+                    case 6://20
+                        level = 20;
+                        break;
+                    case 7:
+                        level = 30;
+                        break;
+                }
+                fillColor = sinsuiColor(level / 10);
+            }
+        }
+        /*
+         var text = "";
+         if(resolution<0.30) {
+         text = String(prop["H_M"]) + "M";
+         }
+         */
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: fillColor
+            }),
+            /*
+             text: new ol.style.Text({
+             font: "8px sans-serif",
+             text: text,
+             offsetY:10,
+             stroke: new ol.style.Stroke({
+             color: "white",
+             width: 3
+             })
+             })
+             */
+            /*
+             stroke: new ol.style.Stroke({
+             color: "grey",
+             width: 1
+             }),
+             */
+            //zIndex:zindex
+        });
+        return style;
+    }
+}
+
+
+
 var tunamimvt1 = new ol.layer.VectorTile({
     folder:"child",
     category:"hazard",
@@ -1945,7 +2097,6 @@ function zenkokuhakubutukanStyleFunction(feature, resolution) {
     }else if(name.indexOf("図書館")!==-1){
         fillColor = "green";
     }
-
     var style = new ol.style.Style({
         image: new ol.style.Circle({
             radius:pointRadius,
@@ -1983,30 +2134,30 @@ var zenkokuIseki1 = new ol.layer.VectorTile({
     detail2:"<div style=''>" +
         "石器種類:" +
         "<select class='kyuusekki-cate-select'>" +
-        "<option value='99' selected>選択してください。</option>" +
-        "<option value='0'>全て表示</option>" +
-        "<option value='ナイフ形石器'>ナイフ形石器</option>" +
-        "<option value='台形（様）石器'>台形（様）石器</option>" +
-        "<option value='斧形石器'>斧形石器</option>" +
-        "<option value='剥片尖頭器'>剥片尖頭器</option>" +
-        "<option value='角錐状石器・三稜尖頭器'>角錐状石器・三稜尖頭器</option>" +
-        "<option value='槍先形尖頭器'>槍先形尖頭器</option>" +
-        "<option value='両面調整石器'>両面調整石器</option>" +
-        "<option value='細石刃・細石核等'>細石刃・細石核等</option>" +
-        "<option value='神子柴型石斧'>神子柴型石斧</option>" +
-        "<option value='有茎（舌）尖頭器'>有茎（舌）尖頭器</option>" +
-        "<option value='掻器・削器'>掻器・削器</option>" +
-        "<option value='彫器'>彫器</option>" +
-        "<option value='砥石'>砥石</option>" +
-        "<option value='叩石'>叩石</option>" +
-        "<option value='台石'>台石</option>" +
-        "<option value='礫器'>礫器</option>" +
-        "<option value='その他の石器'>その他の石器</option>" +
-        "<option value='草創期土器'>草創期土器</option>" +
-        "<option value='ブロック･ユニット'>ブロック･ユニット</option>" +
-        "<option value='礫群・配石'>礫群・配石</option>" +
-        "<option value='炭化物集中'>炭化物集中</option>" +
-        "<option value='その他の遺構'>その他の遺構</option>" +
+            "<option value='99' selected>選択してください。</option>" +
+            "<option value='0'>全て表示</option>" +
+            "<option value='ナイフ形石器'>ナイフ形石器</option>" +
+            "<option value='台形（様）石器'>台形（様）石器</option>" +
+            "<option value='斧形石器'>斧形石器</option>" +
+            "<option value='剥片尖頭器'>剥片尖頭器</option>" +
+            "<option value='角錐状石器・三稜尖頭器'>角錐状石器・三稜尖頭器</option>" +
+            "<option value='槍先形尖頭器'>槍先形尖頭器</option>" +
+            "<option value='両面調整石器'>両面調整石器</option>" +
+            "<option value='細石刃・細石核等'>細石刃・細石核等</option>" +
+            "<option value='神子柴型石斧'>神子柴型石斧</option>" +
+            "<option value='有茎（舌）尖頭器'>有茎（舌）尖頭器</option>" +
+            "<option value='掻器・削器'>掻器・削器</option>" +
+            "<option value='彫器'>彫器</option>" +
+            "<option value='砥石'>砥石</option>" +
+            "<option value='叩石'>叩石</option>" +
+            "<option value='台石'>台石</option>" +
+            "<option value='礫器'>礫器</option>" +
+            "<option value='その他の石器'>その他の石器</option>" +
+            "<option value='草創期土器'>草創期土器</option>" +
+            "<option value='ブロック･ユニット'>ブロック･ユニット</option>" +
+            "<option value='礫群・配石'>礫群・配石</option>" +
+            "<option value='炭化物集中'>炭化物集中</option>" +
+            "<option value='その他の遺構'>その他の遺構</option>" +
         "</select></div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
@@ -2632,7 +2783,6 @@ function d3StyleFunction(colotTarget) {
                 var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
                 break;
         }
-
         switch (geoType) {
             case "MultiPoint":
             case "Point":
@@ -2744,22 +2894,6 @@ function senkyokuStyleFunction(colotTarget) {
         switch (senkyokuTarget) {
             case "0":
                 var rgb = d3.rgb(d3Color(Number(prop[colotTarget])));
-                //ar bbb = Number(prop[colotTarget].substr(0, 2));
-                //var ccc = Number(prop[colotTarget].substr(2, 2)) * 5;
-                //console.log(rgb.b-bbb);
-                /*
-                if (rgb.b - bbb) {
-                    var blue = rgb.b - bbb
-                } else {
-                    var blue = 0
-                }
-                if (rgb.r - ccc) {
-                    var red = rgb.r - ccc
-                } else {
-                    var red = 0
-                }
-                var rgba = "rgba(" + red + "," + rgb.g + "," + blue + ",0.7)";
-                */
                 var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
                 break;
             case "1":
@@ -2856,33 +2990,33 @@ function senkyokuStyleFunction(colotTarget) {
     };
 }
 //----------------------------------------------------------------------------------------------------------------------
-//500メッシュ
-var mesh500_1 = new ol.layer.VectorTile({
+//500メッシュ_plus
+var mesh500_plus1 = new ol.layer.VectorTile({
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
-    title:"500Mメッシュ人口(MVT)",
+    title:"実験中(MVT)",
     name:"mesh500",
     origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
     detail:"",
     detail2:
-        "<div class='detail2-div'>" +
-        "<select class='mesh500-year-select mesh500-select'>" +
-            "<option value='h27' selected>平成27年</option>" +
-            "<option value='h22'>平成22年</option>" +
-            "<option value='h17'>平成17年</option>" +
-            "<option value='h12'>平成12年</option>" +
-            "<option value='h07'>平成7年</option>" +
-            "<option value='h99'>7〜27比較</option>" +
-        "</select>" +
-        "　強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
-        "　色："+
-        "<select class='mesh500-color-select mesh500-select'>" +
-            "<option value='indigo' selected>紫</option>" +
-            "<option value='red'>赤</option>" +
-            "<option value='green'>緑</option>" +
-            "<option value='blue'>青</option>" +
-            "<option value='black'>黒</option>" +
-        "</select>" +
-        "</div>",
+    "<div class='detail2-div'>" +
+    "<select class='mesh500-year-select mesh500-select'>" +
+        "<option value='h27' selected>平成27年</option>" +
+        "<option value='h22'>平成22年</option>" +
+        "<option value='h17'>平成17年</option>" +
+        "<option value='h12'>平成12年</option>" +
+        "<option value='h07'>平成7年</option>" +
+        "<option value='h99'>7〜27比較</option>" +
+    "</select>" +
+    "　強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
+    "　色："+
+    "<select class='mesh500-color-select mesh500-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
@@ -2892,7 +3026,64 @@ var mesh500_1 = new ol.layer.VectorTile({
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://kenzkenz.github.io/500mesh/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/500mesh_plus/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,//ズーム7
+    style: mesh500CommonStyleFunction("indigo",1000,"h27")
+    //renderMode:"vector"
+});
+
+//----------------------------------------------------------------------------------------------------------------------
+//500メッシュ
+var mesh500Detail = "現役世代負担率＝<br>20〜64歳に対する65歳以上人口の割合<br>" +
+    "<div style='background:darkred;color:white;'>・赤＝1.0以上　高負担</div>" +
+    "<div style='background:red;color:white;'>・赤＝0.8以上</div>" +
+    "<div style='background:orange;color:white;'>・橙＝0.6以上</div>" +
+    "<div style='background:yellow;color:black;'>・黄＝0.4以上</div>" +
+    "<div style='background:green;color:white;'>・緑＝0.3以上</div>" +
+    "<div style='background:blue;color:white;'>・青＝0.3未満　低負担</div>";
+var mesh500Detail2 =
+    "<div class='detail2-div'>" +
+    "<select class='mesh500-year-select mesh500-select' style='margin-bottom:10px'>" +
+        "<option value='h27' selected>平成27年</option>" +
+        "<option value='h22'>平成22年</option>" +
+        "<option value='h17'>平成17年</option>" +
+        "<option value='h12'>平成12年</option>" +
+        "<option value='h07'>平成7年</option>" +
+        "<option value='h99'>H7〜H27比較</option>" +
+        "<option value='nensyou'>H27年少</option>" +
+        "<option value='seisan'>H27生産年齢</option>" +
+        "<option value='rounen'>H27老年</option>" +
+        "<option value='hutanritu'>H27現役世代負担率</option>" +
+    "</select>" +
+    "<br>" +
+    "強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
+    "　色："+
+    "<select class='mesh500-color-select mesh500-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>";
+var mesh500_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"500Mメッシュ人口(MVT)",
+    name:"mesh500",
+    origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
+    detail:"",
+    detail2:mesh500Detail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/500mesh_plus/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
     style: mesh500CommonStyleFunction("indigo",1000,"h27")
@@ -2904,25 +3095,7 @@ var mesh500_2 = new ol.layer.VectorTile({
     name:"mesh500",
     origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
     detail:"",
-    detail2:
-        "<div class='detail2-div'>" +
-            "<select class='mesh500-year-select mesh500-select'>" +
-            "<option value='h27' selected>平成27年</option>" +
-            "<option value='h22'>平成22年</option>" +
-            "<option value='h17'>平成17年</option>" +
-            "<option value='h12'>平成12年</option>" +
-            "<option value='h07'>平成7年</option>" +
-        "</select>" +
-        "　強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
-        "　色："+
-        "<select class='mesh500-color-select mesh500-select'>" +
-            "<option value='indigo' selected>紫</option>" +
-            "<option value='red'>赤</option>" +
-            "<option value='green'>緑</option>" +
-            "<option value='blue'>青</option>" +
-            "<option value='black'>黒</option>" +
-        "</select>" +
-        "</div>",
+    detail2:mesh500Detail2,
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
@@ -2932,7 +3105,7 @@ var mesh500_2 = new ol.layer.VectorTile({
         }),
         tilePixelRatio:16,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://kenzkenz.github.io/500mesh/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/500mesh_plus/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
     style: mesh500CommonStyleFunction("indigo",1000,"h27")
@@ -2942,32 +3115,90 @@ function mesh500CommonStyleFunction(maxColor,limit,year) {
     var d3Color = d3.interpolateLab("white",maxColor);
     return function (feature, resolution) {
         var prop = feature.getProperties();
-
         if(year==="h99") {//比較
             var h07 = prop["h07"];
             if (!h07) h07 = 0;
             var h27 = prop["h27"];
             if (!h27) h27 = 0;
             var val = h27 / h07;
-            if(isNaN(val)) return;//0割る0のとき
+            if (isNaN(val)) return;//0割る0のとき
             if (!isFinite(val)) val = 999;
-            if (val > 2) val = 2;
+            //if (val > 2) val = 2;
             val = val - 1;
-            if(val<=0) {
-                if(h27===0){
-                    d3Color = d3.interpolateLab("white","black");
-                }else{
-                    d3Color = d3.interpolateLab("white","red");
+            if (val <= 0) {
+                if (h27 === 0) {
+                    d3Color = d3.interpolateLab("white", "black");
+                } else {
+                    d3Color = d3.interpolateLab("white", "red");
+                    val = val *2;
+                    //console.log(val)
                 }
                 val = Math.abs(val);
-            }else{
-                d3Color = d3.interpolateLab("white","blue");
-
+            } else {
+                d3Color = d3.interpolateLab("white", "blue");
             }
             var rgb = d3.rgb(d3Color(val));
+            if(val>1) val = 1;
             var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.6 + ")";
+        }else if(year==="nensyou"){
+            if(prop["HTKSYORI"]) return;
+            var souzinkou = Number(prop["h27"]);
+            var nensyou = Number(prop["T000847006"]);
+            var ritu = nensyou / souzinkou;
+            if(isNaN(ritu)) return;
+            //ritu = (ritu - 0.1) * 20
+            ritu = ritu * 4;
+            if(ritu>2) ritu = 2;
+            //console.log(ritu);
+            d3Color = d3.interpolateLab("white","green");
+            var rgb = d3.rgb(d3Color(ritu));
+            if(ritu>0.8) ritu = 0.8;
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + ritu + ")";
+        }else if(year==="seisan"){
+            if(prop["HTKSYORI"]) return;
+            var souzinkou = Number(prop["h27"]);
+            var seisan = Number(prop["T000847012"]);
+            var ritu = seisan / souzinkou;
+            if(isNaN(ritu)) return;
+            //ritu = (ritu - 0.4) * 4;
+            ritu = (ritu-0.1) * 1.5;
+            //if(ritu>2) ritu = 2;
+            //console.log(ritu);
+            d3Color = d3.interpolateLab("white","blue");
+            var rgb = d3.rgb(d3Color(ritu));
+            if(ritu>0.8) ritu = 0.8;
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + ritu + ")";
+        }else if(year==="rounen"){
+            if(prop["HTKSYORI"]) return;
+            var souzinkou = Number(prop["h27"]);
+            var rounen = Number(prop["T000847018"]);
+            var ritu = rounen / souzinkou;
+            if(isNaN(ritu)) return;
+            ritu = (ritu-0.15) * 4;
+            d3Color = d3.interpolateLab("white","red");
+            var rgb = d3.rgb(d3Color(ritu));
+            if(ritu>0.8) ritu = 0.8;
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + ritu + ")";
+        }else if(year==="hutanritu"){
+            if(prop["HTKSYORI"]) return;
+            var geneki = Number(prop["T000847015"]) - Number(prop["T000847009"]) + Number(prop["T000847012"]);
+            var rounen = Number(prop["T000847018"]);
+            var ritu = rounen / geneki;
+            if(isNaN(ritu)) return;
+            if(ritu>=1.0) {
+                var rgba = "rgba(139,0,0,0.8)"
+            }else if(ritu>=0.8) {
+                var rgba = "rgba(255,0,0,0.8)"
+            }else if(ritu>=0.6) {
+                var rgba = "rgba(255,165,0,0.8)"
+            }else if(ritu>=0.4) {
+                var rgba = "rgba(255,255,0,0.8)"
+            }else if(ritu>=0.3) {
+                var rgba = "rgba(0,128,0,0.8)"
+            }else{
+                var rgba = "rgba(0,0,250,0.8)"
+            }
         }else{//通常
-            //console.log(9999999999999999)
             var val = prop[year];
             if(!val) return;
             val = val / limit;
@@ -2976,7 +3207,8 @@ function mesh500CommonStyleFunction(maxColor,limit,year) {
             var rgb = d3.rgb(d3Color(val));
             var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
         }
-        if (resolution < 125.87) {
+        //var text = prop[year];
+        if (resolution < 19.11) {
             //if (!val) return;
             var style = new ol.style.Style({
                 fill: new ol.style.Fill({
@@ -2985,7 +3217,17 @@ function mesh500CommonStyleFunction(maxColor,limit,year) {
                 stroke: new ol.style.Stroke({
                     color: "darkgray",
                     width: 1
-                })
+                }),
+                /*
+                text: new ol.style.Text({
+                    font: "8px sans-serif",
+                    text: text,
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 3
+                    })
+                }),
+                */
             });
         } else {
             //if (!val) return;
@@ -3127,11 +3369,16 @@ function keizaiCensusStyleFunction(maxColor,limit,column) {
         var prop = feature.getProperties();
         var val = prop[column];
         if(val==="-" || !val) return;
+        //if(prop["JIGYOSHO"]===0) return;
         val = val / (prop["AREA"]/1000000) / limit;
         //if(val<0.05) return;
         if (val > 1) val = 1;
         var rgb = d3.rgb(d3Color(val));
         var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
+
+        if(prop["JIGYOSHO"]===0) {
+            rgba = "rgba(255,255,255,0.05)";
+        }
 
         if (resolution < 125.87) {
             var style = new ol.style.Style({
@@ -3151,6 +3398,295 @@ function keizaiCensusStyleFunction(maxColor,limit,column) {
                 })
             });
         }
+        return style;
+    }
+}
+//----------------------------------------------------------------------------------------------------------------------
+//福祉施設
+var fukusiDetail2 =
+    "<div class='detail2-div'>" +
+    "　施設選択："+
+    "<select class='fukushi-select'>" +
+        "<option value='all' selected> 全て</option>" +
+        "<option value='kosodate'>子育て</option>" +
+        "<option value='rouzin'>老人</option>" +
+    "</select>" +
+    "</div>";
+
+var fukushi_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国福祉施設(MVT)",
+    name:"fukushi",
+    origin:"",
+    detail:"",
+    detail2:fukusiDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/h27fukushi_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:305.75,
+    style: fukushiStyleFunction("all")
+    //renderMode:"vector"
+});
+var fukushi_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"全国福祉施設(MVT)",
+    name:"fukushi",
+    origin:"",
+    detail:"",
+    detail2:fukusiDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            //minZoom:10,
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/h27fukushi_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:305.75,
+    style: fukushiStyleFunction("all")
+    //renderMode:"vector"
+});
+function fukushiStyleFunction(target) {
+    return function (feature, resolution) {
+        //console.log(feature);
+        var prop = feature.getProperties();
+        //var fillColor = prop["_fillColor"];
+        if (resolution > 305) {
+            var pointRadius = 2;
+        } else if (resolution > 152) {
+            var pointRadius = 4;
+        } else if (resolution > 76) {
+            var pointRadius = 4;
+        } else if (resolution > 38) {
+            var pointRadius = 4;
+        } else {
+            var pointRadius = 6;
+        }
+        var text = "";
+        if (resolution < 4.78) {
+            text = prop["P14_007"];
+        }
+        var fillColor = "black";
+
+        var syoubunrui = prop["P14_005"];
+
+        switch (syoubunrui) {
+            case "19013":
+            case "19014":
+            case "19015":
+            case "19016":
+            case "19017":
+            case "19018":
+            case "19019":
+            case "19020":
+            case "19021":
+            case "19022":
+            case "19023":
+            case "16011"://幼稚園
+                fillColor = "green";
+                if(target!=="all") {
+                    if(target!=="kosodate") return;
+                }
+                break;
+            case "19001":
+            case "19002":
+            case "19003":
+            case "19004":
+                fillColor = "red";
+                if(target!=="all") {
+                    if(target!=="rouzin") return;
+                }
+
+                break;
+            default:
+                if(target!=="all") return;
+                break;
+
+        }
+        var style = new ol.style.Style({
+            image: new ol.style.Circle({
+                radius: pointRadius,
+                fill: new ol.style.Fill({
+                    color: fillColor
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "white",
+                    width: 1
+                })
+            }),
+            text: new ol.style.Text({
+                font: "8px sans-serif",
+                text: text,
+                offsetY: 10,
+                stroke: new ol.style.Stroke({
+                    color: "white",
+                    width: 3
+                })
+            })
+        });
+        return style;
+    }
+}
+
+//北海道津波浸水----------------------------------------------------------------------------------------------------------
+var hokkaidoutunamiDetail2 =
+    "<div class='detail2-div'>" +
+    "　塗り分け選択："+
+    "<select class='tunamihokkaidou-select'>" +
+    "<option value='normal' selected>普通</option>" +
+    "<option value='ao'>青色で無段階</option>" +
+    "<option value='aka'>赤色で無段階</option>" +
+    "</select>" +
+    "</div>";
+
+var tunamiWakkanaimvt1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"test",
+    title:"稚内市〜石狩市　津波水位(MVT)",
+    name:"tunamihokkaidou",
+    origin:"",
+    detail:"",
+    detail2:hokkaidoutunamiDetail2,
+    icon:"<i class='fa fa-exclamation-triangle fa-fw' style='color:red;'></i>",
+    source: new ol.source.VectorTile({
+        //cacheSize:128,
+        overlaps:false,
+        transition:0,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:19
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/01wakkanai_mvt/{z}/{x}/{y}.mvt"
+    }),
+    crossOrigin:"anonymous",
+    style: tunamiHokkaidouStyleFunction("normal"),
+    renderMode:"vector"
+});
+function tunamiHokkaidouStyleFunction(target) {
+    return function (feature, resolution) {
+        if(target==="ao") {
+            var sinsuiColor = d3.interpolateLab("white", "navy");
+        }else{
+            var sinsuiColor = d3.interpolateLab("white", "darkred");
+        }
+
+        var prop = feature.getProperties();
+        if (prop["MAX_SIN"]) {
+            var level = prop["MAX_SIN"];
+            if(target==="normal") {
+                if (level < 0.3) {
+                    fillColor = "rgba(0,255,0,0.7)";
+                } else if (level < 1) {
+                    fillColor = "rgba(255,230,0,0.7)";
+                } else if (level < 2) {
+                    fillColor = "rgba(255,153,0,0.7)";
+                } else if (level < 5) {
+                    fillColor = "rgba(239,117,152,0.7)";
+                } else if (level < 10) {
+                    fillColor = "rgba(255,40,0,0.7)";
+                } else if (level < 20) {
+                    fillColor = "rgba(180,0,104,0.7)";
+                } else {
+                    fillColor = "rgba(128,0,255,0.7)";
+                }
+            }else {
+                fillColor = sinsuiColor(level / 10);
+            }
+
+        } else {
+            var level = prop["level"];
+            if(target==="normal") {
+                switch (level) {
+                    case 1://0.3
+                        fillColor = "rgba(0,255,0,0.7)";
+                        break;
+                    case 2://1
+                        fillColor = "rgba(255,230,0,0.7)";
+                        break;
+                    case 3://2
+                        fillColor = "rgba(255,153,0,0.7)";
+                        break;
+                    case 4://2〜5
+                        fillColor = "rgba(239,117,152,0.7)";
+                        break;
+                    case 5://10
+                        fillColor = "rgba(255,40,0,0.7)";
+                        break;
+                    case 6://20
+                        fillColor = "rgba(180,0,104,0.7)";
+                        break;
+                    case 7:
+                        fillColor = "rgba(128,0,255,0.7)";
+                        break;
+                }
+            }else {
+                switch (level) {
+                    case 1://0.3
+                        level = 0.3;
+                        break;
+                    case 2://1
+                        level = 1;
+                        break;
+                    case 3://2
+                        level = 2;
+                        break;
+                    case 4://2〜5
+                        level = 5;
+                        break;
+                    case 5://10
+                        level = 10;
+                        break;
+                    case 6://20
+                        level = 20;
+                        break;
+                    case 7:
+                        level = 30;
+                        break;
+                }
+                fillColor = sinsuiColor(level / 10);
+            }
+        }
+        /*
+         var text = "";
+         if(resolution<0.30) {
+         text = String(prop["H_M"]) + "M";
+         }
+         */
+        var style = new ol.style.Style({
+            fill: new ol.style.Fill({
+                color: fillColor
+            }),
+            /*
+             text: new ol.style.Text({
+             font: "8px sans-serif",
+             text: text,
+             offsetY:10,
+             stroke: new ol.style.Stroke({
+             color: "white",
+             width: 3
+             })
+             })
+             */
+            /*
+             stroke: new ol.style.Stroke({
+             color: "grey",
+             width: 1
+             }),
+             */
+            //zIndex:zindex
+        });
         return style;
     }
 }

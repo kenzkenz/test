@@ -91,6 +91,17 @@ label:hover{
     position:relative;
 }
 /*----------------------------------------------------------------------------*/
+#mouseMessage{
+    position: absolute;
+    z-index: 1;
+    font-size:22px;
+    /*color:white;*/
+    -moz-user-select:none;
+    -webkit-user-select:none;
+    -ms-user-select:none;
+    pointer-events:none;
+}
+/*----------------------------------------------------------------------------*/
 /*現在不使用。汎用性を求めてjsで書き直した。
 .btn:active{
     margin-top:5px;

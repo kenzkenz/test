@@ -26,18 +26,20 @@ $(function(){
     //ポップアップ
     function funcPopupShow(evt,map){
         var pixel = eval(map).getPixelFromCoordinate(evt.coordinate);
-        var layerObj = eval(map).forEachFeatureAtPixel(pixel,function(feature,layer){
-            return {"layer":layer,"feature":feature};
+        var features = [];
+        var layers = [];
+        eval(map).forEachFeatureAtPixel(pixel,function(feature,layer){
+            console.log(22222);
+            features.push(feature);
+            layers.push(layer);
         });
-        if(!layerObj) return;
-        var layer = layerObj["layer"];
-        var feature = layerObj["feature"];
-        if(layerObj["layer"]) {
-            var layerName = layerObj["layer"].getProperties()["name"];
-        }else{
-            //console.log("レイヤーなし!！");
-            return;
-        }
+        console.log(features);
+        if(!features.length) return;
+
+        var layer = layers[layers.length-1];
+        var feature = features[features.length-1];//最後のfeatureを取得している。レイヤーが重なったとき問題があるかも。
+        var layerName = layer.getProperties()["name"];
+
         console.log(layerName);
         switch (layerName){//ここで処理を分岐
             case "wikiCommonsLayer":
@@ -93,6 +95,16 @@ $(function(){
             case "tunamimvt":
                 funcTunamimvtPopup(feature,map,evt);
                 break;
+            case "tunamimiyazaki":
+                funcTunamimiyazakiPopup(feature,map,evt);
+                break;
+            case "tunamihokkaidou":
+                funcTunamihokkaidouPopup(feature,map,evt);
+                console.log(evt);
+                break;
+
+
+
             case "keizai-census":
                 funcKeizaiCensusPopup(feature,map,evt);
                 break;
@@ -178,9 +190,34 @@ $(function(){
                 console.log(feature.getProperties());
                 funcKeizaiCensusPopup(feature,map,evt);
                 break;
+            case "fukushi":
+                console.log(feature.getProperties());
+                funcFukushiPopup(feature,map,evt);
+                break;
 
 
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcFukushiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        for(key in featureProp){
+            table += "<tr>";
+            var prop = featureProp[key];
+            table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
+            table += "</tr>";
+        }
+        content += table;
+
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -194,11 +231,18 @@ $(function(){
         }
         console.log(featureProp);
 
+        var cyoufuku = featureProp["KIGO_E"];
+        if(cyoufuku) {
+            cyoufuku += " この地区は重複があります。そのため計算が不正確です。"
+        }else{
+            cyoufuku = "";
+        }
+
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
         table += "<tr><th class='popup-th' style='width:70px;'>コード</th><td class='popup-td'>" + featureProp["KEY_CODE"] + "</td></tr>";
-        table += "<tr><th class='popup-th'>自治体</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["CSS_NAME"] + "</td></tr>";
-        table += "<tr><th class='popup-th'>字</th><td class='popup-td'>" + featureProp["MOJI"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>地区名</th><td class='popup-td'>" + featureProp["KEN_NAME"] + featureProp["CSS_NAME"] + featureProp["MOJI"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>重複フラグ</th><td class='popup-td'>" + cyoufuku + "</td></tr>";
         //table += "<tr><th class='popup-th'>事業所数</th><td class='popup-td'>" + featureProp["JIGYOSHO"] + "</td></tr>";
         //table += "<tr><th class='popup-th' style='font-weight: bold;'>従業員数</th><td class='popup-td' style='font-weight: bold;font-size: 20px;'>" + Math.floor(Number(featureProp["JUGYOSHA"])).toLocaleString() + "人</td></tr>";
         //table += "<tr><th class='popup-th'>面積</th><td class='popup-td'>" + Math.floor(Number(featureProp["AREA"])).toLocaleString() + "</td></tr>";
@@ -308,7 +352,10 @@ $(function(){
         table += "<tr><th class='popup-th'>平成07年人口</th><td class='popup-td' style='text-align:right'>" + h07 + "人</td></tr>";
         table += "</table>";
         //content += table;
-        content += "<div id='" + map + "chart500' style='height:200px;width:300px;'></div>";
+        content += "<div id='" + map + "chart500' style='height:130px;width:270px;'></div>";
+        content += "<div id='" + map + "pie500' style='height:170px;width:270px;margin-top:-15px;'></div>";
+        content += "<div style='position:absolute;top:5px;'>人口推移</div>";
+        content += "<div style='position:absolute;top:135px;'>H27人口構成</div>";
         if(map==="map1") {
             popup1.show(coord,content);
         }else{
@@ -374,7 +421,100 @@ $(function(){
             ]
         });
 
+        var nensyou = Number(prop["T000847006"]);
+        var seisan = Number(prop["T000847012"]);
+        var rounen = Number(prop["T000847018"]);
+        var hitoku = 0;
+
+        var jinkouData =[];
+
+        if(prop["HTKSYORI"]==="*") {
+            jinkouData.push({
+                name: "人数が少ないため秘匿",
+                color: "indigo",
+                y: 1
+            })
+
+        }else{
+            jinkouData.push({
+                name: "年少人口",
+                color: "green",
+                y: nensyou
+            });
+            jinkouData.push({
+                name: "生産年齢人口",
+                color: "blue",
+                y: seisan
+            });
+            jinkouData.push({
+                name: "老年人口",
+                color: "red",
+                y: rounen
+            });
+        }
+
+        var mesh500Pie = Highcharts.chart({
+            chart:{
+                renderTo:map + "pie500",
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            credits:{
+                enabled:false
+            },
+            title: {
+                text: null
+            },
+            tooltip: {
+                pointFormat: '<b>{point.y}人 {point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b><br>{point.percentage:.1f} %',
+                        style: {
+                            color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                        }
+                    }
+                }
+            },
+            series: [{
+                name:"jinkoukousei",
+                colorByPoint: true,
+                data:jinkouData
+            }]
+        });
     }
+
+    /*
+    var mesh500Pie = Highcharts.chart({
+        chart:{
+            renderTo:map + "pie500",
+            type:"line",
+            animation:true
+            //aliginTicks:false
+        },
+        credits:{
+            enabled:false
+        },
+    */
+    /*
+    Highcharts.chart(map + "pie500", {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+
+        */
+
+
     //-----------------------------------------------
     function funcSenkyokuPopup(feature,map,evt){
         var featureProp = feature.getProperties();
@@ -1127,6 +1267,84 @@ $(function(){
         }
     }
     //-----------------------------------------------
+    function funcTunamihokkaidouPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        if(featureProp["MAX_SIN"]) {
+            table += "<tr><th class='popup-th' style='width:70px;'>浸水想定</th><td class='popup-td'>" + featureProp["MAX_SIN"] + "メートル</td></tr>";
+        }else{
+
+            var level = featureProp["level"];
+            var levelText = "";
+            switch (level) {
+                case 1://0.3
+                    levelText = "0.3m未満";
+                    break;
+                case 2://1
+                    levelText = "0.3m以上〜1m未満";
+                    break;
+                case 3://2
+                    levelText = "1m以上〜2m未満";
+                    break;
+                case 4://2〜5
+                    levelText = "2m以上〜5m未満";
+                    break;
+                case 5://10
+                    levelText = "5m以上〜10m未満";
+                    break;
+                case 6://20
+                    levelText = "10m以上〜20m未満";
+                    break;
+                case 7:
+                    levelText = "20m以上";
+                    break;
+            }
+            table += "<tr><th class='popup-th' style='width:70px;'>浸水想定</th><td class='popup-td'>" + levelText + "</td></tr>";
+            table += "<tr><th class='popup-th'>備考</th><td class='popup-td'>ズームすると詳細な浸水想定を表示します。</td></tr>";
+        }
+        table += "</table>";
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcTunamimiyazakiPopup(feature,map,evt){
+        var featureProp = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        if(geoType==="Point"){
+            var coord = feature.getGeometry().getCoordinates();
+        }else{
+            var coord = evt.coordinate;
+        }
+        console.log(featureProp)
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover'>";
+        if(featureProp["H_M"]) {
+            table += "<tr><th class='popup-th' style='width:70px;'>浸水想定</th><td class='popup-td'>" + featureProp["H_M"] + "メートル</td></tr>";
+        }else{
+            table += "<tr><th class='popup-th' style='width:70px;'>浸水想定</th><td class='popup-td'>" + featureProp["A40_003"] + "メートル</td></tr>";
+            table += "<tr><th class='popup-th'>備考</th><td class='popup-td'>ズームすると詳細な浸水想定を表示します。</td></tr>";
+        }
+        table += "</table>";
+        content += table;
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
     function funcTunamimvtPopup(feature,map,evt){
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();
@@ -1139,15 +1357,7 @@ $(function(){
         var content = "";
         var table = "<table class='popup-tbl table table-bordered table-hover'>";
         table += "<tr><th class='popup-th'>浸水</th><td class='popup-td'>" + featureProp["A40_003"]  + "</td></tr>";
-        //table += "<tr><th class='popup-th'>幅</th><td class='popup-td'>" + featureProp["rnkWidth"] + "</td></tr>";
-        /*
-         for(key in featureProp){
-         table += "<tr>";
-         var prop = featureProp[key];
-         table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + prop + "</td>";
-         table += "</tr>";
-         }
-         */
+
         table += "</table>";
 
         content += table;

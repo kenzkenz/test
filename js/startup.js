@@ -42,16 +42,19 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
 
+        msg += "★iphoneのsafariで画面移動ができない現象があるようです。その場合はブラウザをクローム等に変えてみてください。<br>";
         msg += "★<a href='http://www.gsi.go.jp/bousaichiri/bousaichiri61013.html' target='_blank'>宮崎県立佐土原高校情報技術部 防災アプリ大賞受賞!！</a><br>";
         msg += "★背景のうち(MVT)(VT)とついているものは3D化できません！<br>";
         msg += "★詳しい追加情報等は<a href='https://www.facebook.com/hinatagis' target='_blank'><i class='fa fa-facebook-square fa-fw' style='color:navy;'></i>FBへ</a><br>";
 
         //msg += "<canvas id='canvas1'></canvas>";
-        msg += "1 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
-        msg += "2 背景に二次医療圏(MVT)を追加しました。<br>";
-        msg += "3 背景に地理院_地形分類(自然地形)(VT)を追加しました。<br>";
-        msg += "4 背景に全国中学校区(MVT)を追加しました。<br>";
-        msg += "5 背景に全国小学校区(MVT)を追加しました。<br>";
+
+        msg += "1 背景にH26経済センサス(MVT)を追加しました。<br>";
+        msg += "2 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
+        msg += "3 背景に二次医療圏(MVT)を追加しました。<br>";
+        msg += "4 背景に地理院_地形分類(自然地形)(VT)を追加しました。<br>";
+        //msg += "4 背景に全国中学校区(MVT)を追加しました。<br>";
+        //msg += "5 背景に全国小学校区(MVT)を追加しました。<br>";
         //msg += "5 背景に全国縄文・弥生集落遺跡(MVT)を追加しました。<br>";
         //msg += "5 背景に静岡県CS立体図を追加しました。<br>";
         //msg += "6 背景に地理院_治水地形分類図を追加しました。<br>";
@@ -86,7 +89,7 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/10/10</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/10/12</div>";
         msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='https://www.osgeo.jp/' target='_blank'><img src='icon/osgeo.png' style='width:80px;background:'></a></div>";
         $.notify({//options
             message: msg
@@ -106,10 +109,8 @@ $(function(){
     }
     //webストレージから中陣地座標、ズーム率を取得
 
-
     var urlHash = location.hash;
     console.log(urlHash);
-
 
     /*
     if(urlHash) {
@@ -130,7 +131,6 @@ $(function(){
 
     //var center = null;
     //var zoom = null;
-
 
     var center = JSON.parse(localStorage.getItem("lonlat"));
     var zoom = localStorage.getItem("zoom");
@@ -236,10 +236,54 @@ $(function(){
     //ムーブ時に標高取得。
     map1.on("pointermove",function(evt){
         funcElevation(evt,"map1");
+        funcMouseMessage(evt,"map1");
     });
     map2.on("pointermove",function(evt){
         funcElevation(evt,"map2");
+        funcMouseMessage(evt,"map2");
     });
+    //---------------------------------------------------------------------------
+    function funcMouseMessage(evt,mapName){
+        $("#mouseMessage").text("");
+        var map2Top = 0;
+        var map2Left = 0;
+        if(mapName==="map2") {
+            map2Top = $("#map2").offset().top;
+            map2Left = $("#map2").offset().left;
+        }
+        $("#mouseMessage").animate({
+            top:evt.pixel[1] + 0 + map2Top,
+            left:evt.pixel[0] + 15 + map2Left
+        },0);
+        var pixel = eval(mapName).getPixelFromCoordinate(evt.coordinate);
+        var features = [];
+        var layers = [];
+        eval(mapName).forEachFeatureAtPixel(pixel,function(feature,layer){
+            console.log(22222);
+            features.push(feature);
+            layers.push(layer);
+        });
+        if(!features.length) return;
+        var layer = layers[layers.length-1];
+        var feature = features[features.length-1];//最後のfeatureを取得している。レイヤーが重なったとき問題があるかも。
+        var layerName = layer.getProperties()["name"];
+        if(layerName==="tunamimiyazaki"){
+            if(feature.getProperties()["H_M"]) {
+                $("#mouseMessage").text(feature.getProperties()["H_M"] + "メートル");
+            }else{
+                $("#mouseMessage").text(feature.getProperties()["A40_003"]);
+            }
+        }
+        if(layerName==="tunamihokkaidou"){
+            if(feature.getProperties()["MAX_SIN"]) {
+                $("#mouseMessage").text(feature.getProperties()["MAX_SIN"] + "メートル");
+            }else{
+
+            }
+        }
+
+    }
+    //---------------------------------------------------------------------------
     function funcElevation(evt,mapName){
         //console.log($(":hover"));
         getElev(evt.coordinate,mapName,function(h){
@@ -251,9 +295,6 @@ $(function(){
             }
         });
     }
-    map2.on("pointermove",function(evt){
-        //console.log(evt);
-    });
     map1.on("click",function(evt){
         console.log(ol.proj.transform(evt.coordinate,"EPSG:3857","EPSG:4326"));
     });
@@ -278,7 +319,8 @@ $(function(){
             pinchRotateInteraction2.setActive(true);
         }
     });
-
+    //--------------------------------------------------------------------------
+    //OSM
     $("body").on("click",".osm-btn",function() {
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
@@ -312,9 +354,10 @@ $(function(){
             alert("お使いのブラウザには座標取得機能がありません。")
         }
     }
-
+    //------------------------------------------------------------------------
     ol.hash(map1);
     ol.hash(map2);
+    //------------------------------------------------------------------------
 
     /*
     //現在地取得
