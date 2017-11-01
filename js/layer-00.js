@@ -17,14 +17,15 @@ $(function(){
         //過去の航空写真
         sikiriKakoSyasin,
                     usasiawase011,
-                    gazo11,
+                    gazo11,old10_1,
                     jpn23ku011,
                     usamiyazaki011,usamiyakonozyou011,usanobeoka011,usakobayasi011,usakumamoto011,usamuroran011,usanatori011,
                     usasendai011,
                     jpnfukuoka011,jpnnoboribetu011,
 
                     syokusei1,dozyouzu1,syoutiikiH17_1,syoutiikiH22_1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,syougakkouku1,tyuugakkouku1,iryouken1,
-                    mesh500_1,keizaiCensus_1,fukushi_1,
+                    mesh500_1,keizaiCensus_1,fukushi_1,cityGeneki_1,cityZaisei_1,syougyou500m_1,syougyou1000m_s_1,syougyou1000m_g_1,syougyou1000m_k_1,
+                    suikei1000m_1,
                     osm1,toner1,
                     tondabayasit1,
                     //mesh1000z1,kousoku9syu1,
@@ -103,14 +104,15 @@ $(function(){
         //過去の航空写真
         sikiriKakoSyasin,
                     usasiawase012,
-                    gazo12,
+                    gazo12,old10_2,
                     jpn23ku012,
                     usamiyazaki012,usamiyakonozyou012,usanobeoka012,usakobayasi012,usakumamoto012,usamuroran012,usanatori012,
                     usasendai012,
                     jpnfukuoka012,jpnnoboribetu012,
 
                     syokusei2,dozyouzu2,syoutiikiH17_2,syoutiikiH22_2,syoutiiki2,tositiiki2,youtotiiki2,suiro2,douro2,syougakkouku2,tyuugakkouku2,iryouken2,
-                    mesh500_2,keizaiCensus_2,fukushi_2,
+                    mesh500_2,keizaiCensus_2,fukushi_2,cityGeneki_2,cityZaisei_2,syougyou500m_2,syougyou1000m_s_2,syougyou1000m_g_2,syougyou1000m_k_2,
+                    suikei1000m_2,
                     osm2,toner2,
                     tondabayasit2,
                     //mrtiba2,mransei2,
@@ -478,15 +480,32 @@ function funcHaikeiLayerSort(mapElement,mapName){
         }
     });
 }
-//------------------------------------------------------------------------
+//------------------------------------------------------------------------------
 $(function(){
     //--------------------------------------------------------------------------
     //インフォメーションを押したとき
     $("body").on("click",".td-info",function(){
         var mapObj = funcMaps($(this));
         var mapName = mapObj["name"];
-        $("#" + mapName + " .info-dialog").remove();
-        var layer = mapObj["layers"][$(this).parents("tr").find("input").val()];
+        var layerVal = $(this).parents("tr").find("input").val();
+        console.log(layerVal);
+        var layer = mapObj["layers"][layerVal];
+        var layerName = layer.getProperties()["name"];
+        console.log(layerName);
+        var targetDialog = $("#mydialog-" + mapName + "-info-dialog-" + layerName);
+        console.log(targetDialog.length);
+        if(targetDialog.length) {//既に作成すみのとき
+            //dialogbaseMaxzindex(targetDialog);
+            //targetDialog.css({"display":"block"});
+            //dialogbaseMaxzindex(targetDialog);
+            targetDialog.show(function(){
+                dialogbaseMaxzindex(targetDialog);
+            });
+            return;
+        }
+        //$("#" + mapName + " .info-dialog").remove();
+        targetDialog.remove();
+
         if(!Array.isArray(layer)){
             var prop = layer.getProperties();
         }else{//配列のとき
@@ -503,14 +522,14 @@ $(function(){
         if(prop["detail2"]) content += prop["detail2"];
 
         mydialog({
-            id:"info-dialog",
+            id:mapName + "-info-dialog-" + layerName,
             class:"info-dialog",
             map:mapName,
-            title:"インフォメーション",
+            title:"インフォ",
             content:content,
             top:"100px",
             right:"20px",
-            rmDialog:true
+            //rmDialog:true
         });
         //------------------------------------------------------
 
@@ -636,6 +655,43 @@ $(function(){
             targetLayer.getSource().changed();
         }
         //--------------------------------------------------------------------------------------------------------------
+        //商業500mesh
+        $("#" + mapName + " .syougyouMeshtext").spinner({
+            max:5000, min:1, step:1,
+            spin:function(event,ui){
+                var colorVal = $(this).parents(".detail2-div").find(".syougyouMesh-color-select").val();
+                var yearVal = $(this).parents(".detail2-div").find(".syougyouMesh-year-select").val();
+                var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+                syougyouMeshColorChange(mapName,layerId,ui.value,colorVal,yearVal);
+            }
+        });
+        $("#" + mapName).on("keyup",".syougyouMeshtext",function(){
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".syougyouMesh-color-select").val();
+            var yearVal = $(this).parents(".detail2-div").find(".syougyouMesh-year-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            syougyouMeshColorChange(mapName,layerId,limit,colorVal,yearVal);
+        });
+        $("#" + mapName).on("change",".syougyouMesh-select",function(){
+            var limit = $(this).parents(".detail2-div").find("input").val();
+            var colorVal = $(this).parents(".detail2-div").find(".syougyouMesh-color-select").val();
+            var yearVal = $(this).parents(".detail2-div").find(".syougyouMesh-year-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            syougyouMeshColorChange(mapName,layerId,limit,colorVal,yearVal);
+            console.log(yearVal);
+            console.log($(this).parents(".dialog-base").find(".detail-td"));
+        });
+        function syougyouMeshColorChange(mapName,layerId,limit,colorVal,yearVal){
+            console.log(mapName,layerId,limit,colorVal,yearVal);
+            if(mapName==="map1") {
+                var targetLayer = useLayersArr1[layerId];
+            }else{
+                var targetLayer = useLayersArr2[layerId];
+            }
+            targetLayer.setStyle(syougyouMeshCommonStyleFunction(colorVal,limit,yearVal));
+            targetLayer.getSource().changed();
+        }
+        //--------------------------------------------------------------------------------------------------------------
         //経済センサス
         $("#" + mapName + " .keizaicensustext").spinner({
             max:50000, min:1, step:100,
@@ -717,23 +773,73 @@ $(function(){
             var mapObj = funcMaps($(this));
             var targetLayer = mapObj["layers"][layerId];
             targetLayer.setStyle(tunamiHokkaidouStyleFunction(target));
-
-            /*
-            var source = targetLayer.getSource();
-            targetLayer.setSource(null);
-            targetLayer.setSource(source);
-            */
-
-
-            //targetLayer.getSource().changed();
-            /*
-            var souce = targetLayer.getSource();
-            souce.tileCache.expireCache({});
-            souce.tileCache.clear();
-            souce.refresh();
-            */
-
         });
+        //--------------------------------------------------------------------------------------------------------------
+        //市町村現役率
+        $("#" + mapName + " .cityGeneki-year-slider").slider({
+            min:1980,max:2040,value:2015,step:5,
+            slide: function(event, ui){
+                var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+                var mapObj = funcMaps($(this));
+                var targetLayer = mapObj["layers"][layerId];
+                var target = ui.value;
+                var colorChart = $(this).parents(".detail2-div").find(".cityGeneki-colorchart-select").val();
+                targetLayer.setStyle(cityGenekiCommonStyleFunction(target,colorChart));
+                $("#" + mapName + " .cityGeneki-year-select").val(target);
+            }
+        });
+        $("#" + mapName).on("change",".cityGeneki-year-select",function(){
+            var target = $(this).parents(".detail2-div").find(".cityGeneki-year-select").val();
+            var colorChart = $(this).parents(".detail2-div").find(".cityGeneki-colorchart-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(cityGenekiCommonStyleFunction(target,colorChart));
+        });
+        $("#" + mapName).on("change",".cityGeneki-colorchart-select",function(){
+            var target = $(this).parents(".detail2-div").find(".cityGeneki-year-select").val();
+            var colorChart = $(this).parents(".detail2-div").find(".cityGeneki-colorchart-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(cityGenekiCommonStyleFunction(target,colorChart));
+        });
+        //--------------------------------------------------------------------------------------------------------------
+        //市町村財政指数
+        $("#" + mapName + " .cityZaisei-year-slider").slider({
+            min:1977,max:2015,value:2015,step:1,
+            slide: function(event, ui){
+                var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+                var mapObj = funcMaps($(this));
+                var targetLayer = mapObj["layers"][layerId];
+                var target = ui.value + "_1";
+                var colorChart = $(this).parents(".detail2-div").find(".cityZaisei-colorchart-select").val();
+                targetLayer.setStyle(cityZaiseiCommonStyleFunction(target,colorChart));
+                $("#" + mapName + " .cityZaisei-year-select").val(target);
+            }
+        });
+        $("#" + mapName).on("change",".cityZaisei-year-select",function(){
+            var target = $(this).parents(".detail2-div").find(".cityZaisei-year-select").val();
+            var colorChart = $(this).parents(".detail2-div").find(".cityZaisei-colorchart-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(cityZaiseiCommonStyleFunction(target,colorChart));
+        });
+        $("#" + mapName).on("change",".cityZaisei-colorchart-select",function(){
+            var target = $(this).parents(".detail2-div").find(".cityZaisei-year-select").val();
+            var colorChart = $(this).parents(".detail2-div").find(".cityZaisei-colorchart-select").val();
+            var layerId = $(this).parents(".dialog-base").find(".layer-id").val();
+            var mapObj = funcMaps($(this));
+            var targetLayer = mapObj["layers"][layerId];
+            targetLayer.setStyle(cityZaiseiCommonStyleFunction(target,colorChart));
+        });
+
+
+
+
+
+
         //-------------------------------------------------------
         $("#" + mapName).on("change",".youtotiiki-cate-select",function() {
             var val = $(this).val();

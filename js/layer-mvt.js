@@ -2990,49 +2990,786 @@ function senkyokuStyleFunction(colotTarget) {
     };
 }
 //----------------------------------------------------------------------------------------------------------------------
-//500メッシュ_plus
-var mesh500_plus1 = new ol.layer.VectorTile({
-    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
-    title:"実験中(MVT)",
-    name:"mesh500",
-    origin:"<a href='http://e-stat.go.jp/SG2/eStatGIS/page/download.html' target='_blank'>e-Stat</a>",
-    detail:"",
-    detail2:
+//市町村＋財政力指数
+var cityZaiseiDetail = "財政力指数＝<br>基準財政収入額を基準財政需要学で除した数値<br>" +
+    "<div style='background:blue;color:white;'>・青＝1.0以上　余裕あり</div>" +
+    "<div style='background:green;color:white;'>・緑＝0.8以上</div>" +
+    "<div style='background:yellow;color:black;'>・黄＝0.6以上</div>" +
+    "<div style='background:orange;color:black;'>・橙＝0.4以上</div>" +
+    "<div style='background:red;color:white;'>・赤＝0.3以上</div>" +
+    "<div style='background:darkred;color:white;'>・赤＝0.3未満</div>";
+var cityZaiseiDetail2 =
     "<div class='detail2-div'>" +
-    "<select class='mesh500-year-select mesh500-select'>" +
-        "<option value='h27' selected>平成27年</option>" +
-        "<option value='h22'>平成22年</option>" +
-        "<option value='h17'>平成17年</option>" +
-        "<option value='h12'>平成12年</option>" +
-        "<option value='h07'>平成7年</option>" +
-        "<option value='h99'>7〜27比較</option>" +
+    "<div style='float: left;'>" +
+    " 年：" +
+    "<select class='cityZaisei-year-select' style='margin-bottom:10px'>" +
+        "<option value='1977_1'>1977</option>" +
+        "<option value='1978_1'>1978</option>" +
+        "<option value='1979_1'>1979</option>" +
+        "<option value='1980_1'>1980</option>" +
+        "<option value='1981_1'>1981</option>" +
+        "<option value='1982_1'>1982</option>" +
+        "<option value='1983_1'>1983</option>" +
+        "<option value='1984_1'>1984</option>" +
+        "<option value='1985_1'>1985</option>" +
+        "<option value='1986_1'>1986</option>" +
+        "<option value='1987_1'>1987</option>" +
+        "<option value='1988_1'>1988</option>" +
+        "<option value='1989_1'>1989</option>" +
+        "<option value='1990_1'>1990</option>" +
+        "<option value='1991_1'>1991</option>" +
+        "<option value='1992_1'>1992</option>" +
+        "<option value='1993_1'>1993</option>" +
+        "<option value='1994_1'>1994</option>" +
+        "<option value='1995_1'>1995</option>" +
+        "<option value='1996_1'>1996</option>" +
+        "<option value='1997_1'>1997</option>" +
+        "<option value='1998_1'>1998</option>" +
+        "<option value='1999_1'>1999</option>" +
+        "<option value='2000_1'>2000</option>" +
+        "<option value='2001_1'>2001</option>" +
+        "<option value='2002_1'>2002</option>" +
+        "<option value='2003_1'>2003</option>" +
+        "<option value='2004_1'>2004</option>" +
+        "<option value='2005_1'>2005</option>" +
+        "<option value='2006_1'>2006</option>" +
+        "<option value='2007_1'>2007</option>" +
+        "<option value='2008_1'>2008</option>" +
+        "<option value='2009_1'>2009</option>" +
+        "<option value='2010_1'>2010</option>" +
+        "<option value='2011_1'>2011</option>" +
+        "<option value='2012_1'>2012</option>" +
+        "<option value='2013_1'>2013</option>" +
+        "<option value='2014_1'>2014</option>" +
+        "<option value='2015_1' selected>2015</option>" +
     "</select>" +
-    "　強度：<input type='text' class='mesh500text' value='1000' size='5'>" +
+    "</div>" +
+    "<div class='cityZaisei-year-slider' style='float: left;width:90px;margin:5px 0 0 10px;'></div>" +
+    "<div class='' style='float: left;margin:0 0 0 10px;'>" +
+    "<select class='cityZaisei-colorchart-select' style='margin-bottom:10px'>" +
+        "<option value='normal' selected>ノーマル</option>" +
+        "<option value='mudankai'>無段階</option>" +
+    "</select>" +
+    "</div>" +
+    "</div>";
+var cityZaisei_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"市町村財政力指数(MVT)",
+    name:"zaiseiryoku",
+    origin:"<a href='http://www5.cao.go.jp/keizai-shimon/kaigi/special/reform/mieruka/db_top/index.html' target='_blank'>経済・財政と暮らしの指標「見える化」データベース</a>",
+    detail:cityZaiseiDetail,
+    detail2:cityZaiseiDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/zaiseisuii_mvt/{z}/{x}/{y}.mvt"
+    }),
+    style: cityZaiseiCommonStyleFunction("2015_1","normal")
+});
+var cityZaisei_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"市町村財政力指数(MVT)",
+    name:"zaiseiryoku",
+    origin:"<a href='http://www5.cao.go.jp/keizai-shimon/kaigi/special/reform/mieruka/db_top/index.html' target='_blank'>経済・財政と暮らしの指標「見える化」データベース</a>",    detail:cityZaiseiDetail,
+    detail2:cityZaiseiDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/zaiseisuii_mvt/{z}/{x}/{y}.mvt"
+    }),
+    style: cityZaiseiCommonStyleFunction("2015_1","normal")
+});
+function cityZaiseiCommonStyleFunction(year,colorChart) {
+    var d3Color = d3.interpolateLab("white","navy");
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+        var target = year;
+        var ritu = Number(prop[target]);
+        if(colorChart==="normal"){
+            if(isNaN(ritu)) return;
+            if(ritu>=1.0) {
+                var rgba = "rgba(0,0,250,0.8)"//ブルー
+            }else if(ritu>=0.8) {
+                var rgba = "rgba(0,128,0,0.8)"//グリーン
+            }else if(ritu>=0.6) {
+                var rgba = "rgba(255,255,0,0.8)"//イエロー
+            }else if(ritu>=0.4) {
+                var rgba = "rgba(255,165,0,0.8)"//オレンジ
+            }else if(ritu>=0.3) {
+                var rgba = "rgba(255,0,0,0.8)"//レッド
+            }else{
+                var rgba = "rgba(139,0,0,0.8)"//ダークレッド
+            }
+
+        }else{//無段階
+            //rgba = d3Color(ritu)
+            if(isNaN(ritu)) return;
+            var rgb = d3.rgb(d3Color(ritu));
+            //if(val>1) val = 1;
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ", 0.8 )";
+        }
+        if (resolution < 2445.98) {
+            //if (!val) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            //if (!val) return;
+            //if(val<0.05) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
+//----------------------------------------------------------------------------------------------------------------------
+//市町村＋現役世代率
+var cityGenekiDetail = "現役世代負担率＝<br>20〜64歳に対する65歳以上人口の割合<br>" +
+    "<div style='background:darkred;color:white;'>・赤＝1.0以上　高負担</div>" +
+    "<div style='background:red;color:white;'>・赤＝0.8以上</div>" +
+    "<div style='background:orange;color:white;'>・橙＝0.6以上</div>" +
+    "<div style='background:yellow;color:black;'>・黄＝0.4以上</div>" +
+    "<div style='background:green;color:white;'>・緑＝0.3以上</div>" +
+    "<div style='background:blue;color:white;'>・青＝0.3未満　低負担</div>";
+var cityGenekiDetail2 =
+    "<div class='detail2-div'>" +
+    "<div style='float: left;'>" +
+        " 年：" +
+        "<select class='cityGeneki-year-select' style='margin-bottom:10px'>" +
+            "<option value='2040'>2040</option>" +
+            "<option value='2035'>2035</option>" +
+            "<option value='2030'>2030</option>" +
+            "<option value='2025'>2025</option>" +
+            "<option value='2020'>2020</option>" +
+            "<option value='2015' selected>2015</option>" +
+            "<option value='2010'>2010</option>" +
+            "<option value='2005'>2005</option>" +
+            "<option value='2000'>2000</option>" +
+            "<option value='1995'>1995</option>" +
+            "<option value='1990'>1990</option>" +
+            "<option value='1985'>1985</option>" +
+            "<option value='1980'>1980</option>" +
+        "</select>" +
+    "</div>" +
+    "<div class='cityGeneki-year-slider' style='float: left;width:90px;margin:5px 0 0 10px;'></div>" +
+    "<div class='' style='float: left;margin:0 0 0 10px;'>" +
+        "<select class='cityGeneki-colorchart-select' style='margin-bottom:10px'>" +
+            "<option value='normal' selected>ノーマル</option>" +
+            "<option value='mudankai'>無段階</option>" +
+        "</select>" +
+    "</div>" +
+    "</div>";
+var cityGeneki_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"市町村現役世代率(MVT)",
+    name:"genekiritu",
+    origin:"resas",
+    detail:cityGenekiDetail,
+    detail2:cityGenekiDetail2,
+    source: new ol.source.VectorTile({
+        //cacheSize:100000,
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/shicyouson_mvt/{z}/{x}/{y}.mvt"
+    }),
+    style: cityGenekiCommonStyleFunction("2015","normal")
+});
+var cityGeneki_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"市町村現役世代率(MVT)",
+    name:"genekiritu",
+    origin:"resas",
+    detail:cityGenekiDetail,
+    detail2:cityGenekiDetail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/shicyouson_mvt/{z}/{x}/{y}.mvt"
+    }),
+    style: cityGenekiCommonStyleFunction("2015","normal")
+});
+function cityGenekiCommonStyleFunction(year,colorChart) {
+    var d3Color = d3.interpolateLab("white","red");
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+        var target = "genekiritu" + year;
+        var ritu = Number(prop[target]);
+        if(colorChart==="normal"){
+            if(isNaN(ritu)) return;
+            if(ritu>=1.0) {
+                var rgba = "rgba(139,0,0,0.8)"
+            }else if(ritu>=0.8) {
+                var rgba = "rgba(255,0,0,0.8)"
+            }else if(ritu>=0.6) {
+                var rgba = "rgba(255,165,0,0.8)"
+            }else if(ritu>=0.4) {
+                var rgba = "rgba(255,255,0,0.8)"
+            }else if(ritu>=0.3) {
+                var rgba = "rgba(0,128,0,0.8)"
+            }else{
+                var rgba = "rgba(0,0,250,0.8)"
+            }
+        }else{//無段階
+            //rgba = d3Color(ritu)
+            if(isNaN(ritu)) return;
+            var rgb = d3.rgb(d3Color(ritu));
+            //if(val>1) val = 1;
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ", 0.8 )";
+        }
+        if (resolution < 2445.98) {
+            //if (!val) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            //if (!val) return;
+            //if(val<0.05) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
+//----------------------------------------------------------------------------------------------------------------------
+//推計1kメッシュ
+var suikei1000mOrigin = "<a href='http://nlftp.mlit.go.jp/ksj/gmlold/index.html' target='_blank'>・国土数値情報</a>";
+    suikei1000mOrigin += "<br><a href='http://www.mlit.go.jp/common/001046872.pdf' target='_blank'>・人口関係参考資料</a>";
+    suikei1000mOrigin += "<br><a href='http://nlftp.mlit.go.jp/ksj/old/meta/mesh/mesh.pdf' target='_blank'>・試算方法について</a>";
+
+var suikei1000mDetail1 =
+    "2050年の人口増減状況（2010年との比較）<br>" +
+    "<div style='background:blue;color:white;'>・青＝非居住地化</div>" +
+    "<div style='background:green;color:white;'>・緑＝50％以上100％未満減少</div>" +
+    "<div style='background:yellow;color:black;'>・黄＝0％以上50％未満減少</div>" +
+    "<div style='background:red;color:white;'>・赤＝増加</div>";
+
+var suikei1000mDetail2 = "";
+/*
+    "<div class='detail2-div'>" +
+    "<select class='syougyouMesh-year-select syougyouMesh-select' style='margin-bottom:10px'>" +
+        "<option value='2050zougen' selected>2050年の人口増減状況</option>" +
+        "<option value='2010' selected>2010年の人口</option>" +
+        "<option value='2050' selected>2050年の人口</option>" +
+    "</select>" +
+    "<br>" +
+    "実数÷<input type='text' class='syougyouMeshtext' value='1' size='5'>" +
     "　色："+
-    "<select class='mesh500-color-select mesh500-select'>" +
+    "<select class='syougyouMesh-color-select syougyouMesh-select'>" +
         "<option value='indigo' selected>紫</option>" +
         "<option value='red'>赤</option>" +
         "<option value='green'>緑</option>" +
         "<option value='blue'>青</option>" +
         "<option value='black'>黒</option>" +
     "</select>" +
-    "</div>",
+    "</div>";
+*/
+var suikei1000m_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"将来推計人口1kmメッシュ(MVT)",
+    name:"suikei1000m",
+    origin:suikei1000mOrigin,
+    detail:suikei1000mDetail1,
+    detail2:suikei1000mDetail2,
     source: new ol.source.VectorTile({
-        //cacheSize:100000,
         format: new ol.format.MVT(),
         tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
+            maxZoom:13
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/suikei1km_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:4891.97,//ズーム5
+    style: suikeiMeshCommonStyleFunction("2050zougen")
+});
+var suikei1000m_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"将来推計人口1kmメッシュ(MVT)",
+    name:"suikei1000m",
+    origin:suikei1000mOrigin,
+    detail:suikei1000mDetail1,
+    detail2:suikei1000mDetail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:13
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/suikei1km_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:4891.97,//ズーム5
+    style: suikeiMeshCommonStyleFunction("2050zougen")
+});
+function suikeiMeshCommonStyleFunction(target) {
+    var d3Color = d3.interpolateLab("white","navy");
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+
+        //console.log(prop)
+
+        //INDEXHOSEI
+
+        var ritu = prop["INDEXHOSEI"]/100;//補正有りの方で　国の資料も補正有りで作っているようだったので
+        //console.log(ritu);
+        var rgba = "rgba(0,0,250,0.8)"//ブルー
+/*
+        if(colorChart==="normal"){
+            if(isNaN(ritu)) return;
+            if(ritu>=1.0) {
+                var rgba = "rgba(0,0,250,0.8)"//ブルー
+            }else if(ritu>=0.8) {
+                var rgba = "rgba(0,128,0,0.8)"//グリーン
+            }else if(ritu>=0.6) {
+                var rgba = "rgba(255,255,0,0.8)"//イエロー
+            }else if(ritu>=0.4) {
+                var rgba = "rgba(255,165,0,0.8)"//オレンジ
+            }else if(ritu>=0.3) {
+                var rgba = "rgba(255,0,0,0.8)"//レッド
+            }else{
+                var rgba = "rgba(139,0,0,0.8)"//ダークレッド
+            }
+
+        }else{//無段階
+            //rgba = d3Color(ritu)
+            if(isNaN(ritu)) return;
+            var rgb = d3.rgb(d3Color(ritu));
+            //if(val>1) val = 1;
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ", 0.8 )";
+        }
+        */
+
+        switch (target) {
+            case "2050zougen":
+                var ritu2 = 1 - ritu;
+                if(ritu2===1) {
+                    var rgba = "rgba(0,0,250,0.8)"//ブルー
+                }else if(ritu2>=0.5){
+                    var rgba = "rgba(0,128,0,0.8)"//グリーン
+                }else if(ritu2>=0) {
+                    var rgba = "rgba(255,255,0,0.8)"//イエロー
+                }else{
+                    var rgba = "rgba(255,0,0,0.8)"//レッド
+                }
+                /*
+                var rgb = d3.rgb(d3Color(ritu));
+                var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ", 0.8 )";
+                */
+                break;
+            default :
+        }
+        if (resolution < 152.87) {//ズーム10
+            //if (!val) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            //if (!val) return;
+            //if(val<0.05) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
+
+//----------------------------------------------------------------------------------------------------------------------
+//商業1kメッシュ 規模別
+var syougyou1000m_k_Origin = "<a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/download.html' target='_blank'>平成26年商業統計メッシュデータ 1kmメッシュデータ 規模別</a>";
+syougyou1000m_k_Origin += "<br><br><a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/2014/kibo.pdf' target='_blank'>規模別ファイル フォーマット情報</a>";
+var syougyou1000m_k_Detail2 =
+    "<div class='detail2-div'>" +
+    "<select class='syougyouMesh-year-select syougyouMesh-select' style='margin-bottom:10px'>" +
+        syougyou1kKiboOption +
+    "</select>" +
+    "<br>" +
+    "実数÷<input type='text' class='syougyouMeshtext' value='1' size='5'>" +
+    "　色："+
+    "<select class='syougyouMesh-color-select syougyouMesh-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>";
+var syougyou1000m_k_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_1kmメッシュ_規模別(MVT)",
+    name:"syougyou1000mKibo",
+    origin:syougyou1000m_k_Origin,
+    detail:"",
+    detail2:syougyou1000m_k_Detail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
             maxZoom:15
         }),
         tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        url: "https://kenzkenz.github.io/500mesh_plus/{z}/{x}/{y}.mvt"
+        url: "https://kenzkenz.github.io/syougyou1km_kibo_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:2445.98,//ズーム6
+    style: syougyouMeshCommonStyleFunction("indigo",1,"k22")
+});
+var syougyou1000m_k_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_1kmメッシュ_規模別(MVT)",
+    name:"syougyou1000mKibo",
+    origin:syougyou1000m_k_Origin,
+    detail:"",
+    detail2:syougyou1000m_k_Detail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou1km_kibo_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:2445.98,//ズーム6
+    style: syougyouMeshCommonStyleFunction("indigo",1,"k22")
+});
+//----------------------------------------------------------------------------------------------------------------------
+//商業1kメッシュ 業態別
+var syougyou1000m_g_Origin = "<a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/download.html' target='_blank'>平成26年商業統計メッシュデータ 1kmメッシュデータ 業態別</a>";
+syougyou1000m_g_Origin += "<br><br><a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/2014/gyoutai.pdf' target='_blank'>業態別ファイル フォーマット情報</a>";
+var syougyou1000m_g_Detail2 =
+    "<div class='detail2-div'>" +
+    "<select class='syougyouMesh-year-select syougyouMesh-select' style='margin-bottom:10px'>" +
+        syougyou1kGyoutaiOption +
+    "</select>" +
+    "<br>" +
+    "実数÷<input type='text' class='syougyouMeshtext' value='1' size='5'>" +
+    "　色："+
+    "<select class='syougyouMesh-color-select syougyouMesh-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>";
+var syougyou1000m_g_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_1kmメッシュ_業態別(MVT)",
+    name:"syougyou1000mGyoutai",
+    origin:syougyou1000m_g_Origin,
+    detail:"",
+    detail2:syougyou1000m_g_Detail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou1km_gyoutai_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:2445.98,//ズーム6
+    style: syougyouMeshCommonStyleFunction("indigo",1,"g22")
+});
+var syougyou1000m_g_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_1kmメッシュ_業態別(MVT)",
+    name:"syougyou1000mGyoutai",
+    origin:syougyou1000m_g_Origin,
+    detail:"",
+    detail2:syougyou1000m_g_Detail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou1km_gyoutai_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:2445.98,//ズーム6
+    style: syougyouMeshCommonStyleFunction("indigo",1,"g22")
+});
+//----------------------------------------------------------------------------------------------------------------------
+//商業1kメッシュ 産業別
+var syougyou1000m_s_Origin = "<a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/download.html' target='_blank'>平成26年商業統計メッシュデータ 1kmメッシュデータ 産業別</a>";
+    syougyou1000m_s_Origin += "<br><br><a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/2014/sangyo.pdf' target='_blank'>産業分類別ファイル フォーマット情報</a>";
+var syougyou1000m_s_Detail2 =
+    "<div class='detail2-div'>" +
+    "<select class='syougyouMesh-year-select syougyouMesh-select' style='margin-bottom:10px'>" +
+        syougyou1kOption +
+    "</select>" +
+    "<br>" +
+    "実数÷<input type='text' class='syougyouMeshtext' value='1' size='5'>" +
+    "　色："+
+    "<select class='syougyouMesh-color-select syougyouMesh-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>";
+var syougyou1000m_s_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_1kmメッシュ_産業別(MVT)",
+    name:"syougyou1000m",
+    origin:syougyou1000m_s_Origin,
+    detail:"",
+    detail2:syougyou1000m_s_Detail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou1km_sangyou_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:2445.98,//ズーム6
+    style: syougyouMeshCommonStyleFunction("indigo",1,"s22")
+});
+var syougyou1000m_s_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_1kmメッシュ_産業別(MVT)",
+    name:"syougyou1000m",
+    origin:syougyou1000m_s_Origin,
+    detail:"",
+    detail2:syougyou1000m_s_Detail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou1km_sangyou_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:2445.98,//ズーム6
+    style: syougyouMeshCommonStyleFunction("indigo",1,"s22")
+});
+//----------------------------------------------------------------------------------------------------------------------
+//商業500メッシュ
+var syougyou500mOrigin = "<a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/download.html' target='_blank'>平成26年商業統計メッシュデータ 500mメッシュデータ</a>";
+    syougyou500mOrigin += "<br><br><a href='http://www.meti.go.jp/statistics/tyo/syougyo/mesh/2014/500m.pdf' target='_blank'>500mメッシュファイル フォーマット情報</a>";
+var syougyou500mDetail2 =
+    "<div class='detail2-div'>" +
+    "<select class='syougyouMesh-year-select syougyouMesh-select' style='margin-bottom:10px'>" +
+        "<option value='s22' >小売業計 従業所数</option>" +
+        "<option value='s23' selected>小売業計 従業者数</option>" +
+        "<option value='s24' >小売業計 年間販売額（千万円）</option>" +
+
+        "<option value='s25' >小売業計 売場面積（千㎡）</option>" +
+        "<option value='s26' >各種商品小売業 従業所数</option>" +
+        "<option value='s27' >各種商品小売業 年間販売額（千万円）</option>" +
+        "<option value='s28' >織物・衣服・身の回り品小売業 従業所数</option>" +
+        "<option value='s29' >織物・衣服・身の回り品小売業 年間販売額（千万円）</option>" +
+        "<option value='s30' >飲食料品小売業 従業所数</option>" +
+        "<option value='s31' >飲食料品小売業 年間販売額（千万円）</option>" +
+        "<option value='s32' >機械器具小売業 従業所数</option>" +
+        "<option value='s33' >機械器具小売業 年間販売額（千万円）</option>" +
+        "<option value='s34' >その他の小売業 従業所数</option>" +
+        "<option value='s35' >その他の小売業 年間販売額（千万円）</option>" +
+        "<option value='s36' >無店舗小売業 従業所数</option>" +
+        "<option value='s37' >無店舗小売業 年間販売額（千万円）</option>" +
+
+        "<option value='s38' >従業者規模別 ４人以下</option>" +
+        "<option value='s39' >従業者規模別 ５～２９人以下</option>" +
+        "<option value='s40' >従業者規模別 ３０～４９人以下</option>" +
+        "<option value='s41' >従業者規模別 ５０人以上</option>" +
+
+        "<option value='s42' >年間販売額階級別 ２００万円未満</option>" +
+        "<option value='s43' >年間販売額階級別 ２００～２０００万円未満</option>" +
+        "<option value='s44' >年間販売額階級別 ２，０００～１億円未満</option>" +
+        "<option value='s45' >年間販売額階級別 １億円以上</option>" +
+
+        "<option value='s46' >売場面積規模別 ２０㎡未満</option>" +
+        "<option value='s47' >売場面積規模別 ２０～５０㎡未満</option>" +
+        "<option value='s48' >売場面積規模別 ５０～５００㎡未満</option>" +
+        "<option value='s49' >売場面積規模別 ５００～１５００㎡未満</option>" +
+        "<option value='s50' >売場面積規模別 １５００～３０００㎡未満</option>" +
+        "<option value='s51' >売場面積規模別 ３０００㎡以上</option>" +
+
+        "<option value='s52' >買回品業種 従業者数</option>" +
+        "<option value='s53' >買回品業種 年間販売額（千万円）</option>" +
+        "<option value='s54' >買回品業種 売場面積（千㎡）</option>" +
+
+        "<option value='s55' >最寄品業種 従業者数</option>" +
+        "<option value='s56' >最寄品業種 年間販売額（千万円）</option>" +
+        "<option value='s57' >最寄品業種 売場面積（千㎡）</option>" +
+
+        "<option value='s58' >各種商品小売業 従業者数</option>" +
+        //"<option value='s59' >各種商品小売業 年間販売額（千万円）</option>" +
+        //"<option value='s60' >各種商品小売業 売場面積（千㎡）</option>" +
+
+        "<option value='s61' >その他の業種 従業者数</option>" +
+        //"<option value='s62' >その他の業種 年間販売額（千万円）</option>" +
+        //"<option value='s63' >その他の業種 売場面積（千㎡）</option>" +
+
+        "<option value='s64' >百貨店 従業者数</option>" +
+        //"<option value='s65' >百貨店 年間販売額（千万円）</option>" +
+        //"<option value='s66' >百貨店 売場面積（千㎡）</option>" +
+
+        "<option value='s67' >総合スーパー 従業者数</option>" +
+        //"<option value='s68' >総合スーパー 年間販売額（千万円）</option>" +
+        //"<option value='s69' >総合スーパー 売場面積（千㎡）</option>" +
+
+        "<option value='s70' >専門スーパー 従業者数</option>" +
+        "<option value='s71' >専門スーパー 年間販売額（千万円）</option>" +
+        "<option value='s72' >専門スーパー 売場面積（千㎡）</option>" +
+
+        "<option value='s73' >コンビニエンス・ストア 従業者数</option>" +
+        "<option value='s74' >コンビニエンス・ストア 年間販売額（千万円）</option>" +
+        "<option value='s75' >コンビニエンス・ストア 売場面積（千㎡）</option>" +
+
+        "<option value='s76' >広義ドラッグストア 従業者数</option>" +
+        //"<option value='s77' >広義ドラッグストア 年間販売額（千万円）</option>" +
+        //"<option value='s78' >広義ドラッグストア 売場面積（千㎡）</option>" +
+
+        "<option value='s79' >その他のスーパー 従業者数</option>" +
+        "<option value='s80' >その他のスーパー 年間販売額（千万円）</option>" +
+        "<option value='s81' >その他のスーパー 売場面積（千㎡）</option>" +
+
+        "<option value='s82' >専門店 従業者数</option>" +
+        "<option value='s83' >専門店 年間販売額（千万円）</option>" +
+        "<option value='s84' >専門店 売場面積（千㎡）</option>" +
+
+        "<option value='s85' >家電大型専門店 従業者数</option>" +
+        //"<option value='s86' >家電大型専門店 年間販売額（千万円）</option>" +
+        //"<option value='s87' >家電大型専門店 売場面積（千㎡）</option>" +
+
+        "<option value='s88' >中心店 従業者数</option>" +
+        "<option value='s89' >中心店 年間販売額（千万円）</option>" +
+        "<option value='s90' >中心店 売場面積（千㎡）</option>" +
+
+        "<option value='s91' >その他の小売店 従業者数</option>" +
+        //"<option value='s92' >その他の小売店 年間販売額（千万円）</option>" +
+        //"<option value='s93' >その他の小売店 売場面積（千㎡）</option>" +
+
+        "<option value='s94' >無店舗販売 従業者数</option>" +
+        "<option value='s95' >無店舗販売 年間販売額（千万円）</option>" +
+        "<option value='s96' >無店舗販売 売場面積（千㎡）</option>" +
+    "</select>" +
+    "<br>" +
+    "実数÷<input type='text' class='syougyouMeshtext' value='1' size='5'>" +
+    "　色："+
+    "<select class='syougyouMesh-color-select syougyouMesh-select'>" +
+        "<option value='indigo' selected>紫</option>" +
+        "<option value='red'>赤</option>" +
+        "<option value='green'>緑</option>" +
+        "<option value='blue'>青</option>" +
+        "<option value='black'>黒</option>" +
+    "</select>" +
+    "</div>";
+var syougyou500m_1 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26商業統計_500Mメッシュ(MVT)",
+    name:"syougyou500m",
+    origin:syougyou500mOrigin,
+    detail:"",
+    detail2:syougyou500mDetail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou500m_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
-    style: mesh500CommonStyleFunction("indigo",1000,"h27")
-    //renderMode:"vector"
+    style: syougyouMeshCommonStyleFunction("indigo",1,"s23")
 });
+var syougyou500m_2 = new ol.layer.VectorTile({
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"H26_500Mメッシュ商業統計(MVT)",
+    name:"syougyou500m",
+    origin:syougyou500mOrigin,
+    detail:"",
+    detail2:syougyou500mDetail2,
+    source: new ol.source.VectorTile({
+        format: new ol.format.MVT(),
+        tileGrid: new ol.tilegrid.createXYZ({
+            maxZoom:15
+        }),
+        tilePixelRatio:16,
+        url: "https://kenzkenz.github.io/syougyou500m_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution:1222.99,//ズーム7
+    style: syougyouMeshCommonStyleFunction("indigo",1,"s23")
+});
+function syougyouMeshCommonStyleFunction(maxColor,limit,column) {
+    var d3Color = d3.interpolateLab("white",maxColor);
+    return function (feature, resolution) {
+        var prop = feature.getProperties();
+        if(column==="h99") {//比較
 
+        }else{//通常
+            var val = prop[column];
+            if(!val) return;
+            if(val==="X") return;
+            if(val==="-") return;
+            val = val / limit;
+            //if(val<0.05) return;
+            if (val > 1) val = 1;
+            var rgb = d3.rgb(d3Color(val));
+            var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val * 0.9 + ")";
+        }
+        //var text = prop[year];
+        if (resolution < 19.11) {
+            //if (!val) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                }),
+                stroke: new ol.style.Stroke({
+                    color: "darkgray",
+                    width: 1
+                })
+            });
+        } else {
+            //if (!val) return;
+            if(val<0.05) return;
+            var style = new ol.style.Style({
+                fill: new ol.style.Fill({
+                    color: rgba
+                })
+            });
+        }
+        return style;
+    }
+}
 //----------------------------------------------------------------------------------------------------------------------
 //500メッシュ
 var mesh500Detail = "現役世代負担率＝<br>20〜64歳に対する65歳以上人口の割合<br>" +

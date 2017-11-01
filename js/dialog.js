@@ -19,6 +19,7 @@ $(function(){
             }else{
                 $(this).parents(".dialog-base").toggle("drop",{direction:"right"});
 			}
+			console.log("hide!!")
 		}
 	});
     //--------------------------------------------------------------------------

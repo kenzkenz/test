@@ -102,9 +102,6 @@ $(function(){
                 funcTunamihokkaidouPopup(feature,map,evt);
                 console.log(evt);
                 break;
-
-
-
             case "keizai-census":
                 funcKeizaiCensusPopup(feature,map,evt);
                 break;
@@ -186,6 +183,26 @@ $(function(){
                 console.log(feature.getProperties());
                 funcMesh500Popup(feature,map,evt);
                 break;
+            case "syougyou500m":
+                console.log(feature.getProperties());
+                funcSyougyou500mPopup(feature,map,evt);
+                break;
+            case "syougyou1000m":
+                console.log(feature.getProperties());
+                funcSyougyou1000mPopup(feature,map,evt);
+                break;
+            case "syougyou1000mGyoutai":
+                console.log(feature.getProperties());
+                funcSyougyou1000mGyoutaiPopup(feature,map,evt);
+                break;
+            case "syougyou1000mKibo":
+                console.log(feature.getProperties());
+                funcSyougyou1000mKiboPopup(feature,map,evt);
+                break;
+            case "suikei1000m":
+                console.log(feature.getProperties());
+                funcSuikei1000mPopup(feature,map,evt);
+                break;
             case "keizaicensus":
                 console.log(feature.getProperties());
                 funcKeizaiCensusPopup(feature,map,evt);
@@ -194,9 +211,265 @@ $(function(){
                 console.log(feature.getProperties());
                 funcFukushiPopup(feature,map,evt);
                 break;
-
+            case "genekiritu":
+                console.log(feature.getProperties());
+                funcGebekirituPopup(layer,feature,map,evt);
+                break;
+            case "zaiseiryoku":
+                console.log(feature.getProperties());
+                funcZaiseiryokuPopup(layer,feature,map,evt);
+                break;
+            case "editLayer":
+                console.log(feature.getProperties());
+                //funcGebekirituPopup(layer,feature,map,evt);
+                break;
 
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcSuikei1000mPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style='250px'>";
+            table += "<tr><th class='popup-th' style='width:170px;'>メッシュコード</th><td class='popup-td' style='width:80px;'>" + prop["MESH_ID"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>市区町村コード</th><td class='popup-td''>" + prop["CITY_CODE"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2010年総人口（補正なし）</th><td class='popup-td'><b>" + prop["POP2010"] + "</b></td></tr>";
+            table += "<tr><th class='popup-th'>2050年総人口（補正なし）</th><td class='popup-td'><b>" + prop["POP2050"] + "</b></td></tr>";
+            table += "<tr><th class='popup-th'>指数（補正なし）</th><td class='popup-td''>" + prop["INDEX"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2010年総人口（補正あり）</th><td class='popup-td'><b>" + prop["P2010HOSEI"] + "</b></td></tr>";
+            table += "<tr><th class='popup-th'>2050年総人口（補正あり）</th><td class='popup-td'><b>" + prop["P2050HOSEI"] + "</b></td></tr>";
+            table += "<tr><th class='popup-th'>指数（補正あり）</th><td class='popup-td'>" + prop["INDEXHOSEI"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 年少人口数</th><td class='popup-td'>" + prop["POP2050_A"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 年少人口の指数</th><td class='popup-td'>" + prop["INDEX_A"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 生産年齢人口数</th><td class='popup-td'>" + prop["POP2050_B"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 生産年齢人口の指数</th><td class='popup-td'>" + prop["INDEX_B"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 老年人口数</th><td class='popup-td'>" + prop["POP2050_C"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 老年人口の指数</th><td class='popup-td'>" + prop["INDEX_C"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 75歳以上人口数</th><td class='popup-td'>" + prop["POP2050_D"] + "</td></tr>";
+            table += "<tr><th class='popup-th'>2050年 75歳以上人口の指数</th><td class='popup-td'>" + prop["INDEX_D"] + "</td></tr>";
+        content += table;
+        content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcSyougyou1000mKiboPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style='width:300px;'>";
+        for(var i = 0; i <syugyou1kKiboAr.length; i++){
+            var key = Object.keys(syugyou1kKiboAr[i])[0];
+            var val = syugyou1kKiboAr[i][key];
+            //console.log(key,val);
+            table += "<tr><th class='popup-th' style='width:250px;text-align:left;'>" + val + "</th><td class='popup-td' style='width:50px;'>" + prop[key] + "</td></tr>";
+        }
+        content += table;
+        content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcSyougyou1000mGyoutaiPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style='width:300px;'>";
+        for(var i = 0; i <syugyou1kGyoutaiAr.length; i++){
+            var key = Object.keys(syugyou1kGyoutaiAr[i])[0];
+            var val = syugyou1kGyoutaiAr[i][key];
+            //console.log(key,val);
+            table += "<tr><th class='popup-th' style='width:250px;text-align:left;'>" + val + "</th><td class='popup-td' style='width:50px;'>" + prop[key] + "</td></tr>";
+        }
+        content += table;
+        content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcSyougyou1000mPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style='width:300px;'>";
+        for(var i = 0; i <syugyou1kAr.length; i++){
+            var key = Object.keys(syugyou1kAr[i])[0];
+            var val = syugyou1kAr[i][key];
+            //console.log(key,val);
+            table += "<tr><th class='popup-th' style='width:250px;text-align:left;'>" + val + "</th><td class='popup-td' style='width:50px;'>" + prop[key] + "</td></tr>";
+        }
+        content += table;
+        content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcSyougyou500mPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style='width:300px;'>";
+        table += "<tr><th class='popup-th' style='width:250px;'>小売業計 従業所数</th><td class='popup-td' style='width:50px;'>" + prop["s22"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>小売業計 従業者数</th><td class='popup-td'>" + prop["s23"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>小売業計 年間販売額（千万円）</th><td class='popup-td'>" + prop["s24"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>小売業計 売場面積（千㎡）</th><td class='popup-td'>" + prop["s25"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>各種商品小売業 従業所数</th><td class='popup-td'>" + prop["s26"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>各種商品小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s27"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>織物・衣服・身の回り品小売業 従業所数</th><td class='popup-td'>" + prop["s28"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>織物・衣服・身の回り品小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s29"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>飲食料品小売業 従業所数</th><td class='popup-td'>" + prop["s30"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>飲食料品小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s31"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>機械器具小売業 従業所数</th><td class='popup-td'>" + prop["s32"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>機械器具小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s33"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>その他の小売業 従業所数</th><td class='popup-td'>" + prop["s34"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>その他の小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s35"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>無店舗小売業 従業所数</th><td class='popup-td'>" + prop["s36"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>無店舗小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s37"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>従業者規模別 ４人以下</th><td class='popup-td'>" + prop["s38"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>従業者規模別 ５～２９人以下</th><td class='popup-td'>" + prop["s39"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>従業者規模別 ３０～４９人以下</th><td class='popup-td'>" + prop["s40"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>従業者規模別 ５０人以上</th><td class='popup-td'>" + prop["s41"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>年間販売額階級別 ２００万円未満</th><td class='popup-td'>" + prop["s42"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>年間販売額階級別 ２００～２０００万円未満</th><td class='popup-td'>" + prop["s43"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>年間販売額階級別 ２，０００～１億円未満</th><td class='popup-td'>" + prop["s44"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>年間販売額階級別 １億円以上</th><td class='popup-td'>" + prop["s45"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>売場面積規模別 ２０㎡未満</th><td class='popup-td'>" + prop["s46"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>売場面積規模別 ２０～５０㎡未満</th><td class='popup-td'>" + prop["s47"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>売場面積規模別 ５０～５００㎡未満</th><td class='popup-td'>" + prop["s48"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>売場面積規模別 ５００～１５００㎡未満</th><td class='popup-td'>" + prop["s49"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>売場面積規模別 １５００～３０００㎡未満</th><td class='popup-td'>" + prop["s50"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>売場面積規模別 ３０００㎡以上</th><td class='popup-td'>" + prop["s51"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>買回品業種 従業者数</th><td class='popup-td'>" + prop["s52"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>買回品業種 年間販売額（千万円）</th><td class='popup-td'>" + prop["s53"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>買回品業種 売場面積（千㎡）</th><td class='popup-td'>" + prop["s54"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>最寄品業種 従業者数</th><td class='popup-td'>" + prop["s55"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>最寄品業種 年間販売額（千万円）</th><td class='popup-td'>" + prop["s56"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>最寄品業種 売場面積（千㎡）</th><td class='popup-td'>" + prop["s57"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>各種商品小売業 従業者数</th><td class='popup-td'>" + prop["s58"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>各種商品小売業 年間販売額（千万円）</th><td class='popup-td'>" + prop["s59"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>各種商品小売業 売場面積（千㎡）</th><td class='popup-td'>" + prop["s60"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>その他の業種 従業者数</th><td class='popup-td'>" + prop["s61"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>その他の業種 年間販売額（千万円）</th><td class='popup-td'>" + prop["s62"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>その他の業種 売場面積（千㎡）</th><td class='popup-td'>" + prop["s63"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>百貨店 従業者数</th><td class='popup-td'>" + prop["s64"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>百貨店 年間販売額（千万円）</th><td class='popup-td'>" + prop["s65"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>百貨店 売場面積（千㎡）</th><td class='popup-td'>" + prop["s66"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>総合スーパー 従業者数</th><td class='popup-td'>" + prop["s67"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>総合スーパー 年間販売額（千万円）</th><td class='popup-td'>" + prop["s68"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>総合スーパー 売場面積（千㎡）</th><td class='popup-td'>" + prop["s69"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>専門スーパー 従業者数</th><td class='popup-td'>" + prop["s70"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>専門スーパー 年間販売額（千万円）</th><td class='popup-td'>" + prop["s71"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>専門スーパー 売場面積（千㎡）</th><td class='popup-td'>" + prop["s72"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>コンビニエンス・ストア 従業者数</th><td class='popup-td'>" + prop["s73"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>コンビニエンス・ストア 年間販売額（千万円）</th><td class='popup-td'>" + prop["s74"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>コンビニエンス・ストア 売場面積（千㎡）</th><td class='popup-td'>" + prop["s75"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>広義ドラッグストア 従業者数</th><td class='popup-td'>" + prop["s76"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>広義ドラッグストア 年間販売額（千万円）</th><td class='popup-td'>" + prop["s77"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>広義ドラッグストア 売場面積（千㎡）</th><td class='popup-td'>" + prop["s78"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>その他のスーパー 従業者数</th><td class='popup-td'>" + prop["s79"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>その他のスーパー 年間販売額（千万円）</th><td class='popup-td'>" + prop["s80"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>その他のスーパー 売場面積（千㎡）</th><td class='popup-td'>" + prop["s81"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>専門店 従業者数</th><td class='popup-td'>" + prop["s82"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>専門店 年間販売額（千万円）</th><td class='popup-td'>" + prop["s83"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>専門店 売場面積（千㎡）</th><td class='popup-td'>" + prop["s84"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>家電大型専門店 従業者数</th><td class='popup-td'>" + prop["s85"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>家電大型専門店 年間販売額（千万円）</th><td class='popup-td'>" + prop["s86"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>家電大型専門店 売場面積（千㎡）</th><td class='popup-td'>" + prop["s87"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>中心店 従業者数</th><td class='popup-td'>" + prop["s88"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>中心店 年間販売額（千万円）</th><td class='popup-td'>" + prop["s89"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>中心店 売場面積（千㎡）</th><td class='popup-td'>" + prop["s90"] + "</td></tr>";
+
+        table += "<tr><th class='popup-th'>その他の小売店 従業者数</th><td class='popup-td'>" + prop["s91"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>その他の小売店 年間販売額（千万円）</th><td class='popup-td'>" + prop["s92"] + "</td></tr>";
+        //table += "<tr><th class='popup-th'>その他の小売店 売場面積（千㎡）</th><td class='popup-td'>" + prop["s93"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>無店舗販売 従業者数</th><td class='popup-td'>" + prop["s94"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>無店舗販売 年間販売額（千万円）</th><td class='popup-td'>" + prop["s95"] + "</td></tr>";
+        table += "<tr><th class='popup-th'>無店舗販売 売場面積（千㎡）</th><td class='popup-td'>" + prop["s96"] + "</td></tr>";
+
+        content += table;
+
+        content = content.replace(/undefined/gi,"");
+
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcZaiseiryokuPopup(layer,feature,map,evt){
+
+        var infoDialog = $("#mydialog-" + map + "-info-dialog-zaiseiryoku");
+        console.log(infoDialog.length);
+        if(infoDialog.length) {
+            console.log("あり")
+        }else{
+            console.log("なし")
+        }
+
+        console.log(feature);
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        var cityCode = prop["citycode"];
+        console.log(cityCode);
+        var content = "";
+        content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
+        content += "<input type='hidden' class='city-name' value='" + prop["N03_004"] + "'>";
+        content += "<div style='text-align:center;'><b>" + prop["N03_004"] + "</b></div><hr class='my-hr'>";
+        content += "都道府県：" + prop["N03_001"] + "<br>";
+        content += "<hr class='my-hr'>";
+        content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
+        content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移(RESAS)</button>";
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcGebekirituPopup(layer,feature,map,evt){
+        console.log(feature);
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        var cityCode = prop["citycode"];
+        console.log(cityCode);
+        var content = "";
+        content += "<input type='hidden' class='city-code' value='" + cityCode + "'>";
+        content += "<input type='hidden' class='city-name' value='" + prop["N03_004"] + "'>";
+        content += "<div style='text-align:center;'><b>" + prop["N03_004"] + "</b></div><hr class='my-hr'>";
+        content += "都道府県：" + prop["N03_001"] + "<br>";
+        content += "<hr class='my-hr'>";
+        content += "<button type='button' class='pyramid-btn btn btn-xs btn-primary btn-block' data-action='pyramid-btn'>人口ピラミッド(RESAS)</button>";
+        content += "<button type='button' class='zinkousuii-btn btn btn-xs btn-primary btn-block' data-action='zinkousuii-btn'>人口推移(RESAS)</button>";
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------

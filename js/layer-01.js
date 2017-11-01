@@ -2386,7 +2386,7 @@ var seamlessphoto2 = new ol.layer.Tile({
 var gazo11 = new ol.layer.Tile({
     folder:"child",
     category:"kakosyasin",
-    title:"国土地理院_40年前の写真年(74〜78年)",
+    title:"国土地理院_74〜78年",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"国土画像情報（第一期1974～1978年撮影）",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
@@ -2402,7 +2402,7 @@ var gazo11 = new ol.layer.Tile({
 var gazo12 = new ol.layer.Tile({
     folder:"child",
     category:"kakosyasin",
-    title:"国土地理院_40年前の写真(74〜78年)",
+    title:"国土地理院_74〜78年",
     origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
     detail:"",
     icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
@@ -2415,6 +2415,45 @@ var gazo12 = new ol.layer.Tile({
         maxZoom:17
     })
 });
+//61年から 64年の写真
+var old10_1 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"国土地理院_61〜64年",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://maps.gsi.go.jp/xyz/ort_old10/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :10,
+        maxZoom:17
+    })
+});
+var old10_2 = new ol.layer.Tile({
+    folder:"child",
+    category:"kakosyasin",
+    title:"国土地理院_61〜64年",
+    origin:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>",
+    detail:"",
+    icon:"<i class='fa fa-picture-o fa-fw' style='color:black;'></i>",
+    source: new ol.source.XYZ({
+        attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
+        url:"https://maps.gsi.go.jp/xyz/ort_old10/{z}/{x}/{y}.png",
+        crossOrigin:"anonymous",
+        //minZoom :10,
+        maxZoom:17
+    })
+});
+
+
+
+
+
+
+
+
 //室蘭市オルソH28
 var muro1 = new ol.layer.Tile({
     folder:"child",

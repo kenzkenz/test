@@ -42,17 +42,19 @@ $(function(){
         //msg += "<i class='fa fa-exclamation fa-fw'></i>";
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
 
-        msg += "★iphoneのsafariで画面移動ができない現象があるようです。その場合はブラウザをクローム等に変えてみてください。<br>";
+        //msg += "★iphoneのsafariで画面移動ができない現象があるようです。その場合はブラウザをクローム等に変えてみてください。<br>";
         msg += "★<a href='http://www.gsi.go.jp/bousaichiri/bousaichiri61013.html' target='_blank'>宮崎県立佐土原高校情報技術部 防災アプリ大賞受賞!！</a><br>";
         msg += "★背景のうち(MVT)(VT)とついているものは3D化できません！<br>";
         msg += "★詳しい追加情報等は<a href='https://www.facebook.com/hinatagis' target='_blank'><i class='fa fa-facebook-square fa-fw' style='color:navy;'></i>FBへ</a><br>";
 
         //msg += "<canvas id='canvas1'></canvas>";
-
-        msg += "1 背景にH26経済センサス(MVT)を追加しました。<br>";
-        msg += "2 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
-        msg += "3 背景に二次医療圏(MVT)を追加しました。<br>";
-        msg += "4 背景に地理院_地形分類(自然地形)(VT)を追加しました。<br>";
+        msg += "1 背景に将来推計人口メッシュ(MVT)を追加しました。<br>";
+        msg += "2 背景にH26商業統計(MVT)を追加しました。<br>";
+        msg += "3 背景に市町村現役世代率(MVT)を追加しました。<br>";
+        msg += "4 背景にH26経済センサス(MVT)を追加しました。<br>";
+        msg += "5 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
+        //msg += "4 背景に二次医療圏(MVT)を追加しました。<br>";
+        //msg += "4 背景に地理院_地形分類(自然地形)(VT)を追加しました。<br>";
         //msg += "4 背景に全国中学校区(MVT)を追加しました。<br>";
         //msg += "5 背景に全国小学校区(MVT)を追加しました。<br>";
         //msg += "5 背景に全国縄文・弥生集落遺跡(MVT)を追加しました。<br>";
@@ -89,7 +91,7 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/10/12</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/10/31</div>";
         msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='https://www.osgeo.jp/' target='_blank'><img src='icon/osgeo.png' style='width:80px;background:'></a></div>";
         $.notify({//options
             message: msg
@@ -259,7 +261,6 @@ $(function(){
         var features = [];
         var layers = [];
         eval(mapName).forEachFeatureAtPixel(pixel,function(feature,layer){
-            console.log(22222);
             features.push(feature);
             layers.push(layer);
         });
