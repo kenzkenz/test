@@ -4,47 +4,47 @@
         <meta charset="utf-8">
         <!--<meta name="robots" content="noindex,nofollow">-->
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-        <title>ひなた2</title>
+        <title>ひなたGIS簡易</title>
         <link rel="shortcut icon" href="favicon.ico">
-        <!--<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>-->
         <script src="js/jquery/jquery-3.2.1.min.js"></script>
-        <!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css" />
-        <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>-->
         <link rel="stylesheet" href="js/jqueryui/1.11.4/jquery-ui.min.css" />
         <script src="js/jqueryui/1.11.4/jquery-ui.min.js"></script>
-        <!--<script src="https://www.promisejs.org/polyfills/promise-6.1.0.min.js"></script>-->
         <script src="js/polyfill/promise-6.1.0.min.js"></script>
-        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
         <link rel="stylesheet" href="bootstrap/3.3.7/css/bootstrap.min.css" />
         <script src="bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-        <!--<script src="js/bootstrap-colorpickersliders/bootstrap.js"></script>-->
-
-        <!--<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
-        <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>-->
         <link href="bootstrap/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
         <script src="bootstrap/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
-        <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>-->
         <link rel="stylesheet" href="bootstrap/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
         <script src="bootstrap/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
         <link rel="stylesheet" href="css/animate.css" />
         <script src="js/bootstrap-notify.js"></script>
+
+        <link rel="stylesheet" href="js/ol3/ol-cesium-v1.32/ol.css" type="text/css">
+        <script src="js/ol3/ol-cesium-v1.27/Cesium/Cesium.js"></script>
+        <script src="js/ol3/ol-cesium-v1.32/olcesium.js"></script>
+
+        <!--
         <link rel="stylesheet" href="js/ol3/ol-cesium-v1.27/ol.css" type="text/css">
         <script src="js/ol3/ol-cesium-v1.27/Cesium/Cesium.js"></script>
         <script src="js/ol3/ol-cesium-v1.27/olcesium.js"></script>
+        -->
+
+
         <link rel="stylesheet" href="css/common.css" />
         <link rel="stylesheet" href="css/dialog.css" />
+
         <script src="js/d3.v3.min.js"></script>
         <script src="js/encoding.js"></script>
         <script src="js/common.js"></script>
-        <script src="js/layer-00.js"></script>
+        <script src="js/layer-00-min.js"></script>
         <script src="js/layer-01.js"></script>
         <script src="js/layer-cs.js"></script>
         <script src="js/layer-am.js"></script>
-        <script src="js/layer-mvt.js"><</script>
-        <script src="js/startup.js"></script>
+        <script src="js/layer-mvt.js"></script>
+        <script src="js/layer-vt.js"></script>
+
+        <script src="js/startup-min.js"></script>
+
         <script src="js/menu.js"></script>
         <script src="js/contextmenu.js"></script>
         <script src="js/PngElevationTileTerrainProvider.js"></script>
@@ -59,36 +59,47 @@
         <script src="js/estat-chart.js"></script>
         <script src="js/resas.js"></script>
         <script src="js/resas-chart.js"></script>
+        <script src="js/senkyoku-chart.js"></script>
         <script src="js/data.js"></script>
         <link href="js/select2/select2.css" rel="stylesheet" />
         <script src="js/select2/select2.js"></script>
+
         <script src="js/jquery.ui.touch-punch.js"></script>
+
         <script src="js/icheck/icheck.min.js"></script>
         <script src="js/blockui.js"></script>
         <script src="js/rgbcolor.js"></script>
         <link href="js/tablesorter/themes/blue/style.css" rel="stylesheet" />
         <script src="js/tablesorter/jquery.tablesorter.js"></script>
+        <script src="js/tiff.js"></script>
+
+
+        <script src="js/geotiff/bundle.js"></script>
+
+
         <!--<script src="js/d3.v3.min.js"></script>-->
         <script src="js/ol3ext/targetcontrol.js"></script>
         <script src="js/ol3ext/ol.ordering.js"></script>
         <script src="js/ol3ext/wikicommonssource.js"></script>
         <link rel="stylesheet" href="js/ol3ext/ol3-popup/ol3-popup.css" />
         <script src="js/ol3ext/ol3-popup/ol3-popup.js"></script>
+
         <script src="js/ol3ext/longtouchinteraction.js"></script>
+
         <script src="js/ol3ext/geoimagesource.js"></script>
         <!--<script src="js/ol3ext/buttoncontrol.js"></script>-->
-
         <link rel="stylesheet" href="js/ol3ext/control/controlbar.css" />
         <script src="js/ol3ext/control/controlbar.js"></script>
         <script src="js/ol3ext/control/buttoncontrol.js"></script>
         <script src="js/ol3ext/control/togglecontrol.js"></script>
-
+        <!--
         <script src="js/edit.js"></script>
-
+        -->
         <script src="js/popup.js"></script>
         <link rel="stylesheet" href="js/ol3ext/swipecontrol/swipecontrol.css" />
         <script src="js/ol3ext/swipecontrol/swipecontrol.js"></script>
         <link rel="stylesheet" href="js/icheck/skins/all.css" />
+        <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">-->
         <link rel="stylesheet" href="bootstrap/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="js/highcharts/highcharts.js"></script>
         <script src="js/highcharts/modules/exporting.js"></script>
@@ -97,7 +108,10 @@
         <script src="js/jcpmaps.js"></script>
         <!--<script src="js/fontsymbol.js"></script>-->
         <script src="js/shadowstyle.js"></script>
+        <!--
         <script src="js/draganddrop.js"></script>
+        -->
+
         <link rel="stylesheet" href="js/ol3ext/profilcontrol/profilcontrol.css">
         <script src="js/ol3ext/profilcontrol/profilcontrol.js"></script>
         <script src="js/ol3ext/filter/filter.js"></script>
@@ -110,7 +124,7 @@
         <script src="js/log.js"></script>
 
         <script src="js/higasi9syuu-douro.js"></script>
-        <script src="js/osmtogeojson.js"><</script>
+        <script src="js/osmtogeojson.js"></script>
 
 <!--
         <link rel="stylesheet" href="js/bootstrap-colorpickersliders/bootstrap.colorpickersliders.css" />
@@ -122,9 +136,13 @@
 -->
         <link rel="stylesheet" href="js/spectrum/spectrum.css" />
         <script src="js/spectrum/spectrum.js"></script>
+        <script src="js/ol-hash.js"></script>
 
     </head>
     <body>
+        <!-- マウス追従メッセージ-->
+        <div id="mouseMessage">！</div>
+        <!-- マウス追従メッセージここまで-->
         <!-- モーダル・ダイアログ-->
         <div class="modal fade" id="modal-div" tabindex="-1">
             <div class="modal-dialog modal-sm">
@@ -151,7 +169,10 @@
             <div class="top-left-div">
                 <button type="button" class="menu-btn btn btn-primary"><i class='fa fa-bars fa-lg'></i></button>
                 <!--<button type="button" class="here-btn btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="現在地取得"><i class='fa fa-map-marker fa-lg'></i></button>-->
+                <!--
                 <button type="button" class="data-btn btn btn-primary">data</button>
+                -->
+                <!--
                 <div class="dropdown-div">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">統計<span class="caret"></span></button>
                     <ul class="dropdown-menu">
@@ -160,9 +181,12 @@
                     </ul>
                 </div>
                 <button type="button" class="pano-btn btn btn-primary"><i class='fa fa-camera-retro fa-lg'></i></button>
+                -->
+
+                <button type="button" class="here-btn btn btn-primary">現在地</button>
             </div>
             <div class="top-div">
-
+                <!--
                 <div class="dropdown-div osm-dropdown-div">
                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">OSM<span class="caret"></span></button>
                     <ul class="dropdown-menu">
@@ -175,7 +199,7 @@
                         <li><a href="#" class="osmread osmread-hazard">ハザード</a></li>
                     </ul>
                 </div>
-
+                -->
 
                 <!--<button type="button" class="osm-btn btn btn-primary">OSM</button>-->
                 <button type="button" class="dualscreen-btn btn btn-primary">2画面</button>
@@ -189,6 +213,11 @@
                     <button type="button" class="cesium-btn-down btn btn-primary"><i class='fa fa-arrow-down fa-lg'></i></button>
                     <button type="button" class="cesium-btn-left btn btn-primary"><i class='fa fa-arrow-left fa-lg'></i></button>
                     <button type="button" class="cesium-btn-right btn btn-primary"><i class='fa fa-arrow-right fa-lg'></i></button>
+
+                    <div class="elevMag">
+                        ×<input type="text" class="elevMag-text" value="1">
+                    </div>
+
                 </div>
             </div>
             <div class="zoom-div"><span class="zoom-span"></span><span class="elevation-span"></span></div>
@@ -198,6 +227,9 @@
             </div>
         </div>
         <div id="map2" class="maps"></div>
+        <!--<canvas id='canvas-tiff'></canvas>-->
+
+
         <!--ie11対策 Polyfill-->
         <script>
             if (typeof Object.assign != 'function') {
