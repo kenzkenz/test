@@ -564,3 +564,34 @@ label:hover{
     /*height:495px;*/
     width:300px;
 }
+/*ドロー関係-------------------------------------------------------------------*/
+#drow-div{
+    /*
+    position:absolute;
+    top:100px;
+    left:20px;
+    */
+}
+.drow-div2{
+    margin:0 0 0 10px;
+}
+
+.prop-input-text-name,.prop-input-text-val{
+    width:100%
+}
+.prop-td{
+    padding:2px!important;
+}
+.prop-th0,.prop-th1{
+    color:white;
+    background:rgba(51,122,183,1.0);
+    font-weight:normal;
+    text-align:center;
+    padding:2px!important;
+}
+.prop-th0{
+    width:100px;
+}
+.prop-th1{
+    width:200px;
+}

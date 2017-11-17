@@ -293,16 +293,16 @@ $(function(){
                                         var otoko = resultCopy[ii]["otoko"];
                                         var onna = resultCopy[ii]["onna"];
                                         var setai = resultCopy[ii]["setai"];
-                                        features[i]["I"]["otoko"] = otoko;
-                                        features[i]["I"]["onna"] = onna;
-                                        features[i]["I"]["setai"] = setai;
+                                        features[i]["D"]["otoko"] = otoko;
+                                        features[i]["D"]["onna"] = onna;
+                                        features[i]["D"]["setai"] = setai;
                                     }else {
                                         var zinkou = resultCopy[ii]["zyuugyouin"];
                                         var zigyousyo = resultCopy[ii]["zigyousyo"];
-                                        features[i]["I"]["zigyousyo"] = zigyousyo;
+                                        features[i]["D"]["zigyousyo"] = zigyousyo;
                                     }
-                                    features[i]["I"]["zinkou"] = zinkou;
-                                    //features[i]["I"]["_polygonHeight"] = zinkou + coordHyoukou;
+                                    features[i]["D"]["zinkou"] = zinkou;
+                                    //features[i]["D"]["_polygonHeight"] = zinkou + coordHyoukou;
                                     resultCopy.splice(ii,1);
                                     break;
                                 }
@@ -340,36 +340,37 @@ $(function(){
                 var sousetai = 0;
                 var souzigyousyo = 0;
                 for (i=0; i<features.length; i++) {
-                    meshCodeStr += features[i]["I"]["meshCode"] + ",";
-                    var zinkou = features[i]["I"]["zinkou"];
+                    console.log(features[i]["D"]);
+                    //meshCodeStr += features[i]["D"]["meshCode"] + ",";
+                    var zinkou = features[i]["D"]["zinkou"];
                     var c100 = (zinkou - min) / color100 / 100;
                     var color0 = new RGBColor(d3Color(c100));
                     var rgb = new RGBColor(d3Color(c100)).toRGB();
                     var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
                     if (zinkou == 0) {
                         rgba = "rgba(0,0,255,0.3)";
-                        features[i]["I"]["_polygonHeight"] = 0;
+                        features[i]["D"]["_polygonHeight"] = 0;
                     }else{
-                        features[i]["I"]["_polygonHeight"] = Number(zinkou) + coordHyoukou;
+                        features[i]["D"]["_polygonHeight"] = Number(zinkou) + coordHyoukou;
                     }
                     if (zinkou == max) {
                         var top = "TOP\n";
                     } else {
                         var top = "";
                     }
-                    features[i]["I"]["zinkou"] = zinkou;
-                    features[i]["I"]["_fillColor"] = rgba;
-                    //features[i]["I"]["_polygonHeight"] = Number(zinkou) + coordHyoukou;
-                    features[i]["I"]["_top"] = top;
+                    features[i]["D"]["zinkou"] = zinkou;
+                    features[i]["D"]["_fillColor"] = rgba;
+                    //features[i]["D"]["_polygonHeight"] = Number(zinkou) + coordHyoukou;
+                    features[i]["D"]["_top"] = top;
 
                     souzinkou += Number(zinkou);
                     if (zinkou) {
-                        souotoko += Number(features[i]["I"]["otoko"]);
-                        souonna += Number(features[i]["I"]["onna"]);
-                        sousetai += Number(features[i]["I"]["setai"]);
+                        souotoko += Number(features[i]["D"]["otoko"]);
+                        souonna += Number(features[i]["D"]["onna"]);
+                        sousetai += Number(features[i]["D"]["setai"]);
                     }
-                    if (features[i]["I"]["zigyousyo"]) {
-                        souzigyousyo += Number(features[i]["I"]["zigyousyo"]);
+                    if (features[i]["D"]["zigyousyo"]) {
+                        souzigyousyo += Number(features[i]["D"]["zigyousyo"]);
                     }
                 }
                 /*

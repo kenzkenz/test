@@ -114,6 +114,30 @@ var sikiriKakoSyasin = new ol.layer.Tile({
     detail:"",
     icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
 });
+var sikiriZinkouKeizai = new ol.layer.Tile({
+    folder:"parent",
+    category:"ZinkouKeizai",
+    title:"人口と経済",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
+var sikiriKosodateFukushi = new ol.layer.Tile({
+    folder:"parent",
+    category:"KosodateFukushi",
+    title:"子育て・医療・福祉",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
+var sikiriToshiDouroKasen = new ol.layer.Tile({
+    folder:"parent",
+    category:"ToshiDouroKasen",
+    title:"都市・道路・河川",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-folder fa-fw fa-lg' style='color:rgba(51,122,183,1.0);'></i>",
+});
 var sikiriDrTashiro = new ol.layer.Tile({
     folder:"parent",
     category:"drTashiro",
@@ -163,7 +187,8 @@ var blank1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous"
+        crossOrigin:"anonymous",
+        maxZoom:14
     })
 });
 var blank2 = new ol.layer.Tile({
@@ -174,7 +199,8 @@ var blank2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/blank/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous"
+        crossOrigin:"anonymous",
+        maxZoom:14
     })
 });
 //国土地理院_色別標高図
@@ -186,7 +212,8 @@ var relief1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous"
+        crossOrigin:"anonymous",
+        maxZoom:15
     })
 });
 var relief2 = new ol.layer.Tile({
@@ -197,7 +224,8 @@ var relief2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous"
+        crossOrigin:"anonymous",
+        maxZoom:15
     })
 });
 //国土地理院_治水地形分類図
@@ -214,7 +242,8 @@ var lcmfc2_1 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/lcmfc2/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous"
+        crossOrigin:"anonymous",
+        maxZoom:16
     })
 });
 var lcmfc2_2 = new ol.layer.Tile({
@@ -230,7 +259,8 @@ var lcmfc2_2 = new ol.layer.Tile({
     source: new ol.source.XYZ({
         attributions:[new ol.Attribution({html:"<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土地理院</a>"})],
         url:"https://cyberjapandata.gsi.go.jp/xyz/lcmfc2/{z}/{x}/{y}.png",
-        crossOrigin:"anonymous"
+        crossOrigin:"anonymous",
+        maxZoom:16
     })
 });
 //国土地理院（災害以外）ここまで--------------------------------------------------------------------------------------------
@@ -255,8 +285,8 @@ var osm2 = new ol.layer.Tile({
 });
 //ミエルネ地図
 var mieruneNormal1 = new ol.layer.Tile({
-    //folder:"child",
-    //category:"mierune",
+    folder:"child",
+    category:"mierune",
     title:"MIERUNE地図Normal(デモ)",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.<br>" +
@@ -271,8 +301,8 @@ var mieruneNormal1 = new ol.layer.Tile({
     })
 });
 var mieruneNormal2 = new ol.layer.Tile({
-    //folder:"child",
-    //category:"mierune",
+    folder:"child",
+    category:"mierune",
     title:"MIERUNE地図Normal(デモ)",
     origin:"<a href='http://www.mierune.co.jp/tile.html' target='_blank'><label>MIERUNE,LLC.</label></a>",
     detail:"Maptiles by MIERUNE, under CC BY. Data by OpenStreetMap contributors, under ODbL.<br>" +
@@ -2094,6 +2124,8 @@ var namie2 = new ol.layer.Tile({
 
 
 var tondabayasit1 = new ol.layer.Tile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     title:"富田林市地形図",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
@@ -2109,6 +2141,8 @@ var tondabayasit1 = new ol.layer.Tile({
     })
 });
 var tondabayasit2 = new ol.layer.Tile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     title:"富田林市地形図",
     origin:"<a href='https://www.city.tondabayashi.osaka.jp/map/1050/download.html' target='_blank'>公開データの利用について（地図等）</a>",
     detail:"",
@@ -2127,7 +2161,8 @@ var tondabayasit2 = new ol.layer.Tile({
 
 //人口集中地区
 var did1 = new ol.layer.Tile({
-    //secret:true,
+    folder:"child",
+    category:"ZinkouKeizai",
     title:"人口集中地区(DID地区)",
     origin:"総務省統計局",
     detail:"平成２７年",
@@ -2141,7 +2176,8 @@ var did1 = new ol.layer.Tile({
     })
 });
 var did2 = new ol.layer.Tile({
-    //secret:true,
+    folder:"child",
+    category:"ZinkouKeizai",
     title:"人口集中地区(DID地区)",
     origin:"総務省統計局",
     detail:"平成２７年",
@@ -4306,3 +4342,81 @@ var drTashiroS22syasin2 = new ol.layer.Tile({
         maxZoom:16
     })
 });
+
+
+
+//水路（イベント）のレイヤー
+var eventSuiro1 = new ol.layer.Vector({
+    //folder:"child",
+    //category:"unesco",
+    title:"イベント_県庁の幻の水路",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-etsy fa-fw' style='color:darkgreen;'></i>",
+    source:new ol.source.Vector({
+        url:"geojson/suiro.geojson",
+        format: new ol.format.GeoJSON()
+    }),
+    style:evevtSuirostyleFunction
+});
+var eventSuiro2 = new ol.layer.Vector({
+    //folder:"child",
+    //category:"unesco",
+    title:"イベント_県庁の幻の水路",
+    origin:"",
+    detail:"",
+    icon:"<i class='fa fa-etsy fa-fw' style='color:darkgreen;'></i>",
+    source:new ol.source.Vector({
+        url:"geojson/suiro.geojson",
+        format: new ol.format.GeoJSON()
+    }),
+    style:evevtSuirostyleFunction
+});
+function evevtSuirostyleFunction(feature, resolution) {
+    var prop = feature.getProperties();
+    var geoType = feature.getGeometry().getType();
+    var fillColor = "red";
+    var pointRadius = 12;
+
+    switch (geoType) {
+        case "LineString":
+            var lineDash = eval(prop["_lineDash"]);
+            var style = new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: fillColor,
+                    lineDash: lineDash,
+                    width: 6
+                })
+            });
+            break;
+        case "Point":
+            var text = prop["番号"];
+            console.log(text);
+
+            var style = new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: pointRadius,
+                    fill: new ol.style.Fill({
+                        color:"blue"
+                    }),
+                    stroke: new ol.style.Stroke({color: "white", width: 1})
+                }),
+                text: new ol.style.Text({
+                    font: "16px sans-serif",
+                    text: text,
+                    fill: new ol.style.Fill({
+                        color:"white"
+                    }),
+                    offsetY:0,
+                    /*
+                    stroke: new ol.style.Stroke({
+                        color: "white",
+                        width: 3
+                    })
+                    */
+                })
+            });
+            break;
+    }
+    return style;
+}

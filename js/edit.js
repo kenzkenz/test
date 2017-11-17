@@ -72,7 +72,7 @@ $(function(){
     editFeatureSelect.on('select', function(e) {
         console.log(e["selected"].length);
         if(e["selected"].length) {
-            var fillColor = e["selected"][0]["I"]["_fillColor"];
+            var fillColor = e["selected"][0]["D"]["_fillColor"];
             var content = "";
             content += '色を選択：<input type="text" class="form-control" id="color-input" value="' + fillColor + '">';
             content += "<button type='button' class='edit-btn btn btn-primary btn-block btn-xs'>反映</button>";
@@ -95,8 +95,8 @@ $(function(){
                 change: function (color) {
                     //console.log(color.toRgbString());
                     var features = editFeatureSelect.getFeatures();
-                    //console.log(features["a"][0]["I"]["_fillColor"])
-                    features["a"][0]["I"]["_fillColor"] = color.toRgbString();
+                    //console.log(features["a"][0]["D"]["_fillColor"])
+                    features["a"][0]["D"]["_fillColor"] = color.toRgbString();
                     editLayer.getSource().changed();
                 }
             });
@@ -158,14 +158,14 @@ $(function(){
     //----------------------------------------------
     var pointDraw = pointEdit.getInteraction();
     pointDraw.on('drawend', function(e) {
-        var prop = e["feature"]["I"];
+        var prop = e["feature"]["D"];
         prop["_fillColor"] = "rgba(255,0,0,1.0)";
         if(editLayer.get("name")==="editLayer-import"){
             editLayer.getSource().addFeature(e["feature"]);
         }
     });
     //----------------------------------------------
-
+    //ラインストリング
     var lineEdit = new ol.control.Toggle({
             html: '<i class="fa fa-share-alt" ></i>',
             title: '線',
@@ -214,7 +214,7 @@ $(function(){
     //----------------------------------------------
     var lineDraw = lineEdit.getInteraction();
     lineDraw.on('drawend', function(e) {
-        var prop = e["feature"]["I"];
+        var prop = e["feature"]["D"];
         prop["_fillColor"] = "rgba(255,0,0,0.9)";
         if(editLayer.get("name")==="editLayer-import"){
             editLayer.getSource().addFeature(e["feature"]);
@@ -276,7 +276,7 @@ $(function(){
     //----------------------------------------------
     var polygonDraw = polygonEdit.getInteraction();
     polygonDraw.on('drawend', function(e) {
-        var prop = e["feature"]["I"];
+        var prop = e["feature"]["D"];
         prop["_fillColor"] = "rgba(51,122,183,0.7)";
         if(editLayer.get("name")==="editLayer-import"){
             editLayer.getSource().addFeature(e["feature"]);
@@ -411,7 +411,7 @@ $(function(){
         //canRotate: $("#rotation").prop('checked')
     });
     interactionDrawRegular.on('drawend', function(e) {
-        var prop = e["feature"]["I"];
+        var prop = e["feature"]["D"];
         prop["_fillColor"] = "rgba(51,122,183,0.7)";
         if(editLayer.get("name")==="editLayer-import"){
             editLayer.getSource().addFeature(e["feature"]);

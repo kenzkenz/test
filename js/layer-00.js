@@ -3,13 +3,15 @@ var useLayersArr2 = null;
 var plusLayer1 = [];
 var plusLayer2 = [];
 var plI = 0;
-
-
 $(function(){
     //使用するレイヤーを設定
-    useLayersArr1 = [mieruneNormal1,
-                    pale1,blank1,relief1,lcmfc2_1,tikeiVectorTileSizen1,
-
+    useLayersArr1 = [pale1,
+                    blank1,relief1,lcmfc2_1,tikeiVectorTileSizen1,
+                    osm1,
+                    eventSuiro1,
+        //mieruneさん
+        mierune,
+                    mieruneNormal1,mierune1,mieruneMono1,
         //現在の航空写真
         sikiriGenzaiSyasin,
                     ort1,seamlessphoto1,
@@ -21,19 +23,17 @@ $(function(){
                     jpn23ku011,
                     usamiyazaki011,usamiyakonozyou011,usanobeoka011,usakobayasi011,usakumamoto011,usamuroran011,usanatori011,
                     usasendai011,
-                    jpnfukuoka011,jpnnoboribetu011,
-
-                    syokusei1,dozyouzu1,syoutiikiH17_1,syoutiikiH22_1,syoutiiki1,tositiiki1,youtotiiki1,suiro1,douro1,syougakkouku1,tyuugakkouku1,iryouken1,
-                    mesh500_1,keizaiCensus_1,fukushi_1,cityGeneki_1,cityZaisei_1,syougyou500m_1,syougyou1000m_s_1,syougyou1000m_g_1,syougyou1000m_k_1,
-                    suikei1000m_1,
-                    osm1,toner1,
-                    tondabayasit1,
-                    //mesh1000z1,kousoku9syu1,
-                    //namie1,
-                    did1,
-        //mieruneさん
-        mierune,
-                    mierune1,mieruneMono1,
+        jpnfukuoka011,jpnnoboribetu011,
+        //都市・道路・河川
+        sikiriToshiDouroKasen,
+                    tositiiki1,youtotiiki1,suiro1,douro1,tondabayasit1,keikan1,
+        //子育て・医療・福祉
+        sikiriKosodateFukushi,
+                    syougakkouku1,tyuugakkouku1,iryouken1,fukushi_1,
+        //人口と経済
+        sikiriZinkouKeizai,
+                    syoutiikiH17_1,syoutiikiH22_1,syoutiiki1,
+                    mesh500_1,keizaiCensus_1,cityGeneki_1,cityZaisei_1,syougyou500m_1,syougyou1000m_s_1,syougyou1000m_g_1,syougyou1000m_k_1, suikei1000m_1,did1,
         //九州北部豪雨
         sikiriKyuusyuuHokubuGouu,
                     ooameasahi01,
@@ -51,7 +51,7 @@ $(function(){
                     rekisitekikantou1,zinsokugazou1,rekisitekitoukyou1,rekisitekihukuyama1,
         //遺跡文化財
         sikiriIsekibunkazai,
-                    bunkatyoudb1,zenkokuHakubutukan1,bunkazai1,zenkokuIseki1,yayoi1,kumamotoIseki1,//gunmaIseki1,
+                    bunkatyoudb1,zenkokuHakubutukan1,bunkazai1,zenkokuIseki1,yayoi1,kumamotoIseki1,
         //ユネスコ
         sikiriUnesco,
                     aya1,sobo1,soboZ1,
@@ -66,10 +66,10 @@ $(function(){
         //地質地形
         sikiriTisititikei,
                     kawadake1,ryuuiki1,ecoris1,sekiz1,tisitu1,nihonCs1,csArr1,sizuokaCs1,
-                    //mrtiba1,mransei1,
+                    syokusei1,dozyouzu1,
         //ハザード
         sikiriHazard,
-                    tunami1,tunamimvt1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,
+                    tunami1,tunamimvt1,sinsuisoutei1,kikenkeiryuu1,kyuukeisyakikenkasyo1,keikan_1,
         sikiriTest,
                     test,
                     //anno1,
@@ -80,23 +80,98 @@ $(function(){
                     kikenkeiryuuAll1,kyuukeisyakikenkasyoAll1,
                     fukuiRindou1,
                     tunamimiyazakimvt1,
-        tunamiWakkanaimvt1
+                    tunamiWakkanaimvt1
 
-        /*
-         //田代先生提供資料
-         sikiriDrTashiro,
-                    drTashiroH07syasin1,drTashiroS62syasin1,drTashiroS22syasin1
-            */
-                    ];
+    ];
 
-    //--------------------------
+    //------------------------------------------------------------------------------------------------------------------
+    useLayersArr2 = [pale2,
+                    blank2,relief2,lcmfc2_2,tikeiVectorTileSizen2,
+                    osm2,
+                    eventSuiro2,
+        //mieruneさん
+        mierune,
+                    mieruneNormal2,mierune2,mieruneMono2,
+        //現在の航空写真
+        sikiriGenzaiSyasin,
+                    ort2,seamlessphoto2,
+                    muro2,tondabayasik2,kago2,
+        //過去の航空写真
+        sikiriKakoSyasin,
+                    usasiawase012,
+                    gazo12,old10_2,
+                    jpn23ku012,
+                    usamiyazaki012,usamiyakonozyou012,usanobeoka012,usakobayasi012,usakumamoto012,usamuroran012,usanatori012,
+                    usasendai012,
+                    jpnfukuoka012,jpnnoboribetu012,
+        //都市・道路・河川
+        sikiriToshiDouroKasen,
+                    tositiiki2,youtotiiki2,suiro2,douro2,tondabayasit2,
+        //子育て・医療・福祉
+        sikiriKosodateFukushi,
+                    syougakkouku2,tyuugakkouku2,iryouken2,fukushi_2,
+        //人口と経済
+        sikiriZinkouKeizai,
+                    syoutiikiH17_2,syoutiikiH22_2,syoutiiki2,
+                    mesh500_2,keizaiCensus_2,cityGeneki_2,cityZaisei_2,syougyou500m_2,syougyou1000m_s_2,syougyou1000m_g_2,syougyou1000m_k_2, suikei1000m_2,did2,
+        //九州北部豪雨
+        sikiriKyuusyuuHokubuGouu,
+                    ooameasahi02,
+                    ooameasia07202,ooameasia07182,
+                    t0802dol2,t0713dol22,t0713dol12,t0707dol2,t0707dol32,t0708dol12,t0710dol2,
+        //熊本地震
+        sikiriKumamotoJisin,
+                    kumamoto0724_2,kumamoto_0705_2,kumamoto_0531_2,kumamoto_0530_2,kumamoto_0429A_2,kumamoto_0429B_2,kumamoto_04201_2,kumamoto_04202_2,
+                    kumamoto_04203_2,kumamoto_04204_2,kumamoto_04205_2,kumamoto_04206_2,kumamoto_04207_2,kumamoto_04208_2,kumamoto_04209_2,
+                    kumamoto_042010_2,kumamoto_042011_2,kumamoto_0419dol2_2,kumamoto_0419dol6_2,kumamoto_0416dol1_2,kumamoto_0416dol2_2,
+                    kumamoto_0416dol3_2,kumamoto_0416dol4_2,kumamoto_0416dol5_2,kumamoto_0416dol6_2,kumamoto_0416dol7_2,kumamoto_0415dol1_2,
+                    kumamoto_0415dol2_2,kumamoto_0415dol3_2,
+        //迅速測図等
+        sikiriJinsokutou,
+                    rekisitekikantou2,zinsokugazou2,rekisitekitoukyou2,rekisitekihukuyama2,
+        //遺跡文化財
+        sikiriIsekibunkazai,
+                    bunkatyoudb2,zenkokuHakubutukan2,bunkazai2,zenkokuIseki2,yayoi2,kumamotoIseki2,
+        //ユネスコ
+        sikiriUnesco,
+                    aya2,sobo2,soboZ2,
+        //古地図
+        sikiriKotizu,
+                    miyagikotizu2,toukyoukotizu2,hukuikotizu2,simanekotizu2,yamagutikotizu2,koutikotizu2,hukuokakotizu2,sagakotizu2,nagasakikotizu2,kumamotokotizu2,ooitakotizu2,kotizu2,kagosimakotizu2,obikoyizu2,//obi1,
+        //戦前戦後
+        sikiriSenzensengo,
+                    amArr2,
+                    murosenzen2,hukuokasisenzen2,
+                    sengomiya2,sengonobe2,sengomiyako2,murous2,sengokago2,
+        //地質地形
+        sikiriTisititikei,
+                    kawadake2,ryuuiki2,ecoris2,sekiz2,tisitu2,nihonCs2,csArr2,sizuokaCs2,
+                    syokusei2,dozyouzu2,
+        //ハザード
+        sikiriHazard,
+                    tunami2,tunamimvt2,sinsuisoutei2,kikenkeiryuu2,kyuukeisyakikenkasyo2,
+        sikiriTest,
+                    test,
+                    //anno1,
+                    m500mesh1,
+                    nobeoka19521,
+                    totiriyou1,
+                    bingroad2,
+                    kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2,
+                    fukuiRindou1,
+                    tunamimiyazakimvt1,
+                    tunamiWakkanaimvt1
+
+    ];
+    /*
     useLayersArr2 = [mieruneNormal2,
+        eventSuiro2,
                     pale2,blank2,relief2,lcmfc2_2,tikeiVectorTileSizen2,
-        /*
+
         //田代先生提供資料
-        sikiriDrTashiro,
-                    drTashiroH07syasin2,drTashiroS62syasin2,drTashiroS22syasin2,
-        */
+        //sikiriDrTashiro,
+                    //drTashiroH07syasin2,drTashiroS62syasin2,drTashiroS22syasin2,
+
         //現在の航空写真
         sikiriGenzaiSyasin,
                     ort2,seamlessphoto2,
@@ -161,6 +236,7 @@ $(function(){
                     bingroad2,
                     kikenkeiryuuAll2,kyuukeisyakikenkasyoAll2
                     ];
+    */
     $("body").on("click",".secret",function() {
         alert("");
         $(".secret-tr").toggle();

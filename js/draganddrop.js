@@ -151,11 +151,14 @@ $(function(){
         map1.removeLayer(editLayer);
         var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length - 1]
         console.log(fileExtension);
+
+        if(fileExtension==="geojson") return;
+
         if (event.features == null) {
             var fileExtension = event["file"]["name"].split(".")[event["file"]["name"].split(".").length - 1];
             switch (fileExtension) {
                 case "csv":
-                    csvRead(event.file);
+                    //csvRead(event.file);
                     break;
                 case "jpg":
                     imgSet(event.file);
@@ -164,7 +167,7 @@ $(function(){
                     imgSet(event.file);
                     break;
                 case "":
-
+                    ;
                     break;
 
                 default:
@@ -652,7 +655,17 @@ $(function(){
             var result = Encoding.codeToString(uniArray);
             //console.log(result); //csvデータ(string)
             // 選択したCSVファイルから２次元配列を生成
-            var rows = result.split("\n");
+
+            console.log(result.indexOf("\n"));
+
+            if(result.indexOf("\n")!==-1) {
+                var rows = result.split("\n");
+            }else{
+                var rows = result.split("\r");
+            }
+
+            console.log(rows);
+
             var max = 0;
             rangemin = 9999999999;
             $(rows).each(function () {
@@ -669,7 +682,7 @@ $(function(){
             iro = null;
             inChar = "";
             valueAr = [];
-            //console.log(csvarr);
+            console.log(csvarr);
             var csvType = "";
             for (var i=0; i < csvarr.length; i++) {
                 if(i===0) {
@@ -963,7 +976,7 @@ $(function(){
                     var population = Number(cityPopuObj[i]["population"]);
                     //console.log(citycode,population);
                     for (j=0; j<features.length; j++){
-                        if(citycode==features[j]["I"]["コード"]){
+                        if(citycode==features[j]["D"]["コード"]){
                             var value = population;
                             var c100 = (value-min)/color100/100;
                             //c100 = c100 * c100;
@@ -972,8 +985,8 @@ $(function(){
                             var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.8)";
                             var targetFillColor = d3Color(c100);
                             //console.log(999999999999999)
-                            features[j]["I"]["_fillColor"] = rgba;
-                            features[j]["I"]["人数"] = value;
+                            features[j]["D"]["_fillColor"] = rgba;
+                            features[j]["D"]["人数"] = value;
 
                             value = (value*2) + 500;
 
@@ -983,7 +996,7 @@ $(function(){
                                 value = 20000;
                             }
 
-                            features[j]["I"]["_polygonHeight"] = value;
+                            features[j]["D"]["_polygonHeight"] = value;
                         }
                     }
                 }
@@ -995,7 +1008,7 @@ $(function(){
                 var features = mobakuu1.getSource().getFeatures();
                 for (i=0; i<features.length; i++){
                     //console.log(features[i])
-                    features[i]["I"]["_fillColor"] = "rgba(255,0,0,0.5)";
+                    features[i]["D"]["_fillColor"] = "rgba(255,0,0,0.5)";
 
                 }
                 */
@@ -1061,14 +1074,14 @@ $(function(){
                 features: (new ol.format.GeoJSON()).readFeatures(geojsonObject,{featureProjection:'EPSG:3857'})
             });
             var csvStyleFunction1 = function(feature, resolution) {
-                var fillColor = feature["I"]["_fillColor"];
+                var fillColor = feature["D"]["_fillColor"];
                 var val = $("input:radio[name='csv-radio-map1']:checked").val();
                 if(val==="on") {
-                    var text = String(feature["I"]["数値"]);
+                    var text = String(feature["D"]["数値"]);
                 }else{
                     var text = "";
                 }
-                var textColor = feature["I"]["_textColor"];
+                var textColor = feature["D"]["_textColor"];
                 style = [
                     new ol.style.Style({
                         stroke: new ol.style.Stroke({
@@ -1090,14 +1103,14 @@ $(function(){
                 return style;
             };
             var csvStyleFunction2 = function(feature, resolution) {
-                var fillColor = feature["I"]["_fillColor"];
+                var fillColor = feature["D"]["_fillColor"];
                 var val = $("input:radio[name='csv-radio-map2']:checked").val();
                 if(val==="on") {
-                    var text = String(feature["I"]["数値"]);
+                    var text = String(feature["D"]["数値"]);
                 }else{
                     var text = "";
                 }
-                var textColor = feature["I"]["_textColor"];
+                var textColor = feature["D"]["_textColor"];
                 style = [
                     new ol.style.Style({
                         stroke: new ol.style.Stroke({
@@ -1229,7 +1242,7 @@ $(function(){
             for (i=0; i<features.length; i++){
                 for (j=0; j<cityObjAr.length; j++) {
                     var value = Number(cityObjAr[j]["prop"]["suuti"]);
-                    if (features[i]["I"]["コード"] === cityObjAr[j]["citycode"]) {
+                    if (features[i]["D"]["コード"] === cityObjAr[j]["citycode"]) {
                         if(coll==="suuti") {
                             if (value > 0) {//値がプラスだったとき
                                 var c100 = (value - min) / color100 / 100;
@@ -1246,25 +1259,25 @@ $(function(){
                                 var targetFillColor = d3ColorM(c100);
                             }
                             if (value > 0) {
-                                features[i]["I"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                                features[i]["D"]["_polygonHeight"] = (c100 * 50000) + 1000;
                             } else {
-                                features[i]["I"]["_polygonHeight"] = 1000;
+                                features[i]["D"]["_polygonHeight"] = 1000;
                             }
-                            $("#" + mapName + " .csv-tbl tbody").find(".tr-" + features[i]["I"]["コード"] + " td").css({"background":rgb});
+                            $("#" + mapName + " .csv-tbl tbody").find(".tr-" + features[i]["D"]["コード"] + " td").css({"background":rgb});
                         }else{//色のとき
                             var color = new RGBColor(cityObjAr[j]["prop"]["iro"]);
                             var textColor = funcTextColor(color.r,color.g,color.b);//背景に応じて色を変える。
                             var rgba = "rgba(" + color.r + "," + color.g + "," + color.b + "," + "0.7)";
                             if (value > 0) {
                                 var c100 = (value - min) / color100 / 100;
-                                features[i]["I"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                                features[i]["D"]["_polygonHeight"] = (c100 * 50000) + 1000;
                             } else {
-                                features[i]["I"]["_polygonHeight"] = 1000;
+                                features[i]["D"]["_polygonHeight"] = 1000;
                             }
                         }
-                        features[i]["I"]["_fillColor"] = rgba;
-                        features[i]["I"]["数値"] = value;
-                        features[i]["I"]["_textColor"] = textColor;
+                        features[i]["D"]["_fillColor"] = rgba;
+                        features[i]["D"]["数値"] = value;
+                        features[i]["D"]["_textColor"] = textColor;
                     }
                 }
             }

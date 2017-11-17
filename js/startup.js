@@ -10,17 +10,20 @@ $(function(){
     $("#map1").height($(window).height());
     //$("#map1 .cesium-btn-div").show();
     $(window).on('resize',function(){
-        $("#map1").height($(window).height());
+        $("#map1,#map2").height($(window).height());
+
         funcResize();
     });
     funcResize();
     function funcResize() {
         if ($("body").width() < 475) {
             $(".osm-dropdown-div").hide();
+            $(".draw-btn").hide();
         }else if($("body").width() < 400) {
             $(".data-btn").text("d");
             $(".dropdown-div").hide();
             $(".osm-dropdown-div").hide();
+            $(".draw-btn").hide();
             $(".btn").css({
                 "padding":"6px 10px"
             })
@@ -28,6 +31,7 @@ $(function(){
             $(".data-btn").text("data").show();
             $(".dropdown-div").show();
             $(".osm-dropdown-div").show();
+            $(".draw-btn").show();
             $(".btn").css({
                 "padding":"6px 12px"
             })
@@ -43,16 +47,18 @@ $(function(){
         msg += "<div style='text-align:center;margin-bottom:10px;'><span class='label label-default label-danger'>New</span></div>";
 
         //msg += "★iphoneのsafariで画面移動ができない現象があるようです。その場合はブラウザをクローム等に変えてみてください。<br>";
+        msg += "★背景が多くなりすぎたのでカテゴリわけしています。<br>";
         msg += "★<a href='http://www.gsi.go.jp/bousaichiri/bousaichiri61013.html' target='_blank'>宮崎県立佐土原高校情報技術部 防災アプリ大賞受賞!！</a><br>";
         msg += "★背景のうち(MVT)(VT)とついているものは3D化できません！<br>";
         msg += "★詳しい追加情報等は<a href='https://www.facebook.com/hinatagis' target='_blank'><i class='fa fa-facebook-square fa-fw' style='color:navy;'></i>FBへ</a><br>";
 
         //msg += "<canvas id='canvas1'></canvas>";
-        msg += "1 背景に将来推計人口メッシュ(MVT)を追加しました。<br>";
-        msg += "2 背景にH26商業統計(MVT)を追加しました。<br>";
-        msg += "3 背景に市町村現役世代率(MVT)を追加しました。<br>";
-        msg += "4 背景にH26経済センサス(MVT)を追加しました。<br>";
-        msg += "5 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
+        msg += "1 ドロー機能実験中。「draw」ボタンから<br>";
+        msg += "2 背景に将来推計人口メッシュ(MVT)を追加しました。<br>";
+        msg += "3 背景にH26商業統計(MVT)を追加しました。<br>";
+        msg += "4 背景に市町村現役世代率(MVT)を追加しました。<br>";
+        msg += "5 背景にH26経済センサス(MVT)を追加しました。<br>";
+        //msg += "5 背景に500Mメッシュ人口(MVT)を追加しました。<br>";
         //msg += "4 背景に二次医療圏(MVT)を追加しました。<br>";
         //msg += "4 背景に地理院_地形分類(自然地形)(VT)を追加しました。<br>";
         //msg += "4 背景に全国中学校区(MVT)を追加しました。<br>";
@@ -91,7 +97,7 @@ $(function(){
         //msg += "10 宮崎県(九州)赤色立体地図を追加しました。<br>";
         //msg += "10 画面左下に標高表示機能を追加しました。<br>";
         msg += "<div style='text-align:center;'>";
-        msg += "宮崎県情報政策課<br>最終更新:2017/10/31</div>";
+        msg += "宮崎県情報政策課<br>最終更新:2017/11/07</div>";
         msg += "<div style='position:absolute;bottom:0px;right:0px;'><a href='https://www.osgeo.jp/' target='_blank'><img src='icon/osgeo.png' style='width:80px;background:'></a></div>";
         $.notify({//options
             message: msg
@@ -150,29 +156,33 @@ $(function(){
     });
 
     //inu.setZIndex(9999999);
-    editLayer.set("altitudeMode","clampToGround");
-    editLayer.setZIndex(9999999);//edit.js参照
-    editLayer.set("selectable",true);
+    //editLayer.set("altitudeMode","clampToGround");
+    //editLayer.setZIndex(9999999);//edit.js参照
+    //editLayer.set("selectable",true);
 
+
+    var DragRotateAndZoom = new ol.interaction.DragRotateAndZoom();//shift+ドラッグで回転可能に
     //id map1に起動時に表示されるレイヤーをセット
     map1 = new ol.Map({
         target:"map1",
-        //layers:[pale1,inu,editLayer],
-        layers:[mieruneNormal1,editLayer],
+        //layers:[mieruneNormal1,editLayer],
+        layers:[pale1],
         view:view1,
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
-            new ol.interaction.DragRotateAndZoom()//shift+ドラッグで回転可能に
+            DragRotateAndZoom
         ])
     });
     map2 = new ol.Map({
         target:"map2",
-        //layers:[pale2,inu],
-        layers:[mieruneNormal2],
+        //layers:[mieruneNormal2],
+        layers:[pale2],
         view:view1,//最初はview1
         interactions:ol.interaction.defaults({doubleClickZoom:false}).extend([
-            new ol.interaction.DragRotateAndZoom()
+            DragRotateAndZoom
         ])
     });
+    //DragRotateAndZoom.setActive(false);
+
     //--------------------------------------------------------------------------
     //デフォルトで設定されているインタラクション（PinchRotate）を使用不可に
     var interactions1 = map1.getInteractions().getArray();
@@ -266,6 +276,7 @@ $(function(){
         });
         if(!features.length) return;
         var layer = layers[layers.length-1];
+        if(!layer) return;
         var feature = features[features.length-1];//最後のfeatureを取得している。レイヤーが重なったとき問題があるかも。
         var layerName = layer.getProperties()["name"];
         if(layerName==="tunamimiyazaki"){

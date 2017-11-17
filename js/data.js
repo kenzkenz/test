@@ -284,7 +284,7 @@ $(function(){
                     fillColor = d3CategoryColor(d3CategoryColorI);
                     d3CategoryColorI++;
                     //console.log(d3CategoryColorI)
-                    feature["I"]["_fillColor"] = fillColor;
+                    feature["D"]["_fillColor"] = fillColor;
                 }
                 if(!zindex) {
                     zindex = 0;
@@ -436,22 +436,22 @@ $(function(){
                 var features = dataLayer[dataLayerId].getSource().getFeatures();
                 var valueAr = [];
                 for (i = 0; i < features.length; i++) {
-                    valueAr.push(features[i]["I"]["75歳以上比率"]);
+                    valueAr.push(features[i]["D"]["75歳以上比率"]);
                 }
                 var color100Ar = funcColor100(valueAr);
                 var color100 = color100Ar[0];
                 var min = color100Ar[2];
                 var d3Color = d3.interpolateLab("white", "purple");
                 for (i = 0; i < features.length; i++) {
-                    var value = features[i]["I"]["75歳以上比率"];
+                    var value = features[i]["D"]["75歳以上比率"];
                     var c100 = (value-min)/color100/100;
                     var color0 = new RGBColor(d3Color(c100));
                     var rgb = new RGBColor(d3Color(c100)).toRGB();
                     var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b +"," + "0.9)";
                     var targetFillColor = d3Color(c100);
-                    //var fillColor = d3Color(features[i]["I"]["75歳以上比率"]);
-                    features[i]["I"]["_fillColor"] = rgba;
-                    features[i]["I"]["_polygonHeight"] = c100*c100*100000;
+                    //var fillColor = d3Color(features[i]["D"]["75歳以上比率"]);
+                    features[i]["D"]["_fillColor"] = rgba;
+                    features[i]["D"]["_polygonHeight"] = c100*c100*100000;
                 }
             }
         }).fail(function(XMLHttpRequest, textStatus, errorThrown){

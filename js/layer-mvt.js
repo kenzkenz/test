@@ -1,5 +1,7 @@
 //全国河川中心線----------------------------------------------------------------------------------------------------------
 var suiro1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国河川中心線(MVT)",
     name:"suiro",
@@ -8,16 +10,15 @@ var suiro1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:14
-        }),
-        tilePixelRatio:16,
+        maxZoom:14,
         url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
     style: suiroStyleFunction
 });
 var suiro2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国河川中心線(MVT)",
     name:"suiro",
@@ -26,10 +27,7 @@ var suiro2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:14
-        }),
-        tilePixelRatio:16,
+        maxZoom:14,
         url: "https://hfu.github.io/rvrcl-vt/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -82,6 +80,8 @@ function suiroStyleFunction(feature, resolution) {
 //全国河川中心線ここまで---------------------------------------------------------------------------------------------------
 //全国道路中心線----------------------------------------------------------------------------------------------------------
 var douro1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国道路中心線(MVT)",
     name:"douro",
@@ -90,17 +90,15 @@ var douro1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:8,
-            maxZoom:14
-        }),
-        tilePixelRatio:16,
+        maxZoom:14,
         url: "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
     style: douroStyleFunction
 });
 var douro2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国道路中心線(MVT)",
     name:"douro",
@@ -109,11 +107,7 @@ var douro2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:8,
-            maxZoom:14
-        }),
-        tilePixelRatio:16,
+        maxZoom:14,
         url: "https://hfu.github.io/rdcl-vt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
@@ -165,6 +159,8 @@ function douroStyleFunction(feature, resolution) {
 //全国道路中心線ここまで---------------------------------------------------------------------------------------------------
 //全国用途地域-----------------------------------------------------------------------------------------------------------
 var youtotiiki1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国用途地域(MVT)",
     name:"youtotiiki",
@@ -189,18 +185,17 @@ var youtotiiki1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/youtotiiki/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
+    //renderMode:"vector",
     style: youtotiikiStyleFunction
 });
 var youtotiikiCateTarget = 0;
 var youtotiiki2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国用途地域(MVT)",
     name:"youtotiiki",
@@ -225,11 +220,7 @@ var youtotiiki2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/youtotiiki/{z}/{x}/{y}.mvt"
     }),
     style: youtotiikiStyleFunction
@@ -311,20 +302,8 @@ var m500mesh1 = new ol.layer.VectorTile({
     detail:"",
     detail2:"",
     source: new ol.source.VectorTile({
-        //cacheSize:500000,
-        /*
-         format: new ol.format.MVT({
-         featureClass: ol.Feature
-         }),
-         */
-
-
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:8,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/500mesh2/{z}/{x}/{y}.mvt"
     }),
     maxResolution:611.50,
@@ -339,7 +318,6 @@ function mesh500iStyleFunction(feature, resolution) {
     var rgba = "rgba(255,0,0,0.5)";
     //T000847003
     //T000846003
-
         var prop = feature.getProperties();
     /*
         if(resolution>38.22) {
@@ -348,7 +326,6 @@ function mesh500iStyleFunction(feature, resolution) {
             var val = prop["T000847003"];
         }
     */
-
         var val = prop["T000847003"];
         if(!val){
             val = prop["T000846003"]/4;
@@ -383,6 +360,8 @@ function mesh500iStyleFunction(feature, resolution) {
 }
 //全国土壌図-------------------------------------------------------------------------------------------------------------
 var dozyouzu1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"tisitutikei",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国土壌図(MVT)",
     name:"dozyouzu",
@@ -408,11 +387,7 @@ var dozyouzu1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/dozyouzu/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -421,6 +396,8 @@ var dozyouzu1 = new ol.layer.VectorTile({
     renderMode:"image"
 });
 var dozyouzu2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"tisitutikei",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国土壌図(MVT)",
     name:"dozyouzu",
@@ -446,11 +423,7 @@ var dozyouzu2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/dozyouzu/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -616,6 +589,8 @@ function dozyouzuStyleFunction(feature, resolution) {
 //全国土壌図ここまで-------------------------------------------------------------------------------------------------------
 //エコリス植生図----------------------------------------------------------------------------------------------------------
 var syokusei1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"tisitutikei",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"エコリス植生図(MVT)",
     name:"syokusei",
@@ -650,17 +625,15 @@ var syokusei1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/ecoris/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
     style: syokuseizuStyleFunction
 });
 var syokusei2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"tisitutikei",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"エコリス植生図(MVT)",
     name:"syokusei",
@@ -695,11 +668,7 @@ var syokusei2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/ecoris/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -711,7 +680,6 @@ function syokuseizuStyleFunction(feature, resolution) {
     var SYOKU = prop["SYOKU_C"];
     //console.log(cate);
     var rgba = "rgba(0,0,0,0.5)";
-
     if(syokuseiTarget.substr(0,1)!=="b") {
         if (syokuseiTarget == SYOKU || syokuseiTarget == 0) {
             switch (SYOKU) {
@@ -858,6 +826,7 @@ function syokuseizuStyleFunction(feature, resolution) {
                 fill: new ol.style.Fill({
                     color:textColor
                 }),
+                exceedLength:true
                 /*
                 stroke: new ol.style.Stroke({
                     color: "white",
@@ -904,11 +873,7 @@ var bunkazai1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkazai2/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
@@ -943,11 +908,7 @@ var bunkazai2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkazai2/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,
@@ -1181,10 +1142,7 @@ var kumamotoIseki1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -1201,10 +1159,7 @@ var kumamotoIseki2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/kumamotoken/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -1218,10 +1173,7 @@ var kumamotoIsekiTest2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:16
-        }),
-        tilePixelRatio:16,
+        maxZoom:16,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kumamotoisekiline/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -1332,6 +1284,8 @@ function kumamotoStyleFunction(feature, resolution) {
 //全国小地域人口等--------------------------------------------------------------------------------------------------------
 //h17
 var syoutiikiH17_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H17全国小地域人口等(MVT)",
     name:"chome",
@@ -1349,12 +1303,7 @@ var syoutiikiH17_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h17/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -1362,6 +1311,8 @@ var syoutiikiH17_1 = new ol.layer.VectorTile({
     //renderMode:"vector"
 });
 var syoutiikiH17_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H17全国小地域人口等(MVT)",
     name:"chome",
@@ -1379,12 +1330,7 @@ var syoutiikiH17_2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h17/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -1425,6 +1371,8 @@ function syoutiikiCommonStyleFunction(maxColor,limit) {
 //-------------------
 //H22
 var syoutiikiH22_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H22全国小地域人口等(MVT)",
     name:"chome",
@@ -1442,12 +1390,7 @@ var syoutiikiH22_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h22/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -1455,6 +1398,8 @@ var syoutiikiH22_1 = new ol.layer.VectorTile({
     //renderMode:"vector"
 });
 var syoutiikiH22_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H22全国小地域人口等(MVT)",
     name:"chome",
@@ -1472,12 +1417,7 @@ var syoutiikiH22_2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/kokucyou/h22/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -1515,13 +1455,13 @@ function syoutiikiCommonStyleFunction(maxColor,limit) {
         return style;
     }
 }
-
-
 //-------------------
 //H27
 var vtMaxColor = "indigo";
 var vtColor = d3.interpolateLab("white",vtMaxColor);
 var syoutiiki1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H27全国小地域人口等(MVT)",
     name:"chome",
@@ -1539,13 +1479,7 @@ var syoutiiki1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
-        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://kenzkenz.github.io/h27syouchiiki_mvt/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
@@ -1553,6 +1487,8 @@ var syoutiiki1 = new ol.layer.VectorTile({
     //renderMode:"vector"
 });
 var syoutiiki2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H27全国小地域人口等(MVT)",
     name:"chome",
@@ -1569,47 +1505,12 @@ var syoutiiki2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:100000,
         format: new ol.format.MVT(),
-        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/zenkokukokusei4/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:1222.99,
     style: syoutiikiCommonStyleFunction("indigo",1000)
 });
-/*
-var kyoudo = 1000;
-function syoutiikiStyleFunction(feature, resolution) {
-    var prop = feature.getProperties();
-    var val = Math.floor(prop["JINKO"]/(prop["AREA"]/200000));
-    val = val/kyoudo;
-    if(val>1) val = 1;
-    var rgb = d3.rgb(vtColor(val));
-    var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + val*0.9 + ")";
-    if(resolution<125.87) {
-        var style = new ol.style.Style({
-            fill: new ol.style.Fill({
-                color: rgba
-            }),
-            stroke: new ol.style.Stroke({
-                color: "darkgray",
-                width: 1
-            })
-        });
-    }else{
-        if(val<0.2) return;
-        var style = new ol.style.Style({
-            fill: new ol.style.Fill({
-                color: rgba
-            })
-        });
-    }
-    return style;
-}
-*/
 //全国小地域人口等ここまで--------------------------------------------------------------------------------------------------
 //経済センサス------------------------------------------------------------------------------------------------------------
 var test = new ol.layer.VectorTile({
@@ -1631,14 +1532,8 @@ var test = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/keizaisensas/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://kenzkenz.github.io/keizaicensus/mvt/{z}/{x}/{y}.mvt"
-
     }),
     //maxResolution:1222.99,
     style: keizaiCensasStyleFunction,
@@ -1699,40 +1594,33 @@ function keizaiCensasStyleFunction(feature, resolution) {
 //経済センサスここまで-----------------------------------------------------------------------------------------------------
 //全国都市地域------------------------------------------------------------------------------------------------------------
 var tositiiki1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
-    title:"全国都市地域(MVT)試行中",
+    title:"全国都市地域(MVT)",
     name:"tositiiki",
     origin:"",
     detail:"",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tositiiki2/{z}/{x}/{y}.mvt"
-        //url: "https://kenzkenz.github.io/toshichiiki/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url:'https://kenzkenz2.xsrv.jp/to/{z}/{x}/{y}.mvt'
     }),
     style: tositiikiStyleFunction
-
 });
 var tositiiki2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
-    title:"全国都市地域(MVT)試行中",
+    title:"全国都市地域(MVT)",
     name:"tositiiki",
     origin:"",
     detail:"",
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:10
-        }),
-        tilePixelRatio:16,
-        //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tositiiki2/{z}/{x}/{y}.mvt"
-        //url: "https://kenzkenz.github.io/keizaicensus/mvt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url:'https://kenzkenz2.xsrv.jp/to/{z}/{x}/{y}.mvt'
     }),
     style: tositiikiStyleFunction
@@ -1803,10 +1691,7 @@ var tunamimiyazakimvt1 = new ol.layer.VectorTile({
         //cacheSize:10000,
         overlaps:false,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:19
-        }),
-        tilePixelRatio:16,
+        maxZoom:19,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunamimiyazaki/{z}/{x}/{y}.mvt"
     }),
     crossOrigin:"anonymous",
@@ -1824,7 +1709,6 @@ function tunamiMiyazakiStyleFunction(target) {
         }else{
             var sinsuiColor = d3.interpolateLab("white", "darkred");
         }
-
         var prop = feature.getProperties();
         if (prop["H_M"]) {
             var level = prop["H_M"];
@@ -1847,7 +1731,6 @@ function tunamiMiyazakiStyleFunction(target) {
             }else {
                 fillColor = sinsuiColor(level / 10);
             }
-
         } else {
             var level = prop["level"];
             if(target==="normal") {
@@ -1901,27 +1784,30 @@ function tunamiMiyazakiStyleFunction(target) {
                 fillColor = sinsuiColor(level / 10);
             }
         }
-        /*
          var text = "";
          if(resolution<0.30) {
-         text = String(prop["H_M"]) + "M";
+            text = String(prop["H_M"]) + "M";
+            //console.log(text)
          }
-         */
         var style = new ol.style.Style({
             fill: new ol.style.Fill({
                 color: fillColor
             }),
-            /*
-             text: new ol.style.Text({
-             font: "8px sans-serif",
-             text: text,
-             offsetY:10,
-             stroke: new ol.style.Stroke({
-             color: "white",
-             width: 3
-             })
-             })
-             */
+            text: new ol.style.Text({
+                 font: "8px sans-serif",
+                 text: text,
+                 offsetY:10,
+                 stroke: new ol.style.Stroke({
+                     color: "white",
+                     width: 3
+                 }),
+                exceedLength:true,
+                /*
+                placement:new ol.style.TextPlacement{
+                     "line"
+                }
+                */
+            })
             /*
              stroke: new ol.style.Stroke({
              color: "grey",
@@ -1934,8 +1820,6 @@ function tunamiMiyazakiStyleFunction(target) {
     }
 }
 
-
-
 var tunamimvt1 = new ol.layer.VectorTile({
     folder:"child",
     category:"hazard",
@@ -1947,12 +1831,7 @@ var tunamimvt1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            //maxZoom:12
-        }),
-        tilePixelRatio:16,
+        maxZoom:18,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunami/{z}/{x}/{y}.mvt"
     }),
     crossOrigin:"anonymous",
@@ -1971,12 +1850,7 @@ var tunamimvt2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         cacheSize:10000,
         format: new ol.format.MVT(),
-        //tileGrid: ol.tilegrid.createXYZ({maxZoom:12}),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            //maxZoom:12
-        }),
-        tilePixelRatio:16,
+        maxZoom:18,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tunami/{z}/{x}/{y}.mvt"
     }),
     crossOrigin:"anonymous",
@@ -2039,10 +1913,7 @@ var zenkokuHakubutukan1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/hakubutukan/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2059,10 +1930,7 @@ var zenkokuHakubutukan2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/hakubutukan/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2162,10 +2030,7 @@ var zenkokuIseki1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/zenkoku/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2182,10 +2047,7 @@ var zenkokuIseki2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/zenkoku/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2259,10 +2121,7 @@ var yayoi1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/yoyoi/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2279,10 +2138,7 @@ var yayoi2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/yoyoi/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2357,10 +2213,7 @@ var gunmaIseki1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iseki/gunmaken/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2377,10 +2230,7 @@ var bunkatyoudb1 = new ol.layer.VectorTile({
     detail:"文化庁のデータベースからcsvを取得しました。",
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkatyoudb/{z}/{x}/{y}.mvt"
     }),
     style: bunkatyoudbStyleFunction
@@ -2395,10 +2245,7 @@ var bunkatyoudb2 = new ol.layer.VectorTile({
     detail:"文化庁のデータベースからcsvを取得しました。",
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:17
-        }),
-        tilePixelRatio:16,
+        maxZoom:17,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/bunkatyoudb/{z}/{x}/{y}.mvt"
     }),
     style: bunkatyoudbStyleFunction
@@ -2468,10 +2315,7 @@ var fukuiRindou1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/fukuiken/rindou/{z}/{x}/{y}.mvt"
     }),
     //maxResolution:152.87,
@@ -2495,8 +2339,8 @@ function fukuiRindouStyleFunction(feature, resolution) {
 }
 //小学校区---------------------------------------------------------------------------------------------------------------
 var syougakkouku1 = new ol.layer.VectorTile({
-    //folder:"child",
-    //category:"test",
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国小学校区(MVT)",
     name:"syougakkouku",
@@ -2505,10 +2349,7 @@ var syougakkouku1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/syougakkouku2/{z}/{x}/{y}.mvt"
     }),
     style: syougakkoukuStyleFunction
@@ -2519,8 +2360,8 @@ syougakkouku1.on('precompose', function(evt) {
 });
 */
 var syougakkouku2 = new ol.layer.VectorTile({
-    //folder:"child",
-    //category:"test",
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国小学校区(MVT)",
     name:"syougakkouku",
@@ -2529,10 +2370,7 @@ var syougakkouku2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/syougakkouku2/{z}/{x}/{y}.mvt"
     }),
     style: syougakkoukuStyleFunction
@@ -2623,8 +2461,8 @@ function syougakkoukuStyleFunction(feature, resolution) {
 }
 //中学校区---------------------------------------------------------------------------------------------------------------
 var tyuugakkouku1 = new ol.layer.VectorTile({
-    //folder:"child",
-    //category:"test",
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国中学校区(MVT)",
     name:"tyuugakkouku",
@@ -2633,10 +2471,7 @@ var tyuugakkouku1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tyuugakkouku/{z}/{x}/{y}.mvt"
     }),
     style: syougakkoukuStyleFunction
@@ -2647,8 +2482,8 @@ tyuugakkouku1.on('precompose', function(evt) {
 });
 */
 var tyuugakkouku2 = new ol.layer.VectorTile({
-    //folder:"child",
-    //category:"test",
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国中学校区(MVT)",
     name:"tyuugakkouku",
@@ -2657,18 +2492,15 @@ var tyuugakkouku2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/tyuugakkouku/{z}/{x}/{y}.mvt"
     }),
     style: syougakkoukuStyleFunction
 });
 //医療圏---------------------------------------------------------------------------------------------------------------
 var iryouken1 = new ol.layer.VectorTile({
-    //folder:"child",
-    //category:"test",
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"二次医療圏(MVT)",
     name:"iryouken",
@@ -2685,10 +2517,7 @@ var iryouken1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iryouken/{z}/{x}/{y}.mvt"
     }),
     //style: syougakkoukuStyleFunction
@@ -2700,8 +2529,8 @@ iryouken1.on('precompose', function(evt) {
 });
 */
 var iryouken2 = new ol.layer.VectorTile({
-    //folder:"child",
-    //category:"test",
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"二次医療圏(MVT)",
     name:"iryouken",
@@ -2710,10 +2539,7 @@ var iryouken2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/iryouken/{z}/{x}/{y}.mvt"
     }),
     //style: syougakkoukuStyleFunction
@@ -2865,10 +2691,7 @@ var senkyoku1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         //url: "https://mtile.pref.miyazaki.lg.jp/tile/mvt/senkyoku/{z}/{x}/{y}.mvt"
         url: "https://kenzkenz.github.io/h29senkyoku/{z}/{x}/{y}.mvt"
     }),
@@ -3053,6 +2876,8 @@ var cityZaiseiDetail2 =
     "</div>" +
     "</div>";
 var cityZaisei_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"市町村財政力指数(MVT)",
     name:"zaiseiryoku",
@@ -3062,15 +2887,14 @@ var cityZaisei_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://kenzkenz.github.io/zaiseisuii_mvt/{z}/{x}/{y}.mvt"
     }),
     style: cityZaiseiCommonStyleFunction("2015_1","normal")
 });
 var cityZaisei_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"市町村財政力指数(MVT)",
     name:"zaiseiryoku",
@@ -3079,10 +2903,7 @@ var cityZaisei_2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://kenzkenz.github.io/zaiseisuii_mvt/{z}/{x}/{y}.mvt"
     }),
     style: cityZaiseiCommonStyleFunction("2015_1","normal")
@@ -3177,6 +2998,8 @@ var cityGenekiDetail2 =
     "</div>" +
     "</div>";
 var cityGeneki_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"市町村現役世代率(MVT)",
     name:"genekiritu",
@@ -3186,15 +3009,14 @@ var cityGeneki_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://kenzkenz.github.io/shicyouson_mvt/{z}/{x}/{y}.mvt"
     }),
     style: cityGenekiCommonStyleFunction("2015","normal")
 });
 var cityGeneki_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"市町村現役世代率(MVT)",
     name:"genekiritu",
@@ -3203,10 +3025,7 @@ var cityGeneki_2 = new ol.layer.VectorTile({
     detail2:cityGenekiDetail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://kenzkenz.github.io/shicyouson_mvt/{z}/{x}/{y}.mvt"
     }),
     style: cityGenekiCommonStyleFunction("2015","normal")
@@ -3296,6 +3115,8 @@ var suikei1000mDetail2 = "";
     "</div>";
 */
 var suikei1000m_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"将来推計人口1kmメッシュ(MVT)",
     name:"suikei1000m",
@@ -3304,16 +3125,15 @@ var suikei1000m_1 = new ol.layer.VectorTile({
     detail2:suikei1000mDetail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:13
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/suikei1km_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:4891.97,//ズーム5
     style: suikeiMeshCommonStyleFunction("2050zougen")
 });
 var suikei1000m_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"将来推計人口1kmメッシュ(MVT)",
     name:"suikei1000m",
@@ -3322,10 +3142,7 @@ var suikei1000m_2 = new ol.layer.VectorTile({
     detail2:suikei1000mDetail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:13
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/suikei1km_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:4891.97,//ズーム5
@@ -3433,6 +3250,8 @@ var syougyou1000m_k_Detail2 =
     "</select>" +
     "</div>";
 var syougyou1000m_k_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_1kmメッシュ_規模別(MVT)",
     name:"syougyou1000mKibo",
@@ -3441,16 +3260,15 @@ var syougyou1000m_k_1 = new ol.layer.VectorTile({
     detail2:syougyou1000m_k_Detail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou1km_kibo_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:2445.98,//ズーム6
     style: syougyouMeshCommonStyleFunction("indigo",1,"k22")
 });
 var syougyou1000m_k_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_1kmメッシュ_規模別(MVT)",
     name:"syougyou1000mKibo",
@@ -3459,10 +3277,7 @@ var syougyou1000m_k_2 = new ol.layer.VectorTile({
     detail2:syougyou1000m_k_Detail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou1km_kibo_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:2445.98,//ズーム6
@@ -3489,6 +3304,8 @@ var syougyou1000m_g_Detail2 =
     "</select>" +
     "</div>";
 var syougyou1000m_g_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_1kmメッシュ_業態別(MVT)",
     name:"syougyou1000mGyoutai",
@@ -3497,16 +3314,15 @@ var syougyou1000m_g_1 = new ol.layer.VectorTile({
     detail2:syougyou1000m_g_Detail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou1km_gyoutai_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:2445.98,//ズーム6
     style: syougyouMeshCommonStyleFunction("indigo",1,"g22")
 });
 var syougyou1000m_g_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_1kmメッシュ_業態別(MVT)",
     name:"syougyou1000mGyoutai",
@@ -3515,10 +3331,7 @@ var syougyou1000m_g_2 = new ol.layer.VectorTile({
     detail2:syougyou1000m_g_Detail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou1km_gyoutai_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:2445.98,//ズーム6
@@ -3545,6 +3358,8 @@ var syougyou1000m_s_Detail2 =
     "</select>" +
     "</div>";
 var syougyou1000m_s_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_1kmメッシュ_産業別(MVT)",
     name:"syougyou1000m",
@@ -3553,16 +3368,15 @@ var syougyou1000m_s_1 = new ol.layer.VectorTile({
     detail2:syougyou1000m_s_Detail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou1km_sangyou_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:2445.98,//ズーム6
     style: syougyouMeshCommonStyleFunction("indigo",1,"s22")
 });
 var syougyou1000m_s_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_1kmメッシュ_産業別(MVT)",
     name:"syougyou1000m",
@@ -3571,10 +3385,7 @@ var syougyou1000m_s_2 = new ol.layer.VectorTile({
     detail2:syougyou1000m_s_Detail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou1km_sangyou_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:2445.98,//ズーム6
@@ -3694,6 +3505,8 @@ var syougyou500mDetail2 =
     "</select>" +
     "</div>";
 var syougyou500m_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26商業統計_500Mメッシュ(MVT)",
     name:"syougyou500m",
@@ -3702,16 +3515,15 @@ var syougyou500m_1 = new ol.layer.VectorTile({
     detail2:syougyou500mDetail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou500m_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
     style: syougyouMeshCommonStyleFunction("indigo",1,"s23")
 });
 var syougyou500m_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26_500Mメッシュ商業統計(MVT)",
     name:"syougyou500m",
@@ -3720,10 +3532,7 @@ var syougyou500m_2 = new ol.layer.VectorTile({
     detail2:syougyou500mDetail2,
     source: new ol.source.VectorTile({
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:13,
         url: "https://kenzkenz.github.io/syougyou500m_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
@@ -3805,6 +3614,8 @@ var mesh500Detail2 =
     "</select>" +
     "</div>";
 var mesh500_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"500Mメッシュ人口(MVT)",
     name:"mesh500",
@@ -3814,11 +3625,7 @@ var mesh500_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
         url: "https://kenzkenz.github.io/500mesh_plus/{z}/{x}/{y}.mvt"
     }),
@@ -3827,6 +3634,8 @@ var mesh500_1 = new ol.layer.VectorTile({
     //renderMode:"vector"
 });
 var mesh500_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"500Mメッシュ人口(MVT)",
     name:"mesh500",
@@ -3836,11 +3645,7 @@ var mesh500_2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
         url: "https://kenzkenz.github.io/500mesh_plus/{z}/{x}/{y}.mvt"
     }),
@@ -4060,7 +3865,10 @@ var keizaiCensusDetail2 =
         "<option value='black'>黒</option>" +
     "</select>" +
     "</div>";
+
 var keizaiCensus_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26経済センサス(MVT)",
     name:"keizaicensus",
@@ -4070,17 +3878,15 @@ var keizaiCensus_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://kenzkenz.github.io/h26keizai_census_sangyoubetu_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
     style: keizaiCensusStyleFunction("indigo",1000,"T000843001")
 });
 var keizaiCensus_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ZinkouKeizai",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"H26経済センサス(MVT)",
     name:"keizaicensus",
@@ -4090,11 +3896,7 @@ var keizaiCensus_2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
+        maxZoom:15,
         url: "https://kenzkenz.github.io/h26keizai_census_sangyoubetu_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:1222.99,//ズーム7
@@ -4151,6 +3953,8 @@ var fukusiDetail2 =
     "</div>";
 
 var fukushi_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国福祉施設(MVT)",
     name:"fukushi",
@@ -4160,12 +3964,7 @@ var fukushi_1 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://kenzkenz.github.io/h27fukushi_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:305.75,
@@ -4173,6 +3972,8 @@ var fukushi_1 = new ol.layer.VectorTile({
     //renderMode:"vector"
 });
 var fukushi_2 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"KosodateFukushi",
     icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
     title:"全国福祉施設(MVT)",
     name:"fukushi",
@@ -4182,12 +3983,7 @@ var fukushi_2 = new ol.layer.VectorTile({
     source: new ol.source.VectorTile({
         //cacheSize:100000,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            //minZoom:10,
-            maxZoom:15
-        }),
-        tilePixelRatio:16,
-        //url: "https://hfu.github.io/chome-vt/{z}/{x}/{y}.mvt"
+        maxZoom:15,
         url: "https://kenzkenz.github.io/h27fukushi_mvt/{z}/{x}/{y}.mvt"
     }),
     maxResolution:305.75,
@@ -4301,10 +4097,7 @@ var tunamiWakkanaimvt1 = new ol.layer.VectorTile({
         overlaps:false,
         transition:0,
         format: new ol.format.MVT(),
-        tileGrid: new ol.tilegrid.createXYZ({
-            maxZoom:19
-        }),
-        tilePixelRatio:16,
+        maxZoom:19,
         url: "https://kenzkenz.github.io/01wakkanai_mvt/{z}/{x}/{y}.mvt"
     }),
     crossOrigin:"anonymous",
@@ -4426,4 +4219,142 @@ function tunamiHokkaidouStyleFunction(target) {
         });
         return style;
     }
+}
+//景観地区----------------------------------------------------------------------------------------------------------
+var keikan1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"ToshiDouroKasen",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"テスト中全国景観地区(MVT)",
+    name:"keikanchiku",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:10000,
+        format: new ol.format.MVT(),
+        maxZoom:14,
+        url: "https://kenzkenz.github.io/keikanchiku_mvt/{z}/{x}/{y}.mvt"
+    }),
+    //maxResolution:1222.99,
+    style: keikanStyleFunction()
+});
+function keikanStyleFunction() {
+    return function(feature, resolution) {
+        var prop = feature.getProperties();
+        var geoType = feature.getGeometry().getType();
+        //var rgb = d3.rgb(d3syougakkoukuColor(Number(prop["id"])));
+        //var rgba = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + ",0.7)";
+        //console.log(prop);
+        var text = "";
+        if (resolution < 38.22) {
+            //text = prop["A38b_004"];
+        }
+
+        var rgba = "blue";
+
+        switch (geoType) {
+            case "MultiPoint":
+            case "Point":
+                //if (resolution > 305) break;
+                var style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 10,
+                        fill: new ol.style.Fill({
+                            color: "black"
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 1
+                        })
+                    }),
+                    text: new ol.style.Text({
+                        font: "8px sans-serif",
+                        text: text,
+                        offsetY: 10,
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 3
+                        })
+                    })
+                });
+                break;
+            case "Polygon":
+            case "MultiPolygon":
+                if (resolution < 2445.98) {
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: rgba
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "gray",
+                            width: 1
+                        }),
+                        text: new ol.style.Text({
+                            font: "8px sans-serif",
+                            text: text,
+                            stroke: new ol.style.Stroke({
+                                color: "white",
+                                width: 3
+                            })
+                        }),
+                        zIndex: 0
+                    });
+                } else {
+                    var style = new ol.style.Style({
+                        fill: new ol.style.Fill({
+                            color: rgba
+                        }),
+                        zIndex: 0
+                    });
+                }
+                break;
+            default:
+        }
+        return style;
+    };
+}
+
+//避難場所----------------------------------------------------------------------------------------------------------
+var keikan_1 = new ol.layer.VectorTile({
+    folder:"child",
+    category:"hazard",
+    icon:"<i class='fa fa-th fa-fw' style='color:red;'></i>",
+    title:"テスト避難所(MVT)",
+    name:"keikanchiku",
+    origin:"",
+    detail:"",
+    source: new ol.source.VectorTile({
+        //cacheSize:10000,
+        format: new ol.format.MVT(),
+        maxZoom:15,
+        url: "https://kenzkenz.github.io/hinanzyo_mvt/{z}/{x}/{y}.mvt"
+    }),
+    maxResolution: 305.75,
+    style: commonstyleFunction
+});
+function hinanzyoStyleFunction() {
+    return function(feature, resolution) {
+        //var prop = feature.getProperties();
+        //var geoType = feature.getGeometry().getType();
+        //switch (geoType) {
+        //    case "MultiPoint":
+        //    case "Point":
+                //if (resolution > 305) break;
+                var style = new ol.style.Style({
+                    image: new ol.style.Circle({
+                        radius: 10,
+                        fill: new ol.style.Fill({
+                            color: "red"
+                        }),
+                        stroke: new ol.style.Stroke({
+                            color: "white",
+                            width: 1
+                        })
+                    })
+                });
+        //        break;
+        //    default:
+        //}
+        return style;
+    };
 }

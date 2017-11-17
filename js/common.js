@@ -272,6 +272,10 @@ var commonstyleFunction = function(feature, resolution) {
     var prop = feature.getProperties();
     var geoType = feature.getGeometry().getType();
     var fillColor = prop["_fillColor"];
+
+    //console.log(prop)
+    //console.log(fillColor)
+
     var zindex = prop["_zindex"];
     if(resolution>2445) {//ズーム６
         var pointRadius = 2;
@@ -318,7 +322,7 @@ var commonstyleFunction = function(feature, resolution) {
                 fillColor = d3CategoryColor(d3CategoryColorI);
                 d3CategoryColorI++;
                 //console.log(d3CategoryColorI)
-                feature["I"]["_fillColor"] = fillColor;
+                feature["D"]["_fillColor"] = fillColor;
             }
             if(!zindex) {
                 zindex = 0;

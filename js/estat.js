@@ -621,19 +621,19 @@ $(function(){
             var features = eval("estatLayer" + mapName).getSource().getFeatures();
             for (i=0; i<features.length; i++){
                 if(features[i].getProperties()["自治体名"]===$(this).find(".estat-city-td").text()){
-                    var prevFillColor = features[i]["I"]["_targetFillColor"];
-                    features[i]["I"]["_prevFillColor"] = prevFillColor;
-                    features[i]["I"]["_targetFillColor"] = targetFillColor;
-                    features[i]["I"]["_fillColor"] = rgba;
-                    //features[i]["I"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
+                    var prevFillColor = features[i]["D"]["_targetFillColor"];
+                    features[i]["D"]["_prevFillColor"] = prevFillColor;
+                    features[i]["D"]["_targetFillColor"] = targetFillColor;
+                    features[i]["D"]["_fillColor"] = rgba;
+                    //features[i]["D"]["_polygonHeight"] = Math.floor(c100*50000) + 1000;
                     if(value>0) {
-                        features[i]["I"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                        features[i]["D"]["_polygonHeight"] = (c100 * 50000) + 1000;
                     }else{
-                        features[i]["I"]["_polygonHeight"] = 1000;
+                        features[i]["D"]["_polygonHeight"] = 1000;
                     }
-                    //features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
-                    features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).parents("table").find(".estat-unit-th").text().split(":")[1];
-                    //features[i]["I"]["lank"] = "順位" + $(this).find(".estat-lank-td").text() + "位";
+                    //features[i]["D"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                    features[i]["D"]["value"] = $(this).find(".estat-value-td").text() + $(this).parents("table").find(".estat-unit-th").text().split(":")[1];
+                    //features[i]["D"]["lank"] = "順位" + $(this).find(".estat-lank-td").text() + "位";
                 }
             }
             //eval("estatLayer" + mapName).getSource().changed();
@@ -656,12 +656,12 @@ $(function(){
                     var count = 1;
                     var saiki = function () {
                         for (j = 0; j < features.length; j++) {
-                            var prevFillColor = features[j]["I"]["_prevFillColor"];
-                            var targetFillColor = features[j]["I"]["_targetFillColor"];
+                            var prevFillColor = features[j]["D"]["_prevFillColor"];
+                            var targetFillColor = features[j]["D"]["_targetFillColor"];
                             var d3Color = d3.interpolateLab(prevFillColor, targetFillColor);
                             var color0 = new RGBColor(d3Color(count * 0.1));
                             var rgba = "rgba(" + color0.r + "," + color0.g + "," + color0.b + "," + "0.8)";
-                            features[j]["I"]["_fillColor"] = rgba;
+                            features[j]["D"]["_fillColor"] = rgba;
                         }
                         eval("estatLayer" + mapName).getSource().changed();
                         count++;

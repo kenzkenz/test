@@ -38,6 +38,7 @@ $(function(){
 
         var layer = layers[layers.length-1];
         var feature = features[features.length-1];//最後のfeatureを取得している。レイヤーが重なったとき問題があるかも。
+        if(!layer) return;
         var layerName = layer.getProperties()["name"];
 
         console.log(layerName);
@@ -219,12 +220,71 @@ $(function(){
                 console.log(feature.getProperties());
                 funcZaiseiryokuPopup(layer,feature,map,evt);
                 break;
-            case "editLayer":
+            case "drawLayer":
                 console.log(feature.getProperties());
-                //funcGebekirituPopup(layer,feature,map,evt);
+                funcDrawPopup(feature,map,evt);
+                break;
+            case "keikanchiku":
+                console.log(feature.getProperties());
+                funcKeikanchikuPopup(feature,map,evt);
                 break;
 
+
             default:
+        }
+    }
+    //-----------------------------------------------
+    function funcKeikanchikuPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        console.log(coord);
+        var flg = false;
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style=''>";
+        for(key in prop){
+            if(key!=="geometry" && key.substr(0,1)!=="_"){
+                table += "<tr>";
+                var val = prop[key];
+                table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + val + "</td>";
+                table += "</tr>";
+                flg = true;
+            }
+        }
+        if(!flg) return;
+        content += table;
+        content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
+        }
+    }
+    //-----------------------------------------------
+    function funcDrawPopup(feature,map,evt){
+        var prop = feature.getProperties();
+        var coord = evt.coordinate;
+        console.log(prop);
+        console.log(coord);
+        var flg = false;
+        var content = "";
+        var table = "<table class='popup-tbl table table-bordered table-hover' style=''>";
+        for(key in prop){
+            if(key!=="geometry" && key.substr(0,1)!=="_"){
+                table += "<tr>";
+                var val = prop[key];
+                table += "<th class='popup-th'>" + key + "</th><td class='popup-td'>" + val + "</td>";
+                table += "</tr>";
+                flg = true;
+            }
+        }
+        if(!flg) return;
+        content += table;
+        content = content.replace(/undefined/gi,"");
+        if(map==="map1") {
+            popup1.show(coord,content);
+        }else{
+            popup2.show(coord,content);
         }
     }
     //-----------------------------------------------
@@ -1484,8 +1544,8 @@ $(function(){
         //console.log(layer.getSource().getFeatures());
         //layer.getSource().changed();
         //var prop = layer.getSource()["a"]["a"]["gd"]["f"][0]["c"];
-        var prop = layer.getSource()["a"]["a"]["gd"]["f"];
-        console.log(prop);
+        //var prop = layer.getSource()["a"]["a"]["gd"]["f"];
+        //console.log(prop);
 
         var featureProp = feature.getProperties();
         var geoType = feature.getGeometry().getType();

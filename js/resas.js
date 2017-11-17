@@ -299,23 +299,24 @@ $(function(){
                 var features = eval("resasLayer" + mapName).getSource().getFeatures();
                 for (i=0; i<features.length; i++){
                     if(features[i].getProperties()["自治体名"]==$(this).find(".resas-city-td").text()){
-                        var prevFillColor = features[i]["I"]["_targetFillColor"];
-                        features[i]["I"]["_prevFillColor"] = prevFillColor;
-                        features[i]["I"]["_targetFillColor"] = targetFillColor;
-                        features[i]["I"]["_fillColor"] = rgba;
+                        var prevFillColor = features[i]["D"]["_targetFillColor"];
+                        features[i]["D"]["_prevFillColor"] = prevFillColor;
+                        features[i]["D"]["_targetFillColor"] = targetFillColor;
+                        features[i]["D"]["_fillColor"] = rgba;
                         if(value>0) {
-                            features[i]["I"]["_polygonHeight"] = (c100 * 50000) + 1000;
+                            features[i]["D"]["_polygonHeight"] = (c100 * 50000) + 1000;
                         }else{
-                            features[i]["I"]["_polygonHeight"] = 1000;
+                            features[i]["D"]["_polygonHeight"] = 1000;
                         }
-                        //features[i]["I"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
-                        features[i]["I"]["lank"] = $(this).find(".estat-lank-td").text();
+                        //features[i]["D"]["value"] = $(this).find(".estat-value-td").text() + $(this).find(".estat-unit-td").text();
+                        features[i]["D"]["lank"] = $(this).find(".estat-lank-td").text();
                     }
                 }
                 eval("resasLayer" + mapName).getSource().changed();
             });
             //-----------------------------------------------------------------------------------
         });
+
     }
     //----------------------------------------------------------------------------
     function resasLayerCreate(vectorSource,mapName){
